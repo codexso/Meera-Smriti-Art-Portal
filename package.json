@@ -1,15 +1,16 @@
 {
   "name": "meera-smriti-portal",
-  "version": "2.0.0",
-  "description": "Official Web Portal & Admissions Management Server for Meera Smriti Sishu Ankan Siksha Kendra",
+  "version": "1.0.0",
+  "description": "Meera Smriti Sishu Ankan Siksha Kendra Portal",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "setup-db": "node setup-db.js"
+    "start": "node server.js"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.19.2",
-    "cors": "^2.8.5",
+    "express-rate-limit": "^7.2.0",
+    "helmet": "^7.1.0",
     "sqlite3": "^5.1.7"
   }
 }

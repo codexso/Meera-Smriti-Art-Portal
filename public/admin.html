@@ -1,116 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meera Smriti | Admissions Management</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | Meera Smriti</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Inter',sans-serif; background:#f4f4f9; margin:0; padding:40px; color:#333;}
+  .container{max-width:800px; margin:0 auto; background:#fff; padding:30px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.08);}
+  h1{font-size:24px; color:#1a202c; margin-bottom:10px;}
+  p{color:#718096; margin-bottom:20px;}
+  .card{background:#f7fafc; padding:20px; border-radius:12px; margin-bottom:20px; border-left:4px solid #23a6d5;}
+  input{padding:10px; width:70%; border:1px solid #cbd5e0; border-radius:8px; font-size:14px;}
+  button{padding:10px 20px; background:#23a6d5; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600;}
+  .logout{background:#e53e3e; margin-top:20px;}
+</style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen">
+<body>
+<div class="container">
+  <h1>Admin Control Panel</h1>
+  <p>Secure session verified successfully.</p>
+  
+  <div class="card">
+    <h3>Soham License Lookup Module</h3>
+    <p style="font-size:13px; margin:5px 0 15px 0;">Test verification system (e.g. SOHAM-2026-001)</p>
+    <input type="text" id="licenseBox" placeholder="Enter license number...">
+    <button onclick="verifyLicense()">Check</button>
+    <div id="licenseResult" style="margin-top:10px; font-weight:600; font-size:14px;"></div>
+  </div>
 
-  <header class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex justify-between items-center">
-    <div class="flex items-center gap-3">
-      <div class="w-9 h-9 bg-rose-600 rounded-lg flex items-center justify-center font-bold text-white">
-        <i class="fa-solid fa-user-shield"></i>
-      </div>
-      <div>
-        <h1 class="font-bold text-white text-sm">Meera Smriti Kendra</h1>
-        <p class="text-[10px] text-amber-400 font-bold uppercase tracking-widest"><i class="fa-solid fa-file-contract mr-1"></i> Public License: SOHAM</p>
-      </div>
-    </div>
-    <button onclick="loadAdmissions()" class="bg-slate-800 hover:bg-slate-700 text-xs px-4 py-2 rounded-lg font-bold border border-slate-700">
-      <i class="fa-solid fa-rotate mr-1"></i> Refresh Database
-    </button>
-  </header>
+  <button class="logout" onclick="logout()">Log Out</button>
+</div>
 
-  <main class="max-w-7xl mx-auto p-6">
-    <div class="flex justify-between items-center mb-6">
-      <h2 class="text-xl font-extrabold text-white">Submitted Admissions</h2>
-      <span id="totalCount" class="text-xs bg-rose-500/20 text-rose-400 font-bold px-3 py-1 rounded-full border border-rose-500/30">0 Total Records</span>
-    </div>
+<script>
+  if (!sessionStorage.getItem('ms_admin_token')) {
+    window.location.href = 'index.html';
+  }
 
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
-      <table class="w-full text-left text-xs text-slate-300">
-        <thead class="bg-slate-800/80 text-slate-400 font-bold uppercase tracking-wider border-b border-slate-800">
-          <tr>
-            <th class="p-4">Ref ID</th>
-            <th class="p-4">Student & Guardian</th>
-            <th class="p-4">Age</th>
-            <th class="p-4">Contact</th>
-            <th class="p-4">Branch & Course</th>
-            <th class="p-4">Status</th>
-            <th class="p-4 text-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody id="admissionsTable" class="divide-y divide-slate-800">
-          <tr>
-            <td colspan="7" class="p-8 text-center text-slate-500 font-bold">Loading admissions database...</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </main>
-
-  <script>
-    async function loadAdmissions() {
-      try {
-        const res = await fetch('/api/admin/admissions');
-        const data = await res.json();
-        const table = document.getElementById('admissionsTable');
-        document.getElementById('totalCount').textContent = `${data.admissions.length} Total Records`;
-
-        if (!data.admissions || data.admissions.length === 0) {
-          table.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-500">No applications found in SQLite database.</td></tr>`;
-          return;
-        }
-
-        table.innerHTML = data.admissions.map(adm => `
-          <tr class="hover:bg-slate-800/50">
-            <td class="p-4 font-bold text-rose-400">#${adm.id}</td>
-            <td class="p-4">
-              <div class="font-bold text-white">${adm.student_name}</div>
-              <div class="text-[10px] text-slate-500">Guardian: ${adm.guardian_name}</div>
-            </td>
-            <td class="p-4 font-bold">${adm.age} yrs</td>
-            <td class="p-4">
-              <div>${adm.phone}</div>
-              <div class="text-[10px] text-slate-500">${adm.email || 'N/A'}</div>
-            </td>
-            <td class="p-4">
-              <div class="font-bold text-slate-200">${adm.branch}</div>
-              <div class="text-[10px] text-slate-400">${adm.course}</div>
-            </td>
-            <td class="p-4">
-              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold border ${
-                adm.status === 'APPROVED' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' :
-                adm.status === 'REJECTED' ? 'bg-rose-500/20 text-rose-400 border-rose-500/30' :
-                'bg-amber-500/20 text-amber-400 border-amber-500/30'
-              }">${adm.status}</span>
-            </td>
-            <td class="p-4 text-right space-x-2">
-              <button onclick="updateStatus(${adm.id}, 'APPROVED')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded font-bold text-[10px]">Approve</button>
-              <button onclick="updateStatus(${adm.id}, 'REJECTED')" class="px-2.5 py-1 bg-rose-600 hover:bg-rose-500 text-white rounded font-bold text-[10px]">Reject</button>
-            </td>
-          </tr>
-        `).join('');
-
-      } catch (err) {
-        alert('Failed to load admissions.');
-      }
+  async function verifyLicense() {
+    const licenseNumber = document.getElementById('licenseBox').value.trim();
+    const res = await fetch('/api/verify-license', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ licenseNumber })
+    });
+    const data = await res.json();
+    const resultEl = document.getElementById('licenseResult');
+    if (data.success) {
+      resultEl.style.color = '#38a169';
+      resultEl.textContent = `Verified: ${data.student} — Status: ${data.status}`;
+    } else {
+      resultEl.style.color = '#e53e3e';
+      resultEl.textContent = data.error;
     }
+  }
 
-    async function updateStatus(id, status) {
-      await fetch('/api/admin/status', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, status })
-      });
-      loadAdmissions();
-    }
-
-    window.addEventListener('DOMContentLoaded', loadAdmissions);
-  </script>
+  function logout() {
+    sessionStorage.removeItem('ms_admin_token');
+    window.location.href = 'index.html';
+  }
+</script>
 </body>
 </html>

@@ -14,8 +14,7 @@
   *{box-sizing:border-box; margin:0; padding:0;}
   body{
     font-family:'Inter', -apple-system, sans-serif;
-    color:var(--ink);
-    min-height:100vh;
+    color:var(--ink); min-height:100vh;
     display:flex; align-items:center; justify-content:center;
     padding:32px 20px;
     background:linear-gradient(-45deg, var(--c1), var(--c2), var(--c3), var(--c4));
@@ -29,7 +28,6 @@
     100%{background-position:0% 50%;}
   }
   .wrap{width:100%; max-width:460px;}
-
   .brand{text-align:center; margin-bottom:22px;}
   .brand-mark{
     width:56px; height:56px; margin:0 auto 14px;
@@ -40,17 +38,8 @@
     backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
   }
   .brand-mark svg{width:30px; height:30px;}
-  .brand h1{
-    font-size:22px; font-weight:800; color:#fff;
-    text-shadow:0 2px 12px rgba(0,0,0,0.18);
-    letter-spacing:-0.01em;
-  }
-  .brand p{
-    font-size:12.5px; color:rgba(255,255,255,0.9);
-    margin-top:4px; font-weight:500;
-    text-shadow:0 1px 6px rgba(0,0,0,0.15);
-  }
-
+  .brand h1{font-size:22px; font-weight:800; color:#fff; text-shadow:0 2px 12px rgba(0,0,0,0.18);}
+  .brand p{font-size:12.5px; color:rgba(255,255,255,0.9); margin-top:4px; font-weight:500;}
   .card{
     background:rgba(255,255,255,0.62);
     border:1px solid var(--glass-border);
@@ -59,7 +48,6 @@
     box-shadow:0 20px 60px rgba(30,10,40,0.22);
     overflow:hidden;
   }
-
   .tabs{display:flex; padding:8px; gap:4px;}
   .tab{
     flex:1; text-align:center; padding:10px 6px;
@@ -68,66 +56,36 @@
     cursor:pointer; transition:background .18s ease, color .18s ease;
   }
   .tab.active{background:#fff; color:var(--ink); box-shadow:0 4px 14px rgba(30,10,40,0.12);}
-
   .panel{display:none; padding:8px 26px 28px;}
   .panel.active{display:block; animation:fade .25s ease;}
   @keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
-
   .panel h2{font-size:16px; font-weight:700; margin:10px 0 4px;}
   .panel .sub{font-size:12.5px; color:var(--ink-soft); margin-bottom:18px;}
-
   .field{margin-bottom:12px;}
   .field label{display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:5px;}
   .field input, .field select{
     width:100%; padding:11px 13px; font-size:13.5px; font-family:inherit;
     border:1px solid rgba(36,26,46,0.14); border-radius:12px;
-    background:rgba(255,255,255,0.75); color:var(--ink);
-    outline:none; transition:box-shadow .15s ease, border-color .15s ease;
+    background:rgba(255,255,255,0.75); color:var(--ink); outline:none;
   }
-  .field input:focus, .field select:focus{
-    border-color:var(--c3);
-    box-shadow:0 0 0 3px rgba(35,166,213,0.22);
-  }
+  .field input:focus, .field select:focus{border-color:var(--c3); box-shadow:0 0 0 3px rgba(35,166,213,0.22);}
   .row2{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
-
   .btn{
     width:100%; margin-top:6px; padding:12px 14px;
     font-family:inherit; font-size:13.5px; font-weight:700; color:#fff;
     border:none; border-radius:12px; cursor:pointer;
     background:linear-gradient(120deg, var(--c2), var(--c1));
     box-shadow:0 10px 24px rgba(231,60,126,0.32);
-    transition:transform .12s ease, box-shadow .12s ease;
   }
-  .btn:hover{transform:translateY(-1px); box-shadow:0 14px 28px rgba(231,60,126,0.4);}
-  .btn:active{transform:translateY(0);}
   .btn.admin{background:linear-gradient(120deg, var(--c3), var(--c4)); box-shadow:0 10px 24px rgba(35,166,213,0.32);}
-  .btn.admin:hover{box-shadow:0 14px 28px rgba(35,166,213,0.4);}
-  .btn[disabled]{opacity:0.65; cursor:default; transform:none;}
-
-  .msg{
-    margin-top:12px; padding:10px 13px; border-radius:10px;
-    font-size:12.5px; font-weight:600; display:none;
-  }
+  .msg{margin-top:12px; padding:10px 13px; border-radius:10px; font-size:12.5px; font-weight:600; display:none;}
   .msg.show{display:block;}
   .msg.ok{background:rgba(35,213,171,0.16); color:#0d7a5f; border:1px solid rgba(35,213,171,0.35);}
   .msg.err{background:rgba(228,60,60,0.12); color:#a12727; border:1px solid rgba(228,60,60,0.3);}
-
-  .shake{animation:shake .4s ease;}
-  @keyframes shake{
-    10%,90%{transform:translateX(-1px);}
-    20%,80%{transform:translateX(2px);}
-    30%,50%,70%{transform:translateX(-4px);}
-    40%,60%{transform:translateX(4px);}
-  }
-
-  .divider{border:none; border-top:1px solid rgba(36,26,46,0.1); margin:18px 0 14px;}
-  .hint{font-size:11.5px; color:var(--ink-soft); text-align:center; margin-top:4px;}
-
-  .footer{text-align:center; margin-top:18px; font-size:11.5px; color:rgba(255,255,255,0.85); text-shadow:0 1px 6px rgba(0,0,0,0.15);}
+  .footer{text-align:center; margin-top:18px; font-size:11.5px; color:rgba(255,255,255,0.85);}
 </style>
 </head>
 <body>
-
 <div class="wrap">
   <div class="brand">
     <div class="brand-mark">
@@ -140,77 +98,60 @@
     <h1>Meera Smriti</h1>
     <p>Sishu Ankan Siksha Kendra &middot; Admissions Portal</p>
   </div>
-
   <div class="card">
     <div class="tabs">
       <button class="tab active" data-tab="login">Log in</button>
       <button class="tab" data-tab="register">Registration</button>
       <button class="tab" data-tab="admin">Admin</button>
     </div>
-
     <div class="panel active" id="panel-login">
       <h2>Welcome back</h2>
-      <p class="sub">Log in with the email and password you registered with.</p>
+      <p class="sub">Log in with your email and password.</p>
       <form id="loginForm">
-        <div class="field"><label for="li-email">Email</label><input id="li-email" type="email" required placeholder="name@example.com"></div>
-        <div class="field"><label for="li-pass">Password</label><input id="li-pass" type="password" required placeholder="Your password"></div>
+        <div class="field"><label>Email</label><input id="li-email" type="email" required placeholder="name@example.com"></div>
+        <div class="field"><label>Password</label><input id="li-pass" type="password" required placeholder="Your password"></div>
         <button class="btn" type="submit">Log in</button>
       </form>
       <div class="msg" id="loginMsg"></div>
     </div>
-
     <div class="panel" id="panel-register">
-      <h2>Register your child</h2>
-      <p class="sub">Create a login and submit an admission application in one step.</p>
+      <h2>Register student</h2>
+      <p class="sub">Create login and submit application.</p>
       <form id="registerForm">
-        <div class="field"><label for="re-student">Student's name</label><input id="re-student" type="text" required placeholder="Full name of the child"></div>
-        <div class="field"><label for="re-guardian">Guardian's name</label><input id="re-guardian" type="text" required placeholder="Parent or guardian name"></div>
+        <div class="field"><label>Student's name</label><input id="re-student" type="text" required placeholder="Child's full name"></div>
+        <div class="field"><label>Guardian's name</label><input id="re-guardian" type="text" required placeholder="Parent name"></div>
         <div class="row2">
-          <div class="field"><label for="re-age">Age</label><input id="re-age" type="number" min="1" max="18" required placeholder="6"></div>
-          <div class="field"><label for="re-phone">Phone</label><input id="re-phone" type="tel" required placeholder="10-digit number"></div>
+          <div class="field"><label>Age</label><input id="re-age" type="number" min="1" max="18" required placeholder="6"></div>
+          <div class="field"><label>Phone</label><input id="re-phone" type="tel" required placeholder="10 digits"></div>
         </div>
-        <div class="field"><label for="re-email">Email</label><input id="re-email" type="email" required placeholder="name@example.com"></div>
+        <div class="field"><label>Email</label><input id="re-email" type="email" required placeholder="name@example.com"></div>
         <div class="row2">
           <div class="field">
-            <label for="re-branch">Branch</label>
-            <select id="re-branch" required>
-              <option value="" disabled selected>Choose branch</option>
-              <option>Main Branch</option>
-              <option>Salt Lake Branch</option>
-              <option>Behala Branch</option>
-            </select>
+            <label>Branch</label>
+            <select id="re-branch" required><option value="" disabled selected>Select branch</option><option>Main Branch</option><option>Salt Lake</option></select>
           </div>
           <div class="field">
-            <label for="re-course">Course</label>
-            <select id="re-course" required>
-              <option value="" disabled selected>Choose course</option>
-              <option>Foundation Drawing</option>
-              <option>Watercolour</option>
-              <option>Craft & Sculpture</option>
-              <option>Advanced Portfolio</option>
-            </select>
+            <label>Course</label>
+            <select id="re-course" required><option value="" disabled selected>Select course</option><option>Foundation Drawing</option><option>Watercolour</option></select>
           </div>
         </div>
-        <div class="field"><label for="re-pass">Set a password</label><input id="re-pass" type="password" required minlength="4" placeholder="For logging in later"></div>
+        <div class="field"><label>Password</label><input id="re-pass" type="password" required minlength="4" placeholder="Password"></div>
         <button class="btn" type="submit">Submit application</button>
       </form>
       <div class="msg" id="registerMsg"></div>
     </div>
-
     <div class="panel" id="panel-admin">
       <h2>System admin</h2>
-      <p class="sub">Enter the admin passcode to open the dashboard.</p>
+      <p class="sub">Enter master passcode.</p>
       <form id="adminForm">
-        <div class="field"><label for="ad-pass">Passcode</label><input id="ad-pass" type="password" required placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+        <div class="field"><label>Passcode</label><input id="ad-pass" type="password" required placeholder="••••••••"></div>
         <button class="btn admin" type="submit">Unlock dashboard</button>
       </form>
       <div class="msg" id="adminMsg"></div>
     </div>
   </div>
-
-  <p class="footer">Built by Soham Basu &middot; a Teachers&rsquo; Day tribute</p>
+  <p class="footer">Built by Soham Basu &middot; Teachers&rsquo; Day tribute</p>
 </div>
-
 <script>
   const tabs = document.querySelectorAll('.tab');
   const panels = document.querySelectorAll('.panel');
@@ -222,35 +163,17 @@
       document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
     });
   });
-
-  function showMsg(el, text, ok){
-    el.textContent = text;
-    el.className = 'msg show ' + (ok ? 'ok' : 'err');
-  }
-
-  function shakeCard(){
-    const card = document.querySelector('.card');
-    card.classList.remove('shake');
-    void card.offsetWidth;
-    card.classList.add('shake');
-  }
+  function showMsg(el, text, ok){ el.textContent = text; el.className = 'msg show ' + (ok ? 'ok' : 'err'); }
 
   document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const msg = document.getElementById('loginMsg');
     const email = document.getElementById('li-email').value.trim();
     const password = document.getElementById('li-pass').value;
-    try {
-      const res = await fetch('/api/login', {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ email, password })
-      });
-      const data = await res.json();
-      if (!res.ok) { shakeCard(); showMsg(msg, data.error || 'Login failed.', false); return; }
-      showMsg(msg, 'Welcome, ' + data.user.name + '. You are logged in as ' + data.user.role + '.', true);
-    } catch (err) {
-      shakeCard(); showMsg(msg, 'Could not reach the server. Please try again.', false);
-    }
+    const res = await fetch('/api/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password }) });
+    const data = await res.json();
+    if (!res.ok) return showMsg(msg, data.error, false);
+    showMsg(msg, 'Welcome back, ' + data.user.name + '!', true);
   });
 
   document.getElementById('registerForm').addEventListener('submit', async (e) => {
@@ -265,45 +188,28 @@
     const course = document.getElementById('re-course').value;
     const password = document.getElementById('re-pass').value;
 
-    try {
-      const regRes = await fetch('/api/register', {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ name: student_name, email, password })
-      });
-      const regData = await regRes.json();
-      if (!regRes.ok) { shakeCard(); showMsg(msg, regData.error || 'Could not create your login.', false); return; }
+    const regRes = await fetch('/api/register', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name: student_name, email, password }) });
+    const regData = await regRes.json();
+    if (!regRes.ok) return showMsg(msg, regData.error, false);
 
-      const admRes = await fetch('/api/admissions', {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ student_name, guardian_name, age, phone, email, branch, course })
-      });
-      const admData = await admRes.json();
-      if (!admRes.ok) { shakeCard(); showMsg(msg, admData.error || 'Account created, but the application could not be submitted.', false); return; }
+    const admRes = await fetch('/api/admissions', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ student_name, guardian_name, age, phone, email, branch, course }) });
+    const admData = await admRes.json();
+    if (!admRes.ok) return showMsg(msg, admData.error, false);
 
-      showMsg(msg, 'Application submitted. Your reference ID is #' + admData.admissionId + '. You can now log in from the Log in tab.', true);
-      e.target.reset();
-    } catch (err) {
-      shakeCard(); showMsg(msg, 'Could not reach the server. Please try again.', false);
-    }
+    showMsg(msg, 'Application submitted! Reference ID #' + admData.admissionId, true);
+    e.target.reset();
   });
 
   document.getElementById('adminForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const msg = document.getElementById('adminMsg');
     const passcode = document.getElementById('ad-pass').value;
-    try {
-      const res = await fetch('/api/admin/verify', {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ passcode })
-      });
-      const data = await res.json();
-      if (!res.ok) { shakeCard(); showMsg(msg, data.error || 'Incorrect passcode.', false); return; }
-      sessionStorage.setItem('ms_admin_token', data.token);
-      showMsg(msg, 'Passcode verified. Opening dashboard…', true);
-      setTimeout(() => { window.location.href = 'admin.html'; }, 500);
-    } catch (err) {
-      shakeCard(); showMsg(msg, 'Could not reach the server. Please try again.', false);
-    }
+    const res = await fetch('/api/admin/verify', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ passcode }) });
+    const data = await res.json();
+    if (!res.ok) return showMsg(msg, data.error, false);
+    sessionStorage.setItem('ms_admin_token', data.token);
+    showMsg(msg, 'Verified! Redirecting...', true);
+    setTimeout(() => { window.location.href = 'admin.html'; }, 500);
   });
 </script>
 </body>
