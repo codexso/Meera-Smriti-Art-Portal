@@ -1,321 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meera Smriti Sishu Ankan Siksha Kendra | Portal</title>
-    <!-- Import a clean, modern Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meera Smriti Sishu Ankan Siksha Kendra | Admissions Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --c1:#ee7752; --c2:#e73c7e; --c3:#23a6d5; --c4:#23d5ab;
+    --ink:#241a2e; --ink-soft:#5c5468; --glass-border:rgba(255,255,255,0.45);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Inter', -apple-system, sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    padding:32px 20px;
+    background:linear-gradient(-45deg, var(--c1), var(--c2), var(--c3), var(--c4));
+    background-size:400% 400%;
+    animation:drift 18s ease infinite;
+    overflow-x:hidden;
+  }
+  @keyframes drift{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
+  .wrap{width:100%; max-width:460px;}
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* Peak animated gradient background */
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            color: #333;
-        }
+  .brand{text-align:center; margin-bottom:22px;}
+  .brand-mark{
+    width:56px; height:56px; margin:0 auto 14px;
+    background:rgba(255,255,255,0.35);
+    border:1px solid var(--glass-border);
+    border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  }
+  .brand-mark svg{width:30px; height:30px;}
+  .brand h1{
+    font-size:22px; font-weight:800; color:#fff;
+    text-shadow:0 2px 12px rgba(0,0,0,0.18);
+    letter-spacing:-0.01em;
+  }
+  .brand p{
+    font-size:12.5px; color:rgba(255,255,255,0.9);
+    margin-top:4px; font-weight:500;
+    text-shadow:0 1px 6px rgba(0,0,0,0.15);
+  }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+  .card{
+    background:rgba(255,255,255,0.62);
+    border:1px solid var(--glass-border);
+    border-radius:24px;
+    backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
+    box-shadow:0 20px 60px rgba(30,10,40,0.22);
+    overflow:hidden;
+  }
 
-        /* Glassmorphism Container */
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 420px;
-            text-align: center;
-            animation: slideUp 0.5s ease forwards;
-        }
+  .tabs{display:flex; padding:8px; gap:4px;}
+  .tab{
+    flex:1; text-align:center; padding:10px 6px;
+    font-size:12.5px; font-weight:600; color:var(--ink-soft);
+    background:transparent; border:none; border-radius:14px;
+    cursor:pointer; transition:background .18s ease, color .18s ease;
+  }
+  .tab.active{background:#fff; color:var(--ink); box-shadow:0 4px 14px rgba(30,10,40,0.12);}
 
-        .dashboard {
-            max-width: 700px;
-            text-align: left;
-            display: none;
-        }
+  .panel{display:none; padding:8px 26px 28px;}
+  .panel.active{display:block; animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
 
-        h2 {
-            color: #1a202c;
-            margin-bottom: 25px;
-            font-weight: 700;
-            font-size: 24px;
-        }
+  .panel h2{font-size:16px; font-weight:700; margin:10px 0 4px;}
+  .panel .sub{font-size:12.5px; color:var(--ink-soft); margin-bottom:18px;}
 
-        h2 span { color: #23a6d5; }
+  .field{margin-bottom:12px;}
+  .field label{display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:5px;}
+  .field input, .field select{
+    width:100%; padding:11px 13px; font-size:13.5px; font-family:inherit;
+    border:1px solid rgba(36,26,46,0.14); border-radius:12px;
+    background:rgba(255,255,255,0.75); color:var(--ink);
+    outline:none; transition:box-shadow .15s ease, border-color .15s ease;
+  }
+  .field input:focus, .field select:focus{
+    border-color:var(--c3);
+    box-shadow:0 0 0 3px rgba(35,166,213,0.22);
+  }
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
 
-        input {
-            width: 100%;
-            padding: 14px 16px;
-            margin-bottom: 20px;
-            border: 2px solid #edf2f7;
-            border-radius: 10px;
-            font-size: 15px;
-            background: #f7fafc;
-            transition: all 0.3s ease;
-        }
+  .btn{
+    width:100%; margin-top:6px; padding:12px 14px;
+    font-family:inherit; font-size:13.5px; font-weight:700; color:#fff;
+    border:none; border-radius:12px; cursor:pointer;
+    background:linear-gradient(120deg, var(--c2), var(--c1));
+    box-shadow:0 10px 24px rgba(231,60,126,0.32);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover{transform:translateY(-1px); box-shadow:0 14px 28px rgba(231,60,126,0.4);}
+  .btn:active{transform:translateY(0);}
+  .btn.admin{background:linear-gradient(120deg, var(--c3), var(--c4)); box-shadow:0 10px 24px rgba(35,166,213,0.32);}
+  .btn.admin:hover{box-shadow:0 14px 28px rgba(35,166,213,0.4);}
+  .btn[disabled]{opacity:0.65; cursor:default; transform:none;}
 
-        input:focus {
-            outline: none;
-            border-color: #23a6d5;
-            box-shadow: 0 0 0 4px rgba(35, 166, 213, 0.15);
-            background: #fff;
-        }
+  .msg{
+    margin-top:12px; padding:10px 13px; border-radius:10px;
+    font-size:12.5px; font-weight:600; display:none;
+  }
+  .msg.show{display:block;}
+  .msg.ok{background:rgba(35,213,171,0.16); color:#0d7a5f; border:1px solid rgba(35,213,171,0.35);}
+  .msg.err{background:rgba(228,60,60,0.12); color:#a12727; border:1px solid rgba(228,60,60,0.3);}
 
-        button {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #23a6d5, #23d5ab);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(35, 166, 213, 0.4);
-            margin-bottom: 15px;
-        }
+  .shake{animation:shake .4s ease;}
+  @keyframes shake{
+    10%,90%{transform:translateX(-1px);}
+    20%,80%{transform:translateX(2px);}
+    30%,50%,70%{transform:translateX(-4px);}
+    40%,60%{transform:translateX(4px);}
+  }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(35, 166, 213, 0.6);
-        }
+  .divider{border:none; border-top:1px solid rgba(36,26,46,0.1); margin:18px 0 14px;}
+  .hint{font-size:11.5px; color:var(--ink-soft); text-align:center; margin-top:4px;}
 
-        .btn-danger {
-            background: linear-gradient(135deg, #f56565, #c53030);
-            box-shadow: 0 4px 15px rgba(245, 101, 101, 0.4);
-            margin-top: 25px;
-        }
-
-        .btn-danger:hover {
-            box-shadow: 0 6px 20px rgba(245, 101, 101, 0.6);
-        }
-
-        .toggle-link {
-            color: #718096;
-            font-size: 14px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .toggle-link:hover {
-            color: #23a6d5;
-            text-decoration: underline;
-        }
-
-        .error {
-            background: #fed7d7;
-            color: #c53030;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: none;
-            border-left: 4px solid #e53e3e;
-            animation: shake 0.4s ease-in-out;
-        }
-
-        /* Dashboard List Styling */
-        .dashboard p { color: #4a5568; margin-bottom: 20px; font-size: 16px; }
-        .dashboard ul { list-style: none; }
-        .dashboard li {
-            background: #f7fafc;
-            margin-bottom: 12px;
-            padding: 16px;
-            border-radius: 10px;
-            border-left: 5px solid #23a6d5;
-            font-size: 15px;
-            font-weight: 600;
-            color: #2d3748;
-            transition: transform 0.2s;
-        }
-        .dashboard li:hover { transform: translateX(5px); }
-
-        /* Animations */
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
-        }
-    </style>
+  .footer{text-align:center; margin-top:18px; font-size:11.5px; color:rgba(255,255,255,0.85); text-shadow:0 1px 6px rgba(0,0,0,0.15);}
+</style>
 </head>
 <body>
 
-    <!-- User Login Form -->
-    <div class="card" id="user-login-view">
-        <h2>Student <span>Portal</span></h2>
-        <div class="error" id="user-error">Invalid Username or Password!</div>
-        <form onsubmit="handleUserLogin(event)">
-            <input type="text" id="user-name" placeholder="Username (e.g., student)" required />
-            <input type="password" id="user-password" placeholder="Password" required />
-            <button type="submit">Secure Login</button>
-        </form>
-        <p class="toggle-link" onclick="toggleView('admin-login-view')">Authorized Personnel Only: Admin Access</p>
+<div class="wrap">
+  <div class="brand">
+    <div class="brand-mark">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M4 18c2-8 6-12 8-13 2 1 6 5 8 13-3 1.5-6 2-8 2s-5-.5-8-2z" stroke="#e73c7e" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M7 15.5c1.5-.6 3-.6 5 0s3.5.6 5 0" stroke="#23a6d5" stroke-width="1.4" stroke-linecap="round"/>
+        <circle cx="12" cy="9" r="1.4" fill="#ee7752"/>
+      </svg>
+    </div>
+    <h1>Meera Smriti</h1>
+    <p>Sishu Ankan Siksha Kendra &middot; Admissions Portal</p>
+  </div>
+
+  <div class="card">
+    <div class="tabs">
+      <button class="tab active" data-tab="login">Log in</button>
+      <button class="tab" data-tab="register">Registration</button>
+      <button class="tab" data-tab="admin">Admin</button>
     </div>
 
-    <!-- Admin Login Form -->
-    <div class="card" id="admin-login-view" style="display: none;">
-        <h2>System <span>Admin</span></h2>
-        <div class="error" id="admin-error">Access Denied: Incorrect Password</div>
-        <form onsubmit="handleAdminLogin(event)">
-            <input type="password" id="admin-password" placeholder="Enter Master Password" required />
-            <button type="submit">Authenticate</button>
-        </form>
-        <p class="toggle-link" onclick="toggleView('user-login-view')">Return to Student Portal</p>
+    <div class="panel active" id="panel-login">
+      <h2>Welcome back</h2>
+      <p class="sub">Log in with the email and password you registered with.</p>
+      <form id="loginForm">
+        <div class="field"><label for="li-email">Email</label><input id="li-email" type="email" required placeholder="name@example.com"></div>
+        <div class="field"><label for="li-pass">Password</label><input id="li-pass" type="password" required placeholder="Your password"></div>
+        <button class="btn" type="submit">Log in</button>
+      </form>
+      <div class="msg" id="loginMsg"></div>
     </div>
 
-    <!-- Admin Dashboard -->
-    <div class="card dashboard" id="admin-dashboard">
-        <h2>Admin <span>Control Panel</span></h2>
-        <p>Welcome, Administrator. Secure session established.</p>
-        <ul>
-            <li>Manage Student Records & Profiles</li>
-            <li>Verify License Keys</li>
-            <li>Database & Server Configuration</li>
-        </ul>
-        <button class="btn-danger" onclick="handleLogout()">Terminate Session</button>
+    <div class="panel" id="panel-register">
+      <h2>Register your child</h2>
+      <p class="sub">Create a login and submit an admission application in one step.</p>
+      <form id="registerForm">
+        <div class="field"><label for="re-student">Student's name</label><input id="re-student" type="text" required placeholder="Full name of the child"></div>
+        <div class="field"><label for="re-guardian">Guardian's name</label><input id="re-guardian" type="text" required placeholder="Parent or guardian name"></div>
+        <div class="row2">
+          <div class="field"><label for="re-age">Age</label><input id="re-age" type="number" min="1" max="18" required placeholder="6"></div>
+          <div class="field"><label for="re-phone">Phone</label><input id="re-phone" type="tel" required placeholder="10-digit number"></div>
+        </div>
+        <div class="field"><label for="re-email">Email</label><input id="re-email" type="email" required placeholder="name@example.com"></div>
+        <div class="row2">
+          <div class="field">
+            <label for="re-branch">Branch</label>
+            <select id="re-branch" required>
+              <option value="" disabled selected>Choose branch</option>
+              <option>Main Branch</option>
+              <option>Salt Lake Branch</option>
+              <option>Behala Branch</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="re-course">Course</label>
+            <select id="re-course" required>
+              <option value="" disabled selected>Choose course</option>
+              <option>Foundation Drawing</option>
+              <option>Watercolour</option>
+              <option>Craft & Sculpture</option>
+              <option>Advanced Portfolio</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="re-pass">Set a password</label><input id="re-pass" type="password" required minlength="4" placeholder="For logging in later"></div>
+        <button class="btn" type="submit">Submit application</button>
+      </form>
+      <div class="msg" id="registerMsg"></div>
     </div>
 
-    <!-- User Dashboard -->
-    <div class="card dashboard" id="user-dashboard">
-        <h2>Student <span>Dashboard</span></h2>
-        <p>Welcome back! Your secure learning environment is ready.</p>
-        <ul>
-            <li>View My Profile & Progress</li>
-            <li>Submit Artwork & Assignments</li>
-            <li>Check License Verification Status</li>
-        </ul>
-        <button class="btn-danger" onclick="handleLogout()">Sign Out</button>
+    <div class="panel" id="panel-admin">
+      <h2>System admin</h2>
+      <p class="sub">Enter the admin passcode to open the dashboard.</p>
+      <form id="adminForm">
+        <div class="field"><label for="ad-pass">Passcode</label><input id="ad-pass" type="password" required placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+        <button class="btn admin" type="submit">Unlock dashboard</button>
+      </form>
+      <div class="msg" id="adminMsg"></div>
     </div>
+  </div>
 
-    <script>
-        // Check sessions when the page loads
-        window.onload = function() {
-            const role = sessionStorage.getItem("loggedInRole");
-            if (role === "admin") { 
-                showDashboard("admin-dashboard"); 
-            } else if (role === "user") { 
-                showDashboard("user-dashboard"); 
-            }
-        };
+  <p class="footer">Built by Soham Basu &middot; a Teachers&rsquo; Day tribute</p>
+</div>
 
-        function toggleView(viewId) {
-            document.getElementById("user-login-view").style.display = "none";
-            document.getElementById("admin-login-view").style.display = "none";
-            document.getElementById("admin-error").style.display = "none";
-            document.getElementById("user-error").style.display = "none";
-            
-            document.getElementById(viewId).style.display = "block";
-            // Retrigger animation
-            document.getElementById(viewId).style.animation = 'none';
-            document.offsetHeight; /* trigger reflow */
-            document.getElementById(viewId).style.animation = null; 
-        }
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+    });
+  });
 
-        // Secure Admin Login checking the Database API
-        async function handleAdminLogin(event) {
-            event.preventDefault();
-            const pass = document.getElementById("admin-password").value;
-            
-            try {
-                const response = await fetch('/api/login/admin', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ password: pass })
-                });
-                const data = await response.json();
-                
-                if (data.success) {
-                    sessionStorage.setItem("loggedInRole", "admin");
-                    showDashboard("admin-dashboard");
-                } else {
-                    showError("admin-error");
-                }
-            } catch (error) {
-                console.error("Server error:", error);
-                showError("admin-error");
-            }
-        }
+  function showMsg(el, text, ok){
+    el.textContent = text;
+    el.className = 'msg show ' + (ok ? 'ok' : 'err');
+  }
 
-        // Secure User Login checking the Database API
-        async function handleUserLogin(event) {
-            event.preventDefault();
-            const user = document.getElementById("user-name").value;
-            const pass = document.getElementById("user-password").value;
-            
-            try {
-                const response = await fetch('/api/login/user', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username: user, password: pass })
-                });
-                const data = await response.json();
-                
-                if (data.success) {
-                    sessionStorage.setItem("loggedInRole", "user");
-                    showDashboard("user-dashboard");
-                } else {
-                    showError("user-error");
-                }
-            } catch (error) {
-                console.error("Server error:", error);
-                showError("user-error");
-            }
-        }
+  function shakeCard(){
+    const card = document.querySelector('.card');
+    card.classList.remove('shake');
+    void card.offsetWidth;
+    card.classList.add('shake');
+  }
 
-        function showError(errorId) {
-            const errorElement = document.getElementById(errorId);
-            errorElement.style.display = "block";
-            errorElement.style.animation = 'none';
-            errorElement.offsetHeight; /* trigger reflow */
-            errorElement.style.animation = null;
-        }
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = document.getElementById('loginMsg');
+    const email = document.getElementById('li-email').value.trim();
+    const password = document.getElementById('li-pass').value;
+    try {
+      const res = await fetch('/api/login', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (!res.ok) { shakeCard(); showMsg(msg, data.error || 'Login failed.', false); return; }
+      showMsg(msg, 'Welcome, ' + data.user.name + '. You are logged in as ' + data.user.role + '.', true);
+    } catch (err) {
+      shakeCard(); showMsg(msg, 'Could not reach the server. Please try again.', false);
+    }
+  });
 
-        function showDashboard(dashboardId) {
-            document.getElementById("user-login-view").style.display = "none";
-            document.getElementById("admin-login-view").style.display = "none";
-            
-            document.getElementById(dashboardId).style.display = "block";
-            document.getElementById(dashboardId).style.animation = 'none';
-            document.getElementById(dashboardId).offsetHeight;
-            document.getElementById(dashboardId).style.animation = null;
-        }
+  document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = document.getElementById('registerMsg');
+    const student_name = document.getElementById('re-student').value.trim();
+    const guardian_name = document.getElementById('re-guardian').value.trim();
+    const age = document.getElementById('re-age').value;
+    const phone = document.getElementById('re-phone').value.trim();
+    const email = document.getElementById('re-email').value.trim();
+    const branch = document.getElementById('re-branch').value;
+    const course = document.getElementById('re-course').value;
+    const password = document.getElementById('re-pass').value;
 
-        function handleLogout() {
-            sessionStorage.removeItem("loggedInRole");
-            document.getElementById("admin-dashboard").style.display = "none";
-            document.getElementById("user-dashboard").style.display = "none";
-            
-            document.getElementById("admin-password").value = "";
-            document.getElementById("user-name").value = "";
-            document.getElementById("user-password").value = "";
-            
-            toggleView("user-login-view");
-        }
-    </script>
+    try {
+      const regRes = await fetch('/api/register', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ name: student_name, email, password })
+      });
+      const regData = await regRes.json();
+      if (!regRes.ok) { shakeCard(); showMsg(msg, regData.error || 'Could not create your login.', false); return; }
+
+      const admRes = await fetch('/api/admissions', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ student_name, guardian_name, age, phone, email, branch, course })
+      });
+      const admData = await admRes.json();
+      if (!admRes.ok) { shakeCard(); showMsg(msg, admData.error || 'Account created, but the application could not be submitted.', false); return; }
+
+      showMsg(msg, 'Application submitted. Your reference ID is #' + admData.admissionId + '. You can now log in from the Log in tab.', true);
+      e.target.reset();
+    } catch (err) {
+      shakeCard(); showMsg(msg, 'Could not reach the server. Please try again.', false);
+    }
+  });
+
+  document.getElementById('adminForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = document.getElementById('adminMsg');
+    const passcode = document.getElementById('ad-pass').value;
+    try {
+      const res = await fetch('/api/admin/verify', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ passcode })
+      });
+      const data = await res.json();
+      if (!res.ok) { shakeCard(); showMsg(msg, data.error || 'Incorrect passcode.', false); return; }
+      sessionStorage.setItem('ms_admin_token', data.token);
+      showMsg(msg, 'Passcode verified. Opening dashboard…', true);
+      setTimeout(() => { window.location.href = 'admin.html'; }, 500);
+    } catch (err) {
+      shakeCard(); showMsg(msg, 'Could not reach the server. Please try again.', false);
+    }
+  });
+</script>
 </body>
 </html>
