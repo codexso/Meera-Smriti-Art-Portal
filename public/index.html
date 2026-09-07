@@ -1,320 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard | Meera Smriti Sishu Ankan Siksha Kendra</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: '#f43f5e',
-            'brand-dark': '#be123c',
-          },
-          fontFamily: {
-            sans: ['Plus Jakarta Sans', 'sans-serif'],
-            heading: ['Syne', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
-
-  <style>
-    body {
-      background-color: #030712;
-      color: #f9fafb;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-
-    .glass {
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-  </style>
-</head>
-<body class="min-h-screen relative flex flex-col justify-between selection:bg-brand selection:text-white">
-
-  <!-- ================================================================= -->
-  <!-- 0. AUTOMATIC LICENSE CHECK GATE (CHECKS FOR public/soham)         -->
-  <!-- ================================================================= -->
-  <div id="licenseGate" class="fixed inset-0 z-[100] bg-slate-950/95 backdrop-blur-xl flex items-center justify-center p-4">
-    <div class="glass p-8 rounded-3xl max-w-md w-full border border-slate-700 shadow-2xl text-center relative overflow-hidden">
-      
-      <div id="licenseIcon" class="w-16 h-16 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center text-3xl mx-auto mb-4">
-        <i class="fa-solid fa-spinner fa-spin"></i>
-      </div>
-
-      <h2 id="licenseTitle" class="text-2xl font-black font-heading text-white">Verifying License...</h2>
-      <p id="licenseStatus" class="text-slate-400 text-xs mt-2 mb-6">Checking server for <code class="text-amber-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">public/soham</code> file...</p>
-
-      <div id="missingLicenseBox" class="hidden space-y-4">
-        <p class="text-xs text-rose-400 font-bold bg-rose-500/10 border border-rose-500/20 p-3 rounded-xl">
-          <i class="fa-solid fa-circle-xmark mr-1"></i> Access Denied! License file <code>public/soham</code> was not found on the server.
-        </p>
-        <button onclick="checkLicenseFile()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition-all text-xs uppercase tracking-wider border border-slate-700">
-          <i class="fa-solid fa-rotate mr-1"></i> Retry Verification
-        </button>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ================================================================= -->
-  <!-- 1. ADMIN DASHBOARD CONTENT                                         -->
-  <!-- ================================================================= -->
-  <div id="mainContent" class="opacity-0 transition-opacity duration-700 min-h-screen flex flex-col justify-between">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meera Smriti Sishu Ankan Siksha Kendra | Portal</title>
+    <!-- Import a clean, modern Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <div>
-      <!-- HEADER -->
-      <header class="sticky top-0 z-40 glass border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-brand flex items-center justify-center text-white text-xl shadow-lg">🎨</div>
-            <div>
-              <h1 class="font-heading font-black text-lg text-white uppercase tracking-tight">Meera Smriti</h1>
-              <p class="text-[9px] text-slate-400 tracking-wider uppercase font-extrabold">Administrative Portal</p>
-            </div>
-          </div>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
 
-          <div class="flex items-center gap-4">
-            <a href="/" class="text-xs font-bold text-slate-400 hover:text-white uppercase tracking-wider flex items-center gap-1">
-              <i class="fa-solid fa-globe"></i> Main Portal
-            </a>
-            <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold text-emerald-400 uppercase tracking-widest">
-              <i class="fa-solid fa-shield-check mr-1"></i> License Active
-            </span>
-          </div>
-        </div>
-      </header>
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Peak animated gradient background */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #333;
+        }
 
-      <!-- MAIN CONTENT AREA -->
-      <main class="max-w-7xl mx-auto px-4 py-10">
-        
-        <!-- DIRECTOR / ADMIN HERO -->
-        <div class="glass p-6 sm:p-8 rounded-3xl border border-slate-800 mb-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div class="flex items-center gap-5">
-            <img src="CG Sir.PNG" alt="Chanchal Ghosh" class="w-20 h-20 rounded-2xl object-cover border-2 border-brand/50 shadow-xl">
-            <div>
-              <span class="text-[10px] font-bold text-brand uppercase tracking-widest bg-brand/10 px-2.5 py-1 rounded-md border border-brand/20">Director Portal</span>
-              <h2 class="text-2xl font-black font-heading text-white mt-1">Chanchal Ghosh</h2>
-              <p class="text-xs text-slate-400 mt-0.5">Meera Smriti Sishu Ankan Siksha Kendra</p>
-            </div>
-          </div>
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-          <div class="flex items-center gap-4 bg-slate-900/80 p-4 rounded-2xl border border-slate-800 w-full md:w-auto justify-around">
-            <div class="text-center px-4">
-              <span class="text-xs text-slate-500 uppercase font-bold tracking-wider">Total Applications</span>
-              <p id="totalCount" class="text-2xl font-black text-white">0</p>
-            </div>
-            <div class="h-8 w-px bg-slate-800"></div>
-            <div class="text-center px-4">
-              <span class="text-xs text-amber-500 uppercase font-bold tracking-wider">Pending</span>
-              <p id="pendingCount" class="text-2xl font-black text-amber-400">0</p>
-            </div>
-            <div class="h-8 w-px bg-slate-800"></div>
-            <div class="text-center px-4">
-              <span class="text-xs text-emerald-500 uppercase font-bold tracking-wider">Approved</span>
-              <p id="approvedCount" class="text-2xl font-black text-emerald-400">0</p>
-            </div>
-          </div>
-        </div>
+        /* Glassmorphism Container */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            animation: slideUp 0.5s ease forwards;
+        }
 
-        <!-- APPLICATIONS TABLE -->
-        <div class="glass rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
-          <div class="p-6 border-b border-slate-800 flex items-center justify-between">
-            <h3 class="font-heading font-extrabold text-lg text-white">Student Admission Applications</h3>
-            <button onclick="loadAdmissions()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-4 py-2 rounded-xl transition-all border border-slate-700 flex items-center gap-2">
-              <i class="fa-solid fa-rotate"></i> Refresh List
-            </button>
-          </div>
+        .dashboard {
+            max-width: 700px;
+            text-align: left;
+            display: none;
+        }
 
-          <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
-              <thead>
-                <tr class="bg-slate-900/80 border-b border-slate-800 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                  <th class="p-4">ID</th>
-                  <th class="p-4">Student Info</th>
-                  <th class="p-4">Guardian</th>
-                  <th class="p-4">Branch & Course</th>
-                  <th class="p-4">Contact</th>
-                  <th class="p-4">Status</th>
-                  <th class="p-4 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody id="admissionsTableBody" class="divide-y divide-slate-800/60 text-xs">
-                <tr>
-                  <td colspan="7" class="p-8 text-center text-slate-500">
-                    <i class="fa-solid fa-spinner fa-spin mr-2"></i> Loading applications from server...
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        h2 {
+            color: #1a202c;
+            margin-bottom: 25px;
+            font-weight: 700;
+            font-size: 24px;
+        }
 
-      </main>
+        h2 span { color: #23a6d5; }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            border: 2px solid #edf2f7;
+            border-radius: 10px;
+            font-size: 15px;
+            background: #f7fafc;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #23a6d5;
+            box-shadow: 0 0 0 4px rgba(35, 166, 213, 0.15);
+            background: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #23a6d5, #23d5ab);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(35, 166, 213, 0.4);
+            margin-bottom: 15px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(35, 166, 213, 0.6);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f56565, #c53030);
+            box-shadow: 0 4px 15px rgba(245, 101, 101, 0.4);
+            margin-top: 25px;
+        }
+
+        .btn-danger:hover {
+            box-shadow: 0 6px 20px rgba(245, 101, 101, 0.6);
+        }
+
+        .toggle-link {
+            color: #718096;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-link:hover {
+            color: #23a6d5;
+            text-decoration: underline;
+        }
+
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: none;
+            border-left: 4px solid #e53e3e;
+            animation: shake 0.4s ease-in-out;
+        }
+
+        /* Dashboard List Styling */
+        .dashboard p { color: #4a5568; margin-bottom: 20px; font-size: 16px; }
+        .dashboard ul { list-style: none; }
+        .dashboard li {
+            background: #f7fafc;
+            margin-bottom: 12px;
+            padding: 16px;
+            border-radius: 10px;
+            border-left: 5px solid #23a6d5;
+            font-size: 15px;
+            font-weight: 600;
+            color: #2d3748;
+            transition: transform 0.2s;
+        }
+        .dashboard li:hover { transform: translateX(5px); }
+
+        /* Animations */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- User Login Form -->
+    <div class="card" id="user-login-view">
+        <h2>Student <span>Portal</span></h2>
+        <div class="error" id="user-error">Invalid Username or Password!</div>
+        <form onsubmit="handleUserLogin(event)">
+            <input type="text" id="user-name" placeholder="Username (e.g., student)" required />
+            <input type="password" id="user-password" placeholder="Password" required />
+            <button type="submit">Secure Login</button>
+        </form>
+        <p class="toggle-link" onclick="toggleView('admin-login-view')">Authorized Personnel Only: Admin Access</p>
     </div>
 
-    <footer class="py-6 bg-slate-950 text-center text-xs text-slate-600 border-t border-slate-900 mt-12">
-      Meera Smriti Sishu Ankan Siksha Kendra &copy; Master License Verified (public/soham).
-    </footer>
-  </div>
+    <!-- Admin Login Form -->
+    <div class="card" id="admin-login-view" style="display: none;">
+        <h2>System <span>Admin</span></h2>
+        <div class="error" id="admin-error">Access Denied: Incorrect Password</div>
+        <form onsubmit="handleAdminLogin(event)">
+            <input type="password" id="admin-password" placeholder="Enter Master Password" required />
+            <button type="submit">Authenticate</button>
+        </form>
+        <p class="toggle-link" onclick="toggleView('user-login-view')">Return to Student Portal</p>
+    </div>
 
+    <!-- Admin Dashboard -->
+    <div class="card dashboard" id="admin-dashboard">
+        <h2>Admin <span>Control Panel</span></h2>
+        <p>Welcome, Administrator. Secure session established.</p>
+        <ul>
+            <li>Manage Student Records & Profiles</li>
+            <li>Verify License Keys</li>
+            <li>Database & Server Configuration</li>
+        </ul>
+        <button class="btn-danger" onclick="handleLogout()">Terminate Session</button>
+    </div>
 
-  <!-- ================================================================= -->
-  <!-- JAVASCRIPT LOGIC                                                 -->
-  <!-- ================================================================= -->
-  <script>
-    // AUTOMATIC FILE LICENSE CHECKER
-    async function checkLicenseFile() {
-      const gate = document.getElementById('licenseGate');
-      const title = document.getElementById('licenseTitle');
-      const status = document.getElementById('licenseStatus');
-      const icon = document.getElementById('licenseIcon');
-      const missingBox = document.getElementById('missingLicenseBox');
+    <!-- User Dashboard -->
+    <div class="card dashboard" id="user-dashboard">
+        <h2>Student <span>Dashboard</span></h2>
+        <p>Welcome back! Your secure learning environment is ready.</p>
+        <ul>
+            <li>View My Profile & Progress</li>
+            <li>Submit Artwork & Assignments</li>
+            <li>Check License Verification Status</li>
+        </ul>
+        <button class="btn-danger" onclick="handleLogout()">Sign Out</button>
+    </div>
 
-      title.textContent = 'Verifying License...';
-      icon.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>`;
-      missingBox.classList.add('hidden');
+    <script>
+        // Check sessions when the page loads
+        window.onload = function() {
+            const role = sessionStorage.getItem("loggedInRole");
+            if (role === "admin") { 
+                showDashboard("admin-dashboard"); 
+            } else if (role === "user") { 
+                showDashboard("user-dashboard"); 
+            }
+        };
 
-      try {
-        const response = await fetch('/soham');
-
-        if (response.ok) {
-          title.textContent = 'License Verified!';
-          status.textContent = 'File public/soham detected. Access granted.';
-          icon.className = 'w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-3xl mx-auto mb-4';
-          icon.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
-
-          setTimeout(() => {
-            gate.classList.add('opacity-0', 'transition-opacity', 'duration-500');
-            setTimeout(() => {
-              gate.classList.add('hidden');
-              document.getElementById('mainContent').classList.remove('opacity-0');
-              loadAdmissions();
-            }, 500);
-          }, 600);
-
-        } else {
-          throw new Error('File not found');
-        }
-      } catch (err) {
-        title.textContent = 'License Required';
-        status.textContent = 'File public/soham missing on server.';
-        icon.className = 'w-16 h-16 rounded-2xl bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center text-3xl mx-auto mb-4';
-        icon.innerHTML = `<i class="fa-solid fa-lock"></i>`;
-        missingBox.classList.remove('hidden');
-      }
-    }
-
-    // FETCH ADMISSIONS FROM SQLITE BACKEND
-    async function loadAdmissions() {
-      const tbody = document.getElementById('admissionsTableBody');
-      try {
-        const res = await fetch('/api/admin/admissions');
-        const data = await res.json();
-
-        if (!data.admissions || data.admissions.length === 0) {
-          tbody.innerHTML = `
-            <tr>
-              <td colspan="7" class="p-8 text-center text-slate-500">
-                No admission applications found in the database.
-              </td>
-            </tr>`;
-          updateCounters([]);
-          return;
+        function toggleView(viewId) {
+            document.getElementById("user-login-view").style.display = "none";
+            document.getElementById("admin-login-view").style.display = "none";
+            document.getElementById("admin-error").style.display = "none";
+            document.getElementById("user-error").style.display = "none";
+            
+            document.getElementById(viewId).style.display = "block";
+            // Retrigger animation
+            document.getElementById(viewId).style.animation = 'none';
+            document.offsetHeight; /* trigger reflow */
+            document.getElementById(viewId).style.animation = null; 
         }
 
-        updateCounters(data.admissions);
-
-        tbody.innerHTML = data.admissions.map(adm => `
-          <tr class="hover:bg-slate-900/50 transition-colors">
-            <td class="p-4 font-mono text-slate-400">#${adm.id}</td>
-            <td class="p-4">
-              <div class="font-bold text-white">${escapeHtml(adm.student_name)}</div>
-              <div class="text-[11px] text-slate-400">Age: ${adm.age} yrs</div>
-            </td>
-            <td class="p-4 text-slate-300">${escapeHtml(adm.guardian_name)}</td>
-            <td class="p-4">
-              <div class="text-slate-200 font-semibold">${escapeHtml(adm.branch)}</div>
-              <div class="text-[11px] text-brand">${escapeHtml(adm.course)}</div>
-            </td>
-            <td class="p-4">
-              <div class="text-slate-300">${escapeHtml(adm.phone)}</div>
-              <div class="text-[11px] text-slate-500">${escapeHtml(adm.email || 'N/A')}</div>
-            </td>
-            <td class="p-4">
-              ${getStatusBadge(adm.status)}
-            </td>
-            <td class="p-4 text-right space-x-1">
-              <button onclick="updateStatus(${adm.id}, 'APPROVED')" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 px-2.5 py-1 rounded-lg text-[11px] font-bold border border-emerald-500/30 transition-all">
-                Approve
-              </button>
-              <button onclick="updateStatus(${adm.id}, 'REJECTED')" class="bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 px-2.5 py-1 rounded-lg text-[11px] font-bold border border-rose-500/30 transition-all">
-                Reject
-              </button>
-            </td>
-          </tr>
-        `).join('');
-
-      } catch (err) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="7" class="p-8 text-center text-rose-400 font-semibold">
-              <i class="fa-solid fa-triangle-exclamation mr-1"></i> Failed to connect to server API.
-            </td>
-          </tr>`;
-      }
-    }
-
-    // UPDATE ADMISSION STATUS VIA API
-    async function updateStatus(id, status) {
-      try {
-        const res = await fetch('/api/admin/status', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id, status })
-        });
-        const data = await res.json();
-        if (data.success) {
-          loadAdmissions();
-        } else {
-          alert('Error updating status');
+        // Secure Admin Login checking the Database API
+        async function handleAdminLogin(event) {
+            event.preventDefault();
+            const pass = document.getElementById("admin-password").value;
+            
+            try {
+                const response = await fetch('/api/login/admin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: pass })
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    sessionStorage.setItem("loggedInRole", "admin");
+                    showDashboard("admin-dashboard");
+                } else {
+                    showError("admin-error");
+                }
+            } catch (error) {
+                console.error("Server error:", error);
+                showError("admin-error");
+            }
         }
-      } catch (err) {
-        alert('Server connection error');
-      }
-    }
 
-    // HELPER FUNCTIONS
-    function getStatusBadge(status) {
-      if (status === 'APPROVED') {
-        return `<span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-extrabold text-[10px]">APPROVED</span>`;
-      } else if (status === 'REJECTED') {
-        return `<span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 border border-rose-500/30 text-rose-400 font-extrabold text-[10px]">REJECTED</span>`;
-      }
-      return `<span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 font-extrabold text-[10px]">PENDING</span>`;
-    }
+        // Secure User Login checking the Database API
+        async function handleUserLogin(event) {
+            event.preventDefault();
+            const user = document.getElementById("user-name").value;
+            const pass = document.getElementById("user-password").value;
+            
+            try {
+                const response = await fetch('/api/login/user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: user, password: pass })
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    sessionStorage.setItem("loggedInRole", "user");
+                    showDashboard("user-dashboard");
+                } else {
+                    showError("user-error");
+                }
+            } catch (error) {
+                console.error("Server error:", error);
+                showError("user-error");
+            }
+        }
 
-    function updateCounters(list) {
-      document.getElementById('totalCount').textContent = list.length;
-      document.getElementById('pendingCount').textContent = list.filter(a => a.status === 'PENDING').length;
-      document.getElementById('approvedCount').textContent = list.filter(a => a.status === 'APPROVED').length;
-    }
+        function showError(errorId) {
+            const errorElement = document.getElementById(errorId);
+            errorElement.style.display = "block";
+            errorElement.style.animation = 'none';
+            errorElement.offsetHeight; /* trigger reflow */
+            errorElement.style.animation = null;
+        }
 
-    function escapeHtml(str) {
-      return (str || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[m]);
-    }
+        function showDashboard(dashboardId) {
+            document.getElementById("user-login-view").style.display = "none";
+            document.getElementById("admin-login-view").style.display = "none";
+            
+            document.getElementById(dashboardId).style.display = "block";
+            document.getElementById(dashboardId).style.animation = 'none';
+            document.getElementById(dashboardId).offsetHeight;
+            document.getElementById(dashboardId).style.animation = null;
+        }
 
-    window.addEventListener('DOMContentLoaded', checkLicenseFile);
-  </script>
+        function handleLogout() {
+            sessionStorage.removeItem("loggedInRole");
+            document.getElementById("admin-dashboard").style.display = "none";
+            document.getElementById("user-dashboard").style.display = "none";
+            
+            document.getElementById("admin-password").value = "";
+            document.getElementById("user-name").value = "";
+            document.getElementById("user-password").value = "";
+            
+            toggleView("user-login-view");
+        }
+    </script>
 </body>
 </html>
