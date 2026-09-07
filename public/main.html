@@ -4,155 +4,109 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meera Smriti Sishu Ankan Siksha Kendra | Official Portal</title>
-  
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: {
-            brand: 'var(--brand-color)',
-            'brand-dark': 'var(--brand-dark)',
-            'brand-light': 'var(--brand-light)',
-          },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            serif: ['Merriweather', 'serif'],
-          }
+          colors: { brand: 'var(--brand-color)', 'brand-dark': 'var(--brand-dark)', 'brand-light': 'var(--brand-light)' },
+          fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Merriweather', 'serif'] }
         }
       }
     }
   </script>
-
   <style>
-    :root {
-      --brand-color: #ea580c;
-      --brand-dark: #c2410c;
-      --brand-light: #ffedd5;
-    }
-
-    body {
-      background-color: #f8fafc;
-      color: #0f172a;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .section-heading {
-      position: relative;
-      padding-bottom: 0.5rem;
-      margin-bottom: 2rem;
-      text-transform: uppercase;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-    }
-    
-    .section-heading::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 60px;
-      height: 4px;
-      background-color: var(--brand-color);
-    }
-
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #f1f5f9;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--brand-color);
-    }
+    :root { --brand-color: #ea580c; --brand-dark: #c2410c; --brand-light: #ffedd5; }
+    body { background-color: #f8fafc; color: #0f172a; font-family: 'Inter', sans-serif; }
+    .section-heading { position: relative; padding-bottom: 0.5rem; margin-bottom: 2rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em; }
+    .section-heading::after { content: ''; position: absolute; left: 0; bottom: 0; width: 60px; height: 4px; background-color: var(--brand-color); }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--brand-color); }
   </style>
 </head>
 <body class="min-h-screen relative overflow-x-hidden selection:bg-brand selection:text-white">
 
-  <!-- INSTITUTIONAL LOGIN / REGISTRATION PORTAL -->
-  <div id="authModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-white rounded-md shadow-2xl max-w-md w-full border-t-4 border-brand relative overflow-hidden">
+  <!-- AUTH MODAL -->
+  <div id="authModal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded shadow-2xl max-w-md w-full border-t-4 border-brand relative overflow-hidden">
       <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
         <h3 class="font-bold text-slate-800 tracking-wide uppercase text-sm flex items-center gap-2">
-          <i class="fa-solid fa-id-card text-brand"></i> Official Access Portal
+          <i class="fa-solid fa-id-card text-brand"></i> Secure Institutional Access
         </h3>
-        <button onclick="toggleAuthModal(false)" class="text-slate-400 hover:text-red-600 transition-colors">
+        <button onclick="toggleAuthModal(false)" class="text-slate-400 hover:text-red-600 transition-colors cursor-pointer">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
-
       <div class="p-6">
         <div class="flex gap-6 border-b border-slate-200 mb-6">
-          <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="text-sm font-bold text-brand border-b-2 border-brand pb-2 uppercase tracking-wide">Member Login</button>
-          <button id="tabRegisterBtn" onclick="switchAuthTab('register')" class="text-sm font-bold text-slate-400 hover:text-slate-800 pb-2 uppercase tracking-wide transition-colors">New Registration</button>
+          <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="text-sm font-bold text-brand border-b-2 border-brand pb-2 uppercase tracking-wide cursor-pointer">Member Login</button>
+          <button id="tabRegisterBtn" onclick="switchAuthTab('register')" class="text-sm font-bold text-slate-400 hover:text-slate-800 pb-2 uppercase tracking-wide transition-colors cursor-pointer">New Student Registration</button>
         </div>
-
         <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
           <div>
             <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Registration ID / Email</label>
-            <input id="loginEmail" type="text" required class="w-full bg-white border border-slate-300 rounded-sm px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all">
+            <input id="loginEmail" type="text" required class="w-full bg-white border border-slate-300 rounded px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Security PIN / Password</label>
-            <input id="loginPassword" type="password" required class="w-full bg-white border border-slate-300 rounded-sm px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all">
+            <input id="loginPassword" type="password" required class="w-full bg-white border border-slate-300 rounded px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
           </div>
-          <button type="submit" class="w-full bg-brand text-white font-bold py-2.5 rounded-sm hover:bg-brand-dark transition-colors uppercase tracking-widest text-sm mt-2">
-            Secure Login
+          <button type="submit" class="w-full bg-brand text-white font-bold py-2.5 rounded hover:bg-brand-dark transition-colors uppercase tracking-widest text-sm mt-2 cursor-pointer">
+            Authorize Session
           </button>
         </form>
-
         <form id="registerForm" onsubmit="handleRegister(event)" class="space-y-4 hidden">
           <div>
             <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Full Legal Name</label>
-            <input id="regName" type="text" required class="w-full bg-white border border-slate-300 rounded-sm px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all">
+            <input id="regName" type="text" required class="w-full bg-white border border-slate-300 rounded px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Contact Email</label>
-            <input id="regEmail" type="email" required class="w-full bg-white border border-slate-300 rounded-sm px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all">
+            <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Contact Email / Phone</label>
+            <input id="regEmail" type="text" required class="w-full bg-white border border-slate-300 rounded px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Set Security PIN</label>
-            <input id="regPassword" type="password" required class="w-full bg-white border border-slate-300 rounded-sm px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all">
+            <input id="regPassword" type="password" required class="w-full bg-white border border-slate-300 rounded px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
           </div>
-          <button type="submit" class="w-full bg-brand text-white font-bold py-2.5 rounded-sm hover:bg-brand-dark transition-colors uppercase tracking-widest text-sm mt-2">
+          <button type="submit" class="w-full bg-brand text-white font-bold py-2.5 rounded hover:bg-brand-dark transition-colors uppercase tracking-widest text-sm mt-2 cursor-pointer">
             Submit Application
           </button>
         </form>
       </div>
-      
-      <div class="bg-slate-50 border-t border-slate-100 p-3 text-center">
-        <p class="text-[10px] text-slate-500 uppercase tracking-wider">Authorized Personnel & Registered Students Only</p>
+      <div class="bg-slate-50 border-t border-slate-100 p-3 text-center flex justify-between items-center px-6">
+        <p class="text-[10px] text-slate-500 uppercase tracking-wider">Private Portal Use</p>
+        <a href="admin.html" class="text-[10px] text-brand font-bold uppercase hover:underline">Admin Panel <i class="fa-solid fa-lock-open"></i></a>
       </div>
     </div>
   </div>
 
-  <!-- MAIN ORGANIZATION WEBSITE -->
-  <div id="mainContent" class="min-h-screen flex flex-col justify-between">
+  <!-- MAIN WRAPPER -->
+  <div class="min-h-screen flex flex-col justify-between">
     
+    <!-- TOP BAR -->
     <div class="bg-brand text-white py-1.5 px-4 sm:px-6 lg:px-8 border-b border-brand-dark hidden sm:block">
       <div class="max-w-7xl mx-auto flex justify-between items-center text-xs font-semibold tracking-wide">
-        <div class="flex gap-4">
-          <span><i class="fa-solid fa-phone mr-1"></i> +91-99999-00000</span>
+        <div class="flex gap-4 items-center">
+          <span><i class="fa-solid fa-phone mr-1"></i> 82749 40238</span>
           <span><i class="fa-solid fa-envelope mr-1"></i> info@meerasmriti.org</span>
+          <span class="bg-brand-dark px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest">Private Edition</span>
         </div>
-        <div class="flex gap-4">
-          <a href="index.html" class="hover:text-brand-light transition-colors"><i class="fa-solid fa-palette mr-1"></i> Change Theme</a>
-          <a href="#" class="hover:text-brand-light transition-colors">Important Notices</a>
+        <div class="flex gap-4 items-center">
+          <a href="index.html" class="hover:text-brand-light transition-colors"><i class="fa-solid fa-palette mr-1"></i> Change Splash Theme</a>
+          <a href="admin.html" class="hover:text-brand-light transition-colors font-bold underline"><i class="fa-solid fa-shield-halved mr-1"></i> Admin Portal</a>
         </div>
       </div>
     </div>
 
+    <!-- HEADER NAVIGATION -->
     <header class="bg-white shadow-sm sticky top-0 z-40 border-b border-slate-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        
         <div class="flex items-center gap-4">
-          <div class="w-12 h-12 rounded-sm bg-brand flex items-center justify-center text-white text-xl border-2 border-brand-dark">
+          <div class="w-12 h-12 rounded bg-brand flex items-center justify-center text-white text-xl border-2 border-brand-dark shadow">
             <i class="fa-solid fa-landmark"></i>
           </div>
           <div class="leading-tight">
@@ -169,74 +123,53 @@
         </nav>
 
         <div class="flex items-center gap-4">
-          <div class="relative group">
-            <button class="p-2 border border-slate-200 rounded-sm bg-slate-50 hover:bg-slate-100 transition-colors flex items-center gap-2 text-xs font-bold text-slate-700 uppercase">
-              <span class="w-3 h-3 rounded-full bg-brand inline-block border border-slate-300"></span>
-              <span class="hidden sm:inline">Theme</span>
-            </button>
-            <div class="absolute right-0 mt-1 w-48 bg-white border border-slate-200 rounded-sm shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200 z-50">
-              <div class="p-2 bg-slate-50 border-b border-slate-100">
-                <p class="text-[9px] text-slate-500 uppercase font-black text-center tracking-widest">Select Interface</p>
-              </div>
-              <div class="p-2 flex justify-between items-center">
-                <button onclick="setThemeVariables('#ea580c', '#c2410c', '#ffedd5')" class="w-5 h-5 rounded-sm bg-orange-600 hover:scale-110 transition-transform cursor-pointer"></button>
-                <button onclick="setThemeVariables('#0284c7', '#0369a1', '#e0f2fe')" class="w-5 h-5 rounded-sm bg-sky-600 hover:scale-110 transition-transform cursor-pointer"></button>
-                <button onclick="setThemeVariables('#e11d48', '#be123c', '#ffe4e6')" class="w-5 h-5 rounded-sm bg-rose-600 hover:scale-110 transition-transform cursor-pointer"></button>
-                <button onclick="setThemeVariables('#16a34a', '#15803d', '#dcfce7')" class="w-5 h-5 rounded-sm bg-green-600 hover:scale-110 transition-transform cursor-pointer"></button>
-                <button onclick="setThemeVariables('#7c3aed', '#6d28d9', '#ede9fe')" class="w-5 h-5 rounded-sm bg-violet-600 hover:scale-110 transition-transform cursor-pointer"></button>
-              </div>
-            </div>
-          </div>
-
           <div id="loggedOutUI">
-            <button onclick="toggleAuthModal(true)" class="bg-brand text-white font-bold text-xs md:text-sm px-4 py-2 rounded-sm hover:bg-brand-dark transition-colors uppercase tracking-wide flex items-center gap-2">
+            <button onclick="toggleAuthModal(true)" class="bg-brand text-white font-bold text-xs md:text-sm px-4 py-2 rounded hover:bg-brand-dark transition-colors uppercase tracking-wide flex items-center gap-2 cursor-pointer shadow">
               <i class="fa-solid fa-lock"></i> Portal Login
             </button>
           </div>
-
           <div id="loggedInUI" class="hidden items-center gap-3">
-            <div class="flex items-center gap-2 border border-slate-200 bg-slate-50 rounded-sm px-2 py-1">
-              <div class="w-6 h-6 rounded-sm bg-brand text-white text-xs font-bold flex items-center justify-center" id="userAvatar">A</div>
+            <div class="flex items-center gap-2 border border-slate-200 bg-slate-50 rounded px-2 py-1">
+              <div class="w-6 h-6 rounded bg-brand text-white text-xs font-bold flex items-center justify-center" id="userAvatar">A</div>
               <span class="text-xs font-bold text-slate-700 uppercase" id="userNameDisplay">Arjun</span>
             </div>
-            <button onclick="handleLogout()" class="text-slate-400 hover:text-red-600 text-sm" title="Secure Logout">
+            <button onclick="handleLogout()" class="text-slate-400 hover:text-red-600 text-sm cursor-pointer" title="Secure Logout">
               <i class="fa-solid fa-power-off"></i>
             </button>
           </div>
-
         </div>
       </div>
     </header>
 
+    <!-- NOTICE BOARD MARQUEE -->
     <div class="bg-slate-900 text-white text-xs py-2 border-b-4 border-brand">
       <div class="max-w-7xl mx-auto px-4 flex">
-        <span class="bg-brand px-3 py-1 font-bold uppercase tracking-widest text-[10px] whitespace-nowrap mr-4 rounded-sm">Update</span>
-        <marquee scrollamount="5" class="font-medium tracking-wide flex items-center pt-1">
-          Admission open for 2026-2027 academic year across all Hooghly and Howrah centers. &nbsp; | &nbsp; Upcoming Annual Fine Arts Exhibition scheduled for November. &nbsp; | &nbsp; Strict adherence to Kendra disciplinary guidelines is mandatory for all registered students.
+        <span class="bg-brand px-3 py-1 font-bold uppercase tracking-widest text-[10px] whitespace-nowrap mr-4 rounded">Update</span>
+        <marquee scrollamount="5" class="font-medium tracking-wide flex items-center pt-1" id="marqueeText">
+          Admission open for 2026-2027 academic year across all Hooghly and Howrah centers. &nbsp; | &nbsp; Direct inquiries contact: 82749 40238. &nbsp; | &nbsp; Strict adherence to Kendra guidelines is mandatory.
         </marquee>
       </div>
     </div>
 
+    <!-- HERO BANNER -->
     <section class="relative bg-slate-100 border-b border-slate-300">
       <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
-      
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10">
         <div class="max-w-3xl">
           <h2 class="text-sm font-bold text-brand uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
-            <div class="w-8 h-0.5 bg-brand"></div> Est. 2011 | Bengal, India
+            <div class="w-8 h-0.5 bg-brand"></div> Est. 2011 | Bengal, India (Private Portal)
           </h2>
           <h1 class="text-4xl md:text-6xl font-serif font-black text-slate-900 leading-[1.15] mb-6 uppercase">
             Empowering Youth Through <span class="text-brand">Visual Arts</span> & Culture.
           </h1>
           <p class="text-slate-600 text-base md:text-lg mb-10 leading-relaxed font-medium max-w-2xl">
-            A premier institution dedicated to preserving and propagating fine arts education. Under the directorship of Chanchal Ghosh, we provide structured, disciplined, and comprehensive artistic training to the next generation.
+            A premier institution dedicated to preserving and propagating fine arts education under the leadership of Chanchal Ghosh. Providing structured training, disciplined studio environments, and recognized exhibitions.
           </p>
-          
           <div class="flex flex-wrap gap-4">
-            <a href="#programs" class="bg-brand text-white font-bold uppercase tracking-widest text-sm px-8 py-3.5 rounded-sm hover:bg-brand-dark transition-colors shadow-md">
+            <a href="#programs" class="bg-brand text-white font-bold uppercase tracking-widest text-sm px-8 py-3.5 rounded hover:bg-brand-dark transition-colors shadow-md">
               View Syllabus
             </a>
-            <a href="#about" class="bg-white border-2 border-slate-300 text-slate-700 font-bold uppercase tracking-widest text-sm px-8 py-3.5 rounded-sm hover:border-brand hover:text-brand transition-colors">
+            <a href="#about" class="bg-white border-2 border-slate-300 text-slate-700 font-bold uppercase tracking-widest text-sm px-8 py-3.5 rounded hover:border-brand hover:text-brand transition-colors">
               Director's Note
             </a>
           </div>
@@ -244,6 +177,7 @@
       </div>
     </section>
 
+    <!-- ABOUT / DIRECTOR'S DESK (USING CG Sir.PNG) -->
     <section id="about" class="py-16 md:py-24 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -252,25 +186,24 @@
             <div class="absolute -top-3 -left-3 w-24 h-24 border-t-4 border-l-4 border-brand pointer-events-none"></div>
             <div class="absolute -bottom-3 -right-3 w-24 h-24 border-b-4 border-r-4 border-brand pointer-events-none"></div>
             
-            <div class="aspect-[4/3] bg-slate-200 flex flex-col items-center justify-center text-slate-400 border border-slate-300">
-              <i class="fa-solid fa-image text-4xl mb-2"></i>
-              <span class="text-xs font-bold uppercase tracking-widest">Official Portrait</span>
+            <div class="aspect-[4/3] bg-slate-900 overflow-hidden rounded border border-slate-300 shadow-inner">
+              <img src="CG Sir.PNG" alt="Chanchal Ghosh - Director" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500">
             </div>
             <div class="bg-white mt-4 p-4 border border-slate-200 text-center">
               <h4 class="font-bold text-slate-900 uppercase">Chanchal Ghosh</h4>
               <p class="text-xs font-bold text-brand uppercase tracking-widest mt-1">Founder & Director</p>
+              <p class="text-[11px] text-slate-500 mt-1 font-mono">Contact: 82749 40238</p>
             </div>
           </div>
 
           <div>
             <h2 class="section-heading text-2xl md:text-3xl text-slate-900 font-serif">Director's Message</h2>
             <p class="text-slate-600 leading-relaxed mb-6">
-              "Art is not merely a hobby; it is a discipline that shapes character, builds focus, and connects the youth to our cultural roots. At Meera Smriti Sishu Ankan Siksha Kendra, our objective is to provide a structured academic environment where students can master the fundamentals of visual arts."
+              "Art is not merely a hobby; it is a rigorous discipline that shapes character, builds focus, and connects our youth to cultural heritage. At Meera Smriti Sishu Ankan Siksha Kendra, our primary objective is to maintain exceptional academic standards in visual arts."
             </p>
             <p class="text-slate-600 leading-relaxed mb-8">
-              Through rigorous practice, formal exhibitions, and state-level competitions, we prepare our students to excel professionally and culturally. Our curriculum spans across basic sketching to advanced oil painting and diploma-level preparation.
+              Through careful mentoring, formal evaluations, and state-level participation, we prepare students for advanced fine arts careers. Call our administration directly at **82749 40238** for enrollment queries.
             </p>
-            
             <div class="grid grid-cols-2 gap-6 pt-6 border-t border-slate-200">
               <div>
                 <span class="block text-3xl font-black text-brand mb-1">15+</span>
@@ -287,64 +220,61 @@
       </div>
     </section>
 
+    <!-- PROGRAMS -->
     <section id="programs" class="py-16 md:py-24 bg-slate-50 border-t border-slate-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         <div class="text-center max-w-2xl mx-auto mb-16">
           <h2 class="text-2xl md:text-3xl text-slate-900 font-serif font-black uppercase tracking-wide mb-4">Academic Programs</h2>
           <div class="w-16 h-1 bg-brand mx-auto mb-4"></div>
           <p class="text-slate-600 font-medium">Structured syllabus designed to take students from foundational techniques to advanced diploma proficiency.</p>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="bg-white border border-slate-200 hover:border-brand transition-colors p-8 shadow-sm group">
-            <div class="w-12 h-12 bg-brand-light text-brand flex items-center justify-center text-xl mb-6 rounded-sm">
+            <div class="w-12 h-12 bg-brand-light text-brand flex items-center justify-center text-xl mb-6 rounded">
               <i class="fa-solid fa-pen-ruler"></i>
             </div>
             <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wide mb-3">Foundation Course</h3>
             <p class="text-sm text-slate-600 leading-relaxed mb-6 pb-6 border-b border-slate-100">
               Primary education focusing on pencil grip, basic shapes, color recognition, and pastel shading fundamentals. Suitable for ages 4 to 8.
             </p>
-            <a href="#" class="text-xs font-bold text-brand uppercase tracking-widest group-hover:text-brand-dark flex items-center gap-1">
-              View Syllabus <i class="fa-solid fa-arrow-right"></i>
+            <a href="#contact" class="text-xs font-bold text-brand uppercase tracking-widest group-hover:text-brand-dark flex items-center gap-1">
+              Inquire Now <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>
-
           <div class="bg-white border border-slate-200 hover:border-brand transition-colors p-8 shadow-sm group relative">
             <div class="absolute top-0 right-0 bg-brand text-white text-[9px] font-black uppercase tracking-widest px-3 py-1">Core Wing</div>
-            <div class="w-12 h-12 bg-brand-light text-brand flex items-center justify-center text-xl mb-6 rounded-sm">
+            <div class="w-12 h-12 bg-brand-light text-brand flex items-center justify-center text-xl mb-6 rounded">
               <i class="fa-solid fa-brush"></i>
             </div>
             <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wide mb-3">Intermediate Studio</h3>
             <p class="text-sm text-slate-600 leading-relaxed mb-6 pb-6 border-b border-slate-100">
               Training in watercolors, gouache techniques, still-life observation, and landscape rendering. Structured for ages 9 to 15.
             </p>
-            <a href="#" class="text-xs font-bold text-brand uppercase tracking-widest group-hover:text-brand-dark flex items-center gap-1">
-              View Syllabus <i class="fa-solid fa-arrow-right"></i>
+            <a href="#contact" class="text-xs font-bold text-brand uppercase tracking-widest group-hover:text-brand-dark flex items-center gap-1">
+              Inquire Now <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>
-
           <div class="bg-white border border-slate-200 hover:border-brand transition-colors p-8 shadow-sm group">
-            <div class="w-12 h-12 bg-brand-light text-brand flex items-center justify-center text-xl mb-6 rounded-sm">
+            <div class="w-12 h-12 bg-brand-light text-brand flex items-center justify-center text-xl mb-6 rounded">
               <i class="fa-solid fa-graduation-cap"></i>
             </div>
             <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wide mb-3">Diploma Preparation</h3>
             <p class="text-sm text-slate-600 leading-relaxed mb-6 pb-6 border-b border-slate-100">
               Advanced training in oil on canvas, acrylics, anatomical drawing, and fine arts diploma exhibition preparation for senior students.
             </p>
-            <a href="#" class="text-xs font-bold text-brand uppercase tracking-widest group-hover:text-brand-dark flex items-center gap-1">
-              View Syllabus <i class="fa-solid fa-arrow-right"></i>
+            <a href="#contact" class="text-xs font-bold text-brand uppercase tracking-widest group-hover:text-brand-dark flex items-center gap-1">
+              Inquire Now <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- CENTERS -->
     <section id="centers" class="py-16 md:py-24 bg-white border-t border-slate-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="section-heading text-2xl md:text-3xl text-slate-900 font-serif mb-10">Registered Centers</h2>
-        
-        <div class="bg-slate-50 border border-slate-200 rounded-sm overflow-hidden">
+        <div class="bg-slate-50 border border-slate-200 rounded overflow-hidden shadow-sm">
           <table class="w-full text-left text-sm text-slate-600">
             <thead class="bg-slate-100 border-b border-slate-200 text-xs uppercase font-bold text-slate-700 tracking-wider">
               <tr>
@@ -359,25 +289,19 @@
                 <td class="px-6 py-4 font-bold text-slate-900">Headquarters (Rishra)</td>
                 <td class="px-6 py-4">36, Dr. P. T. Laha Street, Near Volleyball Play Ground, Hooghly</td>
                 <td class="px-6 py-4">Mon - Sat (4 PM - 8 PM)</td>
-                <td class="px-6 py-4 text-right"><span class="bg-green-100 text-green-800 text-[10px] font-bold uppercase px-2 py-1 rounded-sm border border-green-200">Active</span></td>
+                <td class="px-6 py-4 text-right"><span class="bg-green-100 text-green-800 text-[10px] font-bold uppercase px-2 py-1 rounded border border-green-200">Active</span></td>
               </tr>
               <tr class="hover:bg-white transition-colors">
                 <td class="px-6 py-4 font-bold text-slate-900">Konnagar Wing</td>
                 <td class="px-6 py-4">Aamra Club, Criper Road, Near Rabindra Bhavan, Hooghly</td>
                 <td class="px-6 py-4">Weekends Only</td>
-                <td class="px-6 py-4 text-right"><span class="bg-green-100 text-green-800 text-[10px] font-bold uppercase px-2 py-1 rounded-sm border border-green-200">Active</span></td>
+                <td class="px-6 py-4 text-right"><span class="bg-green-100 text-green-800 text-[10px] font-bold uppercase px-2 py-1 rounded border border-green-200">Active</span></td>
               </tr>
               <tr class="hover:bg-white transition-colors">
                 <td class="px-6 py-4 font-bold text-slate-900">Uttarpara Center</td>
                 <td class="px-6 py-4">Sarat Apartment, BK Street, Uttarpara</td>
                 <td class="px-6 py-4">Wed & Fri</td>
-                <td class="px-6 py-4 text-right"><span class="bg-green-100 text-green-800 text-[10px] font-bold uppercase px-2 py-1 rounded-sm border border-green-200">Active</span></td>
-              </tr>
-              <tr class="hover:bg-white transition-colors">
-                <td class="px-6 py-4 font-bold text-slate-900">Serampore Center</td>
-                <td class="px-6 py-4">Bangur Park, Serampore</td>
-                <td class="px-6 py-4">Sun Morning</td>
-                <td class="px-6 py-4 text-right"><span class="bg-amber-100 text-amber-800 text-[10px] font-bold uppercase px-2 py-1 rounded-sm border border-amber-200">Intake Full</span></td>
+                <td class="px-6 py-4 text-right"><span class="bg-green-100 text-green-800 text-[10px] font-bold uppercase px-2 py-1 rounded border border-green-200">Active</span></td>
               </tr>
             </tbody>
           </table>
@@ -385,36 +309,33 @@
       </div>
     </section>
 
+    <!-- FOOTER -->
     <footer id="contact" class="bg-slate-950 text-slate-300 pt-16 pb-8 border-t-4 border-brand">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          
           <div class="md:col-span-2">
             <h3 class="text-xl font-serif font-black text-white uppercase tracking-wide mb-4">Meera Smriti Sishu Ankan Siksha Kendra</h3>
             <p class="text-sm text-slate-400 mb-6 leading-relaxed max-w-sm">
-              An officially registered fine arts training institution based in West Bengal, India. Promoting cultural heritage through disciplined visual arts education since 2011.
+              An officially registered fine arts training institution based in West Bengal, India. Promoting cultural heritage under Chanchal Ghosh since 2011.
             </p>
             <div class="flex gap-4">
-              <a href="#" class="w-10 h-10 rounded-sm bg-slate-900 border border-slate-800 flex items-center justify-center hover:bg-brand hover:border-brand transition-colors text-white">
+              <a href="#" class="w-10 h-10 rounded bg-slate-900 border border-slate-800 flex items-center justify-center hover:bg-brand hover:border-brand transition-colors text-white">
                 <i class="fa-brands fa-facebook-f"></i>
               </a>
-              <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" class="w-10 h-10 rounded-sm bg-slate-900 border border-slate-800 flex items-center justify-center hover:bg-brand hover:border-brand transition-colors text-white">
+              <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" class="w-10 h-10 rounded bg-slate-900 border border-slate-800 flex items-center justify-center hover:bg-brand hover:border-brand transition-colors text-white">
                 <i class="fa-brands fa-youtube"></i>
               </a>
             </div>
           </div>
-
           <div>
             <h4 class="text-sm font-bold text-white uppercase tracking-widest mb-4 border-b border-slate-800 pb-2">Quick Links</h4>
             <ul class="space-y-3 text-sm">
-              <li><a href="#" class="hover:text-brand transition-colors">Admissions 2026</a></li>
-              <li><a href="#" class="hover:text-brand transition-colors">Syllabus Download</a></li>
-              <li><a href="#" class="hover:text-brand transition-colors">Notice Board</a></li>
+              <li><a href="admin.html" class="hover:text-brand transition-colors font-bold text-orange-400"><i class="fa-solid fa-lock mr-1"></i> Admin Dashboard</a></li>
+              <li><a href="#programs" class="hover:text-brand transition-colors">Syllabus Overview</a></li>
+              <li><a href="#centers" class="hover:text-brand transition-colors">Branch Locations</a></li>
               <li><a href="#" class="hover:text-brand transition-colors">Disciplinary Rules</a></li>
             </ul>
           </div>
-
           <div>
             <h4 class="text-sm font-bold text-white uppercase tracking-widest mb-4 border-b border-slate-800 pb-2">Contact HQ</h4>
             <ul class="space-y-3 text-sm">
@@ -424,7 +345,7 @@
               </li>
               <li class="flex items-center gap-3">
                 <i class="fa-solid fa-phone text-brand"></i>
-                <span>+91-99999-00000</span>
+                <span>82749 40238</span>
               </li>
               <li class="flex items-center gap-3">
                 <i class="fa-solid fa-envelope text-brand"></i>
@@ -432,45 +353,30 @@
               </li>
             </ul>
           </div>
-
         </div>
-
-        <div class="pt-8 border-t border-slate-800 text-[10px] text-slate-500 font-mono leading-relaxed bg-slate-900 p-4 rounded-sm">
-          <p class="font-bold text-slate-400 mb-1 uppercase tracking-widest">MIT License Documentation</p>
-          <p>Copyright &copy; 2026 Meera Smriti Sishu Ankan Siksha Kendra.</p>
-          <p class="mt-2">
-            Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-          </p>
-          <p class="mt-2">
-            The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-          </p>
+        <div class="pt-8 border-t border-slate-800 text-[10px] text-slate-500 font-mono leading-relaxed bg-slate-900 p-4 rounded">
+          <p class="font-bold text-slate-400 mb-1 uppercase tracking-widest">Private Institutional Portal & MIT License</p>
+          <p>Copyright &copy; 2026 Meera Smriti Sishu Ankan Siksha Kendra. Director: Chanchal Ghosh (Ph: 82749 40238).</p>
         </div>
-
       </div>
     </footer>
-
   </div>
 
   <script>
     const THEME_KEY = 'meera_smriti_org_theme';
     const USER_KEY = 'meera_smriti_org_user';
+    const REG_STORAGE = 'meera_smriti_registrations';
 
     function setThemeVariables(brandColor, brandDark, brandLight) {
       document.documentElement.style.setProperty('--brand-color', brandColor);
       document.documentElement.style.setProperty('--brand-dark', brandDark);
       document.documentElement.style.setProperty('--brand-light', brandLight);
-      localStorage.setItem(THEME_KEY, JSON.stringify({ brandColor, brandDark, brandLight }));
     }
 
     function toggleAuthModal(show) {
       const modal = document.getElementById('authModal');
-      if(show) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-      } else {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      }
+      if(show) { modal.classList.remove('hidden'); modal.classList.add('flex'); }
+      else { modal.classList.add('hidden'); modal.classList.remove('flex'); }
     }
 
     function switchAuthTab(tab) {
@@ -478,17 +384,14 @@
       const regForm = document.getElementById('registerForm');
       const loginBtn = document.getElementById('tabLoginBtn');
       const regBtn = document.getElementById('tabRegisterBtn');
-
       if(tab === 'login') {
-        loginForm.classList.remove('hidden');
-        regForm.classList.add('hidden');
-        loginBtn.className = "text-sm font-bold text-brand border-b-2 border-brand pb-2 uppercase tracking-wide";
-        regBtn.className = "text-sm font-bold text-slate-400 hover:text-slate-800 pb-2 uppercase tracking-wide transition-colors";
+        loginForm.classList.remove('hidden'); regForm.classList.add('hidden');
+        loginBtn.className = "text-sm font-bold text-brand border-b-2 border-brand pb-2 uppercase tracking-wide cursor-pointer";
+        regBtn.className = "text-sm font-bold text-slate-400 hover:text-slate-800 pb-2 uppercase tracking-wide transition-colors cursor-pointer";
       } else {
-        loginForm.classList.add('hidden');
-        regForm.classList.remove('hidden');
-        regBtn.className = "text-sm font-bold text-brand border-b-2 border-brand pb-2 uppercase tracking-wide";
-        loginBtn.className = "text-sm font-bold text-slate-400 hover:text-slate-800 pb-2 uppercase tracking-wide transition-colors";
+        loginForm.classList.add('hidden'); regForm.classList.remove('hidden');
+        regBtn.className = "text-sm font-bold text-brand border-b-2 border-brand pb-2 uppercase tracking-wide cursor-pointer";
+        loginBtn.className = "text-sm font-bold text-slate-400 hover:text-slate-800 pb-2 uppercase tracking-wide transition-colors cursor-pointer";
       }
     }
 
@@ -496,10 +399,16 @@
       e.preventDefault();
       const name = document.getElementById('regName').value;
       const email = document.getElementById('regEmail').value;
-      const user = { name, email, avatar: name.charAt(0).toUpperCase() };
+      const user = { name, email, avatar: name.charAt(0).toUpperCase(), date: new Date().toLocaleDateString() };
+      
+      let existingRegs = JSON.parse(localStorage.getItem(REG_STORAGE) || '[]');
+      existingRegs.push(user);
+      localStorage.setItem(REG_STORAGE, JSON.stringify(existingRegs));
       localStorage.setItem(USER_KEY, JSON.stringify(user));
+      
       updateAuthUI(user);
       toggleAuthModal(false);
+      alert('Application submitted successfully and recorded securely.');
     }
 
     function handleLogin(e) {
@@ -520,7 +429,6 @@
     function updateAuthUI(user) {
       const loggedOutUI = document.getElementById('loggedOutUI');
       const loggedInUI = document.getElementById('loggedInUI');
-
       if(user) {
         loggedOutUI.classList.add('hidden');
         loggedInUI.classList.remove('hidden');
@@ -542,12 +450,9 @@
           setThemeVariables(brandColor, brandDark, brandLight);
         } catch(e) {}
       }
-
       const savedUser = localStorage.getItem(USER_KEY);
       if(savedUser) {
-        try {
-          updateAuthUI(JSON.parse(savedUser));
-        } catch(e) {}
+        try { updateAuthUI(JSON.parse(savedUser)); } catch(e) {}
       }
     });
   </script>
