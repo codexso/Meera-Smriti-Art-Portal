@@ -3,194 +3,212 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard | Meera Smriti Sishu Ankan Siksha Kendra</title>
+  <title>Executive Admin Panel | Meera Smriti</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: { brand: 'var(--brand-color)', 'brand-dark': 'var(--brand-dark)', 'brand-light': 'var(--brand-light)' },
-          fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Merriweather', 'serif'] }
+          fontFamily: { sans: ['Inter', 'sans-serif'] }
         }
       }
     }
   </script>
   <style>
-    :root { --brand-color: #ea580c; --brand-dark: #c2410c; --brand-light: #ffedd5; }
-    body { background-color: #f1f5f9; color: #0f172a; font-family: 'Inter', sans-serif; }
+    body { background-color: #090d16; color: #f8fafc; font-family: 'Inter', sans-serif; }
+    .card-dark { background: #0f172a; border: 1px solid #1e293b; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
-  <!-- ADMIN HEADER -->
-  <header class="bg-slate-900 text-white shadow-md border-b-4 border-orange-600">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <div class="w-10 h-10 rounded bg-orange-600 flex items-center justify-center text-white text-lg">
-          <i class="fa-solid fa-shield-halved"></i>
+  <!-- ADMIN AUTH GATE MODAL -->
+  <div id="adminGateModal" class="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="max-w-md w-full card-dark border-2 border-amber-500/40 rounded-2xl p-8 shadow-2xl text-center">
+      <div class="w-16 h-16 bg-amber-500/10 text-amber-500 rounded-2xl flex items-center justify-center mx-auto text-2xl mb-4 border border-amber-500/30">
+        <i class="fa-solid fa-shield-cat"></i>
+      </div>
+      <h2 class="text-xl font-black text-white uppercase tracking-tight">Executive Authentication</h2>
+      <p class="text-xs text-slate-400 mt-1 mb-6 uppercase tracking-wider font-semibold">Director Chanchal Ghosh Desk</p>
+
+      <form onsubmit="handleGateAuth(event)" class="space-y-4 text-left">
+        <div>
+          <label class="block text-[10px] font-extrabold uppercase text-amber-400 mb-1 tracking-wider">Admin Username</label>
+          <input type="text" id="gateUser" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 font-mono" placeholder="Money">
         </div>
         <div>
-          <h1 class="font-serif font-black text-base md:text-lg uppercase tracking-wider">Director Administration</h1>
-          <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Private Management Portal | Ph: 82749 40238</p>
+          <label class="block text-[10px] font-extrabold uppercase text-amber-400 mb-1 tracking-wider">Security Passcode</label>
+          <input type="password" id="gatePass" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 font-mono" placeholder="Money@220077">
+        </div>
+        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-3 rounded-lg uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer">
+          Verify Credentials
+        </button>
+      </form>
+      <a href="index.html" class="block text-xs text-slate-500 hover:text-white uppercase font-bold mt-6 tracking-wider">
+        <i class="fa-solid fa-arrow-left mr-1"></i> Return to Portal Access
+      </a>
+    </div>
+  </div>
+
+  <!-- ADMIN HEADER -->
+  <header class="bg-slate-900 border-b border-amber-500/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 font-black flex items-center justify-center text-xl shadow-lg">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <div>
+          <h1 class="font-black text-base md:text-lg text-white uppercase tracking-tight">Executive Dashboard <span class="text-amber-500">(Money)</span></h1>
+          <p class="text-[10px] text-slate-400 font-mono uppercase">Direct Line: 82749 40238</p>
         </div>
       </div>
-      <div class="flex items-center gap-4">
-        <a href="main.html" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold uppercase px-4 py-2 rounded transition-colors border border-slate-700">
-          <i class="fa-solid fa-globe mr-1"></i> Public Website
+      <div class="flex items-center gap-3">
+        <button onclick="adminLogout()" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold uppercase px-4 py-2 rounded-lg cursor-pointer transition-colors">
+          <i class="fa-solid fa-power-off mr-1"></i> Lock Portal
+        </button>
+        <a href="main.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold uppercase px-4 py-2 rounded-lg border border-slate-700">
+          Public Website
         </a>
       </div>
     </div>
   </header>
 
-  <!-- ADMIN CONTENT -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow">
-    
-    <!-- STATS OVERVIEW -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-      <div class="bg-white p-6 rounded shadow-sm border border-slate-200">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Registrations</p>
-            <h3 class="text-3xl font-black text-slate-900 mt-1" id="totalRegsCount">0</h3>
-          </div>
-          <div class="w-10 h-10 rounded bg-orange-100 text-orange-600 flex items-center justify-center">
-            <i class="fa-solid fa-users"></i>
-          </div>
-        </div>
+  <!-- DASHBOARD CONTENT -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow space-y-8">
+
+    <!-- OVERVIEW CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="card-dark rounded-xl p-6">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Enrolled Records</p>
+        <h3 class="text-3xl font-black text-amber-400 mt-2" id="regCount">0</h3>
       </div>
-      <div class="bg-white p-6 rounded shadow-sm border border-slate-200">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Centers</p>
-            <h3 class="text-3xl font-black text-slate-900 mt-1">3 Wings</h3>
-          </div>
-          <div class="w-10 h-10 rounded bg-sky-100 text-sky-600 flex items-center justify-center">
-            <i class="fa-solid fa-landmark"></i>
-          </div>
-        </div>
+      <div class="card-dark rounded-xl p-6">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Director Hotline</p>
+        <h3 class="text-xl font-bold font-mono text-orange-400 mt-2">82749 40238</h3>
       </div>
-      <div class="bg-white p-6 rounded shadow-sm border border-slate-200">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Director Contact</p>
-            <h3 class="text-xl font-bold text-slate-900 mt-1 font-mono">82749 40238</h3>
-          </div>
-          <div class="w-10 h-10 rounded bg-emerald-100 text-emerald-600 flex items-center justify-center">
-            <i class="fa-solid fa-phone"></i>
-          </div>
-        </div>
+      <div class="card-dark rounded-xl p-6">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Active Regional Wings</p>
+        <h3 class="text-3xl font-black text-emerald-400 mt-2">3 Branches</h3>
       </div>
     </div>
 
-    <!-- STUDENT REGISTRATIONS TABLE -->
-    <div class="bg-white rounded shadow-sm border border-slate-200 overflow-hidden mb-10">
-      <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
-        <h3 class="font-bold text-slate-800 uppercase text-xs tracking-wider flex items-center gap-2">
-          <i class="fa-solid fa-user-graduate text-orange-600"></i> Submitted Student Applications & Logins
+    <!-- STUDENT ENROLLMENT TABLE -->
+    <div class="card-dark rounded-xl overflow-hidden shadow-2xl">
+      <div class="px-6 py-4 bg-slate-950 border-b border-slate-800 flex justify-between items-center">
+        <h3 class="font-black text-white uppercase text-xs tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-users text-amber-500"></i> Student Registration Database
         </h3>
-        <button onclick="clearRegistrations()" class="text-xs text-red-600 hover:text-red-800 font-bold uppercase tracking-wider">
-          <i class="fa-solid fa-trash mr-1"></i> Clear Records
+        <button onclick="clearLogs()" class="text-xs text-rose-500 hover:text-rose-400 font-bold uppercase tracking-wider cursor-pointer">
+          <i class="fa-solid fa-trash mr-1"></i> Clear Database
         </button>
       </div>
       <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm text-slate-600">
-          <thead class="bg-slate-100 border-b border-slate-200 text-[10px] uppercase font-bold text-slate-700 tracking-wider">
+        <table class="w-full text-left text-sm text-slate-400">
+          <thead class="bg-slate-950 text-[10px] uppercase font-extrabold text-slate-500 tracking-wider border-b border-slate-800">
             <tr>
-              <th class="px-6 py-3">Student Name</th>
-              <th class="px-6 py-3">Contact / Email</th>
+              <th class="px-6 py-3">Candidate Name</th>
+              <th class="px-6 py-3">Contact Email/Phone</th>
               <th class="px-6 py-3">Registration Date</th>
-              <th class="px-6 py-3 text-right">Action Status</th>
+              <th class="px-6 py-3 text-right">Verification</th>
             </tr>
           </thead>
-          <tbody id="registrationsTableBody" class="divide-y divide-slate-200">
+          <tbody id="logsTableBody" class="divide-y divide-slate-800">
             <tr>
-              <td colspan="4" class="px-6 py-6 text-center text-slate-400 italic">No registrations recorded yet.</td>
+              <td colspan="4" class="px-6 py-6 text-center text-slate-600 italic">No registrations recorded in system database.</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- SYSTEM CONFIG PANEL -->
-    <div class="bg-white rounded shadow-sm border border-slate-200 p-6">
-      <h3 class="font-bold text-slate-800 uppercase text-xs tracking-wider mb-4 flex items-center gap-2">
-        <i class="fa-solid fa-gear text-orange-600"></i> Quick Institutional Controls
+    <!-- NOTICE CONTROL PANEL -->
+    <div class="card-dark rounded-xl p-6">
+      <h3 class="font-black text-white uppercase text-xs tracking-wider mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-bullhorn text-orange-500"></i> Publish Portal Marquee Announcement
       </h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Update Notice Board Marquee</label>
-          <input type="text" id="adminNoticeInput" class="w-full bg-slate-50 border border-slate-300 rounded px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-orange-600 mb-2" value="Admission open for 2026-2027 academic year across all Hooghly centers. Contact: 82749 40238.">
-          <button onclick="updateNotice()" class="bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs uppercase px-4 py-2 rounded transition-colors">
-            Publish Notice
-          </button>
-        </div>
-        <div class="bg-slate-50 p-4 rounded border border-slate-200 flex flex-col justify-between">
-          <div>
-            <h4 class="font-bold text-slate-800 uppercase text-xs mb-1">Director Direct Line</h4>
-            <p class="text-xs text-slate-500 mb-2">Verified private phone reference for Chanchal Ghosh.</p>
-          </div>
-          <div class="font-mono font-bold text-slate-900 bg-white p-2 border border-slate-200 rounded text-center">
-            📞 82749 40238
-          </div>
-        </div>
+      <div class="flex gap-3">
+        <input type="text" id="adminNoticeInput" class="flex-grow bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-orange-500" value="Admissions open for 2026 academic year across all Hooghly wings. Contact: 82749 40238.">
+        <button onclick="publishNotice()" class="bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs px-6 py-2 rounded-lg uppercase tracking-wider transition-colors cursor-pointer">
+          Publish Notice
+        </button>
       </div>
     </div>
 
   </main>
 
-  <!-- FOOTER -->
-  <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs border-t border-slate-800">
-    <p>Meera Smriti Sishu Ankan Siksha Kendra &copy; 2026. Private Admin Panel.</p>
+  <footer class="bg-slate-950 border-t border-slate-800 py-4 text-center text-xs text-slate-600 font-mono">
+    Executive Administrative Panel | Authorized Session
   </footer>
 
   <script>
+    const ADMIN_AUTH_KEY = 'meera_smriti_admin_auth';
     const REG_STORAGE = 'meera_smriti_registrations';
-    
-    function loadRegistrations() {
-      const tbody = document.getElementById('registrationsTableBody');
-      const countEl = document.getElementById('totalRegsCount');
-      const regs = JSON.parse(localStorage.getItem(REG_STORAGE) || '[]');
-      
-      countEl.textContent = regs.length;
-      if(regs.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" class="px-6 py-6 text-center text-slate-400 italic">No registrations recorded yet.</td></tr>`;
-        return;
+
+    function handleGateAuth(e) {
+      e.preventDefault();
+      const u = document.getElementById('gateUser').value;
+      const p = document.getElementById('gatePass').value;
+
+      if(u === 'Money' && p === 'Money@220077') {
+        localStorage.setItem(ADMIN_AUTH_KEY, 'true');
+        document.getElementById('adminGateModal').classList.add('hidden');
+        loadTable();
+      } else {
+        alert('Authentication Error: Invalid Admin Credentials.');
       }
-      
+    }
+
+    function adminLogout() {
+      localStorage.removeItem(ADMIN_AUTH_KEY);
+      location.reload();
+    }
+
+    function loadTable() {
+      const tbody = document.getElementById('logsTableBody');
+      const countEl = document.getElementById('regCount');
+      const regs = JSON.parse(localStorage.getItem(REG_STORAGE) || '[]');
+
+      countEl.textContent = regs.length;
+      if(regs.length === 0) return;
+
       tbody.innerHTML = '';
-      regs.forEach((r, idx) => {
+      regs.forEach(r => {
         tbody.innerHTML += `
-          <tr class="hover:bg-slate-50 transition-colors">
-            <td class="px-6 py-4 font-bold text-slate-900 flex items-center gap-2">
-              <div class="w-7 h-7 rounded bg-orange-600 text-white text-xs font-bold flex items-center justify-center">${r.avatar || 'S'}</div>
+          <tr class="hover:bg-slate-950/50 transition-colors">
+            <td class="px-6 py-4 font-bold text-white flex items-center gap-2">
+              <div class="w-6 h-6 rounded-full bg-orange-600 text-white text-xs font-bold flex items-center justify-center">${r.avatar || 'S'}</div>
               ${r.name}
             </td>
-            <td class="px-6 py-4">${r.email}</td>
-            <td class="px-6 py-4 text-xs font-mono">${r.date || 'N/A'}</td>
+            <td class="px-6 py-4 font-mono text-xs">${r.email}</td>
+            <td class="px-6 py-4 font-mono text-xs">${r.date || 'N/A'}</td>
             <td class="px-6 py-4 text-right">
-              <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase px-2 py-1 rounded border border-emerald-200">Verified</span>
+              <span class="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[9px] font-bold uppercase px-2 py-0.5 rounded-full">Verified</span>
             </td>
           </tr>
         `;
       });
     }
 
-    function clearRegistrations() {
-      if(confirm('Are you sure you want to clear all student registration logs?')) {
+    function clearLogs() {
+      if(confirm('Are you sure you want to clear all student records?')) {
         localStorage.removeItem(REG_STORAGE);
-        loadRegistrations();
+        location.reload();
       }
     }
 
-    function updateNotice() {
-      const text = document.getElementById('adminNoticeInput').value;
-      localStorage.setItem('meera_smriti_notice', text);
-      alert('Notice board marquee updated successfully across portal systems.');
+    function publishNotice() {
+      const val = document.getElementById('adminNoticeInput').value;
+      localStorage.setItem('meera_smriti_notice', val);
+      alert('Marquee announcement updated across portal pages.');
     }
 
-    window.addEventListener('DOMContentLoaded', loadRegistrations);
+    window.addEventListener('DOMContentLoaded', () => {
+      if(localStorage.getItem(ADMIN_AUTH_KEY) === 'true') {
+        document.getElementById('adminGateModal').classList.add('hidden');
+        loadTable();
+      }
+    });
   </script>
 </body>
 </html>

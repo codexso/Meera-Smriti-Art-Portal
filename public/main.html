@@ -3,176 +3,194 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Big Boss House | Meera Smriti Siksha Kendra</title>
+  <title>Main Academy Portal | Meera Smriti</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Cinzel', 'serif'] },
-          colors: { eye: '#e11d48', gold: '#f59e0b' }
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: { brand: '#ea580c' }
         }
       }
     }
   </script>
   <style>
-    body { background-color: #030712; color: #f3f4f6; font-family: 'Inter', sans-serif; }
-    .gold-border { border-color: #f59e0b; }
-    .glow-box { box-shadow: 0 0 20px rgba(225, 29, 72, 0.15); }
+    body { background-color: #0b0f19; color: #f8fafc; font-family: 'Inter', sans-serif; }
+    .card-dark { background: #111827; border: 1px solid #1f2937; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
-  <!-- TOP TICKER -->
-  <div class="bg-rose-950 text-rose-200 text-xs py-1.5 border-b border-rose-800/50">
-    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
-      <div class="flex items-center gap-2">
-        <span class="bg-rose-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded animate-pulse">LIVE BROADCAST</span>
-        <span class="font-mono text-[11px] truncate">Big Boss Mandate: All submissions monitored by Chanchal Ghosh (Ph: 82749 40238)</span>
+  <!-- TOP NOTICE MARQUEE BAR -->
+  <div class="bg-orange-950/80 border-b border-orange-900/40 text-orange-200 text-xs py-2 px-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-2 overflow-hidden">
+        <span class="bg-orange-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded font-mono">ANNOUNCEMENT</span>
+        <span class="font-mono text-xs truncate" id="liveMarqueeText">Admissions open for 2026 academic year. Direct Contact: 82749 40238.</span>
       </div>
-      <a href="index.html" class="hover:text-white transition-colors text-[10px] uppercase font-bold tracking-wider hidden sm:inline">
-        Switch Account
-      </a>
+      <div class="hidden sm:flex items-center gap-4 text-xs font-bold uppercase tracking-wider">
+        <a href="courses.html" class="hover:text-white transition-colors">Courses</a>
+        <a href="gallery.html" class="hover:text-white transition-colors">Exhibition</a>
+      </div>
     </div>
   </div>
 
-  <!-- MAIN NAVIGATION -->
-  <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40">
+  <!-- NAVIGATION HEADER -->
+  <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40 shadow-xl">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-slate-950 border-2 border-rose-600 flex items-center justify-center text-rose-500">
-          <i class="fa-solid fa-eye text-xl"></i>
+        <div class="w-10 h-10 rounded-xl bg-orange-600 text-white font-black flex items-center justify-center text-xl shadow-lg">
+          <i class="fa-solid fa-palette"></i>
         </div>
         <div>
-          <h1 class="font-display font-black text-lg text-white uppercase tracking-wider">Big Boss <span class="text-rose-500">House</span></h1>
-          <p class="text-[9px] text-slate-400 font-mono uppercase tracking-widest">Meera Smriti Fine Arts</p>
+          <h1 class="font-black text-lg text-white uppercase tracking-tight">Meera Smriti <span class="text-orange-500">Siksha Kendra</span></h1>
+          <p class="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Hooghly District Regional Wings</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-4">
-        <div id="userInfo" class="flex items-center gap-2 bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-full">
-          <div id="userAvatar" class="w-6 h-6 rounded-full bg-rose-600 text-white font-bold text-xs flex items-center justify-center">U</div>
-          <span id="userName" class="text-xs font-bold text-slate-300">Housemate</span>
+      <nav class="hidden md:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-300">
+        <a href="main.html" class="text-orange-500">Dashboard</a>
+        <a href="courses.html" class="hover:text-orange-400 transition-colors">Curriculum</a>
+        <a href="gallery.html" class="hover:text-orange-400 transition-colors">Exhibitions</a>
+        <a href="contact.html" class="hover:text-orange-400 transition-colors">Contact Wings</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <div id="userBadge" class="flex items-center gap-2 bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-full">
+          <div id="userAvatar" class="w-6 h-6 rounded-full bg-orange-600 text-white font-bold text-xs flex items-center justify-center">S</div>
+          <span id="userName" class="text-xs font-bold text-slate-200">Student</span>
         </div>
-        <a href="admin.html" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs px-3 py-2 rounded uppercase tracking-wider transition-colors flex items-center gap-1">
+        <a href="admin.html" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs px-3 py-2 rounded-lg uppercase tracking-wider transition-colors flex items-center gap-1">
           <i class="fa-solid fa-lock"></i> Admin
         </a>
       </div>
+
     </div>
   </header>
 
-  <!-- CONTENT BODY -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow space-y-8">
+  <!-- MAIN BODY CONTENT -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow space-y-10">
 
-    <!-- HOUSE COMMAND BANNER -->
-    <section class="bg-gradient-to-r from-slate-900 via-rose-950/40 to-slate-900 border border-slate-800 rounded-xl p-6 md:p-10 relative overflow-hidden glow-box">
-      <div class="max-w-2xl relative z-10">
-        <span class="text-rose-500 font-mono text-xs uppercase font-bold tracking-widest block mb-2">SEASON 2026 EDITION</span>
-        <h2 class="text-3xl md:text-5xl font-display font-black text-white uppercase leading-tight mb-4">
-          Welcome to the <span class="text-rose-500">Arena of Fine Arts</span>
+    <!-- HERO BANNER -->
+    <section class="bg-gradient-to-r from-slate-900 via-slate-900 to-orange-950/30 border border-slate-800 rounded-2xl p-8 md:p-12 relative overflow-hidden shadow-2xl">
+      <div class="max-w-2xl">
+        <span class="bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-mono font-bold px-3 py-1 rounded-full inline-block mb-4">ACADEMIC SESSION 2026</span>
+        <h2 class="text-3xl md:text-5xl font-black text-white uppercase tracking-tight leading-none mb-4">
+          Master Fine Arts With <span class="text-orange-500">Excellence</span>
         </h2>
-        <p class="text-slate-400 text-sm leading-relaxed mb-6 font-medium">
-          Controlled environment under founder Chanchal Ghosh. Compete in art tasks, review studio centers, and log your progress directly into the House ledger.
+        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+          Established fine arts institution directed by Chanchal Ghosh across Rishra, Konnagar, and Uttarpara wings.
         </p>
-        <div class="flex flex-wrap gap-3">
-          <a href="#interactiveTasks" class="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-6 py-3 rounded uppercase tracking-widest transition-colors shadow-lg">
-            View Live Tasks
+        <div class="flex flex-wrap gap-4">
+          <a href="courses.html" class="bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs px-6 py-3 rounded-lg uppercase tracking-wider transition-colors shadow-lg">
+            Explore Programs
           </a>
-          <a href="#directorSection" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs px-6 py-3 rounded uppercase tracking-widest transition-colors border border-slate-700">
-            Director's Orders
+          <a href="contact.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs px-6 py-3 rounded-lg uppercase tracking-wider transition-colors border border-slate-700">
+            Locate Centers
           </a>
         </div>
       </div>
     </section>
 
-    <!-- INTERACTIVE BIG BOSS TASKS (REPLACES GOOGLE FORMS) -->
-    <section id="interactiveTasks" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-      <!-- TASK 1: WEEKLY ART SUBMISSION -->
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between">
+    <!-- INTERACTIVE SUBMISSION MODULES -->
+    <section>
+      <div class="mb-6 flex justify-between items-end">
         <div>
-          <div class="flex justify-between items-center mb-4">
-            <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-bold uppercase px-2.5 py-1 rounded">Weekly Challenge</span>
-            <i class="fa-solid fa-palette text-amber-500 text-lg"></i>
-          </div>
-          <h3 class="font-bold text-white uppercase text-base mb-2">Water Color Rendering</h3>
-          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Submit your landscape art project directly for Director Chanchal Ghosh's weekly evaluation.</p>
-        </div>
-        <div class="space-y-3 pt-4 border-t border-slate-800">
-          <input type="text" id="task1Title" placeholder="Artwork Title" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-rose-500">
-          <button onclick="submitHouseTask('Watercolor Challenge')" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs py-2 rounded uppercase tracking-wider cursor-pointer">
-            Submit Task
-          </button>
+          <h3 class="text-xl font-black text-white uppercase tracking-tight">Interactive Desk</h3>
+          <p class="text-xs text-slate-400">Direct student tools and digital submission logs</p>
         </div>
       </div>
 
-      <!-- TASK 2: CENTER NOMINATION VOTE -->
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between">
-        <div>
-          <div class="flex justify-between items-center mb-4">
-            <span class="bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[10px] font-bold uppercase px-2.5 py-1 rounded">House Poll</span>
-            <i class="fa-solid fa-check-to-slot text-rose-500 text-lg"></i>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- SUBMISSION 1 -->
+        <div class="card-dark p-6 rounded-xl flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-xs font-mono text-orange-400 font-bold">PORTFOLIO LOG</span>
+              <i class="fa-solid fa-cloud-arrow-up text-orange-500 text-lg"></i>
+            </div>
+            <h4 class="font-extrabold text-white uppercase text-base mb-2">Submit Artwork Assignment</h4>
+            <p class="text-xs text-slate-400 mb-4">Log your completed studio assignment for official faculty grading.</p>
           </div>
-          <h3 class="font-bold text-white uppercase text-base mb-2">Best Studio Wing Vote</h3>
-          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Nominate your preferred regional study branch for the upcoming regional exhibition.</p>
-        </div>
-        <div class="space-y-3 pt-4 border-t border-slate-800">
-          <select id="task2Wing" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-rose-500">
-            <option>Rishra Headquarters Wing</option>
-            <option>Konnagar Aamra Club Wing</option>
-            <option>Uttarpara Center</option>
-          </select>
-          <button onclick="submitHouseTask('Wing Nomination')" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2 rounded uppercase tracking-wider cursor-pointer">
-            Cast Vote
-          </button>
-        </div>
-      </div>
-
-      <!-- TASK 3: DIRECT MESSAGE TO DIRECTOR -->
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between">
-        <div>
-          <div class="flex justify-between items-center mb-4">
-            <span class="bg-sky-500/10 text-sky-400 border border-sky-500/20 text-[10px] font-bold uppercase px-2.5 py-1 rounded">Confession Room</span>
-            <i class="fa-solid fa-comment-dots text-sky-500 text-lg"></i>
+          <div class="space-y-3 pt-4 border-t border-slate-800">
+            <input type="text" id="assignmentTitle" placeholder="Project Title" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+            <button onclick="logSubmission('Artwork Assignment')" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs py-2.5 rounded-lg uppercase tracking-wider cursor-pointer transition-colors">
+              Submit Portfolio
+            </button>
           </div>
-          <h3 class="font-bold text-white uppercase text-base mb-2">Direct Hotline</h3>
-          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Send a private inquiry or confession note directly to phone 82749 40238.</p>
         </div>
-        <div class="space-y-3 pt-4 border-t border-slate-800">
-          <input type="text" id="task3Msg" placeholder="Your note..." class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-rose-500">
-          <button onclick="submitHouseTask('Direct Hotline Note')" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs py-2 rounded uppercase tracking-wider border border-slate-700 cursor-pointer">
-            Transmit Note
-          </button>
-        </div>
-      </div>
 
+        <!-- SUBMISSION 2 -->
+        <div class="card-dark p-6 rounded-xl flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-xs font-mono text-amber-400 font-bold">CENTER PREFERENCE</span>
+              <i class="fa-solid fa-building-columns text-amber-500 text-lg"></i>
+            </div>
+            <h4 class="font-extrabold text-white uppercase text-base mb-2">Branch Wing Selection</h4>
+            <p class="text-xs text-slate-400 mb-4">Select your primary attendance wing for examination seating.</p>
+          </div>
+          <div class="space-y-3 pt-4 border-t border-slate-800">
+            <select id="wingChoice" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+              <option>Rishra Central Wing (HQ)</option>
+              <option>Konnagar Aamra Club Wing</option>
+              <option>Uttarpara Regional Branch</option>
+            </select>
+            <button onclick="logSubmission('Branch Preference')" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2.5 rounded-lg uppercase tracking-wider cursor-pointer transition-colors">
+              Register Branch
+            </button>
+          </div>
+        </div>
+
+        <!-- SUBMISSION 3 -->
+        <div class="card-dark p-6 rounded-xl flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-xs font-mono text-emerald-400 font-bold">DIRECT INQUIRY</span>
+              <i class="fa-solid fa-headset text-emerald-500 text-lg"></i>
+            </div>
+            <h4 class="font-extrabold text-white uppercase text-base mb-2">Director Hotline Note</h4>
+            <p class="text-xs text-slate-400 mb-4">Transmit a message directly to Director Chanchal Ghosh (82749 40238).</p>
+          </div>
+          <div class="space-y-3 pt-4 border-t border-slate-800">
+            <input type="text" id="directNote" placeholder="Your inquiry message..." class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+            <button onclick="logSubmission('Direct Director Note')" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-2.5 rounded-lg uppercase tracking-wider border border-slate-700 cursor-pointer transition-colors">
+              Send Message
+            </button>
+          </div>
+        </div>
+
+      </div>
     </section>
 
-    <!-- DIRECTOR PROFILE SECTION -->
-    <section id="directorSection" class="bg-slate-900 border border-slate-800 rounded-xl p-6 md:p-8">
+    <!-- DIRECTOR AUTHORITY SECTION -->
+    <section class="card-dark rounded-2xl p-6 md:p-8">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-        <div class="relative">
-          <div class="aspect-square bg-slate-950 rounded-xl border-2 border-slate-800 overflow-hidden relative">
-            <img src="CG Sir.PNG" alt="Chanchal Ghosh" class="w-full h-full object-cover object-top">
-            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 p-4 text-center">
-              <span class="text-xs font-bold text-rose-500 uppercase tracking-widest block">Founder & Director</span>
-              <h4 class="font-bold text-white text-base uppercase">Chanchal Ghosh</h4>
+        <div>
+          <div class="aspect-square bg-slate-950 rounded-xl border border-slate-800 overflow-hidden relative">
+            <img src="CG Sir.PNG" alt="Director Chanchal Ghosh" class="w-full h-full object-cover object-top">
+            <div class="absolute bottom-0 inset-x-0 bg-slate-950/90 p-3 text-center border-t border-slate-800">
+              <span class="text-[10px] font-mono text-orange-400 uppercase font-bold">Founder & Director</span>
+              <h4 class="font-bold text-white text-sm uppercase">Chanchal Ghosh</h4>
             </div>
           </div>
         </div>
         <div class="md:col-span-2 space-y-4">
-          <span class="bg-rose-600/20 text-rose-400 border border-rose-600/30 text-[10px] font-bold uppercase px-3 py-1 rounded-full inline-block">
-            Big Boss Authority
+          <span class="bg-orange-500/10 text-orange-400 border border-orange-500/20 text-xs font-bold font-mono px-3 py-1 rounded-full inline-block uppercase">
+            Institutional Leadership
           </span>
-          <h3 class="text-2xl font-display font-bold text-white uppercase">Director's House Rules</h3>
+          <h3 class="text-2xl font-black text-white uppercase">Director's Academic Address</h3>
           <p class="text-slate-400 text-sm leading-relaxed">
-            "Every housemate and student must adhere to the strict discipline of visual arts. Attendance, daily sketch uploads, and participation in official evaluations are mandatory."
+            "Meera Smriti Sishu Ankan Siksha Kendra is dedicated to nurturing technical competence and artistic expression in our students. We maintain structured evaluations and personal guidance across all three regional centers."
           </p>
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-lg flex items-center justify-between font-mono text-xs">
-            <span class="text-slate-400">Official Direct Line:</span>
-            <span class="text-amber-400 font-bold text-sm">📞 82749 40238</span>
+          <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between font-mono text-xs">
+            <span class="text-slate-400">Direct Contact Line:</span>
+            <span class="text-orange-400 font-bold text-sm">📞 82749 40238</span>
           </div>
         </div>
       </div>
@@ -182,26 +200,30 @@
 
   <!-- FOOTER -->
   <footer class="bg-slate-950 border-t border-slate-800 py-6 text-center text-xs text-slate-500 font-mono">
-    <p>Big Boss House Portal &copy; 2026 Meera Smriti Siksha Kendra. Contact: 82749 40238.</p>
+    <p>Meera Smriti Sishu Ankan Siksha Kendra &copy; 2026. All rights reserved.</p>
   </footer>
 
   <script>
     const USER_KEY = 'meera_smriti_org_user';
-    const REG_STORAGE = 'meera_smriti_registrations';
 
     window.addEventListener('DOMContentLoaded', () => {
       const u = localStorage.getItem(USER_KEY);
       if(u) {
         try {
           const parsed = JSON.parse(u);
-          document.getElementById('userName').textContent = parsed.name || 'Housemate';
-          document.getElementById('userAvatar').textContent = parsed.avatar || 'H';
+          document.getElementById('userName').textContent = parsed.name || 'Student';
+          document.getElementById('userAvatar').textContent = parsed.avatar || 'S';
         } catch(e){}
+      }
+      
+      const customNotice = localStorage.getItem('meera_smriti_notice');
+      if(customNotice) {
+        document.getElementById('liveMarqueeText').textContent = customNotice;
       }
     });
 
-    function submitHouseTask(type) {
-      alert(`Big Boss Task "${type}" recorded successfully in the house ledger!`);
+    function logSubmission(type) {
+      alert(`Entry for "${type}" successfully transmitted to administration logs.`);
     }
   </script>
 </body>

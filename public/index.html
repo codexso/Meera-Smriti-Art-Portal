@@ -3,129 +3,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meera Smriti | Big Boss Private Portal Access</title>
+  <title>Portal Access | Meera Smriti Siksha Kendra</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Cinzel', 'serif'] },
-          colors: { eye: '#e11d48', gold: '#f59e0b' }
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: { brand: '#ea580c', 'brand-dark': '#c2410c' }
         }
       }
     }
   </script>
   <style>
-    body { background: #030712; color: #f3f4f6; }
-    .eye-glow { box-shadow: 0 0 35px rgba(225, 29, 72, 0.4); }
-    .gold-glow { box-shadow: 0 0 25px rgba(245, 158, 11, 0.3); }
-    .pulse-ring { animation: pulse 2s infinite; }
-    @keyframes pulse { 0% { transform: scale(0.98); opacity: 0.8; } 50% { transform: scale(1.02); opacity: 1; } 100% { transform: scale(0.98); opacity: 0.8; } }
+    body { background-color: #090d16; color: #f8fafc; }
+    .bold-card { background: linear-gradient(145deg, #0f172a, #1e293b); }
+    .glow-orange { box-shadow: 0 0 30px rgba(234, 88, 12, 0.25); }
   </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
 
-  <!-- Background Ambient Glow -->
-  <div class="absolute -top-32 -left-32 w-96 h-96 bg-rose-900/20 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-900/20 rounded-full blur-3xl pointer-events-none"></div>
+  <!-- Background Decorative Blur -->
+  <div class="absolute -top-32 -left-32 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
   <div class="max-w-md w-full z-10">
     
-    <!-- Big Boss Iconic Eye Header -->
+    <!-- Branding Header -->
     <div class="text-center mb-8">
-      <div class="relative inline-block">
-        <div class="w-24 h-24 bg-slate-900 rounded-full border-2 border-eye flex items-center justify-center mx-auto eye-glow pulse-ring">
-          <i class="fa-solid fa-eye text-4xl text-rose-500"></i>
-        </div>
-        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-rose-600 text-[9px] font-black tracking-widest text-white px-2 py-0.5 rounded uppercase">
-          Command Center
-        </span>
+      <div class="w-16 h-16 bg-gradient-to-tr from-orange-600 to-amber-500 rounded-2xl flex items-center justify-center mx-auto text-white text-2xl shadow-lg glow-orange mb-4">
+        <i class="fa-solid fa-graduation-cap"></i>
       </div>
-      <h1 class="font-display font-black text-2xl md:text-3xl tracking-widest uppercase text-white mt-4">
-        Big Boss <span class="text-rose-500">House</span>
+      <h1 class="text-2xl md:text-3xl font-black uppercase tracking-tight text-white">
+        Meera Smriti <span class="text-orange-500">Siksha Kendra</span>
       </h1>
-      <p class="text-[11px] text-slate-400 font-mono tracking-wider uppercase mt-1">Meera Smriti Sishu Ankan Siksha Kendra</p>
-      <p class="text-[10px] text-amber-500 font-mono mt-0.5"><i class="fa-solid fa-phone text-xs mr-1"></i> HQ Direct: 82749 40238</p>
+      <p class="text-xs text-slate-400 font-semibold tracking-wider uppercase mt-1">Fine Arts & Cultural Academy</p>
+      <p class="text-[11px] text-orange-400 font-mono mt-1"><i class="fa-solid fa-phone mr-1"></i> HQ Line: 82749 40238</p>
     </div>
 
-    <!-- Multi-Tab Auth Card -->
-    <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-6 shadow-2xl backdrop-blur-md">
+    <!-- Auth Module Container -->
+    <div class="bold-card border border-slate-800 rounded-2xl p-6 shadow-2xl backdrop-blur-lg">
       
-      <!-- Tab Navigation -->
-      <div class="grid grid-cols-3 gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800 mb-6 text-center text-[10px] font-bold uppercase tracking-wider">
-        <button id="tabLoginBtn" onclick="switchTab('login')" class="py-2.5 rounded text-white bg-rose-600 cursor-pointer transition-all">
-          <i class="fa-solid fa-user-check block text-sm mb-1"></i> Login
+      <!-- Multi-Tab Switcher -->
+      <div class="grid grid-cols-3 gap-1 bg-slate-950 p-1.5 rounded-xl border border-slate-800 mb-6 text-center text-xs font-bold uppercase tracking-wider">
+        <button id="tabLoginBtn" onclick="switchTab('login')" class="py-2.5 rounded-lg text-white bg-orange-600 transition-all cursor-pointer">
+          Login
         </button>
-        <button id="tabRegisterBtn" onclick="switchTab('register')" class="py-2.5 rounded text-slate-400 hover:text-white cursor-pointer transition-all">
-          <i class="fa-solid fa-user-plus block text-sm mb-1"></i> Register
+        <button id="tabRegisterBtn" onclick="switchTab('register')" class="py-2.5 rounded-lg text-slate-400 hover:text-white transition-all cursor-pointer">
+          Register
         </button>
-        <button id="tabAdminBtn" onclick="switchTab('admin')" class="py-2.5 rounded text-amber-500/70 hover:text-amber-400 cursor-pointer transition-all">
-          <i class="fa-solid fa-shield-halved block text-sm mb-1"></i> Admin
+        <button id="tabAdminBtn" onclick="switchTab('admin')" class="py-2.5 rounded-lg text-amber-500 hover:text-amber-400 transition-all cursor-pointer">
+          <i class="fa-solid fa-lock mr-1"></i> Admin
         </button>
       </div>
 
-      <!-- Member Login Form -->
+      <!-- User Login Form -->
       <form id="loginForm" onsubmit="handleUserLogin(event)" class="space-y-4">
         <div>
-          <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">User ID / Email</label>
-          <input type="text" id="loginUser" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-2 text-sm text-white focus:outline-none focus:border-rose-500 font-mono" placeholder="housemate@meera.org">
+          <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Email or Student ID</label>
+          <input type="text" id="loginUser" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-medium" placeholder="student@meerasmriti.org">
         </div>
         <div>
-          <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Passcode</label>
-          <input type="password" id="loginPass" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-2 text-sm text-white focus:outline-none focus:border-rose-500 font-mono" placeholder="••••••••">
+          <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Password</label>
+          <input type="password" id="loginPass" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-mono" placeholder="••••••••">
         </div>
-        <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 rounded uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer">
-          Enter Main House <i class="fa-solid fa-right-to-bracket ml-1"></i>
+        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-lg uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer">
+          Access Portal <i class="fa-solid fa-arrow-right-to-bracket ml-1"></i>
         </button>
       </form>
 
       <!-- Student Registration Form -->
       <form id="registerForm" onsubmit="handleUserRegister(event)" class="space-y-4 hidden">
         <div>
-          <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Full Legal Name</label>
-          <input type="text" id="regName" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-2 text-sm text-white focus:outline-none focus:border-rose-500" placeholder="Full Name">
+          <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Full Candidate Name</label>
+          <input type="text" id="regName" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-medium" placeholder="First Last Name">
         </div>
         <div>
-          <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Contact Email / Phone</label>
-          <input type="text" id="regContact" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-2 text-sm text-white focus:outline-none focus:border-rose-500" placeholder="8274940238 or email">
+          <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Contact Number / Email</label>
+          <input type="text" id="regContact" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-medium" placeholder="8274940238">
         </div>
         <div>
-          <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Set Private Passcode</label>
-          <input type="password" id="regPass" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-2 text-sm text-white focus:outline-none focus:border-rose-500 font-mono" placeholder="••••••••">
+          <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Create Access Password</label>
+          <input type="password" id="regPass" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-mono" placeholder="••••••••">
         </div>
-        <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 rounded uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer">
-          Submit Nomination Application <i class="fa-solid fa-paper-plane ml-1"></i>
+        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-lg uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer">
+          Submit Enrollment <i class="fa-solid fa-paper-plane ml-1"></i>
         </button>
       </form>
 
-      <!-- Admin Dedicated Gate -->
+      <!-- Secure Admin Gate -->
       <form id="adminForm" onsubmit="handleAdminLogin(event)" class="space-y-4 hidden">
-        <div class="bg-amber-950/40 border border-amber-800/50 p-3 rounded text-[11px] text-amber-200/80 mb-2 flex items-center gap-2">
-          <i class="fa-solid fa-triangle-exclamation text-amber-500 text-base"></i>
-          <span>Restricted Command Desk for Director Chanchal Ghosh.</span>
+        <div class="bg-amber-950/30 border border-amber-800/40 p-3 rounded-lg text-xs text-amber-300 flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-amber-500 text-base"></i>
+          <span>Restricted Portal for Director Chanchal Ghosh.</span>
         </div>
         <div>
-          <label class="block text-[10px] font-bold uppercase text-amber-400 mb-1">Admin Username</label>
-          <input type="text" id="adminUsername" required class="w-full bg-slate-950 border border-amber-900/60 rounded px-4 py-2 text-sm text-amber-100 focus:outline-none focus:border-amber-500 font-mono" placeholder="Money">
+          <label class="block text-[10px] font-extrabold uppercase text-amber-400 mb-1 tracking-wider">Admin ID</label>
+          <input type="text" id="adminUsername" required class="w-full bg-slate-950 border border-amber-900/60 rounded-lg px-4 py-2.5 text-sm text-amber-100 focus:outline-none focus:border-amber-500 font-mono" placeholder="Money">
         </div>
         <div>
-          <label class="block text-[10px] font-bold uppercase text-amber-400 mb-1">Admin Passcode</label>
-          <input type="password" id="adminPassword" required class="w-full bg-slate-950 border border-amber-900/60 rounded px-4 py-2 text-sm text-amber-100 focus:outline-none focus:border-amber-500 font-mono" placeholder="Money@220077">
+          <label class="block text-[10px] font-extrabold uppercase text-amber-400 mb-1 tracking-wider">Security Password</label>
+          <input type="password" id="adminPassword" required class="w-full bg-slate-950 border border-amber-900/60 rounded-lg px-4 py-2.5 text-sm text-amber-100 focus:outline-none focus:border-amber-500 font-mono" placeholder="Money@220077">
         </div>
-        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-slate-950 font-black py-2.5 rounded uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer">
-          Unlock Command Panel <i class="fa-solid fa-key ml-1"></i>
+        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-3 rounded-lg uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer">
+          Unlock Executive Dashboard <i class="fa-solid fa-key ml-1"></i>
         </button>
       </form>
 
     </div>
 
-    <!-- Quick Footer Links -->
-    <div class="mt-6 text-center text-xs text-slate-500 font-mono flex justify-between items-center px-2">
-      <span>Private Portal Use</span>
-      <a href="main.html" class="text-rose-400 hover:underline flex items-center gap-1">
-        Public View <i class="fa-solid fa-arrow-right"></i>
+    <!-- Links Footer -->
+    <div class="mt-6 text-center text-xs text-slate-500 font-semibold flex justify-between items-center px-2">
+      <span>Official Portal System &copy; 2026</span>
+      <a href="main.html" class="text-orange-400 hover:underline flex items-center gap-1 font-bold">
+        Public Portal <i class="fa-solid fa-arrow-right"></i>
       </a>
     </div>
 
@@ -145,32 +138,30 @@
       const tabRegisterBtn = document.getElementById('tabRegisterBtn');
       const tabAdminBtn = document.getElementById('tabAdminBtn');
 
-      // Reset hidden
       loginForm.classList.add('hidden');
       regForm.classList.add('hidden');
       adminForm.classList.add('hidden');
 
-      // Reset button styling
-      tabLoginBtn.className = "py-2.5 rounded text-slate-400 hover:text-white cursor-pointer transition-all";
-      tabRegisterBtn.className = "py-2.5 rounded text-slate-400 hover:text-white cursor-pointer transition-all";
-      tabAdminBtn.className = "py-2.5 rounded text-amber-500/70 hover:text-amber-400 cursor-pointer transition-all";
+      tabLoginBtn.className = "py-2.5 rounded-lg text-slate-400 hover:text-white transition-all cursor-pointer";
+      tabRegisterBtn.className = "py-2.5 rounded-lg text-slate-400 hover:text-white transition-all cursor-pointer";
+      tabAdminBtn.className = "py-2.5 rounded-lg text-amber-500 hover:text-amber-400 transition-all cursor-pointer";
 
       if(tab === 'login') {
         loginForm.classList.remove('hidden');
-        tabLoginBtn.className = "py-2.5 rounded text-white bg-rose-600 cursor-pointer transition-all";
+        tabLoginBtn.className = "py-2.5 rounded-lg text-white bg-orange-600 transition-all cursor-pointer";
       } else if(tab === 'register') {
         regForm.classList.remove('hidden');
-        tabRegisterBtn.className = "py-2.5 rounded text-white bg-rose-600 cursor-pointer transition-all";
+        tabRegisterBtn.className = "py-2.5 rounded-lg text-white bg-orange-600 transition-all cursor-pointer";
       } else if(tab === 'admin') {
         adminForm.classList.remove('hidden');
-        tabAdminBtn.className = "py-2.5 rounded text-slate-950 bg-amber-500 font-bold cursor-pointer transition-all";
+        tabAdminBtn.className = "py-2.5 rounded-lg text-slate-950 bg-amber-500 font-bold transition-all cursor-pointer";
       }
     }
 
     function handleUserLogin(e) {
       e.preventDefault();
-      const userVal = document.getElementById('loginUser').value;
-      const user = { name: userVal.split('@')[0], email: userVal, avatar: userVal.charAt(0).toUpperCase() };
+      const val = document.getElementById('loginUser').value;
+      const user = { name: val.split('@')[0], email: val, avatar: val.charAt(0).toUpperCase() };
       localStorage.setItem(USER_KEY, JSON.stringify(user));
       window.location.href = 'main.html';
     }
@@ -186,7 +177,7 @@
       localStorage.setItem(REG_STORAGE, JSON.stringify(existing));
       localStorage.setItem(USER_KEY, JSON.stringify(newUser));
       
-      alert('Registration successful! Directing to Big Boss Main House...');
+      alert('Registration Recorded Successfully! Entering Main Dashboard...');
       window.location.href = 'main.html';
     }
 
@@ -199,7 +190,7 @@
         localStorage.setItem(ADMIN_AUTH_KEY, 'true');
         window.location.href = 'admin.html';
       } else {
-        alert('Access Denied! Invalid Big Boss Admin Credentials.');
+        alert('Authentication Failed: Invalid Administrator Credentials.');
       }
     }
   </script>

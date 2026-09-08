@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exhibition Gallery | Meera Smriti</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { background-color: #0b0f19; color: #f8fafc; font-family: 'Inter', sans-serif; }
+    .card-dark { background: #111827; border: 1px solid #1f2937; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- HEADER NAVIGATION -->
+  <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="main.html" class="w-10 h-10 rounded-xl bg-orange-600 text-white font-black flex items-center justify-center text-xl shadow-lg">
+          <i class="fa-solid fa-palette"></i>
+        </a>
+        <div>
+          <h1 class="font-black text-lg text-white uppercase tracking-tight">Meera Smriti <span class="text-orange-500">Siksha Kendra</span></h1>
+          <p class="text-[10px] text-slate-400 font-mono uppercase">Annual Exhibition Archive</p>
+        </div>
+      </div>
+      <nav class="flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-300">
+        <a href="main.html" class="hover:text-orange-400">Dashboard</a>
+        <a href="courses.html" class="hover:text-orange-400">Curriculum</a>
+        <a href="gallery.html" class="text-orange-500">Exhibitions</a>
+        <a href="contact.html" class="hover:text-orange-400">Contact Wings</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow space-y-8">
+    <div class="border-b border-slate-800 pb-6">
+      <h2 class="text-3xl font-black text-white uppercase tracking-tight">Student Exhibitions</h2>
+      <p class="text-xs text-slate-400 mt-1">Annual exhibitions hosted across Rishra, Konnagar, and Uttarpara centers</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <div class="card-dark rounded-xl overflow-hidden">
+        <div class="h-48 bg-slate-950 flex items-center justify-center text-slate-700 text-4xl border-b border-slate-800">
+          <i class="fa-solid fa-image"></i>
+        </div>
+        <div class="p-4">
+          <h4 class="font-bold text-white uppercase text-sm">Annual Landscape Gallery</h4>
+          <p class="text-xs text-slate-400 mt-1">Water Color Works | Rishra Center Exhibition</p>
+        </div>
+      </div>
+
+      <div class="card-dark rounded-xl overflow-hidden">
+        <div class="h-48 bg-slate-950 flex items-center justify-center text-slate-700 text-4xl border-b border-slate-800">
+          <i class="fa-solid fa-paintbrush"></i>
+        </div>
+        <div class="p-4">
+          <h4 class="font-bold text-white uppercase text-sm">Acrylic Canvas Display</h4>
+          <p class="text-xs text-slate-400 mt-1">Senior Diploma Works | Konnagar Branch</p>
+        </div>
+      </div>
+
+      <div class="card-dark rounded-xl overflow-hidden">
+        <div class="h-48 bg-slate-950 flex items-center justify-center text-slate-700 text-4xl border-b border-slate-800">
+          <i class="fa-solid fa-award"></i>
+        </div>
+        <div class="p-4">
+          <h4 class="font-bold text-white uppercase text-sm">Regional Art Competition</h4>
+          <p class="text-xs text-slate-400 mt-1">Award Ceremony & Showcase | Uttarpara</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="bg-slate-950 border-t border-slate-800 py-6 text-center text-xs text-slate-500 font-mono">
+    Meera Smriti Sishu Ankan Siksha Kendra &copy; 2026. Exhibition Archives.
+  </footer>
+</body>
+</html>
