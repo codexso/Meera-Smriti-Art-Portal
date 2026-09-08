@@ -1,135 +1,153 @@
-const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
-const bcrypt = require('bcryptjs');
-const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
-const path = require('path');
-const crypto = require('crypto');
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
+// Middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
+// Serve static public assets
 app.use(express.static(path.join(__dirname, 'public')));
 
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 20,
-    message: { error: 'Too many requests. Please try again later.' }
-});
-app.use('/api/login', limiter);
-app.use('/api/admin/verify', limiter);
+const PORT = process.env.PORT || 5000;
+const JWT_SECRET = process.env.JWT_SECRET || 'meera_smriti_default_jwt_secret_1989';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/meera_smriti_db';
 
-const db = new sqlite3.Database('./database.sqlite', (err) => {
-    if (err) console.error("Database error:", err.message);
-    else console.log("Connected to SQLite database securely.");
-});
+// Database Schema
+const userSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true, trim: true },
+    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+    password: { type: String, required: true, minlength: 6 },
+    role: { type: String, enum: ['student', 'admin'], default: 'student' }
+  },
+  { timestamps: true }
+);
 
-db.serialize(() => {
-    db.run(`CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        email TEXT UNIQUE,
-        password TEXT,
-        role TEXT DEFAULT 'user'
-    )`);
+const User = mongoose.model('User', userSchema);
 
-    db.run(`CREATE TABLE IF NOT EXISTS admissions (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        student_name TEXT,
-        guardian_name TEXT,
-        age INTEGER,
-        phone TEXT,
-        email TEXT,
-        branch TEXT,
-        course TEXT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )`);
+// Database Connection
+mongoose
+  .connect(MONGO_URI)
+  .then(() => console.log('MongoDB Connected Successfully'))
+  .catch((err) => console.error('MongoDB Connection Error:', err));
 
-    db.run(`CREATE TABLE IF NOT EXISTS licenses (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        license_number TEXT UNIQUE,
-        student_name TEXT,
-        status TEXT
-    )`);
+// Auth Middleware
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
 
-    db.get(`SELECT * FROM licenses WHERE license_number = ?`, ['SOHAM-2026-001'], (err, row) => {
-        if (!row) {
-            db.run(`INSERT INTO licenses (license_number, student_name, status) VALUES (?, ?, ?)`, 
-                ['SOHAM-2026-001', 'Soham Basu', 'Active & Verified']);
-        }
-    });
-});
+  if (!token) return res.status(401).json({ message: 'Authentication required' });
+
+  jwt.verify(token, JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ message: 'Invalid or expired session' });
+    req.user = user;
+    next();
+  });
+};
+
+// --- API ENDPOINTS ---
 
 app.post('/api/register', async (req, res) => {
-    try {
-        const { name, email, password } = req.body;
-        if (!name || !email || !password) return res.status(400).json({ error: 'All fields are required.' });
-        if (password.length < 4) return res.status(400).json({ error: 'Password must be at least 4 characters.' });
+  try {
+    const { name, email, password } = req.body;
 
-        const hashedPassword = await bcrypt.hash(password, 10);
-        db.run(`INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)`, 
-            [name, email, hashedPassword, 'user'], function(err) {
-            if (err) {
-                if (err.message.includes('UNIQUE constraint failed')) return res.status(400).json({ error: 'Email is already registered.' });
-                return res.status(500).json({ error: 'Database error during registration.' });
-            }
-            res.json({ success: true, message: 'Account created successfully.' });
-        });
-    } catch (err) {
-        res.status(500).json({ error: 'Server error during registration.' });
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: 'All fields are required.' });
     }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email address is already registered.' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await User.create({ name, email, password: hashedPassword });
+
+    const token = jwt.sign(
+      { id: newUser._id, email: newUser.email, name: newUser.name, role: newUser.role },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.status(201).json({
+      message: 'Registration successful',
+      token,
+      user: { id: newUser._id, name: newUser.name, email: newUser.email, role: newUser.role },
+      redirectTo: 'main.html'
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error during registration.', error: err.message });
+  }
 });
 
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
+  try {
     const { email, password } = req.body;
-    if (!email || !password) return res.status(400).json({ error: 'Email and password are required.' });
 
-    db.get(`SELECT * FROM users WHERE email = ?`, [email], async (err, user) => {
-        if (err || !user) return res.status(401).json({ error: 'Invalid email or password.' });
-        const match = await bcrypt.compare(password, user.password);
-        if (!match) return res.status(401).json({ error: 'Invalid email or password.' });
-        res.json({ success: true, user: { name: user.name, email: user.email, role: user.role } });
-    });
-});
-
-app.post('/api/admissions', (req, res) => {
-    const { student_name, guardian_name, age, phone, email, branch, course } = req.body;
-    if (!student_name || !guardian_name || !age || !phone || !email || !branch || !course) {
-        return res.status(400).json({ error: 'All admission fields are required.' });
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required.' });
     }
 
-    db.run(`INSERT INTO admissions (student_name, guardian_name, age, phone, email, branch, course) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        [student_name, guardian_name, age, phone, email, branch, course], function(err) {
-        if (err) return res.status(500).json({ error: 'Failed to save admission record.' });
-        res.json({ success: true, admissionId: this.lastID });
-    });
-});
-
-app.post('/api/admin/verify', (req, res) => {
-    const { passcode } = req.body;
-    if (passcode === 'Money@220077') {
-        const token = crypto.randomBytes(32).toString('hex');
-        return res.json({ success: true, token });
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password.' });
     }
-    res.status(401).json({ error: 'Incorrect admin passcode.' });
-});
 
-app.post('/api/verify-license', (req, res) => {
-    const { licenseNumber } = req.body;
-    if (!licenseNumber) return res.status(400).json({ error: 'License number is required.' });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid email or password.' });
+    }
 
-    db.get(`SELECT * FROM licenses WHERE license_number = ?`, [licenseNumber], (err, row) => {
-        if (row) {
-            res.json({ success: true, student: row.student_name, status: row.status });
-        } else {
-            res.status(404).json({ success: false, error: 'License key not found or invalid.' });
-        }
+    const token = jwt.sign(
+      { id: user._id, email: user.email, name: user.name, role: user.role },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.json({
+      message: 'Login successful',
+      token,
+      user: { id: user._id, name: user.name, email: user.email, role: user.role },
+      redirectTo: 'main.html'
     });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error during login.', error: err.message });
+  }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+app.get('/api/me', authenticateToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    res.json({ user });
+  } catch (err) {
+    res.status(500).json({ message: 'Error retrieving user profile.' });
+  }
+});
+
+// Serve frontend pages directly
+app.get('/main.html', (req, res) => res.sendFile(path.join(__dirname, 'public', 'main.html')));
+app.get('/courses.html', (req, res) => res.sendFile(path.join(__dirname, 'public', 'courses.html')));
+app.get('/gallery.html', (req, res) => res.sendFile(path.join(__dirname, 'public', 'gallery.html')));
+app.get('/contact.html', (req, res) => res.sendFile(path.join(__dirname, 'public', 'contact.html')));
+app.get('/admin.html', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
 });

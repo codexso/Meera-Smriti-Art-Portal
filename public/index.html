@@ -3,298 +3,237 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up / Log In | Meera Smriti Siksha Kendra</title>
-  
-  <!-- Tailwind CSS & FontAwesome -->
+  <title>Student Portal | Meera Smriti Siksha Kendra</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
   <script>
     tailwind.config = {
       darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: { 
-            sans: ['Plus Jakarta Sans', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace']
-          }
-        }
-      }
+      theme: { extend: { fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] } } }
     }
   </script>
-  
-  <style>
-    body { 
-      background-color: #030712; 
-      color: #f3f4f6; 
-      background-image: radial-gradient(at 50% 0%, rgba(249, 115, 22, 0.08) 0px, transparent 60%);
-      background-attachment: fixed;
-    }
-
-    .card-dark { 
-      background: rgba(15, 23, 42, 0.75); 
-      border: 1px solid rgba(255, 255, 255, 0.08); 
-      backdrop-filter: blur(12px);
-    }
-
-    .tab-active {
-      background-color: #f97316;
-      color: #ffffff !important;
-      border-color: #f97316;
-      box-shadow: 0 4px 14px 0 rgba(249, 115, 22, 0.35);
-    }
-
-    @keyframes slideDown {
-      from { transform: translateY(-20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    .animate-toast {
-      animation: slideDown 0.3s ease forwards;
-    }
-  </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-orange-500 selection:text-white">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-orange-500 selection:text-white">
 
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
-
-  <!-- HEADER NAVIGATION -->
-  <header class="bg-slate-950/90 border-b border-slate-800/80 sticky top-0 z-40 backdrop-blur-md">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <a href="main.html" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full overflow-hidden border border-orange-500/50 p-0.5 bg-white flex-shrink-0">
-          <img src="logo.jfif" alt="Meera Smriti Logo" class="w-full h-full object-contain rounded-full">
+  <!-- TOP HEADER BANNER -->
+  <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-orange-600 flex items-center justify-center font-extrabold text-white text-base shadow-lg shadow-orange-950/50">
+          MS
         </div>
         <div>
-          <h1 class="font-bold text-sm sm:text-base text-white uppercase tracking-tight">
-            Meera Smriti <span class="text-orange-500">Siksha Kendra</span>
-          </h1>
-          <p class="text-[9px] text-slate-400 font-mono">Student & Parent Portal</p>
+          <h1 class="font-black text-sm uppercase tracking-wide text-white">Meera Smriti <span class="text-orange-500">Siksha Kendra</span></h1>
+          <p class="text-[9px] font-mono text-slate-400">Estd. 1989 &bull; Fine Arts Portal</p>
         </div>
-      </a>
-
-      <!-- Desktop Links -->
-      <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-300">
-        <a href="main.html" class="hover:text-orange-400 transition-colors">Home</a>
-        <a href="courses.html" class="hover:text-orange-400 transition-colors">Courses</a>
-        <a href="gallery.html" class="hover:text-orange-400 transition-colors">Exhibition</a>
-        <a href="contact.html" class="hover:text-orange-400 transition-colors">Contact</a>
-      </nav>
-
-      <a href="admin.html" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl uppercase tracking-wider transition-all flex items-center gap-1.5">
-        <i class="fa-solid fa-lock text-[10px]"></i> Admin
-      </a>
+      </div>
+      <span class="text-xs font-mono bg-orange-500/10 border border-orange-500/20 text-orange-400 px-3 py-1 rounded-full hidden sm:inline-block">
+        Admissions Open 2026
+      </span>
     </div>
   </header>
 
-  <!-- MAIN AUTHENTICATION CARD -->
-  <main class="max-w-md mx-auto px-4 py-8 w-full flex-grow flex flex-col justify-center space-y-6">
-
-    <!-- PAGE TITLE HEADER -->
-    <div class="text-center space-y-1.5">
-      <span class="inline-block bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[11px] font-mono font-bold px-3 py-1 rounded-full uppercase">
-        Academy Access
-      </span>
-      <h2 id="mainHeaderTitle" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-        Sign Up <span class="text-slate-500">/</span> Log In
+  <!-- MAIN LOGIN & REGISTER SECTION -->
+  <main class="max-w-6xl mx-auto px-4 py-10 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
+    
+    <!-- LEFT HERO BANNER -->
+    <div class="lg:col-span-7 space-y-6">
+      <div class="inline-flex items-center gap-2 bg-slate-900 border border-slate-800 text-orange-400 font-mono text-xs px-3 py-1.5 rounded-full">
+        <span class="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
+        Official Fine Arts Academy
+      </div>
+      <h2 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight leading-tight">
+        Master The Art Of <br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-500">
+          Drawing & Painting
+        </span>
       </h2>
-      <p id="mainHeaderDesc" class="text-xs text-slate-400 font-mono">
-        To access all academy portal features
+      <p class="text-slate-300 text-sm leading-relaxed max-w-xl">
+        Access your student account to check diploma examination dates, submit artwork for annual exhibitions, and track your 5-year certification syllabus.
       </p>
+
+      <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800/80 max-w-lg">
+        <div>
+          <p class="text-2xl font-black text-white font-mono">35+</p>
+          <p class="text-[10px] uppercase font-mono text-slate-400">Years Experience</p>
+        </div>
+        <div>
+          <p class="text-2xl font-black text-orange-400 font-mono">100%</p>
+          <p class="text-[10px] uppercase font-mono text-slate-400">Exam Success</p>
+        </div>
+        <div>
+          <p class="text-2xl font-black text-amber-400 font-mono">5000+</p>
+          <p class="text-[10px] uppercase font-mono text-slate-400">Students Passed</p>
+        </div>
+      </div>
     </div>
 
-    <!-- MAIN CARD -->
-    <div class="card-dark rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
+    <!-- RIGHT FORM CARD -->
+    <div class="lg:col-span-5 bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl space-y-6">
       
-      <!-- TAB TOGGLE -->
-      <div class="grid grid-cols-2 gap-2 bg-slate-950/80 p-1.5 rounded-2xl border border-slate-800">
-        <button onclick="switchTab('signup')" id="tab-signup" class="tab-btn tab-active flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white">
-          <i class="fa-solid fa-user-plus text-xs"></i>
-          <span>Sign Up</span>
+      <!-- TOGGLE FORM BUTTONS -->
+      <div class="flex rounded-2xl bg-slate-950 p-1.5 border border-slate-800 font-mono text-xs">
+        <button id="showLoginBtn" onclick="switchTab('login')" class="flex-1 py-2.5 rounded-xl font-bold bg-orange-600 text-white transition-all shadow-md">
+          Sign In
         </button>
-
-        <button onclick="switchTab('login')" id="tab-login" class="tab-btn flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white">
-          <i class="fa-solid fa-right-to-bracket text-xs"></i>
-          <span>Log In</span>
+        <button id="showRegisterBtn" onclick="switchTab('register')" class="flex-1 py-2.5 rounded-xl font-bold text-slate-400 hover:text-white transition-all">
+          Register
         </button>
       </div>
 
-      <!-- FORM 1: SIGN UP -->
-      <form id="form-signup" onsubmit="handleAuthSubmit(event, 'Sign Up')" class="space-y-4">
-        
-        <!-- AVATAR UPLOAD PLACEHOLDER -->
-        <div class="flex justify-center mb-1">
-          <div class="relative w-16 h-16 bg-slate-950 rounded-full flex items-center justify-center border border-slate-800">
-            <i class="fa-solid fa-user text-xl text-slate-500"></i>
-            <button type="button" class="absolute bottom-0 right-0 bg-orange-500 text-slate-950 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shadow-md hover:bg-orange-400 transition-colors">
-              <i class="fa-solid fa-plus"></i>
-            </button>
+      <!-- DYNAMIC ALERT CONTAINER -->
+      <div id="alertBox" class="hidden p-3.5 rounded-xl text-xs font-mono border"></div>
+
+      <!-- SIGN IN FORM -->
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1">Email Address</label>
+          <div class="relative">
+            <i class="fa-solid fa-envelope absolute left-3.5 top-3 text-slate-500 text-xs"></i>
+            <input type="email" id="loginEmail" placeholder="student@meerasmriti.org" required class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-600 focus:border-orange-500 focus:outline-none transition-colors">
           </div>
         </div>
 
         <div>
-          <label class="block text-[11px] font-mono text-slate-400 mb-1">Username / Student Name <span class="text-orange-400">*</span></label>
-          <input type="text" required placeholder="e.g. Rahul Sharma" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-mono text-slate-400 mb-1">Email Address <span class="text-orange-400">*</span></label>
-          <input type="email" required placeholder="student@example.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-mono text-slate-400 mb-1">Password <span class="text-orange-400">*</span></label>
-          <input type="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
-        </div>
-
-        <div class="flex items-center gap-2 pt-1">
-          <input type="checkbox" id="terms" required class="rounded bg-slate-950 border-slate-800 text-orange-500 focus:ring-orange-500 w-3.5 h-3.5">
-          <label for="terms" class="text-[11px] text-slate-400">
-            I agree to all <a href="#" class="text-orange-400 underline hover:text-orange-300">Terms & Conditions</a>
-          </label>
-        </div>
-
-        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50 mt-2">
-          Create Account
-        </button>
-      </form>
-
-      <!-- FORM 2: LOG IN -->
-      <form id="form-login" onsubmit="handleAuthSubmit(event, 'Log In')" class="space-y-4 hidden">
-        <div>
-          <label class="block text-[11px] font-mono text-slate-400 mb-1">Email or Username <span class="text-orange-400">*</span></label>
-          <input type="text" required placeholder="Enter email or username" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
-        </div>
-
-        <div>
-          <div class="flex justify-between items-center mb-1">
-            <label class="block text-[11px] font-mono text-slate-400">Password <span class="text-orange-400">*</span></label>
-            <a href="#" class="text-[10px] font-mono text-orange-400 hover:underline">Forgot password?</a>
+          <label class="block text-xs font-mono text-slate-300 mb-1">Password</label>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-3.5 top-3 text-slate-500 text-xs"></i>
+            <input type="password" id="loginPassword" placeholder="••••••••" required class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-600 focus:border-orange-500 focus:outline-none transition-colors">
           </div>
-          <input type="password" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
         </div>
 
-        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50 mt-2">
-          Log In To Account
+        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50 flex items-center justify-center gap-2">
+          <span>Enter Academy Portal</span>
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
         </button>
       </form>
 
-      <!-- SOCIAL AUTHENTICATION SECTION -->
-      <div class="pt-4 border-t border-slate-800/80 text-center space-y-3">
-        <p class="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Or continue with</p>
-        
-        <div class="flex justify-center items-center gap-3">
-          <button type="button" onclick="socialToast('Facebook')" class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-orange-400 hover:border-orange-500/50 transition-all">
-            <i class="fa-brands fa-facebook-f text-xs"></i>
-          </button>
-          <button type="button" onclick="socialToast('Google')" class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-orange-400 hover:border-orange-500/50 transition-all">
-            <i class="fa-brands fa-google text-xs"></i>
-          </button>
-          <button type="button" onclick="socialToast('Twitter')" class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-orange-400 hover:border-orange-500/50 transition-all">
-            <i class="fa-brands fa-twitter text-xs"></i>
-          </button>
+      <!-- REGISTER FORM -->
+      <form id="registerForm" class="space-y-4 hidden">
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1">Full Student Name</label>
+          <div class="relative">
+            <i class="fa-solid fa-user absolute left-3.5 top-3 text-slate-500 text-xs"></i>
+            <input type="text" id="regName" placeholder="Aniket Das" required class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-600 focus:border-orange-500 focus:outline-none transition-colors">
+          </div>
         </div>
 
-        <p class="text-[11px] text-slate-400 pt-2 font-mono">
-          <span id="footerText">Already have an account?</span>
-          <button type="button" id="btnFooterToggle" onclick="toggleMode()" class="text-orange-400 font-bold hover:underline ml-1">Log In</button>
-        </p>
-      </div>
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1">Email Address</label>
+          <div class="relative">
+            <i class="fa-solid fa-envelope absolute left-3.5 top-3 text-slate-500 text-xs"></i>
+            <input type="email" id="regEmail" placeholder="student@meerasmriti.org" required class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-600 focus:border-orange-500 focus:outline-none transition-colors">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono text-slate-300 mb-1">Create Password (Min 6 chars)</label>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-3.5 top-3 text-slate-500 text-xs"></i>
+            <input type="password" id="regPassword" minlength="6" placeholder="••••••••" required class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-600 focus:border-orange-500 focus:outline-none transition-colors">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50 flex items-center justify-center gap-2">
+          <span>Create Student Account</span>
+          <i class="fa-solid fa-user-plus text-[10px]"></i>
+        </button>
+      </form>
 
     </div>
-
-    <!-- FOOTER HELP NOTE -->
-    <div class="text-center text-xs text-slate-500 font-mono">
-      Need help? Contact administration or visit our <a href="contact.html" class="text-orange-400 underline">Contact Page</a>.
-    </div>
-
   </main>
 
-  <!-- FOOTER -->
-  <footer class="bg-slate-950 border-t border-slate-800/80 py-6 mt-8">
-    <div class="max-w-6xl mx-auto px-4 text-center text-xs font-mono text-slate-500 space-y-1">
-      <p><strong>Meera Smriti Sishu Ankan Siksha Kendra</strong> &copy; 2026</p>
-      <p class="text-[10px] text-slate-600">Estd. 1989 &bull; Fine Arts & Board Exam Preparation</p>
-    </div>
+  <footer class="border-t border-slate-800/80 py-6 text-center text-xs font-mono text-slate-500">
+    Meera Smriti Sishu Ankan Siksha Kendra &copy; 2026
   </footer>
 
-  <!-- CONTROLLERS SCRIPT -->
   <script>
-    let currentMode = 'signup';
-
-    function showToast(title, message) {
-      const container = document.getElementById('toastContainer');
-      const toast = document.createElement('div');
-      toast.className = 'animate-toast card-dark border border-orange-500/50 p-4 rounded-2xl shadow-2xl pointer-events-auto flex items-start gap-3';
-      toast.innerHTML = `
-        <i class="fa-solid fa-circle-check text-orange-400 text-base mt-0.5"></i>
-        <div>
-          <h5 class="text-xs font-bold text-white uppercase tracking-wider">${title}</h5>
-          <p class="text-xs text-slate-300 mt-0.5">${message}</p>
-        </div>
-      `;
-      container.appendChild(toast);
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transition = 'opacity 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-      }, 4000);
+    // Redirect if already logged in
+    if (localStorage.getItem('token')) {
+      window.location.href = 'main.html';
     }
 
-    function switchTab(type) {
-      currentMode = type;
-      const signupBtn = document.getElementById('tab-signup');
-      const loginBtn = document.getElementById('tab-login');
-      const signupForm = document.getElementById('form-signup');
-      const loginForm = document.getElementById('form-login');
-      const headerTitle = document.getElementById('mainHeaderTitle');
-      const headerDesc = document.getElementById('mainHeaderDesc');
-      const footerText = document.getElementById('footerText');
-      const btnFooterToggle = document.getElementById('btnFooterToggle');
+    function switchTab(tab) {
+      const loginForm = document.getElementById('loginForm');
+      const regForm = document.getElementById('registerForm');
+      const loginBtn = document.getElementById('showLoginBtn');
+      const regBtn = document.getElementById('showRegisterBtn');
+      
+      document.getElementById('alertBox').classList.add('hidden');
 
-      if (type === 'signup') {
-        signupBtn.classList.add('tab-active');
-        signupBtn.classList.remove('text-slate-400');
-        loginBtn.classList.remove('tab-active');
-        loginBtn.classList.add('text-slate-400');
-
-        signupForm.classList.remove('hidden');
-        loginForm.classList.add('hidden');
-
-        headerTitle.innerHTML = 'Sign Up <span class="text-slate-500">/</span> Log In';
-        headerDesc.innerText = 'To access all academy portal features';
-        footerText.innerText = 'Already have an account?';
-        btnFooterToggle.innerText = 'Log In';
-      } else {
-        loginBtn.classList.add('tab-active');
-        loginBtn.classList.remove('text-slate-400');
-        signupBtn.classList.remove('tab-active');
-        signupBtn.classList.add('text-slate-400');
-
+      if (tab === 'login') {
         loginForm.classList.remove('hidden');
-        signupForm.classList.add('hidden');
-
-        headerTitle.innerHTML = 'Welcome Back!';
-        headerDesc.innerText = 'Good to see you back, please sign in';
-        footerText.innerText = "Don't have an account?";
-        btnFooterToggle.innerText = 'Sign Up';
+        regForm.classList.add('hidden');
+        loginBtn.className = 'flex-1 py-2.5 rounded-xl font-bold bg-orange-600 text-white transition-all shadow-md';
+        regBtn.className = 'flex-1 py-2.5 rounded-xl font-bold text-slate-400 hover:text-white transition-all';
+      } else {
+        loginForm.classList.add('hidden');
+        regForm.classList.remove('hidden');
+        regBtn.className = 'flex-1 py-2.5 rounded-xl font-bold bg-orange-600 text-white transition-all shadow-md';
+        loginBtn.className = 'flex-1 py-2.5 rounded-xl font-bold text-slate-400 hover:text-white transition-all';
       }
     }
 
-    function toggleMode() {
-      switchTab(currentMode === 'signup' ? 'login' : 'signup');
+    function showAlert(msg, isError = true) {
+      const box = document.getElementById('alertBox');
+      box.classList.remove('hidden');
+      box.innerText = msg;
+      if (isError) {
+        box.className = 'p-3.5 rounded-xl text-xs font-mono border bg-red-950/50 border-red-800 text-red-300';
+      } else {
+        box.className = 'p-3.5 rounded-xl text-xs font-mono border bg-emerald-950/50 border-emerald-800 text-emerald-300';
+      }
     }
 
-    function handleAuthSubmit(e, actionType) {
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      showToast(`${actionType} Successful!`, `Welcome to Meera Smriti Siksha Kendra portal.`);
-      e.target.reset();
-    }
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: document.getElementById('loginEmail').value,
+            password: document.getElementById('loginPassword').value
+          })
+        });
+        const data = await response.json();
+        if (response.ok) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          window.location.href = data.redirectTo || 'main.html';
+        } else {
+          showAlert(data.message || 'Login failed');
+        }
+      } catch (err) {
+        showAlert('Network or server error.');
+      }
+    });
 
-    function socialToast(provider) {
-      showToast('Social Auth Initialized', `Connecting via ${provider}...`);
-    }
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: document.getElementById('regName').value,
+            email: document.getElementById('regEmail').value,
+            password: document.getElementById('regPassword').value
+          })
+        });
+        const data = await response.json();
+        if (response.ok) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          window.location.href = data.redirectTo || 'main.html';
+        } else {
+          showAlert(data.message || 'Registration failed');
+        }
+      } catch (err) {
+        showAlert('Network or server error.');
+      }
+    });
   </script>
 </body>
 </html>

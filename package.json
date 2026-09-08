@@ -1,16 +1,22 @@
 {
-  "name": "meera-smriti-portal",
+  "name": "meera-smriti-academy",
   "version": "1.0.0",
-  "description": "Meera Smriti Sishu Ankan Siksha Kendra Portal",
+  "description": "Backend API and static portal for Meera Smriti Sishu Ankan Siksha Kendra",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "express-rate-limit": "^7.2.0",
-    "helmet": "^7.1.0",
-    "sqlite3": "^5.1.7"
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
