@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Art Courses & Curriculum | Meera Smriti Siksha Kendra</title>
+  <title>Curriculum & Course Tracks | Meera Smriti Siksha Kendra</title>
   
-  <!-- Tailwind CSS & Google Fonts -->
+  <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <script>
@@ -28,461 +28,239 @@
     body { 
       background-color: #030712; 
       color: #f3f4f6; 
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.08) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(217, 119, 6, 0.05) 0px, transparent 50%);
+      background-image: radial-gradient(at 50% 0%, rgba(249, 115, 22, 0.08) 0px, transparent 60%);
       background-attachment: fixed;
     }
 
     .card-dark { 
-      background: rgba(11, 15, 25, 0.85); 
+      background: rgba(15, 23, 42, 0.75); 
       border: 1px solid rgba(255, 255, 255, 0.08); 
       backdrop-filter: blur(12px);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: border-color 0.2s ease, transform 0.2s ease;
     }
 
     .card-dark:hover {
-      border-color: rgba(249, 115, 22, 0.35);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(249, 115, 22, 0.1);
-    }
-
-    .filter-btn-active {
-      background-color: #f97316;
-      color: #ffffff;
-      border-color: #f97316;
-    }
-
-    @keyframes slideIn {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    .animate-toast {
-      animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      border-color: rgba(249, 115, 22, 0.3);
     }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-orange-500 selection:text-white">
 
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
-
-  <!-- ENROLLMENT / EVALUATION MODAL -->
-  <div id="enrollModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl hidden flex items-center justify-center p-4">
-    <div class="relative max-w-lg w-full card-dark border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
-      <button onclick="closeEnrollModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
-        <i class="fa-solid fa-xmark text-xl"></i>
-      </button>
-
-      <div>
-        <span class="bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
-          EVALUATION & ADMISSION
-        </span>
-        <h3 id="modalCourseTitle" class="text-xl font-black text-white uppercase mt-2">Book Student Fine Arts Evaluation</h3>
-        <p class="text-xs text-slate-400 mt-1">
-          Individual course fees are determined after student assessment (Baseline average ~₹370/month).
-        </p>
-      </div>
-
-      <form onsubmit="submitEnrollmentRequest(event)" class="space-y-4">
-        <div>
-          <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Student Full Name</label>
-          <input type="text" required id="applicantName" placeholder="Enter full name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Contact Phone</label>
-            <input type="tel" required id="applicantPhone" placeholder="82749 40238" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
-          </div>
-          <div>
-            <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Preferred Branch Wing</label>
-            <select id="applicantWing" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
-              <option>Rishra Central Wing</option>
-              <option>Konnagar Aamra Club</option>
-              <option>Uttarpara Branch</option>
-            </select>
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Selected Program Module</label>
-          <input type="text" id="selectedModuleDisplay" readonly class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-orange-400 font-bold focus:outline-none">
-        </div>
-
-        <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 text-[11px] font-mono text-slate-400 space-y-1">
-          <div class="flex justify-between">
-            <span>Standard Fee Guideline:</span>
-            <span class="text-orange-400 font-bold">~ ₹370 / month (Avg)</span>
-          </div>
-          <p class="text-[10px] text-slate-500">Finalized upon candidate interaction.</p>
-        </div>
-
-        <button type="submit" class="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-black text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50">
-          Schedule Personal Interaction
-        </button>
-      </form>
-    </div>
-  </div>
-
   <!-- HEADER NAVIGATION -->
-  <header class="bg-slate-950/80 border-b border-slate-800/80 sticky top-0 z-40 backdrop-blur-xl">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <a href="main.html" class="flex items-center gap-3 group">
-        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-orange-500/50 p-0.5 bg-white shadow-lg shadow-orange-950/50 group-hover:scale-105 transition-transform flex-shrink-0">
+  <header class="bg-slate-950/90 border-b border-slate-800/80 sticky top-0 z-40 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full overflow-hidden border border-orange-500/50 p-0.5 bg-white flex-shrink-0">
           <img src="logo.jfif" alt="Meera Smriti Logo" class="w-full h-full object-contain rounded-full">
         </div>
         <div>
-          <h1 class="font-black text-base sm:text-lg text-white uppercase tracking-tight group-hover:text-orange-400 transition-colors">
+          <h1 class="font-bold text-sm sm:text-base text-white uppercase tracking-tight">
             Meera Smriti <span class="text-orange-500">Siksha Kendra</span>
           </h1>
-          <p class="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Estd. 1989 &bull; Sishu Ankan Academy</p>
+          <p class="text-[9px] text-slate-400 font-mono">Curriculum & Course Tracks</p>
         </div>
       </a>
 
-      <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-8 text-xs font-extrabold uppercase tracking-wider text-slate-300">
-        <a href="main.html" class="hover:text-orange-400 transition-colors py-1">Dashboard</a>
-        <a href="courses.html" class="text-orange-500 border-b-2 border-orange-500 py-1">Curriculum</a>
-        <a href="gallery.html" class="hover:text-orange-400 transition-colors py-1">Exhibitions</a>
-        <a href="contact.html" class="hover:text-orange-400 transition-colors py-1">Contact Wings</a>
+      <!-- Desktop Links -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-300">
+        <a href="index.html" class="hover:text-orange-400 transition-colors">Home & Register</a>
+        <a href="courses.html" class="text-orange-500 border-b-2 border-orange-500 pb-0.5">Courses</a>
+        <a href="gallery.html" class="hover:text-orange-400 transition-colors">Exhibition</a>
+        <a href="contact.html" class="hover:text-orange-400 transition-colors">Contact</a>
       </nav>
 
-      <div class="flex items-center gap-3">
-        <a href="admin.html" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-4 py-2 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-amber-950/30 flex items-center gap-1.5">
-          <i class="fa-solid fa-lock text-xs"></i> Admin Gate
-        </a>
-        <button id="mobileMenuBtn" class="md:hidden p-2 text-slate-400 hover:text-white">
-          <i class="fa-solid fa-bars text-xl"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Navigation Drawer -->
-    <div id="mobileMenu" class="hidden md:hidden border-b border-slate-800 bg-slate-950/95 px-4 pt-2 pb-6 space-y-3 font-mono text-xs uppercase font-bold text-slate-300">
-      <a href="main.html" class="block py-2 hover:text-orange-400">Dashboard</a>
-      <a href="courses.html" class="block py-2 text-orange-500">Curriculum</a>
-      <a href="gallery.html" class="block py-2 hover:text-orange-400">Exhibitions</a>
-      <a href="contact.html" class="block py-2 hover:text-orange-400">Contact Wings</a>
+      <a href="admin.html" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl uppercase tracking-wider transition-all flex items-center gap-1.5">
+        <i class="fa-solid fa-lock text-[10px]"></i> Admin
+      </a>
     </div>
   </header>
 
-  <!-- MAIN CONTENT CONTAINER -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow space-y-12">
+  <!-- MAIN COURSES CONTENT -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow space-y-10">
 
-    <!-- PAGE HERO HEADER WITH SEASONAL BANNER -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-      <div class="lg:col-span-7 space-y-4">
-        <div class="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 border border-orange-500/20 text-xs font-mono font-bold px-3 py-1.5 rounded-full uppercase">
-          <i class="fa-solid fa-graduation-cap text-xs"></i> ACADEMIC CURRICULUM & MODULES
+    <!-- PAGE TITLE -->
+    <div class="text-center space-y-2">
+      <span class="inline-block bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[11px] font-mono font-bold px-3 py-1 rounded-full uppercase">
+        Academic Programs
+      </span>
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-white uppercase tracking-tight">
+        Fine Art Course Structure
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
+        Structured training levels designed for young beginners to advanced diploma candidates preparing for board examinations.
+      </p>
+    </div>
+
+    <!-- COURSE TRACK GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- TRACK 1: JUNIOR ANKAN STAGE -->
+      <div class="card-dark rounded-3xl p-6 flex flex-col justify-between space-y-6 border-amber-500/20">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+              Under 9 Years
+            </span>
+            <i class="fa-solid fa-shapes text-amber-400 text-lg"></i>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-bold text-white uppercase">Junior Ankan Stage</h3>
+            <p class="text-xs text-slate-400 mt-1">Foundation level focused on basic shapes, motor skill development, and color identification.</p>
+          </div>
+
+          <ul class="space-y-2 text-xs text-slate-300 font-sans border-t border-slate-800 pt-4">
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-amber-400 text-[10px]"></i> Crayon & Pastel Shading Technique
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-amber-400 text-[10px]"></i> Object Drawing & Geometric Shapes
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-amber-400 text-[10px]"></i> Parent-Assisted Progress Tracking
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-amber-400 text-[10px]"></i> Annual Internal Art Display Entry
+            </li>
+          </ul>
         </div>
-        
-        <h2 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight">
-          Structured Fine Art <br>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-500">
-            Education Programs
-          </span>
-        </h2>
 
-        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-2xl">
-          From beginner stroke practice to government-recognized board examination diplomas, our curriculum nurtures technique, artistic confidence, and creative expression.
-        </p>
-
-        <div class="flex items-center gap-4 pt-2">
-          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-slate-300">
-            <span class="text-slate-500 block text-[10px]">STANDARD TUITION GUIDE</span>
-            <span class="text-amber-400 font-bold text-sm">~ ₹370 / month (Avg)</span>
+        <div class="space-y-3 pt-4 border-t border-slate-800">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-slate-400 font-mono">Monthly Tuition:</span>
+            <span class="text-amber-400 font-bold font-mono">~ ₹350 - ₹370</span>
           </div>
-          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-slate-300">
-            <span class="text-slate-500 block text-[10px]">AFFILIATION</span>
-            <span class="text-orange-400 font-bold text-sm">Govt. Board Exam Facilities</span>
-          </div>
+          <a href="index.html" class="block text-center w-full bg-slate-900 hover:bg-slate-800 text-amber-400 border border-amber-500/30 text-xs font-bold py-2.5 rounded-xl uppercase transition-all">
+            Register Student (<9 Yrs)
+          </a>
         </div>
       </div>
 
-      <!-- SEASON POSTER FEATURED IMAGE -->
-      <div class="lg:col-span-5 flex justify-center">
-        <div class="card-dark p-3 rounded-3xl max-w-md w-full border-orange-500/30 overflow-hidden relative group">
-          <img src="images (1).jfif" alt="Meera Smriti New Season" class="w-full h-auto rounded-2xl object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute bottom-5 left-5 right-5 bg-slate-950/90 backdrop-blur-md p-3 rounded-xl border border-slate-800 text-center">
-            <p class="text-[11px] font-mono text-orange-400 font-bold uppercase">New Season Enrollment Open</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FILTER TABS SECTION -->
-    <section class="space-y-6">
-      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
-        <h3 class="text-xl font-black text-white uppercase">Browse Modules</h3>
-        
-        <!-- Filter Buttons -->
-        <div class="flex flex-wrap gap-2 text-xs font-mono font-bold uppercase">
-          <button onclick="filterCourses('all')" id="btn-all" class="filter-btn filter-btn-active border border-slate-800 px-4 py-2 rounded-xl transition-all">All Courses</button>
-          <button onclick="filterCourses('junior')" id="btn-junior" class="filter-btn border border-slate-800 bg-slate-950 text-slate-400 hover:text-white px-4 py-2 rounded-xl transition-all">Junior / Beginners</button>
-          <button onclick="filterCourses('intermediate')" id="btn-intermediate" class="filter-btn border border-slate-800 bg-slate-950 text-slate-400 hover:text-white px-4 py-2 rounded-xl transition-all">Intermediate</button>
-          <button onclick="filterCourses('senior')" id="btn-senior" class="filter-btn border border-slate-800 bg-slate-950 text-slate-400 hover:text-white px-4 py-2 rounded-xl transition-all">Senior Diploma</button>
-        </div>
-      </div>
-
-      <!-- COURSES GRID -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <!-- COURSE CARD 1: JUNIOR ANKAN -->
-        <div class="course-card card-dark rounded-3xl p-6 flex flex-col justify-between space-y-5" data-category="junior">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
-                Ages 4 &ndash; 7 Years
-              </span>
-              <span class="text-xs font-mono font-bold text-amber-400 bg-amber-950/40 px-2 py-1 rounded border border-amber-900/50">~ ₹350/mo</span>
-            </div>
-            
-            <h4 class="text-lg font-black text-white uppercase">Junior Ankan & Line Foundation</h4>
-            
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Designed for young minds to develop motor controls, line precision, basic geometric shapes, and primary color mixing using wax crayons and pencil sketchpads.
-            </p>
-
-            <ul class="text-xs text-slate-300 space-y-2 font-mono pt-2">
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Basic Line & Stroke Control</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Color Identification & Shading</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Object & Nature Visualization</li>
-            </ul>
+      <!-- TRACK 2: INTERMEDIATE LANDSCAPE & WATERCOLOR -->
+      <div class="card-dark rounded-3xl p-6 flex flex-col justify-between space-y-6 border-orange-500/30">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+              Ages 9 to 14 Years
+            </span>
+            <i class="fa-solid fa-palette text-orange-400 text-lg"></i>
           </div>
 
-          <button onclick="openEnrollModal('Junior Ankan & Line Foundation')" class="w-full bg-slate-900 hover:bg-orange-600 hover:text-white border border-slate-800 text-slate-200 font-extrabold text-xs py-3 rounded-xl uppercase tracking-wider transition-all text-center">
-            Book Evaluation
-          </button>
-        </div>
-
-        <!-- COURSE CARD 2: INTERMEDIATE WATERCOLOR & PASTEL -->
-        <div class="course-card card-dark rounded-3xl p-6 flex flex-col justify-between space-y-5" data-category="intermediate">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
-                Ages 8 &ndash; 12 Years
-              </span>
-              <span class="text-xs font-mono font-bold text-amber-400 bg-amber-950/40 px-2 py-1 rounded border border-amber-900/50">~ ₹370/mo</span>
-            </div>
-            
-            <h4 class="text-lg font-black text-white uppercase">Intermediate Color & Landscape Painting</h4>
-            
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Focuses on soft pastels, oil pastels, transparent watercolor wash techniques, perspective composition, and rural Bengali canvas landscapes.
-            </p>
-
-            <ul class="text-xs text-slate-300 space-y-2 font-mono pt-2">
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Watercolor Layering & Washes</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Perspective & Horizon Studies</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Still Life Light & Shadow</li>
-            </ul>
+          <div>
+            <h3 class="text-lg font-bold text-white uppercase">Intermediate Art Stage</h3>
+            <p class="text-xs text-slate-400 mt-1">Transition into watercolor, composition building, and realistic nature studies.</p>
           </div>
 
-          <button onclick="openEnrollModal('Intermediate Color & Landscape Painting')" class="w-full bg-slate-900 hover:bg-orange-600 hover:text-white border border-slate-800 text-slate-200 font-extrabold text-xs py-3 rounded-xl uppercase tracking-wider transition-all text-center">
-            Book Evaluation
-          </button>
+          <ul class="space-y-2 text-xs text-slate-300 font-sans border-t border-slate-800 pt-4">
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-orange-400 text-[10px]"></i> Transparent Watercolor Blending
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-orange-400 text-[10px]"></i> Landscape & Perspective Drawing
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-orange-400 text-[10px]"></i> Still Life & Pencil Sketching
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-orange-400 text-[10px]"></i> Annual Exhibition Canvas Selection
+            </li>
+          </ul>
         </div>
 
-        <!-- COURSE CARD 3: SENIOR DIPLOMA (WITH TROPHY IMAGE) -->
-        <div class="course-card card-dark rounded-3xl p-6 flex flex-col justify-between space-y-5 border-amber-500/30" data-category="senior">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
-                Board Exam Certified
-              </span>
-              <span class="text-xs font-mono font-bold text-amber-400 bg-amber-950/40 px-2 py-1 rounded border border-amber-900/50">~ ₹400/mo</span>
-            </div>
-            
-            <h4 class="text-lg font-black text-white uppercase">Senior Fine Arts Diploma & Board Prep</h4>
-            
-            <!-- TROPHY IMAGE INTEGRATION -->
-            <div class="rounded-xl overflow-hidden h-32 border border-slate-800 my-2">
-              <img src="images (2).jfif" alt="Board Diploma & Kisholay Awards" class="w-full h-full object-cover">
-            </div>
-
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Advanced preparation for state board examinations (Kalakar Drawing School / Sishu O Kishor Pratiba Bikash Kendra) featuring portraiture, charcoal, acrylics, and anatomy.
-            </p>
-
-            <ul class="text-xs text-slate-300 space-y-2 font-mono pt-2">
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Human Anatomy & Portraiture</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Charcoal & Acrylic Mediums</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Formal Board Diploma Certification</li>
-            </ul>
+        <div class="space-y-3 pt-4 border-t border-slate-800">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-slate-400 font-mono">Monthly Tuition:</span>
+            <span class="text-orange-400 font-bold font-mono">~ ₹370 / month</span>
           </div>
-
-          <button onclick="openEnrollModal('Senior Fine Arts Diploma & Board Prep')" class="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-black text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg text-center">
-            Apply For Diploma Track
-          </button>
-        </div>
-
-        <!-- COURSE CARD 4: ANNUAL EXHIBITION CREATIVE WORKSHOP (WITH EXHIBITION IMAGE) -->
-        <div class="course-card card-dark rounded-3xl p-6 flex flex-col justify-between space-y-5" data-category="intermediate">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="bg-purple-500/10 text-purple-400 border border-purple-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
-                Exhibition Special
-              </span>
-              <span class="text-xs font-mono font-bold text-amber-400 bg-amber-950/40 px-2 py-1 rounded border border-amber-900/50">Included</span>
-            </div>
-            
-            <h4 class="text-lg font-black text-white uppercase">Meera Smriti Exhibition Project Studio</h4>
-
-            <!-- EXHIBITION IMAGE INTEGRATION -->
-            <div class="rounded-xl overflow-hidden h-32 border border-slate-800 my-2">
-              <img src="exibision.jfif" alt="Annual Exhibition Studio" class="w-full h-full object-cover">
-            </div>
-
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Special project module dedicated to creating showcase pieces for the annual 25th-28th December Fine Art Exhibition.
-            </p>
-
-            <ul class="text-xs text-slate-300 space-y-2 font-mono pt-2">
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Large Canvas Composition</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Terracotta & Craft Work</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Gallery Presentation Techniques</li>
-            </ul>
-          </div>
-
-          <button onclick="openEnrollModal('Exhibition Project Studio')" class="w-full bg-slate-900 hover:bg-orange-600 hover:text-white border border-slate-800 text-slate-200 font-extrabold text-xs py-3 rounded-xl uppercase tracking-wider transition-all text-center">
-            Book Evaluation
-          </button>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- EVALUATION & FEE INFO CARD -->
-    <section class="card-dark rounded-3xl p-6 sm:p-8 border-orange-500/20 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 space-y-4">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
-        <div>
-          <h4 class="text-lg font-black text-white uppercase">Candidate Skill Interaction Process</h4>
-          <p class="text-xs text-slate-400">Why we schedule individual interaction before fixing monthly tuition</p>
-        </div>
-        <div class="text-xs font-mono text-amber-400 font-bold bg-amber-950/50 px-3 py-1.5 rounded-xl border border-amber-900">
-          Average Range: ₹300 &ndash; ₹450 / month
+          <a href="index.html" class="block text-center w-full bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold py-2.5 rounded-xl uppercase transition-all shadow-lg shadow-orange-950/50">
+            Apply For Admission
+          </a>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
-          <span class="text-orange-500 font-mono font-bold">STEP 01</span>
-          <h5 class="font-extrabold text-white uppercase">Skill Assessment</h5>
-          <p class="text-slate-400">Our senior teacher (Srimati Tanisha Pal / Director) evaluates the student's stroke confidence and age level.</p>
+      <!-- TRACK 3: SENIOR DIPLOMA & BOARD PREP -->
+      <div class="card-dark rounded-3xl p-6 flex flex-col justify-between space-y-6 border-emerald-500/20">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+              Senior & Board Level
+            </span>
+            <i class="fa-solid fa-graduation-cap text-emerald-400 text-lg"></i>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-bold text-white uppercase">Senior Fine Arts Diploma</h3>
+            <p class="text-xs text-slate-400 mt-1">Formal board examination preparation, advanced acrylic work, and portraiture.</p>
+          </div>
+
+          <ul class="space-y-2 text-xs text-slate-300 font-sans border-t border-slate-800 pt-4">
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Official Board Exam Syllabus
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Acrylic Canvas & Wash Techniques
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Human Anatomy & Portrait Study
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Recognized Diploma Certification
+            </li>
+          </ul>
         </div>
-        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
-          <span class="text-orange-500 font-mono font-bold">STEP 02</span>
-          <h5 class="font-extrabold text-white uppercase">Module Allocation</h5>
-          <p class="text-slate-400">Student is placed into Junior Foundation, Intermediate Landscape, or Senior Diploma track.</p>
-        </div>
-        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
-          <span class="text-orange-500 font-mono font-bold">STEP 03</span>
-          <h5 class="font-extrabold text-white uppercase">Fee Finalization</h5>
-          <p class="text-slate-400">Monthly tuition is finalized based on module frequency and batch choice (Avg ~₹370/mo).</p>
+
+        <div class="space-y-3 pt-4 border-t border-slate-800">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-slate-400 font-mono">Monthly Tuition:</span>
+            <span class="text-emerald-400 font-bold font-mono">~ ₹370 - ₹400</span>
+          </div>
+          <a href="index.html" class="block text-center w-full bg-slate-900 hover:bg-slate-800 text-emerald-400 border border-emerald-500/30 text-xs font-bold py-2.5 rounded-xl uppercase transition-all">
+            Register / Renew
+          </a>
         </div>
       </div>
-    </section>
+
+    </div>
+
+    <!-- SCHEDULE & BRANCH INFORMATION -->
+    <div class="card-dark rounded-3xl p-6 sm:p-8 space-y-4">
+      <h3 class="text-base font-bold text-white uppercase flex items-center gap-2">
+        <i class="fa-solid fa-clock text-orange-500"></i> Class Timings & Branch Wings
+      </h3>
+      <p class="text-xs text-slate-400 leading-relaxed">
+        Classes are conducted weekly across our official branch wings. Batch allocations are finalized after candidate registration and baseline skill assessment.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+        <div class="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-1">
+          <h4 class="text-xs font-bold text-white uppercase">Rishra Central Wing</h4>
+          <p class="text-[11px] text-slate-400 font-mono">Saturdays & Sundays</p>
+          <p class="text-[10px] text-slate-500">Morning & Evening Batches</p>
+        </div>
+
+        <div class="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-1">
+          <h4 class="text-xs font-bold text-white uppercase">Konnagar Aamra Club Wing</h4>
+          <p class="text-[11px] text-slate-400 font-mono">Sundays Only</p>
+          <p class="text-[10px] text-slate-500">Morning Batch</p>
+        </div>
+
+        <div class="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-1">
+          <h4 class="text-xs font-bold text-white uppercase">Uttarpara Branch Wing</h4>
+          <p class="text-[11px] text-slate-400 font-mono">Fridays & Sundays</p>
+          <p class="text-[10px] text-slate-500">Evening Batch</p>
+        </div>
+      </div>
+    </div>
 
   </main>
 
   <!-- FOOTER -->
-  <footer class="bg-slate-950 border-t border-slate-800/80 py-8 mt-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-slate-500">
-      <div class="flex items-center gap-3">
-        <img src="logo.jfif" alt="Meera Smriti Emblem" class="w-7 h-7 rounded-full bg-white p-0.5 object-contain">
-        <div>
-          <strong class="text-slate-300">Meera Smriti Sishu Ankan Siksha Kendra</strong> &copy; 2026. All Rights Reserved.
-        </div>
-      </div>
-      <div class="flex items-center gap-4">
-        <a href="main.html" class="hover:text-orange-400 transition-colors">Dashboard</a>
-        <span>&bull;</span>
-        <a href="courses.html" class="text-orange-400">Curriculum</a>
-        <span>&bull;</span>
-        <a href="gallery.html" class="hover:text-orange-400 transition-colors">Exhibitions</a>
-        <span>&bull;</span>
-        <a href="contact.html" class="hover:text-orange-400 transition-colors">Contact Wings</a>
-      </div>
+  <footer class="bg-slate-950 border-t border-slate-800/80 py-6 mt-8">
+    <div class="max-w-6xl mx-auto px-4 text-center text-xs font-mono text-slate-500 space-y-1">
+      <p><strong>Meera Smriti Sishu Ankan Siksha Kendra</strong> &copy; 2026</p>
+      <p class="text-[10px] text-slate-600">Estd. 1989 &bull; Fine Arts & Board Exam Preparation</p>
     </div>
   </footer>
 
-  <!-- SCRIPT LOGIC -->
-  <script>
-    function showToast(title, message) {
-      const container = document.getElementById('toastContainer');
-      const toast = document.createElement('div');
-      toast.className = 'animate-toast card-dark border border-emerald-500/50 p-4 rounded-2xl shadow-2xl pointer-events-auto flex items-start gap-3';
-      toast.innerHTML = `
-        <i class="fa-solid fa-circle-check text-emerald-400 text-lg mt-0.5"></i>
-        <div>
-          <h5 class="text-xs font-bold text-white uppercase tracking-wider">${title}</h5>
-          <p class="text-xs text-slate-300 mt-0.5">${message}</p>
-        </div>
-      `;
-      container.appendChild(toast);
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transition = 'opacity 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-      }, 4000);
-    }
-
-    function openEnrollModal(programName) {
-      document.getElementById('modalCourseTitle').textContent = programName;
-      document.getElementById('selectedModuleDisplay').value = programName;
-      document.getElementById('enrollModal').classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeEnrollModal() {
-      document.getElementById('enrollModal').classList.add('hidden');
-      document.body.style.overflow = 'auto';
-    }
-
-    function submitEnrollmentRequest(e) {
-      e.preventDefault();
-      const name = document.getElementById('applicantName').value;
-      const module = document.getElementById('selectedModuleDisplay').value;
-      closeEnrollModal();
-      showToast('Evaluation Booked!', `Application received for ${name} [${module}]. Our branch coordinator will call you shortly.`);
-      document.getElementById('applicantName').value = '';
-      document.getElementById('applicantPhone').value = '';
-    }
-
-    function filterCourses(category) {
-      const cards = document.querySelectorAll('.course-card');
-      const buttons = document.querySelectorAll('.filter-btn');
-
-      buttons.forEach(btn => {
-        btn.classList.remove('filter-btn-active', 'bg-orange-500', 'text-white');
-        btn.classList.add('bg-slate-950', 'text-slate-400');
-      });
-
-      const activeBtn = document.getElementById(`btn-${category}`);
-      if (activeBtn) {
-        activeBtn.classList.add('filter-btn-active', 'text-white');
-        activeBtn.classList.remove('bg-slate-950', 'text-slate-400');
-      }
-
-      cards.forEach(card => {
-        if (category === 'all' || card.dataset.category === category) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const mobileBtn = document.getElementById('mobileMenuBtn');
-      const mobileMenu = document.getElementById('mobileMenu');
-      if (mobileBtn && mobileMenu) {
-        mobileBtn.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
-        });
-      }
-    });
-  </script>
 </body>
 </html>
