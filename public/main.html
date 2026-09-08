@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Academy Dashboard | Meera Smriti Siksha Kendra</title>
   
+  <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -42,25 +43,40 @@
       border-color: rgba(249, 115, 22, 0.35);
       transform: translateY(-2px);
     }
+
+    /* Custom Scrollbar for Notices */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.5);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #f97316;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-orange-500 selection:text-white">
 
   <!-- HEADER NAVIGATION -->
-  <header class="bg-slate-950/90 border-b border-slate-800/80 sticky top-0 z-40 backdrop-blur-md">
+  <header class="bg-slate-950/90 border-b border-slate-800/80 sticky top-0 z-50 backdrop-blur-md">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <a href="main.html" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full overflow-hidden border border-orange-500/50 p-0.5 bg-white flex-shrink-0">
-          <img src="logo.jfif" alt="Meera Smriti Logo" class="w-full h-full object-contain rounded-full" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=100&auto=format&fit=crop'">
+      
+      <!-- LOGO -->
+      <a href="main.html" class="flex items-center gap-2.5 sm:gap-3">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-orange-500/50 p-0.5 bg-white flex-shrink-0">
+          <img src="logo.jfif" alt="Meera Smriti Logo" class="w-full h-full object-contain rounded-full" onerror="handleImageError(this)">
         </div>
         <div>
-          <h1 class="font-bold text-sm sm:text-base text-white uppercase tracking-tight">
+          <h1 class="font-bold text-xs sm:text-base text-white uppercase tracking-tight">
             Meera Smriti <span class="text-orange-500">Siksha Kendra</span>
           </h1>
-          <p class="text-[9px] text-slate-400 font-mono">Estd. 1989 &bull; Fine Arts Portal</p>
+          <p class="text-[8px] sm:text-[9px] text-slate-400 font-mono">Estd. 1989 &bull; Fine Arts Portal</p>
         </div>
       </a>
 
+      <!-- DESKTOP NAV -->
       <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-300">
         <a href="main.html" class="text-orange-500 border-b-2 border-orange-500 pb-0.5">Home</a>
         <a href="index.html" class="hover:text-orange-400 transition-colors">Register Portal</a>
@@ -69,30 +85,52 @@
         <a href="contact.html" class="hover:text-orange-400 transition-colors">Contact</a>
       </nav>
 
-      <div class="flex items-center gap-3">
+      <!-- RIGHT HEADER ACTIONS -->
+      <div class="flex items-center gap-2 sm:gap-3">
         <div class="hidden sm:flex items-center gap-2 border-r border-slate-800 pr-3 mr-1 text-slate-400">
           <a href="https://facebook.com" target="_blank" class="hover:text-blue-400 transition-colors text-sm p-1"><i class="fa-brands fa-facebook"></i></a>
           <a href="https://instagram.com" target="_blank" class="hover:text-pink-400 transition-colors text-sm p-1"><i class="fa-brands fa-instagram"></i></a>
           <a href="https://whatsapp.com" target="_blank" class="hover:text-emerald-400 transition-colors text-sm p-1"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
 
-        <a href="admin.html" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl uppercase tracking-wider transition-all flex items-center gap-1.5">
-          <i class="fa-solid fa-lock text-[10px]"></i> Admin Gate
+        <a href="admin.html" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-[11px] sm:text-xs px-3 py-2 sm:px-3.5 sm:py-2 rounded-xl uppercase tracking-wider transition-all flex items-center gap-1.5">
+          <i class="fa-solid fa-lock text-[10px]"></i> <span class="hidden sm:inline">Admin</span> Gate
         </a>
+
+        <!-- MOBILE MENU BUTTON -->
+        <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden text-slate-300 hover:text-orange-500 p-2 text-lg focus:outline-none" aria-label="Toggle Navigation">
+          <i class="fa-solid fa-bars" id="menuIcon"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE NAVIGATION MENU -->
+    <div id="mobileMenu" class="hidden md:hidden bg-slate-950 border-b border-slate-800 px-4 py-4 space-y-3 font-mono text-xs">
+      <a href="main.html" class="block text-orange-400 font-bold py-1 border-l-2 border-orange-500 pl-2">Home</a>
+      <a href="index.html" class="block text-slate-300 hover:text-orange-400 py-1 pl-2">Register Portal</a>
+      <a href="courses.html" class="block text-slate-300 hover:text-orange-400 py-1 pl-2">Courses & Syllabus</a>
+      <a href="gallery.html" class="block text-slate-300 hover:text-orange-400 py-1 pl-2">Exhibition & Gallery</a>
+      <a href="contact.html" class="block text-slate-300 hover:text-orange-400 py-1 pl-2">Contact Academy</a>
+      
+      <div class="pt-2 border-t border-slate-800/80 flex items-center justify-around text-slate-400 text-base">
+        <a href="https://facebook.com" target="_blank" class="hover:text-blue-400"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://instagram.com" target="_blank" class="hover:text-pink-400"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://whatsapp.com" target="_blank" class="hover:text-emerald-400"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://youtube.com" target="_blank" class="hover:text-red-400"><i class="fa-brands fa-youtube"></i></a>
       </div>
     </div>
   </header>
 
   <!-- MAIN DASHBOARD CONTENT -->
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow space-y-12">
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 w-full flex-grow space-y-8 sm:space-y-12">
 
-    <!-- HERO SECTION WITH PICTURE OVERLAY -->
+    <!-- HERO SECTION -->
     <section class="card-dark rounded-3xl overflow-hidden relative border-orange-500/20 grid grid-cols-1 lg:grid-cols-12 items-center">
       <div class="lg:col-span-7 p-6 sm:p-10 space-y-4 z-10">
-        <span class="inline-block bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[11px] font-mono font-bold px-3 py-1 rounded-full uppercase">
+        <span class="inline-block bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[10px] sm:text-[11px] font-mono font-bold px-3 py-1 rounded-full uppercase">
           Welcome to Academy Portal
         </span>
-        <h2 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight leading-tight">
+        <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black text-white uppercase tracking-tight leading-tight">
           Meera Smriti <br>
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-500">
             Sishu Ankan Siksha Kendra
@@ -102,23 +140,112 @@
           Empowering young artists through structured drawing, watercolor techniques, board exam diplomas, and annual exhibitions since 1989.
         </p>
 
-        <div class="flex flex-wrap items-center gap-3 pt-2">
-          <a href="index.html" class="bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs px-5 py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50 flex items-center gap-2">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+          <a href="index.html" class="bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs px-5 py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50 flex items-center justify-center gap-2">
             <i class="fa-solid fa-user-plus"></i> Candidate Registration
           </a>
-          <a href="courses.html" class="bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold text-xs px-5 py-3 rounded-xl uppercase tracking-wider transition-all flex items-center gap-2">
+          <a href="courses.html" class="bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold text-xs px-5 py-3 rounded-xl uppercase tracking-wider transition-all flex items-center justify-center gap-2">
             <i class="fa-solid fa-palette"></i> View Courses
           </a>
         </div>
       </div>
 
-      <div class="lg:col-span-5 h-64 lg:h-full relative min-h-[280px]">
-        <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&auto=format&fit=crop" alt="Art Studio Workspace" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-950 via-slate-950/30 to-transparent"></div>
+      <div class="lg:col-span-5 h-56 sm:h-72 lg:h-full relative min-h-[220px] sm:min-h-[280px]">
+        <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=800&auto=format&fit=crop" 
+             alt="Art Studio Workspace" 
+             class="w-full h-full object-cover" 
+             onerror="handleImageError(this, 'Art Studio Workspace')">
+        <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-950 via-slate-950/40 to-transparent"></div>
       </div>
     </section>
 
-    <!-- VISUAL GALLERY PREVIEW CARDS -->
+    <!-- METRICS & ACADEMY HIGHLIGHTS -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      <div class="card-dark p-4 rounded-2xl text-center space-y-1">
+        <span class="text-2xl sm:text-3xl font-black text-orange-400 font-mono">1989</span>
+        <p class="text-[10px] sm:text-xs font-mono uppercase text-slate-400">Year Established</p>
+      </div>
+      <div class="card-dark p-4 rounded-2xl text-center space-y-1">
+        <span class="text-2xl sm:text-3xl font-black text-amber-400 font-mono">10k+</span>
+        <p class="text-[10px] sm:text-xs font-mono uppercase text-slate-400">Students Trained</p>
+      </div>
+      <div class="card-dark p-4 rounded-2xl text-center space-y-1">
+        <span class="text-2xl sm:text-3xl font-black text-emerald-400 font-mono">100%</span>
+        <p class="text-[10px] sm:text-xs font-mono uppercase text-slate-400">Exam Pass Rate</p>
+      </div>
+      <div class="card-dark p-4 rounded-2xl text-center space-y-1">
+        <span class="text-2xl sm:text-3xl font-black text-blue-400 font-mono">35th</span>
+        <p class="text-[10px] sm:text-xs font-mono uppercase text-slate-400">Annual Exhibition</p>
+      </div>
+    </section>
+
+    <!-- LIVE NOTICE BOARD & ANNOUNCEMENTS SECTION -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Notice Board -->
+      <div class="lg:col-span-7 card-dark p-5 sm:p-6 rounded-3xl space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-orange-500 animate-pulse"></span>
+            <h3 class="text-base sm:text-lg font-extrabold text-white uppercase">Academy Notice Board</h3>
+          </div>
+          <span class="text-[10px] font-mono text-slate-400">Updated Today</span>
+        </div>
+
+        <div class="space-y-3 max-h-[260px] overflow-y-auto pr-2 custom-scrollbar">
+          <div class="bg-slate-950/80 border border-slate-800/80 p-3.5 rounded-xl space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="bg-orange-500/20 text-orange-400 text-[9px] font-mono font-bold px-2 py-0.5 rounded uppercase">Exhibition 2026</span>
+              <span class="text-[10px] text-slate-500 font-mono">Sep 15, 2026</span>
+            </div>
+            <h4 class="text-xs font-bold text-white">Annual Fine Arts Exhibition Art Submissions Open</h4>
+            <p class="text-[11px] text-slate-400">All Senior Diploma candidates are requested to submit two framed artwork entries before September 30.</p>
+          </div>
+
+          <div class="bg-slate-950/80 border border-slate-800/80 p-3.5 rounded-xl space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="bg-amber-500/20 text-amber-400 text-[9px] font-mono font-bold px-2 py-0.5 rounded uppercase">Examinations</span>
+              <span class="text-[10px] text-slate-500 font-mono">Oct 02, 2026</span>
+            </div>
+            <h4 class="text-xs font-bold text-white">Board Exam Hall Tickets Release Notice</h4>
+            <p class="text-[11px] text-slate-400">Students registered for 3rd and 5th year diploma exams can collect hall tickets from office.</p>
+          </div>
+
+          <div class="bg-slate-950/80 border border-slate-800/80 p-3.5 rounded-xl space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="bg-emerald-500/20 text-emerald-400 text-[9px] font-mono font-bold px-2 py-0.5 rounded uppercase">New Workshop</span>
+              <span class="text-[10px] text-slate-500 font-mono">Oct 10, 2026</span>
+            </div>
+            <h4 class="text-xs font-bold text-white">Outdoor Landscape Watercolor Masterclass</h4>
+            <p class="text-[11px] text-slate-400">Special Sunday outdoor sketching class for Junior & Senior batches. Pre-registration mandatory.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions / Quick Registration Card -->
+      <div class="lg:col-span-5 card-dark p-5 sm:p-6 rounded-3xl flex flex-col justify-between space-y-4 bg-gradient-to-br from-slate-900/90 to-slate-950">
+        <div class="space-y-2">
+          <span class="text-[10px] font-mono text-orange-400 uppercase tracking-wider">Fast Track Access</span>
+          <h3 class="text-lg font-bold text-white uppercase">New Student Admission 2026-27</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Admissions open for Beginners Pastel, Intermediate Drawing, and Board Exam Certified Diploma courses.
+          </p>
+        </div>
+
+        <ul class="space-y-2 text-xs font-mono text-slate-300">
+          <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-orange-400"></i> Government Recognized Board Syllabus</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-orange-400"></i> Weekend & Evening Batch Slots</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-orange-400"></i> Annual Public Exhibition Opportunity</li>
+        </ul>
+
+        <a href="index.html" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs py-3 rounded-xl uppercase tracking-wider text-center transition-all shadow-md">
+          Start Online Registration
+        </a>
+      </div>
+
+    </section>
+
+    <!-- VISUAL GALLERY PREVIEW CARDS (WITH RELIABLE FALLBACKS) -->
     <section class="space-y-6">
       <div class="flex items-center justify-between border-b border-slate-800 pb-3">
         <div>
@@ -130,35 +257,157 @@
         </a>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- CARD 1 -->
         <div class="card-dark rounded-2xl overflow-hidden group">
-          <div class="h-44 relative overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=600&auto=format&fit=crop" alt="Watercolor Study" class="w-full h-full object-cover group-hover:scale-105 transition-all">
+          <div class="h-48 relative overflow-hidden bg-slate-900">
+            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=600&auto=format&fit=crop" 
+                 alt="Watercolor Study" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
+                 onerror="handleImageError(this, 'Transparent Watercolor Wash')">
+            <span class="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md text-orange-400 border border-orange-500/30 text-[9px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+              Senior Diploma
+            </span>
           </div>
           <div class="p-4 space-y-1">
             <h4 class="text-xs font-bold text-white uppercase">Transparent Watercolor Wash</h4>
-            <p class="text-[11px] text-slate-400">Landscape studies from the Senior Diploma wing.</p>
+            <p class="text-[11px] text-slate-400">Landscape studies focusing on light, depth, and atmospheric perspective.</p>
           </div>
         </div>
 
+        <!-- CARD 2 -->
         <div class="card-dark rounded-2xl overflow-hidden group">
-          <div class="h-44 relative overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600&auto=format&fit=crop" alt="Acrylic Canvas Art" class="w-full h-full object-cover group-hover:scale-105 transition-all">
+          <div class="h-48 relative overflow-hidden bg-slate-900">
+            <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=600&auto=format&fit=crop" 
+                 alt="Acrylic Canvas Art" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
+                 onerror="handleImageError(this, 'Acrylic Canvas Series')">
+            <span class="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md text-amber-400 border border-amber-500/30 text-[9px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+              Advanced Wing
+            </span>
           </div>
           <div class="p-4 space-y-1">
             <h4 class="text-xs font-bold text-white uppercase">Acrylic Canvas Series</h4>
-            <p class="text-[11px] text-slate-400">Modern canvas techniques and texture painting.</p>
+            <p class="text-[11px] text-slate-400">Modern canvas techniques, palette knife blending, and texture application.</p>
           </div>
         </div>
 
-        <div class="card-dark rounded-2xl overflow-hidden group">
-          <div class="h-44 relative overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&auto=format&fit=crop" alt="Junior Pastel Art" class="w-full h-full object-cover group-hover:scale-105 transition-all">
+        <!-- CARD 3 -->
+        <div class="card-dark rounded-2xl overflow-hidden group sm:col-span-2 lg:col-span-1">
+          <div class="h-48 relative overflow-hidden bg-slate-900">
+            <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=600&auto=format&fit=crop" 
+                 alt="Junior Pastel Art" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
+                 onerror="handleImageError(this, 'Junior Pastel Creations')">
+            <span class="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md text-emerald-400 border border-emerald-500/30 text-[9px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+              Junior Section
+            </span>
           </div>
           <div class="p-4 space-y-1">
             <h4 class="text-xs font-bold text-white uppercase">Junior Pastel Creations</h4>
-            <p class="text-[11px] text-slate-400">Foundation color studies for students under 9 years.</p>
+            <p class="text-[11px] text-slate-400">Foundation color theory and oil pastel compositions for ages under 9 years.</p>
           </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- COURSES & CURRICULUM OVERVIEW -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-[10px] font-mono text-orange-400 uppercase tracking-wider">Structured Learning</span>
+        <h3 class="text-xl font-black text-white uppercase">Academy Programs</h3>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="card-dark p-6 rounded-2xl space-y-3 flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 border border-orange-500/20 flex items-center justify-center font-bold text-lg">
+              01
+            </div>
+            <h4 class="text-sm font-bold text-white uppercase">Junior Art Foundation</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Designed for young minds (Ages 4–8) to build motor skills, shape recognition, basic pastel shading, and creative confidence.
+            </p>
+          </div>
+          <a href="courses.html" class="text-xs font-mono text-orange-400 hover:underline flex items-center gap-1 pt-2">
+            View Syllabus <i class="fa-solid fa-angle-right text-[10px]"></i>
+          </a>
+        </div>
+
+        <div class="card-dark p-6 rounded-2xl space-y-3 flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center font-bold text-lg">
+              02
+            </div>
+            <h4 class="text-sm font-bold text-white uppercase">Diploma Fine Arts Course</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              5-Year examination structured course covering pencil shading, still life, water color, anatomy, and historical art theories.
+            </p>
+          </div>
+          <a href="courses.html" class="text-xs font-mono text-amber-400 hover:underline flex items-center gap-1 pt-2">
+            View Syllabus <i class="fa-solid fa-angle-right text-[10px]"></i>
+          </a>
+        </div>
+
+        <div class="card-dark p-6 rounded-2xl space-y-3 flex flex-col justify-between sm:col-span-2 lg:col-span-1">
+          <div class="space-y-2">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-bold text-lg">
+              03
+            </div>
+            <h4 class="text-sm font-bold text-white uppercase">Advanced Canvas & Portfolio</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Specialized acrylics, oil painting, design preparation, and portfolio building for higher arts admission.
+            </p>
+          </div>
+          <a href="courses.html" class="text-xs font-mono text-emerald-400 hover:underline flex items-center gap-1 pt-2">
+            View Syllabus <i class="fa-solid fa-angle-right text-[10px]"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PARENT & STUDENT TESTIMONIALS -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-[10px] font-mono text-orange-400 uppercase tracking-wider">Voices & Reviews</span>
+        <h3 class="text-xl font-black text-white uppercase">What Our Community Says</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card-dark p-6 rounded-2xl space-y-3 relative">
+          <i class="fa-solid fa-quote-right absolute top-4 right-5 text-slate-800 text-3xl"></i>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30 flex items-center justify-center font-bold text-xs font-mono">
+              PS
+            </div>
+            <div>
+              <h5 class="text-xs font-bold text-white">Priyanka Sen</h5>
+              <p class="text-[10px] text-slate-400 font-mono">Parent of 3rd Year Diploma Student</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate-300 italic leading-relaxed">
+            "The discipline and artistic guidance provided at Meera Smriti Kendra are second to none. My daughter won her first state-level drawing competition after joining!"
+          </p>
+        </div>
+
+        <div class="card-dark p-6 rounded-2xl space-y-3 relative">
+          <i class="fa-solid fa-quote-right absolute top-4 right-5 text-slate-800 text-3xl"></i>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center font-bold text-xs font-mono">
+              AD
+            </div>
+            <div>
+              <h5 class="text-xs font-bold text-white">Aniket Das</h5>
+              <p class="text-[10px] text-slate-400 font-mono">Senior Diploma Graduate</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate-300 italic leading-relaxed">
+            "Learning watercolor and portrait shading under master teachers helped me build a portfolio that got me accepted into fine arts degree college."
+          </p>
         </div>
       </div>
     </section>
@@ -218,14 +467,17 @@
   <!-- FOOTER -->
   <footer class="bg-slate-950 border-t border-slate-800/80 py-8 mt-12">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-slate-500">
-      <div class="flex items-center gap-3">
-        <img src="logo.jfif" alt="Meera Smriti Emblem" class="w-7 h-7 rounded-full bg-white p-0.5 object-contain" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=100&auto=format&fit=crop'">
+      
+      <div class="flex items-center gap-3 text-center md:text-left">
+        <div class="w-7 h-7 rounded-full bg-white p-0.5 overflow-hidden flex-shrink-0">
+          <img src="logo.jfif" alt="Meera Smriti Emblem" class="w-full h-full object-contain rounded-full" onerror="handleImageError(this)">
+        </div>
         <div>
           <strong class="text-slate-300">Meera Smriti Sishu Ankan Siksha Kendra</strong> &copy; 2026
         </div>
       </div>
 
-      <div class="flex flex-wrap justify-center items-center gap-4">
+      <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4 text-[11px]">
         <a href="main.html" class="hover:text-orange-400 transition-colors">Home</a>
         <span>&bull;</span>
         <a href="index.html" class="hover:text-orange-400 transition-colors">Register</a>
@@ -237,14 +489,49 @@
         <a href="contact.html" class="hover:text-orange-400 transition-colors">Contact</a>
       </div>
 
-      <div class="flex items-center gap-3 text-slate-400 text-sm">
-        <a href="https://www.facebook.com/meerasmritiofficial/" target="_blank" class="hover:text-blue-400 transition-colors" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-        <a href="https://www.instagram.com/meerasmriti/?hl=en" target="_blank" class="hover:text-pink-400 transition-colors" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <div class="flex items-center gap-4 text-slate-400 text-sm">
+        <a href="https://facebook.com" target="_blank" class="hover:text-blue-400 transition-colors" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://instagram.com" target="_blank" class="hover:text-pink-400 transition-colors" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
         <a href="https://whatsapp.com" target="_blank" class="hover:text-emerald-400 transition-colors" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" class="hover:text-red-400 transition-colors" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://youtube.com" target="_blank" class="hover:text-red-400 transition-colors" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
       </div>
+
     </div>
   </footer>
+
+  <!-- SCRIPT FOR MOBILE TOGGLE & IMAGE FALLBACK -->
+  <script>
+    // MOBILE MENU TOGGLE FUNCTION
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const icon = document.getElementById('menuIcon');
+      menu.classList.toggle('hidden');
+      
+      if (menu.classList.contains('hidden')) {
+        icon.className = 'fa-solid fa-bars';
+      } else {
+        icon.className = 'fa-solid fa-xmark';
+      }
+    }
+
+    // ROBUST IMAGE FALLBACK HANDLER
+    function handleImageError(imageElement, titleText = "Academy Art") {
+      imageElement.onerror = null; // Prevent infinite loop
+      
+      // Create SVG Data URL for graceful fallback
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+          <rect width="100%" height="100%" fill="#0f172a"/>
+          <circle cx="200" cy="120" r="40" fill="#f97316" opacity="0.2"/>
+          <path d="M120 220 L180 140 L220 180 L270 120 L320 220 Z" fill="#334155"/>
+          <text x="50%" y="85%" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="middle">
+            ${titleText}
+          </text>
+        </svg>
+      `;
+      imageElement.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    }
+  </script>
 
 </body>
 </html>
