@@ -3,76 +3,204 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meera Smriti Sishu Ankan Siksha Kendra | Welcome Portal</title>
+  <title>Meera Smriti | Big Boss Private Portal Access</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Cinzel', 'serif'] },
+          colors: { eye: '#e11d48', gold: '#f59e0b' }
+        }
+      }
+    }
+  </script>
   <style>
-    body { background-color: #020617; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; }
-    #splashCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
-    .splash-orb { transition: all 0.3s ease; box-shadow: 0 0 20px rgba(255,255,255,0.05); }
-    .splash-orb:hover { transform: scale(1.15); box-shadow: 0 0 30px var(--hover-color); }
+    body { background: #030712; color: #f3f4f6; }
+    .eye-glow { box-shadow: 0 0 35px rgba(225, 29, 72, 0.4); }
+    .gold-glow { box-shadow: 0 0 25px rgba(245, 158, 11, 0.3); }
+    .pulse-ring { animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { transform: scale(0.98); opacity: 0.8; } 50% { transform: scale(1.02); opacity: 1; } 100% { transform: scale(0.98); opacity: 0.8; } }
   </style>
 </head>
-<body class="flex items-center justify-center h-screen relative">
-  <canvas id="splashCanvas"></canvas>
-  <div class="relative z-20 w-full max-w-4xl h-[500px] flex items-center justify-center p-4">
-    <div class="text-center z-30 px-8 py-6 rounded-lg border border-slate-800 bg-slate-950/80 backdrop-blur-sm shadow-2xl">
-      <div class="w-16 h-16 bg-orange-600 rounded-full mx-auto flex items-center justify-center text-white text-2xl mb-4 shadow-lg border-2 border-slate-800">
-        <i class="fa-solid fa-landmark"></i>
+<body class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+
+  <!-- Background Ambient Glow -->
+  <div class="absolute -top-32 -left-32 w-96 h-96 bg-rose-900/20 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-900/20 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-md w-full z-10">
+    
+    <!-- Big Boss Iconic Eye Header -->
+    <div class="text-center mb-8">
+      <div class="relative inline-block">
+        <div class="w-24 h-24 bg-slate-900 rounded-full border-2 border-eye flex items-center justify-center mx-auto eye-glow pulse-ring">
+          <i class="fa-solid fa-eye text-4xl text-rose-500"></i>
+        </div>
+        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-rose-600 text-[9px] font-black tracking-widest text-white px-2 py-0.5 rounded uppercase">
+          Command Center
+        </span>
       </div>
-      <h1 class="text-2xl md:text-4xl font-serif text-white uppercase tracking-wider mb-2">
-        Meera Smriti Sishu<br>Ankan Siksha Kendra
+      <h1 class="font-display font-black text-2xl md:text-3xl tracking-widest uppercase text-white mt-4">
+        Big Boss <span class="text-rose-500">House</span>
       </h1>
-      <div class="w-24 h-1 bg-orange-500 mx-auto mb-4"></div>
-      <p class="text-slate-400 text-xs font-semibold tracking-widest uppercase mb-6">Select Portal Color Interface & Enter</p>
-      <a href="main.html" class="inline-block bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs uppercase px-6 py-2.5 rounded shadow tracking-widest transition-colors">
-        Proceed to Portal <i class="fa-solid fa-arrow-right ml-1"></i>
+      <p class="text-[11px] text-slate-400 font-mono tracking-wider uppercase mt-1">Meera Smriti Sishu Ankan Siksha Kendra</p>
+      <p class="text-[10px] text-amber-500 font-mono mt-0.5"><i class="fa-solid fa-phone text-xs mr-1"></i> HQ Direct: 82749 40238</p>
+    </div>
+
+    <!-- Multi-Tab Auth Card -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-6 shadow-2xl backdrop-blur-md">
+      
+      <!-- Tab Navigation -->
+      <div class="grid grid-cols-3 gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800 mb-6 text-center text-[10px] font-bold uppercase tracking-wider">
+        <button id="tabLoginBtn" onclick="switchTab('login')" class="py-2.5 rounded text-white bg-rose-600 cursor-pointer transition-all">
+          <i class="fa-solid fa-user-check block text-sm mb-1"></i> Login
+        </button>
+        <button id="tabRegisterBtn" onclick="switchTab('register')" class="py-2.5 rounded text-slate-400 hover:text-white cursor-pointer transition-all">
+          <i class="fa-solid fa-user-plus block text-sm mb-1"></i> Register
+        </button>
+        <button id="tabAdminBtn" onclick="switchTab('admin')" class="py-2.5 rounded text-amber-500/70 hover:text-amber-400 cursor-pointer transition-all">
+          <i class="fa-solid fa-shield-halved block text-sm mb-1"></i> Admin
+        </button>
+      </div>
+
+      <!-- Member Login Form -->
+      <form id="loginForm" onsubmit="handleUserLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">User ID / Email</label>
+          <input type="text" id="loginUser" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-2 text-sm text-white focus:outline-none focus:border-rose-500 font-mono" placeholder="housemate@meera.org">
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Passcode</label>
+          <input type="password" id="loginPass" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-2 text-sm text-white focus:outline-none focus:border-rose-500 font-mono" placeholder="••••••••">
+        </div>
+        <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 rounded uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer">
+          Enter Main House <i class="fa-solid fa-right-to-bracket ml-1"></i>
+        </button>
+      </form>
+
+      <!-- Student Registration Form -->
+      <form id="registerForm" onsubmit="handleUserRegister(event)" class="space-y-4 hidden">
+        <div>
+          <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Full Legal Name</label>
+          <input type="text" id="regName" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-2 text-sm text-white focus:outline-none focus:border-rose-500" placeholder="Full Name">
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Contact Email / Phone</label>
+          <input type="text" id="regContact" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-2 text-sm text-white focus:outline-none focus:border-rose-500" placeholder="8274940238 or email">
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Set Private Passcode</label>
+          <input type="password" id="regPass" required class="w-full bg-slate-950 border border-slate-800 rounded px-4 py-2 text-sm text-white focus:outline-none focus:border-rose-500 font-mono" placeholder="••••••••">
+        </div>
+        <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 rounded uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer">
+          Submit Nomination Application <i class="fa-solid fa-paper-plane ml-1"></i>
+        </button>
+      </form>
+
+      <!-- Admin Dedicated Gate -->
+      <form id="adminForm" onsubmit="handleAdminLogin(event)" class="space-y-4 hidden">
+        <div class="bg-amber-950/40 border border-amber-800/50 p-3 rounded text-[11px] text-amber-200/80 mb-2 flex items-center gap-2">
+          <i class="fa-solid fa-triangle-exclamation text-amber-500 text-base"></i>
+          <span>Restricted Command Desk for Director Chanchal Ghosh.</span>
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold uppercase text-amber-400 mb-1">Admin Username</label>
+          <input type="text" id="adminUsername" required class="w-full bg-slate-950 border border-amber-900/60 rounded px-4 py-2 text-sm text-amber-100 focus:outline-none focus:border-amber-500 font-mono" placeholder="Money">
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold uppercase text-amber-400 mb-1">Admin Passcode</label>
+          <input type="password" id="adminPassword" required class="w-full bg-slate-950 border border-amber-900/60 rounded px-4 py-2 text-sm text-amber-100 focus:outline-none focus:border-amber-500 font-mono" placeholder="Money@220077">
+        </div>
+        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-slate-950 font-black py-2.5 rounded uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer">
+          Unlock Command Panel <i class="fa-solid fa-key ml-1"></i>
+        </button>
+      </form>
+
+    </div>
+
+    <!-- Quick Footer Links -->
+    <div class="mt-6 text-center text-xs text-slate-500 font-mono flex justify-between items-center px-2">
+      <span>Private Portal Use</span>
+      <a href="main.html" class="text-rose-400 hover:underline flex items-center gap-1">
+        Public View <i class="fa-solid fa-arrow-right"></i>
       </a>
     </div>
 
-    <button onclick="triggerColorSpill('#ea580c', '#c2410c', '#ffedd5')" class="splash-orb absolute top-4 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-orange-600 border-4 border-slate-900 focus:outline-none flex items-center justify-center group cursor-pointer" style="--hover-color: #ea580c;">
-      <span class="opacity-0 group-hover:opacity-100 absolute -bottom-6 text-[10px] text-white font-bold tracking-widest uppercase transition-opacity">Saffron</span>
-    </button>
-    <button onclick="triggerColorSpill('#0284c7', '#0369a1', '#e0f2fe')" class="splash-orb absolute bottom-4 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-sky-600 border-4 border-slate-900 focus:outline-none flex items-center justify-center group cursor-pointer" style="--hover-color: #0284c7;">
-      <span class="opacity-0 group-hover:opacity-100 absolute -top-6 text-[10px] text-white font-bold tracking-widest uppercase transition-opacity">Navy</span>
-    </button>
-    <button onclick="triggerColorSpill('#e11d48', '#be123c', '#ffe4e6')" class="splash-orb absolute left-4 md:left-12 top-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-rose-600 border-4 border-slate-900 focus:outline-none flex items-center justify-center group cursor-pointer" style="--hover-color: #e11d48;">
-      <span class="opacity-0 group-hover:opacity-100 absolute -right-16 text-[10px] text-white font-bold tracking-widest uppercase transition-opacity">Crimson</span>
-    </button>
-    <button onclick="triggerColorSpill('#16a34a', '#15803d', '#dcfce7')" class="splash-orb absolute right-4 md:right-12 top-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-green-600 border-4 border-slate-900 focus:outline-none flex items-center justify-center group cursor-pointer" style="--hover-color: #16a34a;">
-      <span class="opacity-0 group-hover:opacity-100 absolute -left-16 text-[10px] text-white font-bold tracking-widest uppercase transition-opacity">Emerald</span>
-    </button>
-    <button onclick="triggerColorSpill('#7c3aed', '#6d28d9', '#ede9fe')" class="splash-orb absolute top-16 right-16 md:top-24 md:right-32 w-16 h-16 rounded-full bg-violet-600 border-4 border-slate-900 focus:outline-none flex items-center justify-center group cursor-pointer" style="--hover-color: #7c3aed;">
-      <span class="opacity-0 group-hover:opacity-100 absolute -bottom-6 text-[10px] text-white font-bold tracking-widest uppercase transition-opacity">Purple</span>
-    </button>
   </div>
 
   <script>
-    const THEME_KEY = 'meera_smriti_org_theme';
-    function triggerColorSpill(brandColor, brandDark, brandLight) {
-      const canvas = document.getElementById('splashCanvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      let radius = 0;
-      const maxRadius = Math.sqrt(Math.pow(canvas.width, 2) + Math.pow(canvas.height, 2));
-      function animateSpill() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.beginPath();
-        ctx.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2);
-        ctx.fillStyle = brandColor;
-        ctx.fill();
-        ctx.closePath();
-        radius += 45;
-        if (radius < maxRadius) {
-          requestAnimationFrame(animateSpill);
-        } else {
-          localStorage.setItem(THEME_KEY, JSON.stringify({ brandColor, brandDark, brandLight }));
-          window.location.href = 'main.html';
-        }
+    const USER_KEY = 'meera_smriti_org_user';
+    const REG_STORAGE = 'meera_smriti_registrations';
+    const ADMIN_AUTH_KEY = 'meera_smriti_admin_auth';
+
+    function switchTab(tab) {
+      const loginForm = document.getElementById('loginForm');
+      const regForm = document.getElementById('registerForm');
+      const adminForm = document.getElementById('adminForm');
+      
+      const tabLoginBtn = document.getElementById('tabLoginBtn');
+      const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+      const tabAdminBtn = document.getElementById('tabAdminBtn');
+
+      // Reset hidden
+      loginForm.classList.add('hidden');
+      regForm.classList.add('hidden');
+      adminForm.classList.add('hidden');
+
+      // Reset button styling
+      tabLoginBtn.className = "py-2.5 rounded text-slate-400 hover:text-white cursor-pointer transition-all";
+      tabRegisterBtn.className = "py-2.5 rounded text-slate-400 hover:text-white cursor-pointer transition-all";
+      tabAdminBtn.className = "py-2.5 rounded text-amber-500/70 hover:text-amber-400 cursor-pointer transition-all";
+
+      if(tab === 'login') {
+        loginForm.classList.remove('hidden');
+        tabLoginBtn.className = "py-2.5 rounded text-white bg-rose-600 cursor-pointer transition-all";
+      } else if(tab === 'register') {
+        regForm.classList.remove('hidden');
+        tabRegisterBtn.className = "py-2.5 rounded text-white bg-rose-600 cursor-pointer transition-all";
+      } else if(tab === 'admin') {
+        adminForm.classList.remove('hidden');
+        tabAdminBtn.className = "py-2.5 rounded text-slate-950 bg-amber-500 font-bold cursor-pointer transition-all";
       }
-      animateSpill();
+    }
+
+    function handleUserLogin(e) {
+      e.preventDefault();
+      const userVal = document.getElementById('loginUser').value;
+      const user = { name: userVal.split('@')[0], email: userVal, avatar: userVal.charAt(0).toUpperCase() };
+      localStorage.setItem(USER_KEY, JSON.stringify(user));
+      window.location.href = 'main.html';
+    }
+
+    function handleUserRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('regName').value;
+      const contact = document.getElementById('regContact').value;
+      const newUser = { name, email: contact, avatar: name.charAt(0).toUpperCase(), date: new Date().toLocaleDateString() };
+      
+      let existing = JSON.parse(localStorage.getItem(REG_STORAGE) || '[]');
+      existing.push(newUser);
+      localStorage.setItem(REG_STORAGE, JSON.stringify(existing));
+      localStorage.setItem(USER_KEY, JSON.stringify(newUser));
+      
+      alert('Registration successful! Directing to Big Boss Main House...');
+      window.location.href = 'main.html';
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById('adminUsername').value;
+      const p = document.getElementById('adminPassword').value;
+
+      if(u === 'Money' && p === 'Money@220077') {
+        localStorage.setItem(ADMIN_AUTH_KEY, 'true');
+        window.location.href = 'admin.html';
+      } else {
+        alert('Access Denied! Invalid Big Boss Admin Credentials.');
+      }
     }
   </script>
 </body>

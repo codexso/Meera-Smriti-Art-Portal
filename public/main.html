@@ -3,458 +3,206 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meera Smriti Sishu Ankan Siksha Kendra | Official Portal</title>
+  <title>Big Boss House | Meera Smriti Siksha Kendra</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: { brand: 'var(--brand-color)', 'brand-dark': 'var(--brand-dark)', 'brand-light': 'var(--brand-light)' },
-          fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Merriweather', 'serif'] }
+          fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Cinzel', 'serif'] },
+          colors: { eye: '#e11d48', gold: '#f59e0b' }
         }
       }
     }
   </script>
   <style>
-    :root { --brand-color: #ea580c; --brand-dark: #c2410c; --brand-light: #ffedd5; }
-    body { background-color: #f8fafc; color: #0f172a; font-family: 'Inter', sans-serif; }
-    .section-heading { position: relative; padding-bottom: 0.5rem; margin-bottom: 2rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em; }
-    .section-heading::after { content: ''; position: absolute; left: 0; bottom: 0; width: 60px; height: 4px; background-color: var(--brand-color); }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #f1f5f9; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--brand-color); }
+    body { background-color: #030712; color: #f3f4f6; font-family: 'Inter', sans-serif; }
+    .gold-border { border-color: #f59e0b; }
+    .glow-box { box-shadow: 0 0 20px rgba(225, 29, 72, 0.15); }
   </style>
 </head>
-<body class="min-h-screen relative overflow-x-hidden selection:bg-brand selection:text-white">
+<body class="min-h-screen flex flex-col justify-between">
 
-  <!-- AUTH MODAL -->
-  <div id="authModal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-white rounded shadow-2xl max-w-md w-full border-t-4 border-brand relative overflow-hidden">
-      <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-        <h3 class="font-bold text-slate-800 tracking-wide uppercase text-sm flex items-center gap-2">
-          <i class="fa-solid fa-id-card text-brand"></i> Secure Institutional Access
-        </h3>
-        <button onclick="toggleAuthModal(false)" class="text-slate-400 hover:text-red-600 transition-colors cursor-pointer">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
+  <!-- TOP TICKER -->
+  <div class="bg-rose-950 text-rose-200 text-xs py-1.5 border-b border-rose-800/50">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <span class="bg-rose-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded animate-pulse">LIVE BROADCAST</span>
+        <span class="font-mono text-[11px] truncate">Big Boss Mandate: All submissions monitored by Chanchal Ghosh (Ph: 82749 40238)</span>
       </div>
-      <div class="p-6">
-        <div class="flex gap-6 border-b border-slate-200 mb-6">
-          <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="text-sm font-bold text-brand border-b-2 border-brand pb-2 uppercase tracking-wide cursor-pointer">Member Login</button>
-          <button id="tabRegisterBtn" onclick="switchAuthTab('register')" class="text-sm font-bold text-slate-400 hover:text-slate-800 pb-2 uppercase tracking-wide transition-colors cursor-pointer">New Student Registration</button>
-        </div>
-        <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
-          <div>
-            <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Registration ID / Email</label>
-            <input id="loginEmail" type="text" required class="w-full bg-white border border-slate-300 rounded px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Security PIN / Password</label>
-            <input id="loginPassword" type="password" required class="w-full bg-white border border-slate-300 rounded px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
-          </div>
-          <button type="submit" class="w-full bg-brand text-white font-bold py-2.5 rounded hover:bg-brand-dark transition-colors uppercase tracking-widest text-sm mt-2 cursor-pointer">
-            Authorize Session
-          </button>
-        </form>
-        <form id="registerForm" onsubmit="handleRegister(event)" class="space-y-4 hidden">
-          <div>
-            <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Full Legal Name</label>
-            <input id="regName" type="text" required class="w-full bg-white border border-slate-300 rounded px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Contact Email / Phone</label>
-            <input id="regEmail" type="text" required class="w-full bg-white border border-slate-300 rounded px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-600 mb-1 uppercase">Set Security PIN</label>
-            <input id="regPassword" type="password" required class="w-full bg-white border border-slate-300 rounded px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
-          </div>
-          <button type="submit" class="w-full bg-brand text-white font-bold py-2.5 rounded hover:bg-brand-dark transition-colors uppercase tracking-widest text-sm mt-2 cursor-pointer">
-            Submit Application
-          </button>
-        </form>
-      </div>
-      <div class="bg-slate-50 border-t border-slate-100 p-3 text-center flex justify-between items-center px-6">
-        <p class="text-[10px] text-slate-500 uppercase tracking-wider">Private Portal Use</p>
-        <a href="admin.html" class="text-[10px] text-brand font-bold uppercase hover:underline">Admin Panel <i class="fa-solid fa-lock-open"></i></a>
-      </div>
+      <a href="index.html" class="hover:text-white transition-colors text-[10px] uppercase font-bold tracking-wider hidden sm:inline">
+        Switch Account
+      </a>
     </div>
   </div>
 
-  <!-- MAIN WRAPPER -->
-  <div class="min-h-screen flex flex-col justify-between">
-    
-    <!-- TOP BAR -->
-    <div class="bg-brand text-white py-1.5 px-4 sm:px-6 lg:px-8 border-b border-brand-dark hidden sm:block">
-      <div class="max-w-7xl mx-auto flex justify-between items-center text-xs font-semibold tracking-wide">
-        <div class="flex gap-4 items-center">
-          <span><i class="fa-solid fa-phone mr-1"></i> 82749 40238</span>
-          <span><i class="fa-solid fa-envelope mr-1"></i> info@meerasmriti.org</span>
-          <span class="bg-brand-dark px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest">Private Edition</span>
+  <!-- MAIN NAVIGATION -->
+  <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-slate-950 border-2 border-rose-600 flex items-center justify-center text-rose-500">
+          <i class="fa-solid fa-eye text-xl"></i>
         </div>
-        <div class="flex gap-4 items-center">
-          <a href="index.html" class="hover:text-brand-light transition-colors"><i class="fa-solid fa-palette mr-1"></i> Change Splash Theme</a>
-          <a href="admin.html" class="hover:text-brand-light transition-colors font-bold underline"><i class="fa-solid fa-shield-halved mr-1"></i> Admin Portal</a>
+        <div>
+          <h1 class="font-display font-black text-lg text-white uppercase tracking-wider">Big Boss <span class="text-rose-500">House</span></h1>
+          <p class="text-[9px] text-slate-400 font-mono uppercase tracking-widest">Meera Smriti Fine Arts</p>
         </div>
       </div>
-    </div>
 
-    <!-- HEADER NAVIGATION -->
-    <header class="bg-white shadow-sm sticky top-0 z-40 border-b border-slate-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 rounded bg-brand flex items-center justify-center text-white text-xl border-2 border-brand-dark shadow">
-            <i class="fa-solid fa-landmark"></i>
-          </div>
-          <div class="leading-tight">
-            <h1 class="font-serif font-black text-lg md:text-xl text-slate-900 tracking-tight uppercase">Meera Smriti</h1>
-            <p class="text-[10px] text-slate-500 tracking-widest uppercase font-bold">Sishu Ankan Siksha Kendra</p>
-          </div>
+      <div class="flex items-center gap-4">
+        <div id="userInfo" class="flex items-center gap-2 bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-full">
+          <div id="userAvatar" class="w-6 h-6 rounded-full bg-rose-600 text-white font-bold text-xs flex items-center justify-center">U</div>
+          <span id="userName" class="text-xs font-bold text-slate-300">Housemate</span>
         </div>
+        <a href="admin.html" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs px-3 py-2 rounded uppercase tracking-wider transition-colors flex items-center gap-1">
+          <i class="fa-solid fa-lock"></i> Admin
+        </a>
+      </div>
+    </div>
+  </header>
 
-        <nav class="hidden md:flex items-center space-x-6 text-sm font-bold text-slate-700 uppercase tracking-wide">
-          <a href="#about" class="hover:text-brand transition-colors">About Us</a>
-          <a href="#programs" class="hover:text-brand transition-colors">Programs</a>
-          <a href="#centers" class="hover:text-brand transition-colors">Centers</a>
-          <a href="#contact" class="hover:text-brand transition-colors">Contact</a>
-        </nav>
+  <!-- CONTENT BODY -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow space-y-8">
 
-        <div class="flex items-center gap-4">
-          <div id="loggedOutUI">
-            <button onclick="toggleAuthModal(true)" class="bg-brand text-white font-bold text-xs md:text-sm px-4 py-2 rounded hover:bg-brand-dark transition-colors uppercase tracking-wide flex items-center gap-2 cursor-pointer shadow">
-              <i class="fa-solid fa-lock"></i> Portal Login
-            </button>
+    <!-- HOUSE COMMAND BANNER -->
+    <section class="bg-gradient-to-r from-slate-900 via-rose-950/40 to-slate-900 border border-slate-800 rounded-xl p-6 md:p-10 relative overflow-hidden glow-box">
+      <div class="max-w-2xl relative z-10">
+        <span class="text-rose-500 font-mono text-xs uppercase font-bold tracking-widest block mb-2">SEASON 2026 EDITION</span>
+        <h2 class="text-3xl md:text-5xl font-display font-black text-white uppercase leading-tight mb-4">
+          Welcome to the <span class="text-rose-500">Arena of Fine Arts</span>
+        </h2>
+        <p class="text-slate-400 text-sm leading-relaxed mb-6 font-medium">
+          Controlled environment under founder Chanchal Ghosh. Compete in art tasks, review studio centers, and log your progress directly into the House ledger.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="#interactiveTasks" class="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-6 py-3 rounded uppercase tracking-widest transition-colors shadow-lg">
+            View Live Tasks
+          </a>
+          <a href="#directorSection" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs px-6 py-3 rounded uppercase tracking-widest transition-colors border border-slate-700">
+            Director's Orders
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE BIG BOSS TASKS (REPLACES GOOGLE FORMS) -->
+    <section id="interactiveTasks" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- TASK 1: WEEKLY ART SUBMISSION -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center mb-4">
+            <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-bold uppercase px-2.5 py-1 rounded">Weekly Challenge</span>
+            <i class="fa-solid fa-palette text-amber-500 text-lg"></i>
           </div>
-          <div id="loggedInUI" class="hidden items-center gap-3">
-            <div class="flex items-center gap-2 border border-slate-200 bg-slate-50 rounded px-2 py-1">
-              <div class="w-6 h-6 rounded bg-brand text-white text-xs font-bold flex items-center justify-center" id="userAvatar">A</div>
-              <span class="text-xs font-bold text-slate-700 uppercase" id="userNameDisplay">Arjun</span>
+          <h3 class="font-bold text-white uppercase text-base mb-2">Water Color Rendering</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Submit your landscape art project directly for Director Chanchal Ghosh's weekly evaluation.</p>
+        </div>
+        <div class="space-y-3 pt-4 border-t border-slate-800">
+          <input type="text" id="task1Title" placeholder="Artwork Title" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-rose-500">
+          <button onclick="submitHouseTask('Watercolor Challenge')" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs py-2 rounded uppercase tracking-wider cursor-pointer">
+            Submit Task
+          </button>
+        </div>
+      </div>
+
+      <!-- TASK 2: CENTER NOMINATION VOTE -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center mb-4">
+            <span class="bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[10px] font-bold uppercase px-2.5 py-1 rounded">House Poll</span>
+            <i class="fa-solid fa-check-to-slot text-rose-500 text-lg"></i>
+          </div>
+          <h3 class="font-bold text-white uppercase text-base mb-2">Best Studio Wing Vote</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Nominate your preferred regional study branch for the upcoming regional exhibition.</p>
+        </div>
+        <div class="space-y-3 pt-4 border-t border-slate-800">
+          <select id="task2Wing" class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-rose-500">
+            <option>Rishra Headquarters Wing</option>
+            <option>Konnagar Aamra Club Wing</option>
+            <option>Uttarpara Center</option>
+          </select>
+          <button onclick="submitHouseTask('Wing Nomination')" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2 rounded uppercase tracking-wider cursor-pointer">
+            Cast Vote
+          </button>
+        </div>
+      </div>
+
+      <!-- TASK 3: DIRECT MESSAGE TO DIRECTOR -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center mb-4">
+            <span class="bg-sky-500/10 text-sky-400 border border-sky-500/20 text-[10px] font-bold uppercase px-2.5 py-1 rounded">Confession Room</span>
+            <i class="fa-solid fa-comment-dots text-sky-500 text-lg"></i>
+          </div>
+          <h3 class="font-bold text-white uppercase text-base mb-2">Direct Hotline</h3>
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">Send a private inquiry or confession note directly to phone 82749 40238.</p>
+        </div>
+        <div class="space-y-3 pt-4 border-t border-slate-800">
+          <input type="text" id="task3Msg" placeholder="Your note..." class="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-rose-500">
+          <button onclick="submitHouseTask('Direct Hotline Note')" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs py-2 rounded uppercase tracking-wider border border-slate-700 cursor-pointer">
+            Transmit Note
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- DIRECTOR PROFILE SECTION -->
+    <section id="directorSection" class="bg-slate-900 border border-slate-800 rounded-xl p-6 md:p-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+        <div class="relative">
+          <div class="aspect-square bg-slate-950 rounded-xl border-2 border-slate-800 overflow-hidden relative">
+            <img src="CG Sir.PNG" alt="Chanchal Ghosh" class="w-full h-full object-cover object-top">
+            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 p-4 text-center">
+              <span class="text-xs font-bold text-rose-500 uppercase tracking-widest block">Founder & Director</span>
+              <h4 class="font-bold text-white text-base uppercase">Chanchal Ghosh</h4>
             </div>
-            <button onclick="handleLogout()" class="text-slate-400 hover:text-red-600 text-sm cursor-pointer" title="Secure Logout">
-              <i class="fa-solid fa-power-off"></i>
-            </button>
           </div>
         </div>
-      </div>
-    </header>
-
-    <!-- NOTICE BOARD MARQUEE -->
-    <div class="bg-slate-900 text-white text-xs py-2 border-b-4 border-brand">
-      <div class="max-w-7xl mx-auto px-4 flex">
-        <span class="bg-brand px-3 py-1 font-bold uppercase tracking-widest text-[10px] whitespace-nowrap mr-4 rounded">Update</span>
-        <marquee scrollamount="5" class="font-medium tracking-wide flex items-center pt-1" id="marqueeText">
-          Admission open for 2026-2027 academic year across all Hooghly and Howrah centers. &nbsp; | &nbsp; Direct inquiries contact: 82749 40238. &nbsp; | &nbsp; Strict adherence to Kendra guidelines is mandatory.
-        </marquee>
-      </div>
-    </div>
-
-    <!-- HERO BANNER -->
-    <section class="relative bg-slate-100 border-b border-slate-300">
-      <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10">
-        <div class="max-w-3xl">
-          <h2 class="text-sm font-bold text-brand uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
-            <div class="w-8 h-0.5 bg-brand"></div> Est. 2011 | Bengal, India (Private Portal)
-          </h2>
-          <h1 class="text-4xl md:text-6xl font-serif font-black text-slate-900 leading-[1.15] mb-6 uppercase">
-            Empowering Youth Through <span class="text-brand">Visual Arts</span> & Culture.
-          </h1>
-          <p class="text-slate-600 text-base md:text-lg mb-10 leading-relaxed font-medium max-w-2xl">
-            A premier institution dedicated to preserving and propagating fine arts education under the leadership of Chanchal Ghosh. Providing structured training, disciplined studio environments, and recognized exhibitions.
+        <div class="md:col-span-2 space-y-4">
+          <span class="bg-rose-600/20 text-rose-400 border border-rose-600/30 text-[10px] font-bold uppercase px-3 py-1 rounded-full inline-block">
+            Big Boss Authority
+          </span>
+          <h3 class="text-2xl font-display font-bold text-white uppercase">Director's House Rules</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            "Every housemate and student must adhere to the strict discipline of visual arts. Attendance, daily sketch uploads, and participation in official evaluations are mandatory."
           </p>
-          <div class="flex flex-wrap gap-4">
-            <a href="#programs" class="bg-brand text-white font-bold uppercase tracking-widest text-sm px-8 py-3.5 rounded hover:bg-brand-dark transition-colors shadow-md">
-              View Syllabus
-            </a>
-            <a href="#about" class="bg-white border-2 border-slate-300 text-slate-700 font-bold uppercase tracking-widest text-sm px-8 py-3.5 rounded hover:border-brand hover:text-brand transition-colors">
-              Director's Note
-            </a>
+          <div class="p-4 bg-slate-950 border border-slate-800 rounded-lg flex items-center justify-between font-mono text-xs">
+            <span class="text-slate-400">Official Direct Line:</span>
+            <span class="text-amber-400 font-bold text-sm">📞 82749 40238</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT / DIRECTOR'S DESK (USING CG Sir.PNG) -->
-    <section id="about" class="py-16 md:py-24 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          
-          <div class="bg-slate-100 p-4 border border-slate-200 shadow-sm relative">
-            <div class="absolute -top-3 -left-3 w-24 h-24 border-t-4 border-l-4 border-brand pointer-events-none"></div>
-            <div class="absolute -bottom-3 -right-3 w-24 h-24 border-b-4 border-r-4 border-brand pointer-events-none"></div>
-            
-            <div class="aspect-[4/3] bg-slate-900 overflow-hidden rounded border border-slate-300 shadow-inner">
-              <img src="CG Sir.PNG" alt="Chanchal Ghosh - Director" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="bg-white mt-4 p-4 border border-slate-200 text-center">
-              <h4 class="font-bold text-slate-900 uppercase">Chanchal Ghosh</h4>
-              <p class="text-xs font-bold text-brand uppercase tracking-widest mt-1">Founder & Director</p>
-              <p class="text-[11px] text-slate-500 mt-1 font-mono">Contact: 82749 40238</p>
-            </div>
-          </div>
+  </main>
 
-          <div>
-            <h2 class="section-heading text-2xl md:text-3xl text-slate-900 font-serif">Director's Message</h2>
-            <p class="text-slate-600 leading-relaxed mb-6">
-              "Art is not merely a hobby; it is a rigorous discipline that shapes character, builds focus, and connects our youth to cultural heritage. At Meera Smriti Sishu Ankan Siksha Kendra, our primary objective is to maintain exceptional academic standards in visual arts."
-            </p>
-            <p class="text-slate-600 leading-relaxed mb-8">
-              Through careful mentoring, formal evaluations, and state-level participation, we prepare students for advanced fine arts careers. Call our administration directly at **82749 40238** for enrollment queries.
-            </p>
-            <div class="grid grid-cols-2 gap-6 pt-6 border-t border-slate-200">
-              <div>
-                <span class="block text-3xl font-black text-brand mb-1">15+</span>
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Years of Service</span>
-              </div>
-              <div>
-                <span class="block text-3xl font-black text-brand mb-1">1000+</span>
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Alumni Network</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- PROGRAMS -->
-    <section id="programs" class="py-16 md:py-24 bg-slate-50 border-t border-slate-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-2xl mx-auto mb-16">
-          <h2 class="text-2xl md:text-3xl text-slate-900 font-serif font-black uppercase tracking-wide mb-4">Academic Programs</h2>
-          <div class="w-16 h-1 bg-brand mx-auto mb-4"></div>
-          <p class="text-slate-600 font-medium">Structured syllabus designed to take students from foundational techniques to advanced diploma proficiency.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-white border border-slate-200 hover:border-brand transition-colors p-8 shadow-sm group">
-            <div class="w-12 h-12 bg-brand-light text-brand flex items-center justify-center text-xl mb-6 rounded">
-              <i class="fa-solid fa-pen-ruler"></i>
-            </div>
-            <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wide mb-3">Foundation Course</h3>
-            <p class="text-sm text-slate-600 leading-relaxed mb-6 pb-6 border-b border-slate-100">
-              Primary education focusing on pencil grip, basic shapes, color recognition, and pastel shading fundamentals. Suitable for ages 4 to 8.
-            </p>
-            <a href="#contact" class="text-xs font-bold text-brand uppercase tracking-widest group-hover:text-brand-dark flex items-center gap-1">
-              Inquire Now <i class="fa-solid fa-arrow-right"></i>
-            </a>
-          </div>
-          <div class="bg-white border border-slate-200 hover:border-brand transition-colors p-8 shadow-sm group relative">
-            <div class="absolute top-0 right-0 bg-brand text-white text-[9px] font-black uppercase tracking-widest px-3 py-1">Core Wing</div>
-            <div class="w-12 h-12 bg-brand-light text-brand flex items-center justify-center text-xl mb-6 rounded">
-              <i class="fa-solid fa-brush"></i>
-            </div>
-            <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wide mb-3">Intermediate Studio</h3>
-            <p class="text-sm text-slate-600 leading-relaxed mb-6 pb-6 border-b border-slate-100">
-              Training in watercolors, gouache techniques, still-life observation, and landscape rendering. Structured for ages 9 to 15.
-            </p>
-            <a href="#contact" class="text-xs font-bold text-brand uppercase tracking-widest group-hover:text-brand-dark flex items-center gap-1">
-              Inquire Now <i class="fa-solid fa-arrow-right"></i>
-            </a>
-          </div>
-          <div class="bg-white border border-slate-200 hover:border-brand transition-colors p-8 shadow-sm group">
-            <div class="w-12 h-12 bg-brand-light text-brand flex items-center justify-center text-xl mb-6 rounded">
-              <i class="fa-solid fa-graduation-cap"></i>
-            </div>
-            <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wide mb-3">Diploma Preparation</h3>
-            <p class="text-sm text-slate-600 leading-relaxed mb-6 pb-6 border-b border-slate-100">
-              Advanced training in oil on canvas, acrylics, anatomical drawing, and fine arts diploma exhibition preparation for senior students.
-            </p>
-            <a href="#contact" class="text-xs font-bold text-brand uppercase tracking-widest group-hover:text-brand-dark flex items-center gap-1">
-              Inquire Now <i class="fa-solid fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CENTERS -->
-    <section id="centers" class="py-16 md:py-24 bg-white border-t border-slate-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="section-heading text-2xl md:text-3xl text-slate-900 font-serif mb-10">Registered Centers</h2>
-        <div class="bg-slate-50 border border-slate-200 rounded overflow-hidden shadow-sm">
-          <table class="w-full text-left text-sm text-slate-600">
-            <thead class="bg-slate-100 border-b border-slate-200 text-xs uppercase font-bold text-slate-700 tracking-wider">
-              <tr>
-                <th class="px-6 py-4">Branch Designation</th>
-                <th class="px-6 py-4">Location / Address</th>
-                <th class="px-6 py-4">Operating Hours</th>
-                <th class="px-6 py-4 text-right">Status</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-200">
-              <tr class="hover:bg-white transition-colors">
-                <td class="px-6 py-4 font-bold text-slate-900">Headquarters (Rishra)</td>
-                <td class="px-6 py-4">36, Dr. P. T. Laha Street, Near Volleyball Play Ground, Hooghly</td>
-                <td class="px-6 py-4">Mon - Sat (4 PM - 8 PM)</td>
-                <td class="px-6 py-4 text-right"><span class="bg-green-100 text-green-800 text-[10px] font-bold uppercase px-2 py-1 rounded border border-green-200">Active</span></td>
-              </tr>
-              <tr class="hover:bg-white transition-colors">
-                <td class="px-6 py-4 font-bold text-slate-900">Konnagar Wing</td>
-                <td class="px-6 py-4">Aamra Club, Criper Road, Near Rabindra Bhavan, Hooghly</td>
-                <td class="px-6 py-4">Weekends Only</td>
-                <td class="px-6 py-4 text-right"><span class="bg-green-100 text-green-800 text-[10px] font-bold uppercase px-2 py-1 rounded border border-green-200">Active</span></td>
-              </tr>
-              <tr class="hover:bg-white transition-colors">
-                <td class="px-6 py-4 font-bold text-slate-900">Uttarpara Center</td>
-                <td class="px-6 py-4">Sarat Apartment, BK Street, Uttarpara</td>
-                <td class="px-6 py-4">Wed & Fri</td>
-                <td class="px-6 py-4 text-right"><span class="bg-green-100 text-green-800 text-[10px] font-bold uppercase px-2 py-1 rounded border border-green-200">Active</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer id="contact" class="bg-slate-950 text-slate-300 pt-16 pb-8 border-t-4 border-brand">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          <div class="md:col-span-2">
-            <h3 class="text-xl font-serif font-black text-white uppercase tracking-wide mb-4">Meera Smriti Sishu Ankan Siksha Kendra</h3>
-            <p class="text-sm text-slate-400 mb-6 leading-relaxed max-w-sm">
-              An officially registered fine arts training institution based in West Bengal, India. Promoting cultural heritage under Chanchal Ghosh since 2011.
-            </p>
-            <div class="flex gap-4">
-              <a href="#" class="w-10 h-10 rounded bg-slate-900 border border-slate-800 flex items-center justify-center hover:bg-brand hover:border-brand transition-colors text-white">
-                <i class="fa-brands fa-facebook-f"></i>
-              </a>
-              <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" class="w-10 h-10 rounded bg-slate-900 border border-slate-800 flex items-center justify-center hover:bg-brand hover:border-brand transition-colors text-white">
-                <i class="fa-brands fa-youtube"></i>
-              </a>
-            </div>
-          </div>
-          <div>
-            <h4 class="text-sm font-bold text-white uppercase tracking-widest mb-4 border-b border-slate-800 pb-2">Quick Links</h4>
-            <ul class="space-y-3 text-sm">
-              <li><a href="admin.html" class="hover:text-brand transition-colors font-bold text-orange-400"><i class="fa-solid fa-lock mr-1"></i> Admin Dashboard</a></li>
-              <li><a href="#programs" class="hover:text-brand transition-colors">Syllabus Overview</a></li>
-              <li><a href="#centers" class="hover:text-brand transition-colors">Branch Locations</a></li>
-              <li><a href="#" class="hover:text-brand transition-colors">Disciplinary Rules</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="text-sm font-bold text-white uppercase tracking-widest mb-4 border-b border-slate-800 pb-2">Contact HQ</h4>
-            <ul class="space-y-3 text-sm">
-              <li class="flex items-start gap-3">
-                <i class="fa-solid fa-location-dot mt-1 text-brand"></i>
-                <span>36, Dr. P. T. Laha St, Rishra, Hooghly, WB.</span>
-              </li>
-              <li class="flex items-center gap-3">
-                <i class="fa-solid fa-phone text-brand"></i>
-                <span>82749 40238</span>
-              </li>
-              <li class="flex items-center gap-3">
-                <i class="fa-solid fa-envelope text-brand"></i>
-                <span>info@meerasmriti.org</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="pt-8 border-t border-slate-800 text-[10px] text-slate-500 font-mono leading-relaxed bg-slate-900 p-4 rounded">
-          <p class="font-bold text-slate-400 mb-1 uppercase tracking-widest">Private Institutional Portal & MIT License</p>
-          <p>Copyright &copy; 2026 Meera Smriti Sishu Ankan Siksha Kendra. Director: Chanchal Ghosh (Ph: 82749 40238).</p>
-        </div>
-      </div>
-    </footer>
-  </div>
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 border-t border-slate-800 py-6 text-center text-xs text-slate-500 font-mono">
+    <p>Big Boss House Portal &copy; 2026 Meera Smriti Siksha Kendra. Contact: 82749 40238.</p>
+  </footer>
 
   <script>
-    const THEME_KEY = 'meera_smriti_org_theme';
     const USER_KEY = 'meera_smriti_org_user';
     const REG_STORAGE = 'meera_smriti_registrations';
 
-    function setThemeVariables(brandColor, brandDark, brandLight) {
-      document.documentElement.style.setProperty('--brand-color', brandColor);
-      document.documentElement.style.setProperty('--brand-dark', brandDark);
-      document.documentElement.style.setProperty('--brand-light', brandLight);
-    }
-
-    function toggleAuthModal(show) {
-      const modal = document.getElementById('authModal');
-      if(show) { modal.classList.remove('hidden'); modal.classList.add('flex'); }
-      else { modal.classList.add('hidden'); modal.classList.remove('flex'); }
-    }
-
-    function switchAuthTab(tab) {
-      const loginForm = document.getElementById('loginForm');
-      const regForm = document.getElementById('registerForm');
-      const loginBtn = document.getElementById('tabLoginBtn');
-      const regBtn = document.getElementById('tabRegisterBtn');
-      if(tab === 'login') {
-        loginForm.classList.remove('hidden'); regForm.classList.add('hidden');
-        loginBtn.className = "text-sm font-bold text-brand border-b-2 border-brand pb-2 uppercase tracking-wide cursor-pointer";
-        regBtn.className = "text-sm font-bold text-slate-400 hover:text-slate-800 pb-2 uppercase tracking-wide transition-colors cursor-pointer";
-      } else {
-        loginForm.classList.add('hidden'); regForm.classList.remove('hidden');
-        regBtn.className = "text-sm font-bold text-brand border-b-2 border-brand pb-2 uppercase tracking-wide cursor-pointer";
-        loginBtn.className = "text-sm font-bold text-slate-400 hover:text-slate-800 pb-2 uppercase tracking-wide transition-colors cursor-pointer";
-      }
-    }
-
-    function handleRegister(e) {
-      e.preventDefault();
-      const name = document.getElementById('regName').value;
-      const email = document.getElementById('regEmail').value;
-      const user = { name, email, avatar: name.charAt(0).toUpperCase(), date: new Date().toLocaleDateString() };
-      
-      let existingRegs = JSON.parse(localStorage.getItem(REG_STORAGE) || '[]');
-      existingRegs.push(user);
-      localStorage.setItem(REG_STORAGE, JSON.stringify(existingRegs));
-      localStorage.setItem(USER_KEY, JSON.stringify(user));
-      
-      updateAuthUI(user);
-      toggleAuthModal(false);
-      alert('Application submitted successfully and recorded securely.');
-    }
-
-    function handleLogin(e) {
-      e.preventDefault();
-      const email = document.getElementById('loginEmail').value;
-      const name = email.split('@')[0];
-      const user = { name: name.charAt(0).toUpperCase() + name.slice(1), email, avatar: name.charAt(0).toUpperCase() };
-      localStorage.setItem(USER_KEY, JSON.stringify(user));
-      updateAuthUI(user);
-      toggleAuthModal(false);
-    }
-
-    function handleLogout() {
-      localStorage.removeItem(USER_KEY);
-      updateAuthUI(null);
-    }
-
-    function updateAuthUI(user) {
-      const loggedOutUI = document.getElementById('loggedOutUI');
-      const loggedInUI = document.getElementById('loggedInUI');
-      if(user) {
-        loggedOutUI.classList.add('hidden');
-        loggedInUI.classList.remove('hidden');
-        loggedInUI.classList.add('flex');
-        document.getElementById('userNameDisplay').textContent = user.name;
-        document.getElementById('userAvatar').textContent = user.avatar;
-      } else {
-        loggedOutUI.classList.remove('hidden');
-        loggedInUI.classList.add('hidden');
-        loggedInUI.classList.remove('flex');
-      }
-    }
-
     window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem(THEME_KEY);
-      if(savedTheme) {
+      const u = localStorage.getItem(USER_KEY);
+      if(u) {
         try {
-          const { brandColor, brandDark, brandLight } = JSON.parse(savedTheme);
-          setThemeVariables(brandColor, brandDark, brandLight);
-        } catch(e) {}
-      }
-      const savedUser = localStorage.getItem(USER_KEY);
-      if(savedUser) {
-        try { updateAuthUI(JSON.parse(savedUser)); } catch(e) {}
+          const parsed = JSON.parse(u);
+          document.getElementById('userName').textContent = parsed.name || 'Housemate';
+          document.getElementById('userAvatar').textContent = parsed.avatar || 'H';
+        } catch(e){}
       }
     });
+
+    function submitHouseTask(type) {
+      alert(`Big Boss Task "${type}" recorded successfully in the house ledger!`);
+    }
   </script>
 </body>
 </html>
