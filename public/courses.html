@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Curriculum & Course Tracks | Meera Smriti Siksha Kendra</title>
   
-  <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -36,11 +35,12 @@
       background: rgba(15, 23, 42, 0.75); 
       border: 1px solid rgba(255, 255, 255, 0.08); 
       backdrop-filter: blur(12px);
-      transition: border-color 0.2s ease, transform 0.2s ease;
+      transition: all 0.25s ease;
     }
 
     .card-dark:hover {
-      border-color: rgba(249, 115, 22, 0.3);
+      border-color: rgba(249, 115, 22, 0.35);
+      transform: translateY(-2px);
     }
   </style>
 </head>
@@ -49,21 +49,21 @@
   <!-- HEADER NAVIGATION -->
   <header class="bg-slate-950/90 border-b border-slate-800/80 sticky top-0 z-40 backdrop-blur-md">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-3">
+      <a href="main.html" class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-full overflow-hidden border border-orange-500/50 p-0.5 bg-white flex-shrink-0">
-          <img src="logo.jfif" alt="Meera Smriti Logo" class="w-full h-full object-contain rounded-full">
+          <img src="logo.jfif" alt="Meera Smriti Logo" class="w-full h-full object-contain rounded-full" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=100&auto=format&fit=crop'">
         </div>
         <div>
           <h1 class="font-bold text-sm sm:text-base text-white uppercase tracking-tight">
             Meera Smriti <span class="text-orange-500">Siksha Kendra</span>
           </h1>
-          <p class="text-[9px] text-slate-400 font-mono">Curriculum & Course Tracks</p>
+          <p class="text-[9px] text-slate-400 font-mono">Academic Fine Art Tracks</p>
         </div>
       </a>
 
-      <!-- Desktop Links -->
       <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-300">
-        <a href="index.html" class="hover:text-orange-400 transition-colors">Home & Register</a>
+        <a href="main.html" class="hover:text-orange-400 transition-colors">Home</a>
+        <a href="index.html" class="hover:text-orange-400 transition-colors">Register</a>
         <a href="courses.html" class="text-orange-500 border-b-2 border-orange-500 pb-0.5">Courses</a>
         <a href="gallery.html" class="hover:text-orange-400 transition-colors">Exhibition</a>
         <a href="contact.html" class="hover:text-orange-400 transition-colors">Contact</a>
@@ -78,178 +78,99 @@
   <!-- MAIN COURSES CONTENT -->
   <main class="max-w-5xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow space-y-10">
 
-    <!-- PAGE TITLE -->
     <div class="text-center space-y-2">
       <span class="inline-block bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[11px] font-mono font-bold px-3 py-1 rounded-full uppercase">
-        Academic Programs
+        Academic Curriculum
       </span>
       <h2 class="text-2xl sm:text-4xl font-extrabold text-white uppercase tracking-tight">
         Fine Art Course Structure
       </h2>
       <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
-        Structured training levels designed for young beginners to advanced diploma candidates preparing for board examinations.
+        Structured learning levels designed for young beginners to advanced diploma candidates preparing for board examinations.
       </p>
     </div>
 
-    <!-- COURSE TRACK GRID -->
+    <!-- COURSE TRACK GRID WITH PICTURE HEADERS -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-      <!-- TRACK 1: JUNIOR ANKAN STAGE -->
-      <div class="card-dark rounded-3xl p-6 flex flex-col justify-between space-y-6 border-amber-500/20">
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
-              Under 9 Years
-            </span>
-            <i class="fa-solid fa-shapes text-amber-400 text-lg"></i>
-          </div>
-
-          <div>
+      <!-- TRACK 1 -->
+      <div class="card-dark rounded-3xl overflow-hidden flex flex-col justify-between border-amber-500/20">
+        <div class="h-36 relative">
+          <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&auto=format&fit=crop" alt="Junior Ankan" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          <span class="absolute top-3 right-3 bg-amber-500 text-slate-950 font-mono font-bold text-[10px] px-2.5 py-1 rounded-full uppercase">
+            Under 9 Yrs
+          </span>
+        </div>
+        <div class="p-6 space-y-4 flex-grow flex flex-col justify-between">
+          <div class="space-y-2">
             <h3 class="text-lg font-bold text-white uppercase">Junior Ankan Stage</h3>
-            <p class="text-xs text-slate-400 mt-1">Foundation level focused on basic shapes, motor skill development, and color identification.</p>
+            <p class="text-xs text-slate-400">Foundation level focused on basic shapes, motor skills, oil pastel shading, and drawing.</p>
           </div>
-
-          <ul class="space-y-2 text-xs text-slate-300 font-sans border-t border-slate-800 pt-4">
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-amber-400 text-[10px]"></i> Crayon & Pastel Shading Technique
-            </li>
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-amber-400 text-[10px]"></i> Object Drawing & Geometric Shapes
-            </li>
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-amber-400 text-[10px]"></i> Parent-Assisted Progress Tracking
-            </li>
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-amber-400 text-[10px]"></i> Annual Internal Art Display Entry
-            </li>
-          </ul>
-        </div>
-
-        <div class="space-y-3 pt-4 border-t border-slate-800">
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-slate-400 font-mono">Monthly Tuition:</span>
-            <span class="text-amber-400 font-bold font-mono">~ ₹350 - ₹370</span>
+          <div class="space-y-3 pt-4 border-t border-slate-800">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-400 font-mono">Tuition:</span>
+              <span class="text-amber-400 font-bold font-mono">~ ₹350 - ₹370 / mo</span>
+            </div>
+            <a href="index.html" class="block text-center w-full bg-slate-900 hover:bg-slate-800 text-amber-400 border border-amber-500/30 text-xs font-bold py-2.5 rounded-xl uppercase transition-all">
+              Register (<9 Yrs)
+            </a>
           </div>
-          <a href="index.html" class="block text-center w-full bg-slate-900 hover:bg-slate-800 text-amber-400 border border-amber-500/30 text-xs font-bold py-2.5 rounded-xl uppercase transition-all">
-            Register Student (<9 Yrs)
-          </a>
         </div>
       </div>
 
-      <!-- TRACK 2: INTERMEDIATE LANDSCAPE & WATERCOLOR -->
-      <div class="card-dark rounded-3xl p-6 flex flex-col justify-between space-y-6 border-orange-500/30">
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
-              Ages 9 to 14 Years
-            </span>
-            <i class="fa-solid fa-palette text-orange-400 text-lg"></i>
-          </div>
-
-          <div>
+      <!-- TRACK 2 -->
+      <div class="card-dark rounded-3xl overflow-hidden flex flex-col justify-between border-orange-500/30">
+        <div class="h-36 relative">
+          <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=600&auto=format&fit=crop" alt="Intermediate Watercolor" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          <span class="absolute top-3 right-3 bg-orange-500 text-white font-mono font-bold text-[10px] px-2.5 py-1 rounded-full uppercase">
+            9 to 14 Yrs
+          </span>
+        </div>
+        <div class="p-6 space-y-4 flex-grow flex flex-col justify-between">
+          <div class="space-y-2">
             <h3 class="text-lg font-bold text-white uppercase">Intermediate Art Stage</h3>
-            <p class="text-xs text-slate-400 mt-1">Transition into watercolor, composition building, and realistic nature studies.</p>
+            <p class="text-xs text-slate-400">Transition into transparent watercolors, perspective, landscape rendering, and object drawing.</p>
           </div>
-
-          <ul class="space-y-2 text-xs text-slate-300 font-sans border-t border-slate-800 pt-4">
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-orange-400 text-[10px]"></i> Transparent Watercolor Blending
-            </li>
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-orange-400 text-[10px]"></i> Landscape & Perspective Drawing
-            </li>
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-orange-400 text-[10px]"></i> Still Life & Pencil Sketching
-            </li>
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-orange-400 text-[10px]"></i> Annual Exhibition Canvas Selection
-            </li>
-          </ul>
-        </div>
-
-        <div class="space-y-3 pt-4 border-t border-slate-800">
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-slate-400 font-mono">Monthly Tuition:</span>
-            <span class="text-orange-400 font-bold font-mono">~ ₹370 / month</span>
+          <div class="space-y-3 pt-4 border-t border-slate-800">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-400 font-mono">Tuition:</span>
+              <span class="text-orange-400 font-bold font-mono">~ ₹370 / mo</span>
+            </div>
+            <a href="index.html" class="block text-center w-full bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold py-2.5 rounded-xl uppercase transition-all shadow-lg shadow-orange-950/50">
+              Apply For Admission
+            </a>
           </div>
-          <a href="index.html" class="block text-center w-full bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold py-2.5 rounded-xl uppercase transition-all shadow-lg shadow-orange-950/50">
-            Apply For Admission
-          </a>
         </div>
       </div>
 
-      <!-- TRACK 3: SENIOR DIPLOMA & BOARD PREP -->
-      <div class="card-dark rounded-3xl p-6 flex flex-col justify-between space-y-6 border-emerald-500/20">
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
-              Senior & Board Level
-            </span>
-            <i class="fa-solid fa-graduation-cap text-emerald-400 text-lg"></i>
-          </div>
-
-          <div>
+      <!-- TRACK 3 -->
+      <div class="card-dark rounded-3xl overflow-hidden flex flex-col justify-between border-emerald-500/20">
+        <div class="h-36 relative">
+          <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop" alt="Senior Board Prep" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          <span class="absolute top-3 right-3 bg-emerald-500 text-slate-950 font-mono font-bold text-[10px] px-2.5 py-1 rounded-full uppercase">
+            Senior Board
+          </span>
+        </div>
+        <div class="p-6 space-y-4 flex-grow flex flex-col justify-between">
+          <div class="space-y-2">
             <h3 class="text-lg font-bold text-white uppercase">Senior Fine Arts Diploma</h3>
-            <p class="text-xs text-slate-400 mt-1">Formal board examination preparation, advanced acrylic work, and portraiture.</p>
+            <p class="text-xs text-slate-400">Formal board exam syllabus, portrait studies, human anatomy, charcoal, and acrylic canvas work.</p>
           </div>
-
-          <ul class="space-y-2 text-xs text-slate-300 font-sans border-t border-slate-800 pt-4">
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Official Board Exam Syllabus
-            </li>
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Acrylic Canvas & Wash Techniques
-            </li>
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Human Anatomy & Portrait Study
-            </li>
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Recognized Diploma Certification
-            </li>
-          </ul>
-        </div>
-
-        <div class="space-y-3 pt-4 border-t border-slate-800">
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-slate-400 font-mono">Monthly Tuition:</span>
-            <span class="text-emerald-400 font-bold font-mono">~ ₹370 - ₹400</span>
+          <div class="space-y-3 pt-4 border-t border-slate-800">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-400 font-mono">Tuition:</span>
+              <span class="text-emerald-400 font-bold font-mono">~ ₹370 - ₹400 / mo</span>
+            </div>
+            <a href="index.html" class="block text-center w-full bg-slate-900 hover:bg-slate-800 text-emerald-400 border border-emerald-500/30 text-xs font-bold py-2.5 rounded-xl uppercase transition-all">
+              Register / Renew
+            </a>
           </div>
-          <a href="index.html" class="block text-center w-full bg-slate-900 hover:bg-slate-800 text-emerald-400 border border-emerald-500/30 text-xs font-bold py-2.5 rounded-xl uppercase transition-all">
-            Register / Renew
-          </a>
         </div>
       </div>
 
-    </div>
-
-    <!-- SCHEDULE & BRANCH INFORMATION -->
-    <div class="card-dark rounded-3xl p-6 sm:p-8 space-y-4">
-      <h3 class="text-base font-bold text-white uppercase flex items-center gap-2">
-        <i class="fa-solid fa-clock text-orange-500"></i> Class Timings & Branch Wings
-      </h3>
-      <p class="text-xs text-slate-400 leading-relaxed">
-        Classes are conducted weekly across our official branch wings. Batch allocations are finalized after candidate registration and baseline skill assessment.
-      </p>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-        <div class="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-1">
-          <h4 class="text-xs font-bold text-white uppercase">Rishra Central Wing</h4>
-          <p class="text-[11px] text-slate-400 font-mono">Saturdays & Sundays</p>
-          <p class="text-[10px] text-slate-500">Morning & Evening Batches</p>
-        </div>
-
-        <div class="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-1">
-          <h4 class="text-xs font-bold text-white uppercase">Konnagar Aamra Club Wing</h4>
-          <p class="text-[11px] text-slate-400 font-mono">Sundays Only</p>
-          <p class="text-[10px] text-slate-500">Morning Batch</p>
-        </div>
-
-        <div class="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-1">
-          <h4 class="text-xs font-bold text-white uppercase">Uttarpara Branch Wing</h4>
-          <p class="text-[11px] text-slate-400 font-mono">Fridays & Sundays</p>
-          <p class="text-[10px] text-slate-500">Evening Batch</p>
-        </div>
-      </div>
     </div>
 
   </main>

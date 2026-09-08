@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Annual Art Exhibition & Gallery | Meera Smriti Siksha Kendra</title>
   
-  <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -52,7 +51,7 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <a href="main.html" class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-full overflow-hidden border border-orange-500/50 p-0.5 bg-white flex-shrink-0">
-          <img src="logo.jfif" alt="Meera Smriti Logo" class="w-full h-full object-contain rounded-full">
+          <img src="logo.jfif" alt="Meera Smriti Logo" class="w-full h-full object-contain rounded-full" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=100&auto=format&fit=crop'">
         </div>
         <div>
           <h1 class="font-bold text-sm sm:text-base text-white uppercase tracking-tight">
@@ -62,7 +61,6 @@
         </div>
       </a>
 
-      <!-- Desktop Links -->
       <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-300">
         <a href="main.html" class="hover:text-orange-400 transition-colors">Home</a>
         <a href="index.html" class="hover:text-orange-400 transition-colors">Register</a>
@@ -72,11 +70,10 @@
       </nav>
 
       <div class="flex items-center gap-3">
-        <!-- Quick Social Links -->
         <div class="hidden sm:flex items-center gap-2 border-r border-slate-800 pr-3 mr-1 text-slate-400">
-          <a href="https://facebook.com" target="_blank" class="hover:text-blue-400 transition-colors text-sm p-1" title="Facebook Page"><i class="fa-brands fa-facebook"></i></a>
-          <a href="https://instagram.com" target="_blank" class="hover:text-pink-400 transition-colors text-sm p-1" title="Instagram Gallery"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://whatsapp.com" target="_blank" class="hover:text-emerald-400 transition-colors text-sm p-1" title="WhatsApp Updates"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://facebook.com" target="_blank" class="hover:text-blue-400 transition-colors text-sm p-1"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://instagram.com" target="_blank" class="hover:text-pink-400 transition-colors text-sm p-1"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://whatsapp.com" target="_blank" class="hover:text-emerald-400 transition-colors text-sm p-1"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
 
         <a href="admin.html" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl uppercase tracking-wider transition-all flex items-center gap-1.5">
@@ -89,206 +86,158 @@
   <!-- MAIN GALLERY CONTENT -->
   <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow space-y-10">
 
-    <!-- PAGE HEADER -->
     <div class="text-center space-y-3">
       <span class="inline-block bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[11px] font-mono font-bold px-3 py-1 rounded-full uppercase">
         Student Artwork Showcase
       </span>
       <h2 class="text-2xl sm:text-4xl font-extrabold text-white uppercase tracking-tight">
-        Annual Fine Art Exhibition
+        Annual Fine Art Exhibition Gallery
       </h2>
       <p class="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto">
-        Celebrating over 35 years of creative excellence. Explore select works created by candidates across all branch wings, from junior color studies to diploma canvas projects.
+        Celebrating creative talent across all age groups and branch wings. Explore transparent watercolors, oil pastels, acrylic canvases, and board examination practicals.
       </p>
     </div>
 
-    <!-- FEATURED ANNUAL EXHIBITION BANNER -->
-    <section class="card-dark rounded-3xl p-6 sm:p-8 border-amber-500/30 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="space-y-3 max-w-xl">
-          <div class="flex items-center gap-2">
-            <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
-              Upcoming Event
-            </span>
-            <span class="text-xs font-mono text-slate-400"><i class="fa-regular fa-calendar text-amber-400"></i> Dec 25 – Dec 28</span>
-          </div>
-          <h3 class="text-xl sm:text-2xl font-black text-white uppercase">
-            36th Annual Grand Art & Craft Exhibition
-          </h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Join us at our central hall to view over 200+ selected works including transparent watercolors, acrylic landscapes, clay modeling, and traditional handicrafts.
-          </p>
-          <div class="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-300 pt-1">
-            <span><i class="fa-solid fa-location-dot text-orange-500"></i> Rishra Central Academy Hall</span>
-            <span><i class="fa-solid fa-clock text-amber-400"></i> 4:00 PM - 9:00 PM Daily</span>
-          </div>
+    <!-- FEATURED HERO EXHIBITION BANNER -->
+    <section class="card-dark rounded-3xl overflow-hidden border-amber-500/30 grid grid-cols-1 md:grid-cols-12 items-center">
+      <div class="md:col-span-7 p-6 sm:p-8 space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
+            Annual Event Highlight
+          </span>
+          <span class="text-xs font-mono text-slate-400"><i class="fa-regular fa-calendar text-amber-400"></i> Dec 25 – Dec 28</span>
         </div>
-
-        <div class="flex-shrink-0 w-full md:w-auto text-center md:text-right space-y-3">
-          <div class="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 text-left md:text-right">
-            <span class="text-[10px] text-slate-400 uppercase font-mono block">Submission Deadline</span>
-            <span class="text-sm font-bold text-orange-400 font-mono">November 30</span>
-            <p class="text-[10px] text-slate-500 mt-0.5">Contact branch instructor for frame sizing</p>
-          </div>
-          <a href="contact.html" class="inline-block w-full md:w-auto bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs px-5 py-2.5 rounded-xl uppercase transition-all text-center">
-            Inquire For Visitor Pass
-          </a>
+        <h3 class="text-2xl sm:text-3xl font-black text-white uppercase">
+          36th Annual Grand Fine Art Exhibition
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Over 200+ selected paintings, clay models, and craft projects on display at the Rishra Central Academy Hall.
+        </p>
+        <div class="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-300 pt-2">
+          <span><i class="fa-solid fa-location-dot text-orange-500"></i> Rishra Central Wing</span>
+          <span><i class="fa-solid fa-clock text-amber-400"></i> 4:00 PM – 9:00 PM Daily</span>
         </div>
+      </div>
+      <div class="md:col-span-5 h-64 md:h-full min-h-[240px] relative overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=800&auto=format&fit=crop" alt="Fine Art Gallery Exhibition" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-slate-950 via-slate-950/20 to-transparent"></div>
       </div>
     </section>
 
-    <!-- GALLERY CATEGORY FILTER BUTTONS -->
-    <div class="flex items-center justify-center gap-2 flex-wrap text-xs font-mono">
-      <button class="bg-orange-500 text-white font-bold px-4 py-2 rounded-xl transition-all shadow-md shadow-orange-950/50">All Works</button>
-      <button class="bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-4 py-2 rounded-xl transition-all">Watercolors</button>
-      <button class="bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-4 py-2 rounded-xl transition-all">Acrylic & Canvas</button>
-      <button class="bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-4 py-2 rounded-xl transition-all">Pencil & Charcoal</button>
-      <button class="bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-4 py-2 rounded-xl transition-all">Junior Art</button>
-    </div>
-
-    <!-- ARTWORK EXHIBITION GRID -->
+    <!-- ARTWORK GALLERY GRID WITH HIGH RES PICTURES -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      <!-- ART ITEM 1 -->
       <div class="card-dark rounded-2xl overflow-hidden group">
-        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center border-b border-slate-800">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent z-10"></div>
-          <i class="fa-solid fa-image text-slate-800 text-6xl group-hover:scale-110 transition-transform duration-300"></i>
-          <span class="absolute top-3 left-3 z-20 bg-orange-500/20 text-orange-400 border border-orange-500/30 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
-            Watercolor
+        <div class="h-52 bg-slate-900 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=600&auto=format&fit=crop" alt="Watercolor Painting" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <span class="absolute top-3 left-3 bg-orange-500/80 text-white backdrop-blur-md text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
+            Watercolor Wash
           </span>
         </div>
         <div class="p-5 space-y-2">
-          <h4 class="text-sm font-bold text-white uppercase group-hover:text-orange-400 transition-colors">Monsoon Village Landscape</h4>
-          <p class="text-xs text-slate-400">A transparent wash study depicting rural Bengal during the rain season.</p>
-          <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-slate-800/80 pt-3 mt-3">
+          <h4 class="text-sm font-bold text-white uppercase group-hover:text-orange-400 transition-colors">Monsoon Village Study</h4>
+          <p class="text-xs text-slate-400">A transparent wash landscape depicting rural Bengal scenery during monsoon.</p>
+          <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-slate-800 pt-3 mt-3">
             <span>By: <strong class="text-slate-200">Senior Diploma Batch</strong></span>
-            <span class="text-amber-400">First Class Award</span>
+            <span class="text-amber-400">1st Prize</span>
           </div>
         </div>
       </div>
 
-      <!-- ART ITEM 2 -->
       <div class="card-dark rounded-2xl overflow-hidden group">
-        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center border-b border-slate-800">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent z-10"></div>
-          <i class="fa-solid fa-palette text-slate-800 text-6xl group-hover:scale-110 transition-transform duration-300"></i>
-          <span class="absolute top-3 left-3 z-20 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
+        <div class="h-52 bg-slate-900 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600&auto=format&fit=crop" alt="Acrylic Canvas Art" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <span class="absolute top-3 left-3 bg-emerald-500/80 text-white backdrop-blur-md text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
             Acrylic Canvas
           </span>
         </div>
         <div class="p-5 space-y-2">
-          <h4 class="text-sm font-bold text-white uppercase group-hover:text-emerald-400 transition-colors">Traditional Terracotta Heritage</h4>
-          <p class="text-xs text-slate-400">Heavy texture acrylic painting showcasing temple architecture motifs.</p>
-          <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-slate-800/80 pt-3 mt-3">
+          <h4 class="text-sm font-bold text-white uppercase group-hover:text-emerald-400 transition-colors">Terracotta Heritage Motifs</h4>
+          <p class="text-xs text-slate-400">Heavy body acrylic palette painting showcasing traditional temple art.</p>
+          <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-slate-800 pt-3 mt-3">
             <span>By: <strong class="text-slate-200">Uttarpara Wing Student</strong></span>
-            <span class="text-emerald-400">Exhibition Highlight</span>
+            <span class="text-emerald-400">Exhibition Entry</span>
           </div>
         </div>
       </div>
 
-      <!-- ART ITEM 3 -->
       <div class="card-dark rounded-2xl overflow-hidden group">
-        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center border-b border-slate-800">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent z-10"></div>
-          <i class="fa-solid fa-paintbrush text-slate-800 text-6xl group-hover:scale-110 transition-transform duration-300"></i>
-          <span class="absolute top-3 left-3 z-20 bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
+        <div class="h-52 bg-slate-900 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&auto=format&fit=crop" alt="Junior Pastel Artwork" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <span class="absolute top-3 left-3 bg-amber-500/80 text-slate-950 backdrop-blur-md text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
             Junior Pastel
           </span>
         </div>
         <div class="p-5 space-y-2">
-          <h4 class="text-sm font-bold text-white uppercase group-hover:text-amber-400 transition-colors">Nature & Wildlife Composition</h4>
-          <p class="text-xs text-slate-400">Vibrant oil pastel shading created by young beginners under 8 years.</p>
-          <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-slate-800/80 pt-3 mt-3">
+          <h4 class="text-sm font-bold text-white uppercase group-hover:text-amber-400 transition-colors">Vibrant Nature & Birds</h4>
+          <p class="text-xs text-slate-400">Color identification and blending project created by beginner age group.</p>
+          <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-slate-800 pt-3 mt-3">
             <span>By: <strong class="text-slate-200">Junior Ankan Group</strong></span>
             <span class="text-amber-400">Special Mention</span>
           </div>
         </div>
       </div>
 
-      <!-- ART ITEM 4 -->
       <div class="card-dark rounded-2xl overflow-hidden group">
-        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center border-b border-slate-800">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent z-10"></div>
-          <i class="fa-solid fa-pen-nib text-slate-800 text-6xl group-hover:scale-110 transition-transform duration-300"></i>
-          <span class="absolute top-3 left-3 z-20 bg-blue-500/20 text-blue-400 border border-blue-500/30 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
+        <div class="h-52 bg-slate-900 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop" alt="Charcoal Portrait Sketch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <span class="absolute top-3 left-3 bg-blue-500/80 text-white backdrop-blur-md text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
             Pencil & Charcoal
           </span>
         </div>
         <div class="p-5 space-y-2">
           <h4 class="text-sm font-bold text-white uppercase group-hover:text-blue-400 transition-colors">Light & Shadow Portrait</h4>
-          <p class="text-xs text-slate-400">Anatomical human study focusing on contrast, value, and pencil graduation.</p>
-          <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-slate-800/80 pt-3 mt-3">
-            <span>By: <strong class="text-slate-200">5th Year Board Prep</strong></span>
-            <span class="text-blue-400">Diploma Practical</span>
+          <p class="text-xs text-slate-400">Detailed human anatomical sketch focusing on tonal value and gradient control.</p>
+          <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-slate-800 pt-3 mt-3">
+            <span>By: <strong class="text-slate-200">5th Year Board Candidate</strong></span>
+            <span class="text-blue-400">Practical Board Exam</span>
           </div>
         </div>
       </div>
 
-      <!-- ART ITEM 5 -->
       <div class="card-dark rounded-2xl overflow-hidden group">
-        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center border-b border-slate-800">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent z-10"></div>
-          <i class="fa-solid fa-mountain-sun text-slate-800 text-6xl group-hover:scale-110 transition-transform duration-300"></i>
-          <span class="absolute top-3 left-3 z-20 bg-orange-500/20 text-orange-400 border border-orange-500/30 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
-            Watercolor
+        <div class="h-52 bg-slate-900 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&auto=format&fit=crop" alt="Art Studio Palette" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <span class="absolute top-3 left-3 bg-pink-500/80 text-white backdrop-blur-md text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
+            Still Life Study
           </span>
         </div>
         <div class="p-5 space-y-2">
-          <h4 class="text-sm font-bold text-white uppercase group-hover:text-orange-400 transition-colors">Autumn Riverbank Sunset</h4>
-          <p class="text-xs text-slate-400">Perspective landscape study exploring warm color tones and water reflections.</p>
-          <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-slate-800/80 pt-3 mt-3">
+          <h4 class="text-sm font-bold text-white uppercase group-hover:text-pink-400 transition-colors">Studio Still Life Composition</h4>
+          <p class="text-xs text-slate-400">Object drawing with direct shadow studies using mixed media pigments.</p>
+          <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-slate-800 pt-3 mt-3">
             <span>By: <strong class="text-slate-200">Konnagar Wing Candidate</strong></span>
-            <span class="text-orange-400">Merit Certificate</span>
+            <span class="text-pink-400">Merit Certificate</span>
           </div>
         </div>
       </div>
 
-      <!-- ART ITEM 6 -->
       <div class="card-dark rounded-2xl overflow-hidden group">
-        <div class="h-48 bg-slate-900 relative overflow-hidden flex items-center justify-center border-b border-slate-800">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent z-10"></div>
-          <i class="fa-solid fa-shapes text-slate-800 text-6xl group-hover:scale-110 transition-transform duration-300"></i>
-          <span class="absolute top-3 left-3 z-20 bg-purple-500/20 text-purple-400 border border-purple-500/30 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
-            Craft & Modeling
+        <div class="h-52 bg-slate-900 relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1578926375605-eaf7559b1458?w=600&auto=format&fit=crop" alt="Terracotta Sculpture Craft" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <span class="absolute top-3 left-3 bg-purple-500/80 text-white backdrop-blur-md text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
+            Clay & Craft
           </span>
         </div>
         <div class="p-5 space-y-2">
           <h4 class="text-sm font-bold text-white uppercase group-hover:text-purple-400 transition-colors">Terracotta Relief Sculpture</h4>
-          <p class="text-xs text-slate-400">Handcrafted clay relief panel featuring folk art and traditional motifs.</p>
-          <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-slate-800/80 pt-3 mt-3">
-            <span>By: <strong class="text-slate-200">Craft Specialization</strong></span>
-            <span class="text-purple-400">Exhibition Entry</span>
+          <p class="text-xs text-slate-400">Hand-molded clay relief panel celebrating folk art traditions.</p>
+          <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 border-t border-slate-800 pt-3 mt-3">
+            <span>By: <strong class="text-slate-200">Craft Workshop Batch</strong></span>
+            <span class="text-purple-400">Exhibition Highlight</span>
           </div>
         </div>
       </div>
 
     </div>
 
-    <!-- SOCIAL MEDIA PROMOTIONAL CALLOUT -->
-    <section class="card-dark rounded-3xl p-6 sm:p-8 space-y-4 border-orange-500/20 text-center">
-      <h3 class="text-lg font-bold text-white uppercase">Want to see more live student creations?</h3>
-      <p class="text-xs text-slate-400 max-w-xl mx-auto">
-        We upload weekly student artwork features, examination results, and exhibition preparation videos directly to our official social media channels.
-      </p>
-      <div class="flex items-center justify-center gap-3 pt-2">
-        <a href="https://instagram.com" target="_blank" class="bg-slate-900 hover:bg-slate-800 text-pink-400 border border-pink-500/30 font-bold text-xs px-4 py-2.5 rounded-xl uppercase transition-all flex items-center gap-2">
-          <i class="fa-brands fa-instagram"></i> Instagram Gallery
-        </a>
-        <a href="https://facebook.com" target="_blank" class="bg-slate-900 hover:bg-slate-800 text-blue-400 border border-blue-500/30 font-bold text-xs px-4 py-2.5 rounded-xl uppercase transition-all flex items-center gap-2">
-          <i class="fa-brands fa-facebook"></i> Facebook Page
-        </a>
-      </div>
-    </section>
-
   </main>
 
   <!-- FOOTER -->
   <footer class="bg-slate-950 border-t border-slate-800/80 py-8 mt-12">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-slate-500">
-      
       <div class="flex items-center gap-3">
-        <img src="logo.jfif" alt="Meera Smriti Emblem" class="w-7 h-7 rounded-full bg-white p-0.5 object-contain">
+        <img src="logo.jfif" alt="Meera Smriti Emblem" class="w-7 h-7 rounded-full bg-white p-0.5 object-contain" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=100&auto=format&fit=crop'">
         <div>
           <strong class="text-slate-300">Meera Smriti Sishu Ankan Siksha Kendra</strong> &copy; 2026
         </div>
@@ -312,7 +261,6 @@
         <a href="https://whatsapp.com" target="_blank" class="hover:text-emerald-400 transition-colors" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
         <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" class="hover:text-red-400 transition-colors" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
       </div>
-
     </div>
   </footer>
 
