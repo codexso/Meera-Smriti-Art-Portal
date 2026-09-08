@@ -3,122 +3,213 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Access | Meera Smriti Siksha Kendra</title>
+  <title>Portal Access & Gateway | Meera Smriti Siksha Kendra</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
-          colors: { brand: '#ea580c', 'brand-dark': '#c2410c' }
+          fontFamily: { 
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          colors: { 
+            brand: { 500: '#f97316', 600: '#ea580c', 700: '#c2410c' } 
+          }
         }
       }
     }
   </script>
   <style>
-    body { background-color: #090d16; color: #f8fafc; }
-    .bold-card { background: linear-gradient(145deg, #0f172a, #1e293b); }
-    .glow-orange { box-shadow: 0 0 30px rgba(234, 88, 12, 0.25); }
+    body { background-color: #030712; color: #f3f4f6; }
+    .glass-card { background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(31, 41, 55, 0.85)); backdrop-filter: blur(16px); }
+    .glow-effect { box-shadow: 0 0 35px rgba(234, 88, 12, 0.15); }
+    .animated-grid { background-size: 30px 30px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px); }
   </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+<body class="min-h-screen flex items-center justify-center p-4 sm:p-6 animated-grid relative overflow-x-hidden">
 
-  <!-- Background Decorative Blur -->
-  <div class="absolute -top-32 -left-32 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
+  <!-- Ambient Light Orbs -->
+  <div class="absolute -top-40 -left-40 w-96 h-96 bg-orange-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-amber-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-  <div class="max-w-md w-full z-10">
+  <div class="max-w-xl w-full z-10 my-8">
     
     <!-- Branding Header -->
     <div class="text-center mb-8">
-      <div class="w-16 h-16 bg-gradient-to-tr from-orange-600 to-amber-500 rounded-2xl flex items-center justify-center mx-auto text-white text-2xl shadow-lg glow-orange mb-4">
-        <i class="fa-solid fa-graduation-cap"></i>
+      <div class="w-20 h-20 bg-gradient-to-tr from-orange-600 via-amber-600 to-amber-500 rounded-2xl flex items-center justify-center mx-auto text-white text-3xl shadow-2xl glow-effect mb-4 border border-orange-500/30">
+        <i class="fa-solid fa-palette"></i>
       </div>
-      <h1 class="text-2xl md:text-3xl font-black uppercase tracking-tight text-white">
-        Meera Smriti <span class="text-orange-500">Siksha Kendra</span>
+      <h1 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">
+        Meera Smriti <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-400">Siksha Kendra</span>
       </h1>
-      <p class="text-xs text-slate-400 font-semibold tracking-wider uppercase mt-1">Fine Arts & Cultural Academy</p>
-      <p class="text-[11px] text-orange-400 font-mono mt-1"><i class="fa-solid fa-phone mr-1"></i> HQ Line: 82749 40238</p>
+      <p class="text-xs text-slate-400 font-bold tracking-widest uppercase mt-2">Fine Arts & Cultural Academy &bull; Regional Governance</p>
+      
+      <!-- Admission Schedule Alert Badge -->
+      <div id="admissionBanner" class="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-semibold bg-slate-900 border border-slate-800">
+        <!-- Injected via JavaScript -->
+      </div>
     </div>
 
     <!-- Auth Module Container -->
-    <div class="bold-card border border-slate-800 rounded-2xl p-6 shadow-2xl backdrop-blur-lg">
+    <div class="glass-card border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative">
       
       <!-- Multi-Tab Switcher -->
-      <div class="grid grid-cols-3 gap-1 bg-slate-950 p-1.5 rounded-xl border border-slate-800 mb-6 text-center text-xs font-bold uppercase tracking-wider">
-        <button id="tabLoginBtn" onclick="switchTab('login')" class="py-2.5 rounded-lg text-white bg-orange-600 transition-all cursor-pointer">
-          Login
+      <div class="grid grid-cols-3 gap-1 bg-slate-950/80 p-1.5 rounded-2xl border border-slate-800/80 mb-8 text-center text-xs font-extrabold uppercase tracking-wider">
+        <button id="tabLoginBtn" onclick="switchTab('login')" class="py-3 rounded-xl text-white bg-orange-600 transition-all cursor-pointer shadow-lg">
+          Student Portal
         </button>
-        <button id="tabRegisterBtn" onclick="switchTab('register')" class="py-2.5 rounded-lg text-slate-400 hover:text-white transition-all cursor-pointer">
-          Register
+        <button id="tabRegisterBtn" onclick="switchTab('register')" class="py-3 rounded-xl text-slate-400 hover:text-white transition-all cursor-pointer">
+          Enrollment
         </button>
-        <button id="tabAdminBtn" onclick="switchTab('admin')" class="py-2.5 rounded-lg text-amber-500 hover:text-amber-400 transition-all cursor-pointer">
-          <i class="fa-solid fa-lock mr-1"></i> Admin
+        <button id="tabAdminBtn" onclick="switchTab('admin')" class="py-3 rounded-xl text-amber-500 hover:text-amber-400 transition-all cursor-pointer">
+          <i class="fa-solid fa-shield-halved mr-1"></i> Admin Gate
         </button>
       </div>
 
       <!-- User Login Form -->
-      <form id="loginForm" onsubmit="handleUserLogin(event)" class="space-y-4">
+      <form id="loginForm" onsubmit="handleUserLogin(event)" class="space-y-5">
         <div>
-          <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Email or Student ID</label>
-          <input type="text" id="loginUser" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-medium" placeholder="student@meerasmriti.org">
+          <label class="block text-[11px] font-extrabold uppercase text-slate-400 mb-1.5 tracking-wider">Student ID / Registered Email</label>
+          <div class="relative">
+            <i class="fa-solid fa-user-graduate absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+            <input type="text" id="loginUser" required class="w-full bg-slate-950/90 border border-slate-800 rounded-xl pl-11 pr-4 py-3 text-sm text-white focus:outline-none focus:border-orange-500 transition-colors font-medium" placeholder="Enter credential identifier">
+          </div>
         </div>
         <div>
-          <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Password</label>
-          <input type="password" id="loginPass" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-mono" placeholder="••••••••">
+          <label class="block text-[11px] font-extrabold uppercase text-slate-400 mb-1.5 tracking-wider">Access Password</label>
+          <div class="relative">
+            <i class="fa-solid fa-key absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+            <input type="password" id="loginPass" required class="w-full bg-slate-950/90 border border-slate-800 rounded-xl pl-11 pr-4 py-3 text-sm text-white focus:outline-none focus:border-orange-500 transition-colors font-mono" placeholder="Password">
+          </div>
         </div>
-        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-lg uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer">
-          Access Portal <i class="fa-solid fa-arrow-right-to-bracket ml-1"></i>
+        <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" class="rounded bg-slate-950 border-slate-800 text-orange-600 focus:ring-0">
+            <span>Remember session</span>
+          </label>
+          <a href="#" onclick="alert('Please contact the regional administrative center line at 82749 40238 for credential reset processing.')" class="text-orange-400 hover:underline">Forgot access key?</a>
+        </div>
+        <button type="submit" class="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-extrabold py-3.5 rounded-xl uppercase tracking-widest text-xs transition-all shadow-xl cursor-pointer flex items-center justify-center gap-2">
+          Authenticate & Access <i class="fa-solid fa-arrow-right"></i>
         </button>
       </form>
 
       <!-- Student Registration Form -->
       <form id="registerForm" onsubmit="handleUserRegister(event)" class="space-y-4 hidden">
-        <div>
-          <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Full Candidate Name</label>
-          <input type="text" id="regName" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-medium" placeholder="First Last Name">
+        
+        <div id="registrationNotice" class="p-3 rounded-xl bg-orange-950/40 border border-orange-800/50 text-xs text-orange-300 flex items-start gap-2.5">
+          <i class="fa-solid fa-circle-info text-orange-400 text-base mt-0.5"></i>
+          <div>
+            <span class="font-bold block uppercase tracking-wider text-[10px]">Annual Admission Window</span>
+            <span>Official admissions run exclusively from <strong>June 1st through July 31st</strong>. Pre-applications for the upcoming 2027 session are queued automatically.</span>
+          </div>
         </div>
-        <div>
-          <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Contact Number / Email</label>
-          <input type="text" id="regContact" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-medium" placeholder="8274940238">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Candidate Full Name</label>
+            <input type="text" id="regName" required class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-medium" placeholder="Full name">
+          </div>
+          <div>
+            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Contact Phone</label>
+            <input type="tel" id="regPhone" required pattern="[0-9]{10}" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-mono" placeholder="10-digit phone">
+          </div>
         </div>
+
         <div>
-          <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Create Access Password</label>
-          <input type="password" id="regPass" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-mono" placeholder="••••••••">
+          <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Email Address</label>
+          <input type="email" id="regEmail" required class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-medium" placeholder="student@example.com">
         </div>
-        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-lg uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer">
-          Submit Enrollment <i class="fa-solid fa-paper-plane ml-1"></i>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Preferred Academic Year</label>
+            <select id="regTargetYear" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500 font-mono">
+              <option value="2026">Current Term (2026)</option>
+              <option value="2027" selected>Advance Intake (2027)</option>
+              <option value="2028">Future Cycle (2028)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Primary Branch Wing</label>
+            <select id="regWing" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+              <option value="Rishra Central Wing">Rishra HQ Wing</option>
+              <option value="Konnagar Wing">Konnagar Wing</option>
+              <option value="Uttarpara Branch">Uttarpara Regional Branch</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Set Secure Access Key</label>
+          <input type="password" id="regPass" required minlength="6" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-mono" placeholder="Minimum 6 characters">
+        </div>
+
+        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-extrabold py-3.5 rounded-xl uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer flex items-center justify-center gap-2">
+          Submit Enrollment Application <i class="fa-solid fa-paper-plane"></i>
         </button>
       </form>
 
       <!-- Secure Admin Gate -->
       <form id="adminForm" onsubmit="handleAdminLogin(event)" class="space-y-4 hidden">
-        <div class="bg-amber-950/30 border border-amber-800/40 p-3 rounded-lg text-xs text-amber-300 flex items-center gap-2">
-          <i class="fa-solid fa-shield-halved text-amber-500 text-base"></i>
-          <span>Restricted Portal for Director Chanchal Ghosh.</span>
+        <div class="bg-amber-950/30 border border-amber-800/40 p-3.5 rounded-xl text-xs text-amber-300 flex items-center gap-3">
+          <i class="fa-solid fa-shield-cat text-amber-500 text-xl flex-shrink-0"></i>
+          <div>
+            <span class="font-bold block uppercase tracking-wider text-[10px]">Restricted Governance Sector</span>
+            <span>Authorized administrative credentials required. System access is monitored and logged.</span>
+          </div>
         </div>
+
         <div>
-          <label class="block text-[10px] font-extrabold uppercase text-amber-400 mb-1 tracking-wider">Admin ID</label>
-          <input type="text" id="adminUsername" required class="w-full bg-slate-950 border border-amber-900/60 rounded-lg px-4 py-2.5 text-sm text-amber-100 focus:outline-none focus:border-amber-500 font-mono" placeholder="Money">
+          <label class="block text-[10px] font-extrabold uppercase text-amber-400 mb-1 tracking-wider">Administrator Identity Code</label>
+          <div class="relative">
+            <i class="fa-solid fa-user-shield absolute left-4 top-1/2 -translate-y-1/2 text-amber-600 text-sm"></i>
+            <input type="text" id="adminUsername" autocomplete="off" required class="w-full bg-slate-950/90 border border-amber-900/60 rounded-xl pl-11 pr-4 py-3 text-sm text-amber-100 focus:outline-none focus:border-amber-500 transition-colors font-mono" placeholder="Enter admin identifier">
+          </div>
         </div>
+
         <div>
-          <label class="block text-[10px] font-extrabold uppercase text-amber-400 mb-1 tracking-wider">Security Password</label>
-          <input type="password" id="adminPassword" required class="w-full bg-slate-950 border border-amber-900/60 rounded-lg px-4 py-2.5 text-sm text-amber-100 focus:outline-none focus:border-amber-500 font-mono" placeholder="Money@220077">
+          <label class="block text-[10px] font-extrabold uppercase text-amber-400 mb-1 tracking-wider">Security Access Key</label>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-amber-600 text-sm"></i>
+            <input type="password" id="adminPassword" autocomplete="off" required class="w-full bg-slate-950/90 border border-amber-900/60 rounded-xl pl-11 pr-4 py-3 text-sm text-amber-100 focus:outline-none focus:border-amber-500 transition-colors font-mono" placeholder="Enter security passphrase">
+          </div>
         </div>
-        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-3 rounded-lg uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer">
-          Unlock Executive Dashboard <i class="fa-solid fa-key ml-1"></i>
+
+        <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-black py-3.5 rounded-xl uppercase tracking-widest text-xs transition-colors shadow-xl cursor-pointer flex items-center justify-center gap-2">
+          Verify & Enter Administrative Portal <i class="fa-solid fa-vault"></i>
         </button>
       </form>
 
     </div>
 
-    <!-- Links Footer -->
+    <!-- Official Social Channels Bar -->
+    <div class="mt-8 bg-slate-900/80 border border-slate-800/80 rounded-2xl p-4 text-center">
+      <p class="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-3">Official Communications & Social Channels</p>
+      <div class="flex items-center justify-center gap-4 text-lg">
+        <a href="https://facebook.com" target="_blank" class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:text-orange-500 hover:border-orange-500/50 flex items-center justify-center transition-all">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:text-orange-500 hover:border-orange-500/50 flex items-center justify-center transition-all">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://youtube.com" target="_blank" class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:text-orange-500 hover:border-orange-500/50 flex items-center justify-center transition-all">
+          <i class="fa-brands fa-youtube"></i>
+        </a>
+        <a href="https://wa.me/918274940238" target="_blank" class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:text-emerald-500 hover:border-emerald-500/50 flex items-center justify-center transition-all">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer Links -->
     <div class="mt-6 text-center text-xs text-slate-500 font-semibold flex justify-between items-center px-2">
-      <span>Official Portal System &copy; 2026</span>
-      <a href="main.html" class="text-orange-400 hover:underline flex items-center gap-1 font-bold">
-        Public Portal <i class="fa-solid fa-arrow-right"></i>
+      <span>Regional Academy Network &copy; 2026</span>
+      <a href="main.html" class="text-orange-400 hover:underline flex items-center gap-1 font-extrabold uppercase tracking-wider text-[11px]">
+        Explore Public Website <i class="fa-solid fa-arrow-right"></i>
       </a>
     </div>
 
@@ -128,6 +219,19 @@
     const USER_KEY = 'meera_smriti_org_user';
     const REG_STORAGE = 'meera_smriti_registrations';
     const ADMIN_AUTH_KEY = 'meera_smriti_admin_auth';
+
+    // Admission Window Checker (June 1st to July 31st)
+    function checkAdmissionStatus() {
+      const now = new Date();
+      const month = now.getMonth(); // 0-indexed (5 = June, 6 = July)
+      const banner = document.getElementById('admissionBanner');
+
+      if (month === 5 || month === 6) {
+        banner.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span class="text-emerald-400">OFFICIAL ADMISSIONS ACTIVE (JUNE - JULY)</span>`;
+      } else {
+        banner.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500"></span><span class="text-amber-400">REGULAR ADMISSIONS CLOSED &bull; PRE-BOOKING OPEN FOR NEXT SESSION</span>`;
+      }
+    }
 
     function switchTab(tab) {
       const loginForm = document.getElementById('loginForm');
@@ -142,26 +246,26 @@
       regForm.classList.add('hidden');
       adminForm.classList.add('hidden');
 
-      tabLoginBtn.className = "py-2.5 rounded-lg text-slate-400 hover:text-white transition-all cursor-pointer";
-      tabRegisterBtn.className = "py-2.5 rounded-lg text-slate-400 hover:text-white transition-all cursor-pointer";
-      tabAdminBtn.className = "py-2.5 rounded-lg text-amber-500 hover:text-amber-400 transition-all cursor-pointer";
+      tabLoginBtn.className = "py-3 rounded-xl text-slate-400 hover:text-white transition-all cursor-pointer";
+      tabRegisterBtn.className = "py-3 rounded-xl text-slate-400 hover:text-white transition-all cursor-pointer";
+      tabAdminBtn.className = "py-3 rounded-xl text-amber-500 hover:text-amber-400 transition-all cursor-pointer";
 
       if(tab === 'login') {
         loginForm.classList.remove('hidden');
-        tabLoginBtn.className = "py-2.5 rounded-lg text-white bg-orange-600 transition-all cursor-pointer";
+        tabLoginBtn.className = "py-3 rounded-xl text-white bg-orange-600 transition-all cursor-pointer shadow-lg";
       } else if(tab === 'register') {
         regForm.classList.remove('hidden');
-        tabRegisterBtn.className = "py-2.5 rounded-lg text-white bg-orange-600 transition-all cursor-pointer";
+        tabRegisterBtn.className = "py-3 rounded-xl text-white bg-orange-600 transition-all cursor-pointer shadow-lg";
       } else if(tab === 'admin') {
         adminForm.classList.remove('hidden');
-        tabAdminBtn.className = "py-2.5 rounded-lg text-slate-950 bg-amber-500 font-bold transition-all cursor-pointer";
+        tabAdminBtn.className = "py-3 rounded-xl text-slate-950 bg-amber-500 font-extrabold transition-all cursor-pointer shadow-lg";
       }
     }
 
     function handleUserLogin(e) {
       e.preventDefault();
       const val = document.getElementById('loginUser').value;
-      const user = { name: val.split('@')[0], email: val, avatar: val.charAt(0).toUpperCase() };
+      const user = { name: val.split('@')[0], email: val, avatar: val.charAt(0).toUpperCase(), role: 'Student' };
       localStorage.setItem(USER_KEY, JSON.stringify(user));
       window.location.href = 'main.html';
     }
@@ -169,15 +273,28 @@
     function handleUserRegister(e) {
       e.preventDefault();
       const name = document.getElementById('regName').value;
-      const contact = document.getElementById('regContact').value;
-      const newUser = { name, email: contact, avatar: name.charAt(0).toUpperCase(), date: new Date().toLocaleDateString() };
+      const phone = document.getElementById('regPhone').value;
+      const email = document.getElementById('regEmail').value;
+      const targetYear = document.getElementById('regTargetYear').value;
+      const wing = document.getElementById('regWing').value;
+
+      const newUser = { 
+        name, 
+        phone, 
+        email, 
+        targetYear, 
+        wing, 
+        avatar: name.charAt(0).toUpperCase(), 
+        date: new Date().toLocaleDateString(),
+        status: 'Pending Verification'
+      };
       
       let existing = JSON.parse(localStorage.getItem(REG_STORAGE) || '[]');
       existing.push(newUser);
       localStorage.setItem(REG_STORAGE, JSON.stringify(existing));
       localStorage.setItem(USER_KEY, JSON.stringify(newUser));
       
-      alert('Registration Recorded Successfully! Entering Main Dashboard...');
+      alert(`Application Submitted! Pre-enrollment recorded for ${targetYear} session at ${wing}.`);
       window.location.href = 'main.html';
     }
 
@@ -186,13 +303,16 @@
       const u = document.getElementById('adminUsername').value;
       const p = document.getElementById('adminPassword').value;
 
+      // Unmasked credential validation logic
       if(u === 'Money' && p === 'Money@220077') {
         localStorage.setItem(ADMIN_AUTH_KEY, 'true');
         window.location.href = 'admin.html';
       } else {
-        alert('Authentication Failed: Invalid Administrator Credentials.');
+        alert('Authentication Failed: Invalid Executive Credentials.');
       }
     }
+
+    window.addEventListener('DOMContentLoaded', checkAdmissionStatus);
   </script>
 </body>
 </html>
