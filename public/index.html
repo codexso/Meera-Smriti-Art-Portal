@@ -1,315 +1,555 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Access & Gateway | Meera Smriti Siksha Kendra</title>
+  <title>Meera Smriti Sishu Ankan Siksha Kendra | Student & Parent Portal</title>
+  
+  <!-- Tailwind CSS & Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: { 
             sans: ['Plus Jakarta Sans', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace']
-          },
-          colors: { 
-            brand: { 500: '#f97316', 600: '#ea580c', 700: '#c2410c' } 
           }
         }
       }
     }
   </script>
+  
   <style>
-    body { background-color: #030712; color: #f3f4f6; }
-    .glass-card { background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(31, 41, 55, 0.85)); backdrop-filter: blur(16px); }
-    .glow-effect { box-shadow: 0 0 35px rgba(234, 88, 12, 0.15); }
-    .animated-grid { background-size: 30px 30px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px); }
+    body { 
+      background-color: #030712; 
+      color: #f3f4f6; 
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(217, 119, 6, 0.05) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .card-dark { 
+      background: rgba(11, 15, 25, 0.85); 
+      border: 1px solid rgba(255, 255, 255, 0.08); 
+      backdrop-filter: blur(12px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card-dark:hover {
+      border-color: rgba(249, 115, 22, 0.35);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(249, 115, 22, 0.1);
+    }
+
+    .reg-tab-active {
+      background-color: #f97316;
+      color: #ffffff;
+      border-color: #f97316;
+      box-shadow: 0 4px 14px 0 rgba(249, 115, 22, 0.39);
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .animate-toast {
+      animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
   </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4 sm:p-6 animated-grid relative overflow-x-hidden">
+<body class="min-h-screen flex flex-col justify-between selection:bg-orange-500 selection:text-white">
 
-  <!-- Ambient Light Orbs -->
-  <div class="absolute -top-40 -left-40 w-96 h-96 bg-orange-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-  <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-amber-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
 
-  <div class="max-w-xl w-full z-10 my-8">
-    
-    <!-- Branding Header -->
-    <div class="text-center mb-8">
-      <div class="w-20 h-20 bg-gradient-to-tr from-orange-600 via-amber-600 to-amber-500 rounded-2xl flex items-center justify-center mx-auto text-white text-3xl shadow-2xl glow-effect mb-4 border border-orange-500/30">
-        <i class="fa-solid fa-palette"></i>
-      </div>
-      <h1 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">
-        Meera Smriti <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-400">Siksha Kendra</span>
-      </h1>
-      <p class="text-xs text-slate-400 font-bold tracking-widest uppercase mt-2">Fine Arts & Cultural Academy &bull; Regional Governance</p>
-      
-      <!-- Admission Schedule Alert Badge -->
-      <div id="admissionBanner" class="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-semibold bg-slate-900 border border-slate-800">
-        <!-- Injected via JavaScript -->
-      </div>
-    </div>
-
-    <!-- Auth Module Container -->
-    <div class="glass-card border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative">
-      
-      <!-- Multi-Tab Switcher -->
-      <div class="grid grid-cols-3 gap-1 bg-slate-950/80 p-1.5 rounded-2xl border border-slate-800/80 mb-8 text-center text-xs font-extrabold uppercase tracking-wider">
-        <button id="tabLoginBtn" onclick="switchTab('login')" class="py-3 rounded-xl text-white bg-orange-600 transition-all cursor-pointer shadow-lg">
-          Student Portal
-        </button>
-        <button id="tabRegisterBtn" onclick="switchTab('register')" class="py-3 rounded-xl text-slate-400 hover:text-white transition-all cursor-pointer">
-          Enrollment
-        </button>
-        <button id="tabAdminBtn" onclick="switchTab('admin')" class="py-3 rounded-xl text-amber-500 hover:text-amber-400 transition-all cursor-pointer">
-          <i class="fa-solid fa-shield-halved mr-1"></i> Admin Gate
-        </button>
-      </div>
-
-      <!-- User Login Form -->
-      <form id="loginForm" onsubmit="handleUserLogin(event)" class="space-y-5">
-        <div>
-          <label class="block text-[11px] font-extrabold uppercase text-slate-400 mb-1.5 tracking-wider">Student ID / Registered Email</label>
-          <div class="relative">
-            <i class="fa-solid fa-user-graduate absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
-            <input type="text" id="loginUser" required class="w-full bg-slate-950/90 border border-slate-800 rounded-xl pl-11 pr-4 py-3 text-sm text-white focus:outline-none focus:border-orange-500 transition-colors font-medium" placeholder="Enter credential identifier">
-          </div>
+  <!-- HEADER NAVIGATION -->
+  <header class="bg-slate-950/80 border-b border-slate-800/80 sticky top-0 z-40 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="main.html" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-orange-500/50 p-0.5 bg-white shadow-lg shadow-orange-950/50 group-hover:scale-105 transition-transform flex-shrink-0">
+          <img src="logo.jfif" alt="Meera Smriti Logo" class="w-full h-full object-contain rounded-full">
         </div>
         <div>
-          <label class="block text-[11px] font-extrabold uppercase text-slate-400 mb-1.5 tracking-wider">Access Password</label>
-          <div class="relative">
-            <i class="fa-solid fa-key absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
-            <input type="password" id="loginPass" required class="w-full bg-slate-950/90 border border-slate-800 rounded-xl pl-11 pr-4 py-3 text-sm text-white focus:outline-none focus:border-orange-500 transition-colors font-mono" placeholder="Password">
-          </div>
+          <h1 class="font-black text-base sm:text-lg text-white uppercase tracking-tight group-hover:text-orange-400 transition-colors">
+            Meera Smriti <span class="text-orange-500">Siksha Kendra</span>
+          </h1>
+          <p class="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Estd. 1989 &bull; Sishu Ankan Academy</p>
         </div>
-        <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
-          <label class="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" class="rounded bg-slate-950 border-slate-800 text-orange-600 focus:ring-0">
-            <span>Remember session</span>
-          </label>
-          <a href="#" onclick="alert('Please contact the regional administrative center line at 82749 40238 for credential reset processing.')" class="text-orange-400 hover:underline">Forgot access key?</a>
-        </div>
-        <button type="submit" class="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-extrabold py-3.5 rounded-xl uppercase tracking-widest text-xs transition-all shadow-xl cursor-pointer flex items-center justify-center gap-2">
-          Authenticate & Access <i class="fa-solid fa-arrow-right"></i>
-        </button>
-      </form>
-
-      <!-- Student Registration Form -->
-      <form id="registerForm" onsubmit="handleUserRegister(event)" class="space-y-4 hidden">
-        <div id="registrationNotice" class="p-3 rounded-xl bg-orange-950/40 border border-orange-800/50 text-xs text-orange-300 flex items-start gap-2.5">
-          <i class="fa-solid fa-circle-info text-orange-400 text-base mt-0.5"></i>
-          <div>
-            <span class="font-bold block uppercase tracking-wider text-[10px]">Annual Admission Window</span>
-            <span>Official admissions run exclusively from <strong>June 1st through July 31st</strong>. Pre-applications for the upcoming 2027 session are queued automatically.</span>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Candidate Full Name</label>
-            <input type="text" id="regName" required class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-medium" placeholder="Full name">
-          </div>
-          <div>
-            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Contact Phone</label>
-            <input type="tel" id="regPhone" required pattern="[0-9]{10}" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-mono" placeholder="10-digit phone">
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Email Address</label>
-          <input type="email" id="regEmail" required class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-medium" placeholder="student@example.com">
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Preferred Academic Year</label>
-            <select id="regTargetYear" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500 font-mono">
-              <option value="2026">Current Term (2026)</option>
-              <option value="2027" selected>Advance Intake (2027)</option>
-              <option value="2028">Future Cycle (2028)</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Primary Branch Wing</label>
-            <select id="regWing" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
-              <option value="Rishra Central Wing">Rishra HQ Wing</option>
-              <option value="Konnagar Wing">Konnagar Wing</option>
-              <option value="Uttarpara Branch">Uttarpara Regional Branch</option>
-            </select>
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1 tracking-wider">Set Secure Access Key</label>
-          <input type="password" id="regPass" required minlength="6" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-orange-500 font-mono" placeholder="Minimum 6 characters">
-        </div>
-
-        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-extrabold py-3.5 rounded-xl uppercase tracking-widest text-xs transition-colors shadow-lg cursor-pointer flex items-center justify-center gap-2">
-          Submit Enrollment Application <i class="fa-solid fa-paper-plane"></i>
-        </button>
-      </form>
-
-      <!-- Secure Admin Gate -->
-      <form id="adminForm" onsubmit="handleAdminLogin(event)" class="space-y-4 hidden">
-        <div class="bg-amber-950/30 border border-amber-800/40 p-3.5 rounded-xl text-xs text-amber-300 flex items-center gap-3">
-          <i class="fa-solid fa-shield-cat text-amber-500 text-xl flex-shrink-0"></i>
-          <div>
-            <span class="font-bold block uppercase tracking-wider text-[10px]">Restricted Governance Sector</span>
-            <span>Authorized administrative credentials required. System access is monitored and logged.</span>
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-[10px] font-extrabold uppercase text-amber-400 mb-1 tracking-wider">Administrator Identity Code</label>
-          <div class="relative">
-            <i class="fa-solid fa-user-shield absolute left-4 top-1/2 -translate-y-1/2 text-amber-600 text-sm"></i>
-            <input type="text" id="adminUsername" autocomplete="off" required class="w-full bg-slate-950/90 border border-amber-900/60 rounded-xl pl-11 pr-4 py-3 text-sm text-amber-100 focus:outline-none focus:border-amber-500 transition-colors font-mono" placeholder="Enter admin identifier">
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-[10px] font-extrabold uppercase text-amber-400 mb-1 tracking-wider">Security Access Key</label>
-          <div class="relative">
-            <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-amber-600 text-sm"></i>
-            <input type="password" id="adminPassword" autocomplete="off" required class="w-full bg-slate-950/90 border border-amber-900/60 rounded-xl pl-11 pr-4 py-3 text-sm text-amber-100 focus:outline-none focus:border-amber-500 transition-colors font-mono" placeholder="Enter security passphrase">
-          </div>
-        </div>
-
-        <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-black py-3.5 rounded-xl uppercase tracking-widest text-xs transition-colors shadow-xl cursor-pointer flex items-center justify-center gap-2">
-          Verify & Enter Administrative Portal <i class="fa-solid fa-vault"></i>
-        </button>
-      </form>
-
-    </div>
-
-    <!-- Official Social Channels Bar -->
-    <div class="mt-8 bg-slate-900/80 border border-slate-800/80 rounded-2xl p-4 text-center">
-      <p class="text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-3">Official Communications & Social Channels</p>
-      <div class="flex items-center justify-center gap-4 text-lg">
-        <a href="https://facebook.com" target="_blank" class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:text-orange-500 hover:border-orange-500/50 flex items-center justify-center transition-all">
-          <i class="fa-brands fa-facebook-f"></i>
-        </a>
-        <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:text-orange-500 hover:border-orange-500/50 flex items-center justify-center transition-all">
-          <i class="fa-brands fa-instagram"></i>
-        </a>
-        <a href="https://youtube.com" target="_blank" class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:text-orange-500 hover:border-orange-500/50 flex items-center justify-center transition-all">
-          <i class="fa-brands fa-youtube"></i>
-        </a>
-        <a href="https://wa.me/918274940238" target="_blank" class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:text-emerald-500 hover:border-emerald-500/50 flex items-center justify-center transition-all">
-          <i class="fa-brands fa-whatsapp"></i>
-        </a>
-      </div>
-    </div>
-
-    <!-- Footer Links -->
-    <div class="mt-6 text-center text-xs text-slate-500 font-semibold flex justify-between items-center px-2">
-      <span>Regional Academy Network &copy; 2026</span>
-      <a href="main.html" class="text-orange-400 hover:underline flex items-center gap-1 font-extrabold uppercase tracking-wider text-[11px]">
-        Explore Public Website <i class="fa-solid fa-arrow-right"></i>
       </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8 text-xs font-extrabold uppercase tracking-wider text-slate-300">
+        <a href="main.html" class="hover:text-orange-400 transition-colors py-1">Dashboard</a>
+        <a href="courses.html" class="hover:text-orange-400 transition-colors py-1">Curriculum</a>
+        <a href="gallery.html" class="hover:text-orange-400 transition-colors py-1">Exhibitions</a>
+        <a href="#registration-section" class="text-orange-500 border-b-2 border-orange-500 py-1">Portal Registration</a>
+        <a href="contact.html" class="hover:text-orange-400 transition-colors py-1">Contact Wings</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="admin.html" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-4 py-2 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-amber-950/30 flex items-center gap-1.5">
+          <i class="fa-solid fa-lock text-xs"></i> Admin Gate
+        </a>
+        <button id="mobileMenuBtn" class="md:hidden p-2 text-slate-400 hover:text-white">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+      </div>
     </div>
 
-  </div>
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden border-b border-slate-800 bg-slate-950/95 px-4 pt-2 pb-6 space-y-3 font-mono text-xs uppercase font-bold text-slate-300">
+      <a href="main.html" class="block py-2 hover:text-orange-400">Dashboard</a>
+      <a href="courses.html" class="block py-2 hover:text-orange-400">Curriculum</a>
+      <a href="gallery.html" class="block py-2 hover:text-orange-400">Exhibitions</a>
+      <a href="#registration-section" class="block py-2 text-orange-500">Portal Registration</a>
+      <a href="contact.html" class="block py-2 hover:text-orange-400">Contact Wings</a>
+    </div>
+  </header>
 
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow space-y-12">
+
+    <!-- HERO SECTION WITH LOGO & POSTER -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="lg:col-span-7 space-y-5">
+        <div class="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 border border-orange-500/20 text-xs font-mono font-bold px-3 py-1.5 rounded-full uppercase">
+          <i class="fa-solid fa-id-card text-xs"></i> ACADEMIC STUDENT & PARENT PORTAL
+        </div>
+
+        <h2 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight leading-none">
+          Welcome To <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-500">
+            Meera Smriti Academy
+          </span>
+        </h2>
+
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-2xl">
+          Complete official portal registration below. Standard student registrations, existing student profile renewals, and mandatory <strong>Parent / Guardian Registrations for students under 9 years of age</strong> are supported.
+        </p>
+
+        <!-- QUICK FEE & POLICY SUMMARY -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+            <span class="text-[10px] font-mono font-bold text-orange-400 uppercase">FEE STRUCTURE</span>
+            <p class="text-xs text-slate-300 font-bold">~ ₹370 / month (Average Baseline)</p>
+            <p class="text-[11px] text-slate-500">Determined post personal candidate interaction.</p>
+          </div>
+          <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+            <span class="text-[10px] font-mono font-bold text-amber-400 uppercase">JUNIOR POLICY (&lt;9 YRS)</span>
+            <p class="text-xs text-slate-300 font-bold">Parental Guardian Registration</p>
+            <p class="text-[11px] text-slate-500">Mandatory parent contact & emergency info.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEASON POSTER BANNER -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="card-dark p-3 rounded-3xl max-w-md w-full border-orange-500/30 overflow-hidden relative group">
+          <img src="images (1).jfif" alt="Meera Smriti New Season Poster" class="w-full h-auto rounded-2xl object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute bottom-5 left-5 right-5 bg-slate-950/90 backdrop-blur-md p-3 rounded-xl border border-slate-800 text-center">
+            <p class="text-[11px] font-mono text-orange-400 font-bold uppercase">Estd. 1989 &bull; Board Exam Recognized</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REGISTRATION SECTION CONTAINER -->
+    <section id="registration-section" class="scroll-mt-24 space-y-6">
+      
+      <!-- TAB SWITCHER HEADER -->
+      <div class="card-dark p-4 rounded-3xl border-orange-500/20 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-800 pb-4 mb-4">
+          <div>
+            <h3 class="text-xl font-black text-white uppercase">Portal Registration & Renewal</h3>
+            <p class="text-xs text-slate-400">Select your registration category below to proceed.</p>
+          </div>
+          <div class="text-xs font-mono text-slate-400 flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-orange-400"></i> Official Academy Records System
+          </div>
+        </div>
+
+        <!-- REGISTRATION TYPE TABS -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <button onclick="switchTab('existing')" id="tab-existing" class="reg-tab reg-tab-active flex items-center justify-center gap-2 py-3 px-4 rounded-2xl text-xs font-mono font-bold uppercase border border-slate-800 transition-all">
+            <i class="fa-solid fa-user-check text-sm"></i>
+            <span>1. Existing Students</span>
+          </button>
+
+          <button onclick="switchTab('parent')" id="tab-parent" class="reg-tab bg-slate-950 text-slate-400 hover:text-white flex items-center justify-center gap-2 py-3 px-4 rounded-2xl text-xs font-mono font-bold uppercase border border-slate-800 transition-all">
+            <i class="fa-solid fa-children text-sm text-amber-400"></i>
+            <span>2. Under 9 Yrs (Parent Reg)</span>
+          </button>
+
+          <button onclick="switchTab('standard')" id="tab-standard" class="reg-tab bg-slate-950 text-slate-400 hover:text-white flex items-center justify-center gap-2 py-3 px-4 rounded-2xl text-xs font-mono font-bold uppercase border border-slate-800 transition-all">
+            <i class="fa-solid fa-user-plus text-sm"></i>
+            <span>3. New Student (9+ Yrs)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- FORM CONTAINERS -->
+
+      <!-- FORM 1: EXISTING STUDENTS REGISTER / PROFILE LINK -->
+      <div id="form-existing" class="card-dark rounded-3xl p-6 sm:p-8 space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div>
+            <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+              RETURNING STUDENT PORTAL
+            </span>
+            <h4 class="text-xl font-black text-white uppercase mt-2">Existing Student Registration & ID Verification</h4>
+            <p class="text-xs text-slate-400 mt-0.5">Link your Roll No / Student ID for term renewal and exhibition entry.</p>
+          </div>
+          <i class="fa-solid fa-address-card text-3xl text-blue-500/30 hidden sm:block"></i>
+        </div>
+
+        <form onsubmit="handleExistingRegister(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Academy Roll / Student ID <span class="text-orange-400">*</span></label>
+              <input type="text" required id="exStudentId" placeholder="e.g. MS-2024-089" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+            </div>
+
+            <div>
+              <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Student Full Name <span class="text-orange-400">*</span></label>
+              <input type="text" required id="exStudentName" placeholder="As per academy register" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Registered Phone Number</label>
+              <input type="tel" required id="exPhone" placeholder="10-digit mobile" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+            </div>
+
+            <div>
+              <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Current Branch Wing</label>
+              <select id="exWing" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+                <option>Rishra Central Wing</option>
+                <option>Konnagar Aamra Club Wing</option>
+                <option>Uttarpara Branch Wing</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Current Level / Stage</label>
+              <select id="exLevel" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+                <option>Junior Ankan Stage 1/2</option>
+                <option>Intermediate Landscape & Wash</option>
+                <option>Senior Diploma Year 1</option>
+                <option>Senior Diploma Final Year</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+            <span>Current Monthly Tuition Standard:</span>
+            <span class="text-amber-400 font-bold">~ ₹370 / month</span>
+          </div>
+
+          <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs py-3.5 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-blue-950/50">
+            Verify & Renew Student Portal Access
+          </button>
+        </form>
+      </div>
+
+      <!-- FORM 2: PARENT REGISTRATION FOR STUDENTS BELOW 9 YEARS -->
+      <div id="form-parent" class="card-dark rounded-3xl p-6 sm:p-8 space-y-6 hidden border-amber-500/30">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div>
+            <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+              MANDATORY PARENTAL GUARDIAN REGISTRATION
+            </span>
+            <h4 class="text-xl font-black text-white uppercase mt-2">Junior Student Registration (Below 9 Years)</h4>
+            <p class="text-xs text-slate-400 mt-0.5">As per academy rules, students under 9 must be registered through a primary parent or guardian.</p>
+          </div>
+          <i class="fa-solid fa-child-reaching text-3xl text-amber-500/30 hidden sm:block"></i>
+        </div>
+
+        <form onsubmit="handleParentRegister(event)" class="space-y-4">
+          
+          <!-- PARENT GUARDIAN DETAILS SECTION -->
+          <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-3">
+            <h5 class="text-xs font-mono font-bold text-amber-400 uppercase flex items-center gap-2">
+              <i class="fa-solid fa-user-shield text-xs"></i> 1. Parent / Guardian Details
+            </h5>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Parent Full Name <span class="text-orange-400">*</span></label>
+                <input type="text" required id="parentName" placeholder="Father / Mother / Guardian name" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
+              </div>
+
+              <div>
+                <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Relationship to Student <span class="text-orange-400">*</span></label>
+                <select id="parentRelation" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
+                  <option>Father</option>
+                  <option>Mother</option>
+                  <option>Legal Guardian</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Parent Mobile Contact <span class="text-orange-400">*</span></label>
+                <input type="tel" required id="parentPhone" placeholder="For WhatsApp updates & emergency" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Parent Email Address (Optional)</label>
+                <input type="email" id="parentEmail" placeholder="parent@example.com" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
+              </div>
+            </div>
+          </div>
+
+          <!-- CHILD DETAILS SECTION -->
+          <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-3">
+            <h5 class="text-xs font-mono font-bold text-orange-400 uppercase flex items-center gap-2">
+              <i class="fa-solid fa-shapes text-xs"></i> 2. Child (Student) Details
+            </h5>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="sm:col-span-2">
+                <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Child's Full Name <span class="text-orange-400">*</span></label>
+                <input type="text" required id="childName" placeholder="Child's legal name" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+              </div>
+
+              <div>
+                <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Child Age (Must be &lt; 9) <span class="text-orange-400">*</span></label>
+                <select id="childAge" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+                  <option value="4">4 Years Old</option>
+                  <option value="5">5 Years Old</option>
+                  <option value="6">6 Years Old</option>
+                  <option value="7">7 Years Old</option>
+                  <option value="8">8 Years Old</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Preferred Branch Wing</label>
+                <select id="childWing" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+                  <option>Rishra Central Wing</option>
+                  <option>Konnagar Aamra Club</option>
+                  <option>Uttarpara Branch</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Prior Drawing Experience</label>
+                <select id="childExp" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+                  <option>Absolute Beginner (Crayon / Pencil)</option>
+                  <option>Basic Color Shading Knowledge</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 text-[11px] font-mono text-slate-400 flex justify-between items-center">
+            <span>Junior Tuition Guide:</span>
+            <span class="text-amber-400 font-bold">~ ₹350 - ₹370 / month</span>
+          </div>
+
+          <button type="submit" class="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-black text-xs py-3.5 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-amber-950/50">
+            Submit Parent-Child Registration
+          </button>
+        </form>
+      </div>
+
+      <!-- FORM 3: STANDARD NEW STUDENT (9+ YEARS) -->
+      <div id="form-standard" class="card-dark rounded-3xl p-6 sm:p-8 space-y-6 hidden">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div>
+            <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+              GENERAL ADMISSION
+            </span>
+            <h4 class="text-xl font-black text-white uppercase mt-2">New Student Admission (Age 9+ & Adults)</h4>
+            <p class="text-xs text-slate-400 mt-0.5">Standard fine arts diploma and watercolor training program.</p>
+          </div>
+          <i class="fa-solid fa-palette text-3xl text-emerald-500/30 hidden sm:block"></i>
+        </div>
+
+        <form onsubmit="handleStandardRegister(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Student Full Name <span class="text-orange-400">*</span></label>
+              <input type="text" required id="stdName" placeholder="Full legal name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+            </div>
+
+            <div>
+              <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Student Age <span class="text-orange-400">*</span></label>
+              <input type="number" required min="9" max="80" id="stdAge" placeholder="9 years and above" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Contact Mobile <span class="text-orange-400">*</span></label>
+              <input type="tel" required id="stdPhone" placeholder="10-digit mobile" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+            </div>
+
+            <div>
+              <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Preferred Branch Wing</label>
+              <select id="stdWing" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+                <option>Rishra Central Wing</option>
+                <option>Konnagar Aamra Club</option>
+                <option>Uttarpara Branch</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Desired Course Track</label>
+            <select id="stdCourse" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+              <option>Intermediate Color & Landscape Painting</option>
+              <option>Senior Fine Arts Diploma & Board Prep</option>
+              <option>Exhibition Special Canvas Workshop</option>
+            </select>
+          </div>
+
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 text-[11px] font-mono text-slate-400 flex justify-between items-center">
+            <span>Standard Fee Guideline:</span>
+            <span class="text-orange-400 font-bold">~ ₹370 - ₹400 / month</span>
+          </div>
+
+          <button type="submit" class="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-black text-xs py-3.5 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50">
+            Submit New Admission Application
+          </button>
+        </form>
+      </div>
+
+    </section>
+
+    <!-- HIGHLIGHTED FEATURES / AWARDS & EXHIBITIONS -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- TROPHY FEATURE -->
+      <div class="card-dark rounded-3xl p-6 flex flex-col sm:flex-row items-center gap-6 border-amber-500/20">
+        <div class="w-full sm:w-1/2 rounded-2xl overflow-hidden border border-slate-800 flex-shrink-0">
+          <img src="images (2).jfif" alt="Kalakar Trophy Recognition" class="w-full h-44 object-cover">
+        </div>
+        <div class="space-y-2">
+          <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-mono font-bold px-2 py-0.5 rounded-full uppercase">
+            RECOGNITIONS
+          </span>
+          <h4 class="text-base font-black text-white uppercase">State Awards & Board Certifications</h4>
+          <p class="text-xs text-slate-400">Regular Kisholay state accolades and formal board exam participation facilities.</p>
+        </div>
+      </div>
+
+      <!-- EXHIBITION FEATURE -->
+      <div class="card-dark rounded-3xl p-6 flex flex-col sm:flex-row items-center gap-6 border-orange-500/20">
+        <div class="w-full sm:w-1/2 rounded-2xl overflow-hidden border border-slate-800 flex-shrink-0">
+          <img src="exibision.jfif" alt="Annual Fine Art Exhibition" class="w-full h-44 object-cover">
+        </div>
+        <div class="space-y-2">
+          <span class="bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[10px] font-mono font-bold px-2 py-0.5 rounded-full uppercase">
+            ANNUAL EVENT
+          </span>
+          <h4 class="text-base font-black text-white uppercase">25th &ndash; 28th Dec Fine Art Exhibition</h4>
+          <p class="text-xs text-slate-400">8 to 80 student canvas showcases, guest art dignitaries, and terracotta displays.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 border-t border-slate-800/80 py-8 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-slate-500">
+      <div class="flex items-center gap-3">
+        <img src="logo.jfif" alt="Meera Smriti Emblem" class="w-7 h-7 rounded-full bg-white p-0.5 object-contain">
+        <div>
+          <strong class="text-slate-300">Meera Smriti Sishu Ankan Siksha Kendra</strong> &copy; 2026. All Rights Reserved.
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="main.html" class="hover:text-orange-400 transition-colors">Dashboard</a>
+        <span>&bull;</span>
+        <a href="courses.html" class="hover:text-orange-400 transition-colors">Curriculum</a>
+        <span>&bull;</span>
+        <a href="gallery.html" class="hover:text-orange-400 transition-colors">Exhibitions</a>
+        <span>&bull;</span>
+        <a href="contact.html" class="hover:text-orange-400 transition-colors">Contact Wings</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT CONTROLLERS -->
   <script>
-    const USER_KEY = 'meera_smriti_org_user';
-    const REG_STORAGE = 'meera_smriti_registrations';
-    const ADMIN_AUTH_KEY = 'meera_smriti_admin_auth';
-
-    function checkAdmissionStatus() {
-      const now = new Date();
-      const month = now.getMonth();
-      const banner = document.getElementById('admissionBanner');
-
-      if (month === 5 || month === 6) {
-        banner.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span class="text-emerald-400">OFFICIAL ADMISSIONS ACTIVE (JUNE - JULY)</span>`;
-      } else {
-        banner.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500"></span><span class="text-amber-400">REGULAR ADMISSIONS CLOSED &bull; PRE-BOOKING OPEN FOR NEXT SESSION</span>`;
-      }
+    function showToast(title, message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'animate-toast card-dark border border-emerald-500/50 p-4 rounded-2xl shadow-2xl pointer-events-auto flex items-start gap-3';
+      toast.innerHTML = `
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg mt-0.5"></i>
+        <div>
+          <h5 class="text-xs font-bold text-white uppercase tracking-wider">${title}</h5>
+          <p class="text-xs text-slate-300 mt-0.5">${message}</p>
+        </div>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 4500);
     }
 
-    function switchTab(tab) {
-      const loginForm = document.getElementById('loginForm');
-      const regForm = document.getElementById('registerForm');
-      const adminForm = document.getElementById('adminForm');
-      
-      const tabLoginBtn = document.getElementById('tabLoginBtn');
-      const tabRegisterBtn = document.getElementById('tabRegisterBtn');
-      const tabAdminBtn = document.getElementById('tabAdminBtn');
-
-      loginForm.classList.add('hidden');
-      regForm.classList.add('hidden');
-      adminForm.classList.add('hidden');
-
-      tabLoginBtn.className = "py-3 rounded-xl text-slate-400 hover:text-white transition-all cursor-pointer";
-      tabRegisterBtn.className = "py-3 rounded-xl text-slate-400 hover:text-white transition-all cursor-pointer";
-      tabAdminBtn.className = "py-3 rounded-xl text-amber-500 hover:text-amber-400 transition-all cursor-pointer";
-
-      if(tab === 'login') {
-        loginForm.classList.remove('hidden');
-        tabLoginBtn.className = "py-3 rounded-xl text-white bg-orange-600 transition-all cursor-pointer shadow-lg";
-      } else if(tab === 'register') {
-        regForm.classList.remove('hidden');
-        tabRegisterBtn.className = "py-3 rounded-xl text-white bg-orange-600 transition-all cursor-pointer shadow-lg";
-      } else if(tab === 'admin') {
-        adminForm.classList.remove('hidden');
-        tabAdminBtn.className = "py-3 rounded-xl text-slate-950 bg-amber-500 font-extrabold transition-all cursor-pointer shadow-lg";
-      }
+    function switchTab(type) {
+      const tabs = ['existing', 'parent', 'standard'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        const form = document.getElementById(`form-${t}`);
+        
+        if (t === type) {
+          btn.classList.add('reg-tab-active', 'text-white');
+          btn.classList.remove('bg-slate-950', 'text-slate-400');
+          form.classList.remove('hidden');
+        } else {
+          btn.classList.remove('reg-tab-active', 'text-white');
+          btn.classList.add('bg-slate-950', 'text-slate-400');
+          form.classList.add('hidden');
+        }
+      });
     }
 
-    function handleUserLogin(e) {
+    function handleExistingRegister(e) {
       e.preventDefault();
-      const val = document.getElementById('loginUser').value;
-      const user = { name: val.split('@')[0], email: val, avatar: val.charAt(0).toUpperCase(), role: 'Student' };
-      localStorage.setItem(USER_KEY, JSON.stringify(user));
-      window.location.href = 'main.html';
+      const id = document.getElementById('exStudentId').value;
+      const name = document.getElementById('exStudentName').value;
+      showToast('Existing Student Linked!', `Welcome back ${name} [ID: ${id}]. Profile renewal submission recorded.`);
+      e.target.reset();
     }
 
-    function handleUserRegister(e) {
+    function handleParentRegister(e) {
       e.preventDefault();
-      const name = document.getElementById('regName').value;
-      const phone = document.getElementById('regPhone').value;
-      const email = document.getElementById('regEmail').value;
-      const targetYear = document.getElementById('regTargetYear').value;
-      const wing = document.getElementById('regWing').value;
-
-      const newUser = { 
-        name, 
-        phone, 
-        email, 
-        targetYear, 
-        wing, 
-        avatar: name.charAt(0).toUpperCase(), 
-        date: new Date().toLocaleDateString(),
-        status: 'Pending Verification'
-      };
-      
-      let existing = JSON.parse(localStorage.getItem(REG_STORAGE) || '[]');
-      existing.push(newUser);
-      localStorage.setItem(REG_STORAGE, JSON.stringify(existing));
-      localStorage.setItem(USER_KEY, JSON.stringify(newUser));
-      
-      alert(`Application Submitted! Pre-enrollment recorded for ${targetYear} session at ${wing}.`);
-      window.location.href = 'main.html';
+      const parentName = document.getElementById('parentName').value;
+      const childName = document.getElementById('childName').value;
+      const age = document.getElementById('childAge').value;
+      showToast('Parent-Junior Reg Received!', `Guardian ${parentName} successfully registered for ${childName} (Age: ${age}). Assessment call scheduled.`);
+      e.target.reset();
     }
 
-    function handleAdminLogin(e) {
+    function handleStandardRegister(e) {
       e.preventDefault();
-      const u = document.getElementById('adminUsername').value;
-      const p = document.getElementById('adminPassword').value;
+      const name = document.getElementById('stdName').value;
+      showToast('Admission Registered!', `Thank you ${name}. Your application has been logged. Branch coordinator will reach out.`);
+      e.target.reset();
+    }
 
-      if(u === 'Money' && p === 'Money@220077') {
-        localStorage.setItem(ADMIN_AUTH_KEY, 'true');
-        window.location.href = 'admin.html';
-      } else {
-        alert('Authentication Failed: Invalid Executive Credentials.');
+    window.addEventListener('DOMContentLoaded', () => {
+      const mobileBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
       }
-    }
-
-    window.addEventListener('DOMContentLoaded', checkAdmissionStatus);
+    });
   </script>
 </body>
 </html>

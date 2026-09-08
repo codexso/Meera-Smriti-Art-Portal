@@ -1,640 +1,488 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore Courses | NextGen Academy</title>
-    <!-- Google Fonts & FontAwesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --primary-light: #e0e7ff;
-            --bg-body: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-            --radius-lg: 16px;
-            --radius-md: 10px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art Courses & Curriculum | Meera Smriti Siksha Kendra</title>
+  
+  <!-- Tailwind CSS & Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { 
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
         }
+      }
+    }
+  </script>
+  
+  <style>
+    body { 
+      background-color: #030712; 
+      color: #f3f4f6; 
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(217, 119, 6, 0.05) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+    .card-dark { 
+      background: rgba(11, 15, 25, 0.85); 
+      border: 1px solid rgba(255, 255, 255, 0.08); 
+      backdrop-filter: blur(12px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.5;
-            padding-bottom: 60px;
-        }
+    .card-dark:hover {
+      border-color: rgba(249, 115, 22, 0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(249, 115, 22, 0.1);
+    }
 
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
+    .filter-btn-active {
+      background-color: #f97316;
+      color: #ffffff;
+      border-color: #f97316;
+    }
 
-        /* --- Header & Hero Section --- */
-        header {
-            padding: 60px 0 40px;
-            text-align: center;
-            background: linear-gradient(180deg, #eef2ff 0%, var(--bg-body) 100%);
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 40px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: var(--primary-light);
-            color: var(--primary);
-            font-size: 0.85rem;
-            font-weight: 700;
-            padding: 6px 16px;
-            border-radius: 50px;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        header h1 {
-            font-size: 2.75rem;
-            font-weight: 800;
-            color: var(--text-main);
-            letter-spacing: -0.025em;
-            margin-bottom: 12px;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 1.15rem;
-            max-width: 600px;
-            margin: 0 auto 30px;
-        }
-
-        /* --- Stats Bar --- */
-        .stats-bar {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 20px;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
-        .stat-item i {
-            color: var(--primary);
-        }
-
-        /* --- Filter & Search Section --- */
-        .controls-section {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 35px;
-        }
-
-        .search-box {
-            position: relative;
-            flex: 1;
-            min-width: 280px;
-            max-width: 400px;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px 16px 12px 42px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            background: #ffffff;
-            font-size: 0.95rem;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        .search-box input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px var(--primary-light);
-        }
-
-        .search-box i {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-
-        .category-pills {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
-
-        .pill-btn {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            padding: 8px 18px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .pill-btn:hover, .pill-btn.active {
-            background: var(--primary);
-            color: #ffffff;
-            border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
-        }
-
-        /* --- Course Grid --- */
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 30px;
-        }
-
-        /* --- Course Card --- */
-        .course-card {
-            background: var(--card-bg);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .course-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg);
-            border-color: transparent;
-        }
-
-        .card-banner {
-            position: relative;
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .card-banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .course-card:hover .card-banner img {
-            transform: scale(1.05);
-        }
-
-        .wishlist-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(8px);
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .wishlist-btn:hover {
-            color: #ef4444;
-            background: #ffffff;
-        }
-
-        .badge-category {
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(8px);
-            color: #ffffff;
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 6px;
-            text-transform: uppercase;
-        }
-
-        .course-content {
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .course-meta {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
-
-        .rating {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: #f59e0b;
-            font-weight: 700;
-        }
-
-        .course-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            line-height: 1.35;
-            color: var(--text-main);
-            margin-bottom: 8px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .course-description {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            flex-grow: 1;
-        }
-
-        .instructor-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .instructor-img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .instructor-name {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .course-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .price-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .price-current {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
-        .price-original {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-decoration: line-through;
-        }
-
-        .btn-enroll {
-            background-color: var(--primary);
-            color: #ffffff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: var(--radius-md);
-            font-size: 0.9rem;
-            font-weight: 700;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-enroll:hover {
-            background-color: var(--primary-hover);
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-        }
-
-        /* --- Empty State --- */
-        .no-results {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
-            display: none;
-        }
-
-        .no-results i {
-            font-size: 3rem;
-            margin-bottom: 16px;
-            color: var(--border-color);
-        }
-
-        @media (max-width: 768px) {
-            header h1 { font-size: 2rem; }
-            .stats-bar { flex-direction: column; gap: 12px; }
-            .controls-section { flex-direction: column; align-items: stretch; }
-            .search-box { max-width: 100%; }
-        }
-    </style>
+    @keyframes slideIn {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .animate-toast {
+      animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col justify-between selection:bg-orange-500 selection:text-white">
 
-    <header>
-        <div class="container">
-            <span class="hero-badge"><i class="fa-solid fa-sparkles"></i> Transform Your Career</span>
-            <h1>Explore Industry-Leading Courses</h1>
-            <p>Master high-demand skills with interactive projects and expert mentorship.</p>
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
 
-            <div class="stats-bar">
-                <div class="stat-item"><i class="fa-solid fa-graduation-cap"></i> 50,000+ Alumni</div>
-                <div class="stat-item"><i class="fa-solid fa-star"></i> 4.9 Average Rating</div>
-                <div class="stat-item"><i class="fa-solid fa-certificate"></i> Verified Certificates</div>
-            </div>
-        </div>
-    </header>
+  <!-- ENROLLMENT / EVALUATION MODAL -->
+  <div id="enrollModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl hidden flex items-center justify-center p-4">
+    <div class="relative max-w-lg w-full card-dark border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
+      <button onclick="closeEnrollModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
 
-    <main class="container">
-        <!-- Controls: Search & Category Filter -->
-        <div class="controls-section">
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Search by course title or keyword..." onkeyup="filterCourses()">
-            </div>
+      <div>
+        <span class="bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+          EVALUATION & ADMISSION
+        </span>
+        <h3 id="modalCourseTitle" class="text-xl font-black text-white uppercase mt-2">Book Student Fine Arts Evaluation</h3>
+        <p class="text-xs text-slate-400 mt-1">
+          Individual course fees are determined after student assessment (Baseline average ~₹370/month).
+        </p>
+      </div>
 
-            <div class="category-pills">
-                <button class="pill-btn active" onclick="filterCategory('all', this)">All Courses</button>
-                <button class="pill-btn" onclick="filterCategory('development', this)">Development</button>
-                <button class="pill-btn" onclick="filterCategory('data', this)">Data Science</button>
-                <button class="pill-btn" onclick="filterCategory('design', this)">Design</button>
-                <button class="pill-btn" onclick="filterCategory('business', this)">Business</button>
-            </div>
+      <form onsubmit="submitEnrollmentRequest(event)" class="space-y-4">
+        <div>
+          <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Student Full Name</label>
+          <input type="text" required id="applicantName" placeholder="Enter full name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
         </div>
 
-        <!-- Course Cards Grid -->
-        <div class="course-grid" id="courseGrid">
-
-            <!-- Course Item 1 -->
-            <div class="course-card" data-category="development" data-title="full-stack web development mern">
-                <div class="card-banner">
-                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" alt="Web Development">
-                    <button class="wishlist-btn" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
-                    <span class="badge-category">Development</span>
-                </div>
-                <div class="course-content">
-                    <div class="course-meta">
-                        <span><i class="fa-regular fa-clock"></i> 48 Hours</span>
-                        <div class="rating"><i class="fa-solid fa-star"></i> 4.9 (1.2k)</div>
-                    </div>
-                    <h2 class="course-title">Full-Stack Web Development Masterclass</h2>
-                    <p class="course-description">Master modern Web Development using React, Node.js, Express, and MongoDB with 10 real-world projects.</p>
-                    
-                    <div class="instructor-info">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Sarah Jenkins" class="instructor-img">
-                        <span class="instructor-name">Sarah Jenkins • Senior Web Engineer</span>
-                    </div>
-
-                    <div class="course-footer">
-                        <div class="price-container">
-                            <span class="price-current">$99.99</span>
-                            <span class="price-original">$149.99</span>
-                        </div>
-                        <a href="#" class="btn-enroll">Enroll Now <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Course Item 2 -->
-            <div class="course-card" data-category="data" data-title="python data science machine learning">
-                <div class="card-banner">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Data Science">
-                    <button class="wishlist-btn" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
-                    <span class="badge-category">Data Science</span>
-                </div>
-                <div class="course-content">
-                    <div class="course-meta">
-                        <span><i class="fa-regular fa-clock"></i> 36 Hours</span>
-                        <div class="rating"><i class="fa-solid fa-star"></i> 4.8 (850)</div>
-                    </div>
-                    <h2 class="course-title">Python for Data Science & Machine Learning</h2>
-                    <p class="course-description">Analyze big data sets, build statistical models, and create neural networks using Pandas, NumPy, and PyTorch.</p>
-                    
-                    <div class="instructor-info">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Dr. Alex Rivera" class="instructor-img">
-                        <span class="instructor-name">Dr. Alex Rivera • AI Researcher</span>
-                    </div>
-
-                    <div class="course-footer">
-                        <div class="price-container">
-                            <span class="price-current">$84.99</span>
-                            <span class="price-original">$129.99</span>
-                        </div>
-                        <a href="#" class="btn-enroll">Enroll Now <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Course Item 3 -->
-            <div class="course-card" data-category="design" data-title="ui ux design figma mobile web">
-                <div class="card-banner">
-                    <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=600&q=80" alt="UI/UX Design">
-                    <button class="wishlist-btn" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
-                    <span class="badge-category">Design</span>
-                </div>
-                <div class="course-content">
-                    <div class="course-meta">
-                        <span><i class="fa-regular fa-clock"></i> 28 Hours</span>
-                        <div class="rating"><i class="fa-solid fa-star"></i> 4.9 (2.1k)</div>
-                    </div>
-                    <h2 class="course-title">UI/UX Design Essentials in Figma</h2>
-                    <p class="course-description">Design beautiful mobile apps and websites. Learn wireframing, user research, prototyping, and Design Systems.</p>
-                    
-                    <div class="instructor-info">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Emma Watson" class="instructor-img">
-                        <span class="instructor-name">Emma Watson • Principal Lead Designer</span>
-                    </div>
-
-                    <div class="course-footer">
-                        <div class="price-container">
-                            <span class="price-current">$74.99</span>
-                            <span class="price-original">$119.99</span>
-                        </div>
-                        <a href="#" class="btn-enroll">Enroll Now <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Course Item 4 -->
-            <div class="course-card" data-category="business" data-title="digital marketing growth hacking analytics">
-                <div class="card-banner">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Digital Marketing">
-                    <button class="wishlist-btn" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
-                    <span class="badge-category">Business</span>
-                </div>
-                <div class="course-content">
-                    <div class="course-meta">
-                        <span><i class="fa-regular fa-clock"></i> 20 Hours</span>
-                        <div class="rating"><i class="fa-solid fa-star"></i> 4.7 (620)</div>
-                    </div>
-                    <h2 class="course-title">Digital Marketing & Growth Hacking</h2>
-                    <p class="course-description">Master SEO, Google Ads, Social Media Strategy, and Content Marketing to scale business revenue exponentially.</p>
-                    
-                    <div class="instructor-info">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="David Miller" class="instructor-img">
-                        <span class="instructor-name">David Miller • Growth Strategist</span>
-                    </div>
-
-                    <div class="course-footer">
-                        <div class="price-container">
-                            <span class="price-current">$69.99</span>
-                            <span class="price-original">$99.99</span>
-                        </div>
-                        <a href="#" class="btn-enroll">Enroll Now <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Course Item 5 -->
-            <div class="course-card" data-category="development" data-title="cloud computing aws devops docker">
-                <div class="card-banner">
-                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80" alt="Cloud & DevOps">
-                    <button class="wishlist-btn" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
-                    <span class="badge-category">Development</span>
-                </div>
-                <div class="course-content">
-                    <div class="course-meta">
-                        <span><i class="fa-regular fa-clock"></i> 40 Hours</span>
-                        <div class="rating"><i class="fa-solid fa-star"></i> 4.9 (940)</div>
-                    </div>
-                    <h2 class="course-title">AWS Cloud Architect & DevOps Bootcamp</h2>
-                    <p class="course-description">Learn Amazon Web Services, Docker containers, Kubernetes, CI/CD pipelines, and infrastructure automation.</p>
-                    
-                    <div class="instructor-info">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=100&q=80" alt="Michael Chang" class="instructor-img">
-                        <span class="instructor-name">Michael Chang • DevOps Lead</span>
-                    </div>
-
-                    <div class="course-footer">
-                        <div class="price-container">
-                            <span class="price-current">$109.99</span>
-                            <span class="price-original">$169.99</span>
-                        </div>
-                        <a href="#" class="btn-enroll">Enroll Now <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Empty State Container -->
-            <div class="no-results" id="noResults">
-                <i class="fa-solid fa-magnifying-glass font-2xl"></i>
-                <h3>No courses found</h3>
-                <p>Try refining your search term or select a different category pill above.</p>
-            </div>
-
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Contact Phone</label>
+            <input type="tel" required id="applicantPhone" placeholder="82749 40238" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+          </div>
+          <div>
+            <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Preferred Branch Wing</label>
+            <select id="applicantWing" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
+              <option>Rishra Central Wing</option>
+              <option>Konnagar Aamra Club</option>
+              <option>Uttarpara Branch</option>
+            </select>
+          </div>
         </div>
-    </main>
 
-    <!-- Interactive JavaScript -->
-    <script>
-        let currentCategory = 'all';
+        <div>
+          <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Selected Program Module</label>
+          <input type="text" id="selectedModuleDisplay" readonly class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-orange-400 font-bold focus:outline-none">
+        </div>
 
-        function filterCourses() {
-            const searchValue = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.course-card');
-            let visibleCount = 0;
+        <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 text-[11px] font-mono text-slate-400 space-y-1">
+          <div class="flex justify-between">
+            <span>Standard Fee Guideline:</span>
+            <span class="text-orange-400 font-bold">~ ₹370 / month (Avg)</span>
+          </div>
+          <p class="text-[10px] text-slate-500">Finalized upon candidate interaction.</p>
+        </div>
 
-            cards.forEach(card => {
-                const title = card.getAttribute('data-title');
-                const category = card.getAttribute('data-category');
+        <button type="submit" class="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-black text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50">
+          Schedule Personal Interaction
+        </button>
+      </form>
+    </div>
+  </div>
 
-                const matchesCategory = (currentCategory === 'all' || category === currentCategory);
-                const matchesSearch = title.includes(searchValue);
+  <!-- HEADER NAVIGATION -->
+  <header class="bg-slate-950/80 border-b border-slate-800/80 sticky top-0 z-40 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="main.html" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-orange-500/50 p-0.5 bg-white shadow-lg shadow-orange-950/50 group-hover:scale-105 transition-transform flex-shrink-0">
+          <img src="logo.jfif" alt="Meera Smriti Logo" class="w-full h-full object-contain rounded-full">
+        </div>
+        <div>
+          <h1 class="font-black text-base sm:text-lg text-white uppercase tracking-tight group-hover:text-orange-400 transition-colors">
+            Meera Smriti <span class="text-orange-500">Siksha Kendra</span>
+          </h1>
+          <p class="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Estd. 1989 &bull; Sishu Ankan Academy</p>
+        </div>
+      </a>
 
-                if (matchesCategory && matchesSearch) {
-                    card.style.display = 'flex';
-                    visibleCount++;
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8 text-xs font-extrabold uppercase tracking-wider text-slate-300">
+        <a href="main.html" class="hover:text-orange-400 transition-colors py-1">Dashboard</a>
+        <a href="courses.html" class="text-orange-500 border-b-2 border-orange-500 py-1">Curriculum</a>
+        <a href="gallery.html" class="hover:text-orange-400 transition-colors py-1">Exhibitions</a>
+        <a href="contact.html" class="hover:text-orange-400 transition-colors py-1">Contact Wings</a>
+      </nav>
 
-            // Toggle No Results Message
-            const noResults = document.getElementById('noResults');
-            noResults.style.display = (visibleCount === 0) ? 'block' : 'none';
+      <div class="flex items-center gap-3">
+        <a href="admin.html" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-4 py-2 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-amber-950/30 flex items-center gap-1.5">
+          <i class="fa-solid fa-lock text-xs"></i> Admin Gate
+        </a>
+        <button id="mobileMenuBtn" class="md:hidden p-2 text-slate-400 hover:text-white">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden border-b border-slate-800 bg-slate-950/95 px-4 pt-2 pb-6 space-y-3 font-mono text-xs uppercase font-bold text-slate-300">
+      <a href="main.html" class="block py-2 hover:text-orange-400">Dashboard</a>
+      <a href="courses.html" class="block py-2 text-orange-500">Curriculum</a>
+      <a href="gallery.html" class="block py-2 hover:text-orange-400">Exhibitions</a>
+      <a href="contact.html" class="block py-2 hover:text-orange-400">Contact Wings</a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow space-y-12">
+
+    <!-- PAGE HERO HEADER WITH SEASONAL BANNER -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="lg:col-span-7 space-y-4">
+        <div class="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 border border-orange-500/20 text-xs font-mono font-bold px-3 py-1.5 rounded-full uppercase">
+          <i class="fa-solid fa-graduation-cap text-xs"></i> ACADEMIC CURRICULUM & MODULES
+        </div>
+        
+        <h2 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight">
+          Structured Fine Art <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-500">
+            Education Programs
+          </span>
+        </h2>
+
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-2xl">
+          From beginner stroke practice to government-recognized board examination diplomas, our curriculum nurtures technique, artistic confidence, and creative expression.
+        </p>
+
+        <div class="flex items-center gap-4 pt-2">
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-slate-300">
+            <span class="text-slate-500 block text-[10px]">STANDARD TUITION GUIDE</span>
+            <span class="text-amber-400 font-bold text-sm">~ ₹370 / month (Avg)</span>
+          </div>
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-slate-300">
+            <span class="text-slate-500 block text-[10px]">AFFILIATION</span>
+            <span class="text-orange-400 font-bold text-sm">Govt. Board Exam Facilities</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEASON POSTER FEATURED IMAGE -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="card-dark p-3 rounded-3xl max-w-md w-full border-orange-500/30 overflow-hidden relative group">
+          <img src="images (1).jfif" alt="Meera Smriti New Season" class="w-full h-auto rounded-2xl object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute bottom-5 left-5 right-5 bg-slate-950/90 backdrop-blur-md p-3 rounded-xl border border-slate-800 text-center">
+            <p class="text-[11px] font-mono text-orange-400 font-bold uppercase">New Season Enrollment Open</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTER TABS SECTION -->
+    <section class="space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <h3 class="text-xl font-black text-white uppercase">Browse Modules</h3>
+        
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap gap-2 text-xs font-mono font-bold uppercase">
+          <button onclick="filterCourses('all')" id="btn-all" class="filter-btn filter-btn-active border border-slate-800 px-4 py-2 rounded-xl transition-all">All Courses</button>
+          <button onclick="filterCourses('junior')" id="btn-junior" class="filter-btn border border-slate-800 bg-slate-950 text-slate-400 hover:text-white px-4 py-2 rounded-xl transition-all">Junior / Beginners</button>
+          <button onclick="filterCourses('intermediate')" id="btn-intermediate" class="filter-btn border border-slate-800 bg-slate-950 text-slate-400 hover:text-white px-4 py-2 rounded-xl transition-all">Intermediate</button>
+          <button onclick="filterCourses('senior')" id="btn-senior" class="filter-btn border border-slate-800 bg-slate-950 text-slate-400 hover:text-white px-4 py-2 rounded-xl transition-all">Senior Diploma</button>
+        </div>
+      </div>
+
+      <!-- COURSES GRID -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- COURSE CARD 1: JUNIOR ANKAN -->
+        <div class="course-card card-dark rounded-3xl p-6 flex flex-col justify-between space-y-5" data-category="junior">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+                Ages 4 &ndash; 7 Years
+              </span>
+              <span class="text-xs font-mono font-bold text-amber-400 bg-amber-950/40 px-2 py-1 rounded border border-amber-900/50">~ ₹350/mo</span>
+            </div>
+            
+            <h4 class="text-lg font-black text-white uppercase">Junior Ankan & Line Foundation</h4>
+            
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Designed for young minds to develop motor controls, line precision, basic geometric shapes, and primary color mixing using wax crayons and pencil sketchpads.
+            </p>
+
+            <ul class="text-xs text-slate-300 space-y-2 font-mono pt-2">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Basic Line & Stroke Control</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Color Identification & Shading</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Object & Nature Visualization</li>
+            </ul>
+          </div>
+
+          <button onclick="openEnrollModal('Junior Ankan & Line Foundation')" class="w-full bg-slate-900 hover:bg-orange-600 hover:text-white border border-slate-800 text-slate-200 font-extrabold text-xs py-3 rounded-xl uppercase tracking-wider transition-all text-center">
+            Book Evaluation
+          </button>
+        </div>
+
+        <!-- COURSE CARD 2: INTERMEDIATE WATERCOLOR & PASTEL -->
+        <div class="course-card card-dark rounded-3xl p-6 flex flex-col justify-between space-y-5" data-category="intermediate">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+                Ages 8 &ndash; 12 Years
+              </span>
+              <span class="text-xs font-mono font-bold text-amber-400 bg-amber-950/40 px-2 py-1 rounded border border-amber-900/50">~ ₹370/mo</span>
+            </div>
+            
+            <h4 class="text-lg font-black text-white uppercase">Intermediate Color & Landscape Painting</h4>
+            
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Focuses on soft pastels, oil pastels, transparent watercolor wash techniques, perspective composition, and rural Bengali canvas landscapes.
+            </p>
+
+            <ul class="text-xs text-slate-300 space-y-2 font-mono pt-2">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Watercolor Layering & Washes</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Perspective & Horizon Studies</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Still Life Light & Shadow</li>
+            </ul>
+          </div>
+
+          <button onclick="openEnrollModal('Intermediate Color & Landscape Painting')" class="w-full bg-slate-900 hover:bg-orange-600 hover:text-white border border-slate-800 text-slate-200 font-extrabold text-xs py-3 rounded-xl uppercase tracking-wider transition-all text-center">
+            Book Evaluation
+          </button>
+        </div>
+
+        <!-- COURSE CARD 3: SENIOR DIPLOMA (WITH TROPHY IMAGE) -->
+        <div class="course-card card-dark rounded-3xl p-6 flex flex-col justify-between space-y-5 border-amber-500/30" data-category="senior">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+                Board Exam Certified
+              </span>
+              <span class="text-xs font-mono font-bold text-amber-400 bg-amber-950/40 px-2 py-1 rounded border border-amber-900/50">~ ₹400/mo</span>
+            </div>
+            
+            <h4 class="text-lg font-black text-white uppercase">Senior Fine Arts Diploma & Board Prep</h4>
+            
+            <!-- TROPHY IMAGE INTEGRATION -->
+            <div class="rounded-xl overflow-hidden h-32 border border-slate-800 my-2">
+              <img src="images (2).jfif" alt="Board Diploma & Kisholay Awards" class="w-full h-full object-cover">
+            </div>
+
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Advanced preparation for state board examinations (Kalakar Drawing School / Sishu O Kishor Pratiba Bikash Kendra) featuring portraiture, charcoal, acrylics, and anatomy.
+            </p>
+
+            <ul class="text-xs text-slate-300 space-y-2 font-mono pt-2">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Human Anatomy & Portraiture</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Charcoal & Acrylic Mediums</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Formal Board Diploma Certification</li>
+            </ul>
+          </div>
+
+          <button onclick="openEnrollModal('Senior Fine Arts Diploma & Board Prep')" class="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-black text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg text-center">
+            Apply For Diploma Track
+          </button>
+        </div>
+
+        <!-- COURSE CARD 4: ANNUAL EXHIBITION CREATIVE WORKSHOP (WITH EXHIBITION IMAGE) -->
+        <div class="course-card card-dark rounded-3xl p-6 flex flex-col justify-between space-y-5" data-category="intermediate">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="bg-purple-500/10 text-purple-400 border border-purple-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+                Exhibition Special
+              </span>
+              <span class="text-xs font-mono font-bold text-amber-400 bg-amber-950/40 px-2 py-1 rounded border border-amber-900/50">Included</span>
+            </div>
+            
+            <h4 class="text-lg font-black text-white uppercase">Meera Smriti Exhibition Project Studio</h4>
+
+            <!-- EXHIBITION IMAGE INTEGRATION -->
+            <div class="rounded-xl overflow-hidden h-32 border border-slate-800 my-2">
+              <img src="exibision.jfif" alt="Annual Exhibition Studio" class="w-full h-full object-cover">
+            </div>
+
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Special project module dedicated to creating showcase pieces for the annual 25th-28th December Fine Art Exhibition.
+            </p>
+
+            <ul class="text-xs text-slate-300 space-y-2 font-mono pt-2">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Large Canvas Composition</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Terracotta & Craft Work</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-orange-500 text-[10px]"></i> Gallery Presentation Techniques</li>
+            </ul>
+          </div>
+
+          <button onclick="openEnrollModal('Exhibition Project Studio')" class="w-full bg-slate-900 hover:bg-orange-600 hover:text-white border border-slate-800 text-slate-200 font-extrabold text-xs py-3 rounded-xl uppercase tracking-wider transition-all text-center">
+            Book Evaluation
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EVALUATION & FEE INFO CARD -->
+    <section class="card-dark rounded-3xl p-6 sm:p-8 border-orange-500/20 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 space-y-4">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div>
+          <h4 class="text-lg font-black text-white uppercase">Candidate Skill Interaction Process</h4>
+          <p class="text-xs text-slate-400">Why we schedule individual interaction before fixing monthly tuition</p>
+        </div>
+        <div class="text-xs font-mono text-amber-400 font-bold bg-amber-950/50 px-3 py-1.5 rounded-xl border border-amber-900">
+          Average Range: ₹300 &ndash; ₹450 / month
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+          <span class="text-orange-500 font-mono font-bold">STEP 01</span>
+          <h5 class="font-extrabold text-white uppercase">Skill Assessment</h5>
+          <p class="text-slate-400">Our senior teacher (Srimati Tanisha Pal / Director) evaluates the student's stroke confidence and age level.</p>
+        </div>
+        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+          <span class="text-orange-500 font-mono font-bold">STEP 02</span>
+          <h5 class="font-extrabold text-white uppercase">Module Allocation</h5>
+          <p class="text-slate-400">Student is placed into Junior Foundation, Intermediate Landscape, or Senior Diploma track.</p>
+        </div>
+        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+          <span class="text-orange-500 font-mono font-bold">STEP 03</span>
+          <h5 class="font-extrabold text-white uppercase">Fee Finalization</h5>
+          <p class="text-slate-400">Monthly tuition is finalized based on module frequency and batch choice (Avg ~₹370/mo).</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 border-t border-slate-800/80 py-8 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-slate-500">
+      <div class="flex items-center gap-3">
+        <img src="logo.jfif" alt="Meera Smriti Emblem" class="w-7 h-7 rounded-full bg-white p-0.5 object-contain">
+        <div>
+          <strong class="text-slate-300">Meera Smriti Sishu Ankan Siksha Kendra</strong> &copy; 2026. All Rights Reserved.
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="main.html" class="hover:text-orange-400 transition-colors">Dashboard</a>
+        <span>&bull;</span>
+        <a href="courses.html" class="text-orange-400">Curriculum</a>
+        <span>&bull;</span>
+        <a href="gallery.html" class="hover:text-orange-400 transition-colors">Exhibitions</a>
+        <span>&bull;</span>
+        <a href="contact.html" class="hover:text-orange-400 transition-colors">Contact Wings</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    function showToast(title, message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'animate-toast card-dark border border-emerald-500/50 p-4 rounded-2xl shadow-2xl pointer-events-auto flex items-start gap-3';
+      toast.innerHTML = `
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg mt-0.5"></i>
+        <div>
+          <h5 class="text-xs font-bold text-white uppercase tracking-wider">${title}</h5>
+          <p class="text-xs text-slate-300 mt-0.5">${message}</p>
+        </div>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+
+    function openEnrollModal(programName) {
+      document.getElementById('modalCourseTitle').textContent = programName;
+      document.getElementById('selectedModuleDisplay').value = programName;
+      document.getElementById('enrollModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeEnrollModal() {
+      document.getElementById('enrollModal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    function submitEnrollmentRequest(e) {
+      e.preventDefault();
+      const name = document.getElementById('applicantName').value;
+      const module = document.getElementById('selectedModuleDisplay').value;
+      closeEnrollModal();
+      showToast('Evaluation Booked!', `Application received for ${name} [${module}]. Our branch coordinator will call you shortly.`);
+      document.getElementById('applicantName').value = '';
+      document.getElementById('applicantPhone').value = '';
+    }
+
+    function filterCourses(category) {
+      const cards = document.querySelectorAll('.course-card');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      buttons.forEach(btn => {
+        btn.classList.remove('filter-btn-active', 'bg-orange-500', 'text-white');
+        btn.classList.add('bg-slate-950', 'text-slate-400');
+      });
+
+      const activeBtn = document.getElementById(`btn-${category}`);
+      if (activeBtn) {
+        activeBtn.classList.add('filter-btn-active', 'text-white');
+        activeBtn.classList.remove('bg-slate-950', 'text-slate-400');
+      }
+
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
         }
+      });
+    }
 
-        function filterCategory(category, btnElement) {
-            currentCategory = category;
-
-            // Active Class Toggle
-            document.querySelectorAll('.pill-btn').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
-
-            filterCourses();
-        }
-
-        // Interactive Wishlist Hearts
-        document.querySelectorAll('.wishlist-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const icon = this.querySelector('i');
-                icon.classList.toggle('fa-regular');
-                icon.classList.toggle('fa-solid');
-                if(icon.classList.contains('fa-solid')) {
-                    this.style.color = '#ef4444';
-                } else {
-                    this.style.color = 'var(--text-muted)';
-                }
-            });
+    window.addEventListener('DOMContentLoaded', () => {
+      const mobileBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
         });
-    </script>
+      }
+    });
+  </script>
 </body>
 </html>
