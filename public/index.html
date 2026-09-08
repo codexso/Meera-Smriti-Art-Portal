@@ -16,7 +16,7 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-orange-500 selection:text-white">
 
-  <!-- TOP HEADER BANNER -->
+  <!-- HEADER -->
   <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -34,10 +34,10 @@
     </div>
   </header>
 
-  <!-- MAIN LOGIN & REGISTER SECTION -->
+  <!-- MAIN AUTH SECTION -->
   <main class="max-w-6xl mx-auto px-4 py-10 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
     
-    <!-- LEFT HERO BANNER -->
+    <!-- LEFT BANNER -->
     <div class="lg:col-span-7 space-y-6">
       <div class="inline-flex items-center gap-2 bg-slate-900 border border-slate-800 text-orange-400 font-mono text-xs px-3 py-1.5 rounded-full">
         <span class="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
@@ -69,10 +69,10 @@
       </div>
     </div>
 
-    <!-- RIGHT FORM CARD -->
+    <!-- RIGHT AUTH CARD -->
     <div class="lg:col-span-5 bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl space-y-6">
       
-      <!-- TOGGLE FORM BUTTONS -->
+      <!-- TAB TOGGLE -->
       <div class="flex rounded-2xl bg-slate-950 p-1.5 border border-slate-800 font-mono text-xs">
         <button id="showLoginBtn" onclick="switchTab('login')" class="flex-1 py-2.5 rounded-xl font-bold bg-orange-600 text-white transition-all shadow-md">
           Sign In
@@ -82,8 +82,8 @@
         </button>
       </div>
 
-      <!-- DYNAMIC ALERT CONTAINER -->
-      <div id="alertBox" class="hidden p-3.5 rounded-xl text-xs font-mono border"></div>
+      <!-- DETAILED ERROR / ALERT BOX -->
+      <div id="alertBox" class="hidden p-3.5 rounded-xl text-xs font-mono border break-words"></div>
 
       <!-- SIGN IN FORM -->
       <form id="loginForm" class="space-y-4">
@@ -103,7 +103,7 @@
           </div>
         </div>
 
-        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50 flex items-center justify-center gap-2">
+        <button type="submit" id="loginSubmitBtn" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50 flex items-center justify-center gap-2">
           <span>Enter Academy Portal</span>
           <i class="fa-solid fa-arrow-right text-[10px]"></i>
         </button>
@@ -135,7 +135,7 @@
           </div>
         </div>
 
-        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50 flex items-center justify-center gap-2">
+        <button type="submit" id="regSubmitBtn" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50 flex items-center justify-center gap-2">
           <span>Create Student Account</span>
           <i class="fa-solid fa-user-plus text-[10px]"></i>
         </button>
@@ -149,45 +149,38 @@
   </footer>
 
   <script>
-    // Redirect if already logged in
     if (localStorage.getItem('token')) {
       window.location.href = 'main.html';
     }
 
     function switchTab(tab) {
-      const loginForm = document.getElementById('loginForm');
-      const regForm = document.getElementById('registerForm');
-      const loginBtn = document.getElementById('showLoginBtn');
-      const regBtn = document.getElementById('showRegisterBtn');
-      
       document.getElementById('alertBox').classList.add('hidden');
-
       if (tab === 'login') {
-        loginForm.classList.remove('hidden');
-        regForm.classList.add('hidden');
-        loginBtn.className = 'flex-1 py-2.5 rounded-xl font-bold bg-orange-600 text-white transition-all shadow-md';
-        regBtn.className = 'flex-1 py-2.5 rounded-xl font-bold text-slate-400 hover:text-white transition-all';
+        document.getElementById('loginForm').classList.remove('hidden');
+        document.getElementById('registerForm').classList.add('hidden');
+        document.getElementById('showLoginBtn').className = 'flex-1 py-2.5 rounded-xl font-bold bg-orange-600 text-white transition-all shadow-md';
+        document.getElementById('showRegisterBtn').className = 'flex-1 py-2.5 rounded-xl font-bold text-slate-400 hover:text-white transition-all';
       } else {
-        loginForm.classList.add('hidden');
-        regForm.classList.remove('hidden');
-        regBtn.className = 'flex-1 py-2.5 rounded-xl font-bold bg-orange-600 text-white transition-all shadow-md';
-        loginBtn.className = 'flex-1 py-2.5 rounded-xl font-bold text-slate-400 hover:text-white transition-all';
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('registerForm').classList.remove('hidden');
+        document.getElementById('showRegisterBtn').className = 'flex-1 py-2.5 rounded-xl font-bold bg-orange-600 text-white transition-all shadow-md';
+        document.getElementById('showLoginBtn').className = 'flex-1 py-2.5 rounded-xl font-bold text-slate-400 hover:text-white transition-all';
       }
     }
 
-    function showAlert(msg, isError = true) {
+    function showAlert(title, detail = '') {
       const box = document.getElementById('alertBox');
       box.classList.remove('hidden');
-      box.innerText = msg;
-      if (isError) {
-        box.className = 'p-3.5 rounded-xl text-xs font-mono border bg-red-950/50 border-red-800 text-red-300';
-      } else {
-        box.className = 'p-3.5 rounded-xl text-xs font-mono border bg-emerald-950/50 border-emerald-800 text-emerald-300';
-      }
+      box.className = 'p-3.5 rounded-xl text-xs font-mono border bg-red-950/80 border-red-800 text-red-200 space-y-1';
+      box.innerHTML = `<div><strong>${title}</strong></div>${detail ? `<div class="text-[11px] text-red-300 opacity-90">${detail}</div>` : ''}`;
     }
 
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
+      const btn = document.getElementById('loginSubmitBtn');
+      btn.disabled = true;
+      btn.innerText = 'Verifying...';
+
       try {
         const response = await fetch('/api/login', {
           method: 'POST',
@@ -197,21 +190,29 @@
             password: document.getElementById('loginPassword').value
           })
         });
+
         const data = await response.json();
         if (response.ok) {
           localStorage.setItem('token', data.token);
           localStorage.setItem('user', JSON.stringify(data.user));
-          window.location.href = data.redirectTo || 'main.html';
+          window.location.href = 'main.html';
         } else {
-          showAlert(data.message || 'Login failed');
+          showAlert(data.message || 'Login failed', data.error || '');
         }
       } catch (err) {
-        showAlert('Network or server error.');
+        showAlert('Network request failed', 'Could not reach backend API server.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Enter Academy Portal</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>';
       }
     });
 
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
       e.preventDefault();
+      const btn = document.getElementById('regSubmitBtn');
+      btn.disabled = true;
+      btn.innerText = 'Creating Account...';
+
       try {
         const response = await fetch('/api/register', {
           method: 'POST',
@@ -222,16 +223,20 @@
             password: document.getElementById('regPassword').value
           })
         });
+
         const data = await response.json();
         if (response.ok) {
           localStorage.setItem('token', data.token);
           localStorage.setItem('user', JSON.stringify(data.user));
-          window.location.href = data.redirectTo || 'main.html';
+          window.location.href = 'main.html';
         } else {
-          showAlert(data.message || 'Registration failed');
+          showAlert(data.message || 'Registration failed', data.error || '');
         }
       } catch (err) {
-        showAlert('Network or server error.');
+        showAlert('Network request failed', 'Could not reach backend API server.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Create Student Account</span> <i class="fa-solid fa-user-plus text-[10px]"></i>';
       }
     });
   </script>
