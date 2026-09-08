@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meera Smriti Sishu Ankan Siksha Kendra | Estd. 1989</title>
+  <title>Dashboard & Academy Overview | Meera Smriti Siksha Kendra</title>
   
-  <!-- Tailwind CSS & Google Fonts -->
+  <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <script>
@@ -28,363 +28,282 @@
     body { 
       background-color: #030712; 
       color: #f3f4f6; 
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.08) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(217, 119, 6, 0.05) 0px, transparent 50%);
+      background-image: radial-gradient(at 50% 0%, rgba(249, 115, 22, 0.08) 0px, transparent 60%);
       background-attachment: fixed;
     }
 
     .card-dark { 
-      background: rgba(11, 15, 25, 0.85); 
+      background: rgba(15, 23, 42, 0.75); 
       border: 1px solid rgba(255, 255, 255, 0.08); 
       backdrop-filter: blur(12px);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.25s ease;
     }
 
     .card-dark:hover {
       border-color: rgba(249, 115, 22, 0.35);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(249, 115, 22, 0.1);
-    }
-
-    @keyframes slideIn {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    .animate-toast {
-      animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform: translateY(-2px);
     }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-orange-500 selection:text-white">
 
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
-
-  <!-- ENROLLMENT MODAL -->
-  <div id="enrollModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl hidden flex items-center justify-center p-4">
-    <div class="relative max-w-lg w-full card-dark border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
-      <button onclick="closeEnrollModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
-        <i class="fa-solid fa-xmark text-xl"></i>
-      </button>
-
-      <div>
-        <span class="bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
-          EVALUATION & ADMISSION
-        </span>
-        <h3 id="modalCourseTitle" class="text-xl font-black text-white uppercase mt-2">Book Student Fine Arts Evaluation</h3>
-        <p class="text-xs text-slate-400 mt-1">
-          Individual course fees are determined after student assessment (Baseline average ~₹370/month).
-        </p>
-      </div>
-
-      <form onsubmit="submitEnrollmentRequest(event)" class="space-y-4">
-        <div>
-          <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Student Full Name</label>
-          <input type="text" required id="applicantName" placeholder="Enter full name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Contact Phone</label>
-            <input type="tel" required id="applicantPhone" placeholder="82749 40238" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
-          </div>
-          <div>
-            <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Preferred Branch Wing</label>
-            <select id="applicantWing" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
-              <option>Rishra Central Wing</option>
-              <option>Konnagar Aamra Club</option>
-              <option>Uttarpara Branch</option>
-            </select>
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Current Skill Level</label>
-          <select id="applicantLevel" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-orange-500">
-            <option>Absolute Beginner (Junior / Child)</option>
-            <option>Basic Line & Sketching Knowledge</option>
-            <option>Intermediate Painting (Watercolor / Acrylic)</option>
-            <option>Advanced Diploma Candidate</option>
-          </select>
-        </div>
-
-        <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 text-[11px] font-mono text-slate-400 space-y-1">
-          <div class="flex justify-between">
-            <span>Standard Fee Guideline:</span>
-            <span class="text-orange-400 font-bold">~ ₹370 / month (Avg)</span>
-          </div>
-          <p class="text-[10px] text-slate-500">Finalized upon candidate interaction.</p>
-        </div>
-
-        <button type="submit" class="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-black text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50">
-          Schedule Personal Interaction
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- HEADER NAVIGATION WITH LOGO -->
-  <header class="bg-slate-950/80 border-b border-slate-800/80 sticky top-0 z-40 backdrop-blur-xl">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <a href="main.html" class="flex items-center gap-3 group">
-        <!-- OFFICIAL EMBLEM LOGO -->
-        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-orange-500/50 p-0.5 bg-white shadow-lg shadow-orange-950/50 group-hover:scale-105 transition-transform flex-shrink-0">
+  <!-- HEADER NAVIGATION -->
+  <header class="bg-slate-950/90 border-b border-slate-800/80 sticky top-0 z-40 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="main.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full overflow-hidden border border-orange-500/50 p-0.5 bg-white flex-shrink-0">
           <img src="logo.jfif" alt="Meera Smriti Logo" class="w-full h-full object-contain rounded-full">
         </div>
         <div>
-          <h1 class="font-black text-base sm:text-lg text-white uppercase tracking-tight group-hover:text-orange-400 transition-colors">
+          <h1 class="font-bold text-sm sm:text-base text-white uppercase tracking-tight">
             Meera Smriti <span class="text-orange-500">Siksha Kendra</span>
           </h1>
-          <p class="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Estd. 1989 &bull; Sishu Ankan Academy</p>
+          <p class="text-[9px] text-slate-400 font-mono">Estd. 1989 &bull; Main Portal</p>
         </div>
       </a>
 
-      <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-8 text-xs font-extrabold uppercase tracking-wider text-slate-300">
-        <a href="main.html" class="text-orange-500 border-b-2 border-orange-500 py-1">Dashboard</a>
-        <a href="courses.html" class="hover:text-orange-400 transition-colors py-1">Curriculum</a>
-        <a href="gallery.html" class="hover:text-orange-400 transition-colors py-1">Exhibitions</a>
-        <a href="contact.html" class="hover:text-orange-400 transition-colors py-1">Contact Wings</a>
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-300">
+        <a href="main.html" class="text-orange-500 border-b-2 border-orange-500 pb-0.5">Home</a>
+        <a href="index.html" class="hover:text-orange-400 transition-colors">Register Portal</a>
+        <a href="courses.html" class="hover:text-orange-400 transition-colors">Courses</a>
+        <a href="gallery.html" class="hover:text-orange-400 transition-colors">Exhibition</a>
+        <a href="contact.html" class="hover:text-orange-400 transition-colors">Contact</a>
       </nav>
 
       <div class="flex items-center gap-3">
-        <a href="admin.html" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-4 py-2 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-amber-950/30 flex items-center gap-1.5">
-          <i class="fa-solid fa-lock text-xs"></i> Admin Gate
-        </a>
-        <button id="mobileMenuBtn" class="md:hidden p-2 text-slate-400 hover:text-white">
-          <i class="fa-solid fa-bars text-xl"></i>
-        </button>
-      </div>
-    </div>
+        <!-- Quick Social Header Icons -->
+        <div class="hidden sm:flex items-center gap-2 border-r border-slate-800 pr-3 mr-1 text-slate-400">
+          <a href="https://facebook.com" target="_blank" class="hover:text-blue-400 transition-colors text-sm p-1" title="Facebook Page"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://instagram.com" target="_blank" class="hover:text-pink-400 transition-colors text-sm p-1" title="Instagram Gallery"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://whatsapp.com" target="_blank" class="hover:text-emerald-400 transition-colors text-sm p-1" title="WhatsApp Group"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
 
-    <!-- Mobile Navigation Drawer -->
-    <div id="mobileMenu" class="hidden md:hidden border-b border-slate-800 bg-slate-950/95 px-4 pt-2 pb-6 space-y-3 font-mono text-xs uppercase font-bold text-slate-300">
-      <a href="main.html" class="block py-2 text-orange-500">Dashboard</a>
-      <a href="courses.html" class="block py-2 hover:text-orange-400">Curriculum</a>
-      <a href="gallery.html" class="block py-2 hover:text-orange-400">Exhibitions</a>
-      <a href="contact.html" class="block py-2 hover:text-orange-400">Contact Wings</a>
+        <a href="admin.html" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl uppercase tracking-wider transition-all flex items-center gap-1.5">
+          <i class="fa-solid fa-lock text-[10px]"></i> Admin Gate
+        </a>
+      </div>
     </div>
   </header>
 
-  <!-- MAIN HERO & CONTENT -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow space-y-12">
+  <!-- MAIN DASHBOARD CONTENT -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 w-full flex-grow space-y-12">
 
-    <!-- HERO SECTION WITH SEASON BANNER IMAGE -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-      <div class="lg:col-span-7 space-y-6">
-        <div class="inline-flex items-center gap-2 bg-orange-500/10 text-orange-400 border border-orange-500/20 text-xs font-mono font-bold px-3 py-1.5 rounded-full uppercase">
-          <i class="fa-solid fa-palette text-xs"></i> ADMISSIONS OPEN FOR NEW SEASON
-        </div>
-
-        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none">
-          A New Season, <br>
+    <!-- HERO SECTION -->
+    <section class="card-dark rounded-3xl p-6 sm:p-10 relative overflow-hidden bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-orange-500/20">
+      <div class="max-w-2xl space-y-4">
+        <span class="inline-block bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[11px] font-mono font-bold px-3 py-1 rounded-full uppercase">
+          Welcome to Academy Dashboard
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight leading-tight">
+          Meera Smriti <br>
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-500">
-            A New Canvas
-          </span> To Create.
+            Sishu Ankan Siksha Kendra
+          </span>
         </h2>
-
-        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-2xl">
-          Established in 1989, <strong>Meera Smriti Sishu Ankan Siksha Kendra</strong> empowers budding artists through structured diploma art education, charcoal anatomy, watercolor washes, and government-recognized board exams.
-        </p>
-
-        <!-- PRICING INFORMATION HIGHLIGHT -->
-        <div class="card-dark p-4 rounded-2xl border-orange-500/30 bg-gradient-to-r from-orange-950/20 to-slate-950 max-w-xl space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-mono font-bold uppercase text-orange-400">
-              <i class="fa-solid fa-calculator mr-1.5"></i> Flexible Fee Structure
-            </span>
-            <span class="text-xs font-mono font-black text-amber-400 bg-amber-950/50 px-2.5 py-1 rounded-md border border-amber-900/50">
-              ~ ₹370 / month (Avg)
-            </span>
-          </div>
-          <p class="text-[11px] text-slate-300">
-            Course fees are non-fixed upfront and tailored directly after candidate skill interaction.
-          </p>
-        </div>
-
-        <div class="flex flex-wrap items-center gap-4 pt-2">
-          <button onclick="openEnrollModal('New Season Fine Arts Program')" class="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-black text-xs px-6 py-3.5 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50">
-            Book Evaluation Interaction
-          </button>
-          <a href="courses.html" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-extrabold text-xs px-6 py-3.5 rounded-xl uppercase tracking-wider transition-all">
-            Explore Courses
-          </a>
-        </div>
-      </div>
-
-      <!-- SEASONAL BANNER POSTER IMAGE -->
-      <div class="lg:col-span-5 flex justify-center">
-        <div class="relative max-w-md w-full card-dark p-3 rounded-3xl overflow-hidden group">
-          <img src="images (1).jfif" alt="Meera Smriti Art School New Season Poster" class="w-full h-auto rounded-2xl object-cover shadow-2xl group-hover:scale-[1.02] transition-transform duration-500">
-          <div class="absolute bottom-5 left-5 right-5 bg-slate-950/90 backdrop-blur-md p-3 rounded-xl border border-slate-800 text-center">
-            <p class="text-[10px] font-mono text-orange-400 uppercase font-bold">Create &bull; Explore &bull; Express &bull; Inspire</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FEATURED EXHIBITION SPOTLIGHT (USING EXHIBITION IMAGE) -->
-    <section class="card-dark rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-slate-950 via-slate-900/90 to-slate-950 border-orange-500/20 space-y-6">
-      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
-        <div>
-          <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
-            FLAGSHIP EVENT
-          </span>
-          <h3 class="text-2xl sm:text-3xl font-black text-white uppercase mt-1">Annual Fine Art Exhibition</h3>
-        </div>
-        <div class="text-xs font-mono text-slate-400 flex items-center gap-2 bg-slate-950 px-4 py-2 rounded-xl border border-slate-800">
-          <i class="fa-solid fa-calendar-days text-orange-500"></i>
-          <span>25th December &ndash; 28th December | 8:00 AM &ndash; 9:00 PM</span>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <!-- EXHIBITION POSTER IMAGE -->
-        <div class="lg:col-span-6 flex justify-center">
-          <div class="card-dark p-2 rounded-2xl overflow-hidden border-orange-500/30 max-w-md w-full shadow-2xl">
-            <img src="exibision.jfif" alt="Meera Smriti Annual Art Exhibition Announcement" class="w-full h-auto rounded-xl object-cover">
-          </div>
-        </div>
-
-        <div class="lg:col-span-6 space-y-4">
-          <h4 class="text-lg font-extrabold text-white uppercase">৮ থেকে ৮০ সবাইকে চিত্র প্রদর্শনী দেখার জন্য আহ্বান জানাই</h4>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Every year, Meera Smriti Sishu Ankan Siksha Kendra brings together student artworks, classical canvas creations, terracotta clay works, and guest dignitaries across Bengal to celebrate fine arts.
-          </p>
-
-          <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-            <h5 class="text-xs font-mono font-bold text-orange-400 uppercase">Exhibition Helplines & Enquiry</h5>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-slate-300">
-              <div class="flex items-center gap-2">
-                <i class="fa-solid fa-user text-slate-500"></i> Arnab Biswas: <a href="tel:8420981244" class="text-amber-400 hover:underline">8420981244</a>
-              </div>
-              <div class="flex items-center gap-2">
-                <i class="fa-solid fa-user text-slate-500"></i> Sunirmal Ghosh: <a href="tel:8910861071" class="text-amber-400 hover:underline">8910861071</a>
-              </div>
-            </div>
-          </div>
-
-          <a href="gallery.html" class="inline-flex items-center gap-2 text-xs font-extrabold text-orange-400 hover:text-orange-300 uppercase tracking-wider pt-2">
-            <span>Explore Past Exhibition Portfolios</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ACCOMPLISHMENTS & BOARD RECOGNITION (USING TROPHY IMAGE) -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-      <div class="lg:col-span-6 space-y-6">
-        <div>
-          <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
-            AWARDS & AFFILIATIONS
-          </span>
-          <h3 class="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight mt-2">
-            Recognized Excellence & Board Exam Facilities
-          </h3>
-        </div>
-
         <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
-          Our students regularly secure top state-level accolades (such as <em>Kisholay</em> recognitions) and participate in board examinations with affiliated institutions like Kalakar Drawing School and Sishu O Kishor Pratiba Bikash Kendra.
+          Nurturing fine arts, visual creativity, and recognized board diploma training since 1989. Register online for candidate enrolment or connect with us on social media.
         </p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
-            <i class="fa-solid fa-trophy text-amber-400 text-lg mb-1"></i>
-            <h4 class="text-xs font-bold text-white uppercase">State Accolades</h4>
-            <p class="text-[11px] text-slate-400">Awarded for fine art precision, line perfection, and creative innovation.</p>
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <a href="index.html" class="bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs px-5 py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50 flex items-center gap-2">
+            <i class="fa-solid fa-user-plus"></i> Portal Registration
+          </a>
+          <a href="courses.html" class="bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold text-xs px-5 py-3 rounded-xl uppercase tracking-wider transition-all flex items-center gap-2">
+            <i class="fa-solid fa-palette"></i> View Courses
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACADEMIC STATS AT A GLANCE -->
+    <section class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div class="card-dark rounded-2xl p-4 text-center space-y-1">
+        <div class="text-2xl font-black text-orange-400 font-mono">35+</div>
+        <p class="text-[11px] text-slate-400 uppercase font-mono">Years of Excellence</p>
+      </div>
+
+      <div class="card-dark rounded-2xl p-4 text-center space-y-1">
+        <div class="text-2xl font-black text-amber-400 font-mono">3</div>
+        <p class="text-[11px] text-slate-400 uppercase font-mono">Active Branch Wings</p>
+      </div>
+
+      <div class="card-dark rounded-2xl p-4 text-center space-y-1">
+        <div class="text-2xl font-black text-emerald-400 font-mono">~₹370</div>
+        <p class="text-[11px] text-slate-400 uppercase font-mono">Avg. Monthly Fee</p>
+      </div>
+
+      <div class="card-dark rounded-2xl p-4 text-center space-y-1">
+        <div class="text-2xl font-black text-blue-400 font-mono">100%</div>
+        <p class="text-[11px] text-slate-400 uppercase font-mono">Board Exam Prep</p>
+      </div>
+    </section>
+
+    <!-- SOCIAL MEDIA & COMMUNITY CONNECT SECTION -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-800 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <span class="text-[10px] font-mono text-orange-400 uppercase tracking-wider">Stay Connected</span>
+          <h3 class="text-xl font-black text-white uppercase">Official Social Channels</h3>
+        </div>
+        <p class="text-xs text-slate-400">Follow for student artwork showcases, event notices, and exhibition updates.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+        <!-- FACEBOOK CARD -->
+        <a href="https://facebook.com" target="_blank" class="card-dark rounded-2xl p-5 flex items-center gap-4 hover:border-blue-500/50 group">
+          <div class="w-12 h-12 rounded-xl bg-blue-600/10 text-blue-400 border border-blue-500/20 flex items-center justify-center text-2xl group-hover:bg-blue-600 group-hover:text-white transition-all flex-shrink-0">
+            <i class="fa-brands fa-facebook-f"></i>
           </div>
-          <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
-            <i class="fa-solid fa-certificate text-orange-400 text-lg mb-1"></i>
-            <h4 class="text-xs font-bold text-white uppercase">Board Certificates</h4>
-            <p class="text-[11px] text-slate-400">Formal examination facilities for junior and senior art diplomas.</p>
+          <div>
+            <h4 class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">Facebook Page</h4>
+            <p class="text-[11px] text-slate-400">Exhibition photos & news</p>
+            <span class="text-[10px] font-mono text-blue-400 flex items-center gap-1 mt-1">
+              Visit Page <i class="fa-solid fa-arrow-right text-[8px]"></i>
+            </span>
+          </div>
+        </a>
+
+        <!-- INSTAGRAM CARD -->
+        <a href="https://instagram.com" target="_blank" class="card-dark rounded-2xl p-5 flex items-center gap-4 hover:border-pink-500/50 group">
+          <div class="w-12 h-12 rounded-xl bg-pink-600/10 text-pink-400 border border-pink-500/20 flex items-center justify-center text-2xl group-hover:bg-gradient-to-tr group-hover:from-amber-500 group-hover:via-pink-500 group-hover:to-purple-600 group-hover:text-white transition-all flex-shrink-0">
+            <i class="fa-brands fa-instagram"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white group-hover:text-pink-400 transition-colors">Instagram Showcase</h4>
+            <p class="text-[11px] text-slate-400">Student art gallery</p>
+            <span class="text-[10px] font-mono text-pink-400 flex items-center gap-1 mt-1">
+              View Gallery <i class="fa-solid fa-arrow-right text-[8px]"></i>
+            </span>
+          </div>
+        </a>
+
+        <!-- WHATSAPP COMMUNITY CARD -->
+        <a href="https://whatsapp.com" target="_blank" class="card-dark rounded-2xl p-5 flex items-center gap-4 hover:border-emerald-500/50 group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-600/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-2xl group-hover:bg-emerald-600 group-hover:text-white transition-all flex-shrink-0">
+            <i class="fa-brands fa-whatsapp"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">WhatsApp Updates</h4>
+            <p class="text-[11px] text-slate-400">Notice board & support</p>
+            <span class="text-[10px] font-mono text-emerald-400 flex items-center gap-1 mt-1">
+              Join Channel <i class="fa-solid fa-arrow-right text-[8px]"></i>
+            </span>
+          </div>
+        </a>
+
+        <!-- YOUTUBE CHANNEL CARD -->
+        <a href="https://youtube.com" target="_blank" class="card-dark rounded-2xl p-5 flex items-center gap-4 hover:border-red-500/50 group">
+          <div class="w-12 h-12 rounded-xl bg-red-600/10 text-red-400 border border-red-500/20 flex items-center justify-center text-2xl group-hover:bg-red-600 group-hover:text-white transition-all flex-shrink-0">
+            <i class="fa-brands fa-youtube"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white group-hover:text-red-400 transition-colors">YouTube Channel</h4>
+            <p class="text-[11px] text-slate-400">Tutorials & event clips</p>
+            <span class="text-[10px] font-mono text-red-400 flex items-center gap-1 mt-1">
+              Watch Videos <i class="fa-solid fa-arrow-right text-[8px]"></i>
+            </span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- QUICK ACADEMY WINGS & CONTACT LINK -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- BRANCH WINGS OVERVIEW -->
+      <div class="card-dark rounded-3xl p-6 space-y-4">
+        <h3 class="text-base font-bold text-white uppercase flex items-center gap-2">
+          <i class="fa-solid fa-location-dot text-orange-500"></i> Academy Branch Wings
+        </h3>
+        
+        <div class="space-y-3 text-xs">
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 flex justify-between items-center">
+            <div>
+              <strong class="text-white block">Rishra Central Wing</strong>
+              <span class="text-slate-400 text-[11px]">Primary Administrative Center</span>
+            </div>
+            <span class="text-orange-400 font-mono font-bold">Sat & Sun</span>
+          </div>
+
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 flex justify-between items-center">
+            <div>
+              <strong class="text-white block">Konnagar Aamra Club Wing</strong>
+              <span class="text-slate-400 text-[11px]">Junior & Intermediate Classes</span>
+            </div>
+            <span class="text-amber-400 font-mono font-bold">Sunday</span>
+          </div>
+
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 flex justify-between items-center">
+            <div>
+              <strong class="text-white block">Uttarpara Branch Wing</strong>
+              <span class="text-slate-400 text-[11px]">Senior Diploma Prep</span>
+            </div>
+            <span class="text-emerald-400 font-mono font-bold">Fri & Sun</span>
           </div>
         </div>
       </div>
 
-      <!-- TROPHY IMAGE SHOWCASE -->
-      <div class="lg:col-span-6 flex justify-center">
-        <div class="card-dark p-3 rounded-3xl max-w-sm w-full border-amber-500/30 overflow-hidden group">
-          <img src="images (2).jfif" alt="Kalakar Drawing School Kisholay Award Recognition" class="w-full h-auto rounded-2xl object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="mt-3 p-3 bg-slate-950 rounded-xl border border-slate-800 text-center">
-            <p class="text-[11px] font-mono text-slate-300 font-bold">State Fine Arts Recognition & Board Facilities</p>
-          </div>
+      <!-- ANNUAL EXHIBITION ANNOUNCEMENT -->
+      <div class="card-dark rounded-3xl p-6 space-y-4 border-amber-500/20 flex flex-col justify-between">
+        <div class="space-y-3">
+          <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+            Annual Showcase
+          </span>
+          <h3 class="text-lg font-bold text-white uppercase">Fine Art Exhibition (Dec 25 – 28)</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Featuring over 200+ original watercolors, canvas paintings, terracotta sculptures, and handicrafts created by our students aged 4 to 80.
+          </p>
+        </div>
+
+        <div class="pt-2">
+          <a href="gallery.html" class="inline-flex items-center gap-2 text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors uppercase font-mono">
+            Explore Exhibition Gallery <i class="fa-solid fa-arrow-right"></i>
+          </a>
         </div>
       </div>
+
     </section>
 
   </main>
 
-  <!-- FOOTER WITH LOGO -->
+  <!-- FOOTER -->
   <footer class="bg-slate-950 border-t border-slate-800/80 py-8 mt-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-slate-500">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-slate-500">
+      
+      <!-- Logo & Copyright -->
       <div class="flex items-center gap-3">
         <img src="logo.jfif" alt="Meera Smriti Emblem" class="w-7 h-7 rounded-full bg-white p-0.5 object-contain">
         <div>
-          <strong class="text-slate-300">Meera Smriti Sishu Ankan Siksha Kendra</strong> &copy; 2026. All Rights Reserved.
+          <strong class="text-slate-300">Meera Smriti Sishu Ankan Siksha Kendra</strong> &copy; 2026
         </div>
       </div>
-      <div class="flex items-center gap-4">
-        <a href="courses.html" class="hover:text-orange-400 transition-colors">Curriculum</a>
+
+      <!-- Quick Nav Links -->
+      <div class="flex flex-wrap justify-center items-center gap-4">
+        <a href="main.html" class="hover:text-orange-400 transition-colors">Home</a>
         <span>&bull;</span>
-        <a href="gallery.html" class="hover:text-orange-400 transition-colors">Exhibitions</a>
+        <a href="index.html" class="hover:text-orange-400 transition-colors">Register</a>
         <span>&bull;</span>
-        <a href="contact.html" class="hover:text-orange-400 transition-colors">Contact Wings</a>
+        <a href="courses.html" class="hover:text-orange-400 transition-colors">Courses</a>
+        <span>&bull;</span>
+        <a href="gallery.html" class="hover:text-orange-400 transition-colors">Exhibition</a>
+        <span>&bull;</span>
+        <a href="contact.html" class="hover:text-orange-400 transition-colors">Contact</a>
       </div>
+
+      <!-- Footer Social Icons -->
+      <div class="flex items-center gap-3 text-slate-400 text-sm">
+        <a href="https://www.facebook.com/meerasmritiofficial/" target="_blank" class="hover:text-blue-400 transition-colors" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/meerasmriti/?hl=en" target="_blank" class="hover:text-pink-400 transition-colors" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://whatsapp.com" target="_blank" class="hover:text-emerald-400 transition-colors" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" class="hover:text-red-400 transition-colors" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+
     </div>
   </footer>
 
-  <!-- SCRIPT LOGIC -->
-  <script>
-    function showToast(title, message) {
-      const container = document.getElementById('toastContainer');
-      const toast = document.createElement('div');
-      toast.className = 'animate-toast card-dark border border-emerald-500/50 p-4 rounded-2xl shadow-2xl pointer-events-auto flex items-start gap-3';
-      toast.innerHTML = `
-        <i class="fa-solid fa-circle-check text-emerald-400 text-lg mt-0.5"></i>
-        <div>
-          <h5 class="text-xs font-bold text-white uppercase tracking-wider">${title}</h5>
-          <p class="text-xs text-slate-300 mt-0.5">${message}</p>
-        </div>
-      `;
-      container.appendChild(toast);
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transition = 'opacity 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-      }, 4000);
-    }
-
-    function openEnrollModal(programName) {
-      document.getElementById('modalCourseTitle').textContent = programName;
-      document.getElementById('enrollModal').classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeEnrollModal() {
-      document.getElementById('enrollModal').classList.add('hidden');
-      document.body.style.overflow = 'auto';
-    }
-
-    function submitEnrollmentRequest(e) {
-      e.preventDefault();
-      const name = document.getElementById('applicantName').value;
-      closeEnrollModal();
-      showToast('Interaction Booked!', `Thank you ${name}. Our admin team will contact you shortly to schedule your candidate evaluation.`);
-      document.getElementById('applicantName').value = '';
-      document.getElementById('applicantPhone').value = '';
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const mobileBtn = document.getElementById('mobileMenuBtn');
-      const mobileMenu = document.getElementById('mobileMenu');
-      if (mobileBtn && mobileMenu) {
-        mobileBtn.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
-        });
-      }
-    });
-  </script>
 </body>
 </html>
