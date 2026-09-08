@@ -99,7 +99,6 @@
 
       <!-- Student Registration Form -->
       <form id="registerForm" onsubmit="handleUserRegister(event)" class="space-y-4 hidden">
-        
         <div id="registrationNotice" class="p-3 rounded-xl bg-orange-950/40 border border-orange-800/50 text-xs text-orange-300 flex items-start gap-2.5">
           <i class="fa-solid fa-circle-info text-orange-400 text-base mt-0.5"></i>
           <div>
@@ -220,10 +219,9 @@
     const REG_STORAGE = 'meera_smriti_registrations';
     const ADMIN_AUTH_KEY = 'meera_smriti_admin_auth';
 
-    // Admission Window Checker (June 1st to July 31st)
     function checkAdmissionStatus() {
       const now = new Date();
-      const month = now.getMonth(); // 0-indexed (5 = June, 6 = July)
+      const month = now.getMonth();
       const banner = document.getElementById('admissionBanner');
 
       if (month === 5 || month === 6) {
@@ -303,7 +301,6 @@
       const u = document.getElementById('adminUsername').value;
       const p = document.getElementById('adminPassword').value;
 
-      // Unmasked credential validation logic
       if(u === 'Money' && p === 'Money@220077') {
         localStorage.setItem(ADMIN_AUTH_KEY, 'true');
         window.location.href = 'admin.html';
