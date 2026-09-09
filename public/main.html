@@ -1,155 +1,419 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Academy Dashboard | Meera Smriti Siksha Kendra</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script>
-    if (!localStorage.getItem('token')) {
-      window.location.href = 'index.html';
-    }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Portal | Meera Smriti Sishu Ankan Siksha Kendra</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #6d28d9;
+            --accent: #f59e0b;
+            --accent-glow: rgba(245, 158, 11, 0.35);
+            --bg-dark: #0b1120;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --bg-glass: rgba(15, 23, 42, 0.8);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-glass: rgba(255, 255, 255, 0.12);
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* Navigation Bar */
+        header {
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(11, 17, 32, 0.9); backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glass); padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .brand-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #fff; }
+        .brand-logo i { font-size: 2rem; color: var(--accent); }
+        .brand-text h1 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+        .brand-text span { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+        .nav-links { display: flex; list-style: none; gap: 1.8rem; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: var(--transition); }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+        .user-widget { display: flex; align-items: center; gap: 12px; }
+        .avatar-circle { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; border: 2px solid rgba(255,255,255,0.2); cursor: pointer; }
+
+        .btn-peak-login {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff; padding: 0.6rem 1.3rem; border-radius: 30px; font-weight: 600; font-size: 0.88rem;
+            border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4); transition: var(--transition);
+            display: flex; align-items: center; gap: 8px;
+        }
+        .btn-peak-login:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(139, 92, 246, 0.6); }
+
+        /* Main Container Layout */
+        .portal-layout { display: grid; grid-template-columns: 280px 1fr; gap: 2rem; padding: 2rem 5%; flex: 1; }
+
+        /* Sidebar Navigation */
+        aside.sidebar {
+            background: var(--bg-card); border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg); padding: 1.5rem; height: fit-content;
+        }
+        .sidebar-menu { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .sidebar-menu li a {
+            display: flex; align-items: center; gap: 12px; padding: 12px 16px; color: var(--text-muted);
+            text-decoration: none; border-radius: var(--radius-md); font-weight: 500; font-size: 0.9rem; transition: var(--transition);
+        }
+        .sidebar-menu li a:hover, .sidebar-menu li.active a {
+            background: rgba(139, 92, 246, 0.15); color: #fff; border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        .sidebar-menu li a i { width: 20px; text-align: center; color: var(--accent); }
+
+        /* Social Quick Links Box in Sidebar */
+        .social-box { margin-top: 2rem; background: rgba(0,0,0,0.3); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 1rem; }
+        .social-box h5 { font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+        .social-grid-mini { display: flex; gap: 10px; }
+        .social-grid-mini a { flex: 1; height: 38px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: #fff; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: var(--transition); }
+        .social-grid-mini a.yt:hover { background: #ff0000; color: #fff; }
+        .social-grid-mini a.wa:hover { background: #25d366; color: #fff; }
+        .social-grid-mini a.jd:hover { background: #ff6a00; color: #fff; }
+        .social-grid-mini a.ub:hover { background: #00b4d8; color: #fff; }
+
+        /* Main Dashboard View */
+        .dashboard-content { display: flex; flex-direction: column; gap: 2rem; }
+
+        /* Banner Welcome Header */
+        .welcome-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(245, 158, 11, 0.15));
+            border: 1px solid rgba(139, 92, 246, 0.4); border-radius: var(--radius-lg); padding: 2rem;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;
+        }
+        .welcome-text h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.4rem; }
+        .welcome-text p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Quick Metric Cards */
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; }
+        .metric-card { background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 1.3rem; }
+        .metric-card .icon { width: 42px; height: 42px; border-radius: 10px; background: rgba(245, 158, 11, 0.15); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 12px; }
+        .metric-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 2px; }
+        .metric-card p { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* Portal Tools Grid */
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .tool-card { background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.5rem; }
+        .tool-card h3 { font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+        .tool-card h3 i { color: var(--accent); }
+
+        .btn-action-full { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid var(--border-glass); color: #fff; padding: 0.8rem; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; transition: var(--transition); text-align: center; text-decoration: none; display: block; margin-top: 10px; }
+        .btn-action-full:hover { background: var(--primary); border-color: var(--primary); }
+
+        /* Branch Directory Section */
+        .branch-list-mini { display: flex; flex-direction: column; gap: 10px; }
+        .branch-item { display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.2); padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; }
+        .branch-item span { color: var(--text-muted); }
+
+        /* PEAK LOGIN MODAL */
+        .modal-overlay {
+            position: fixed; inset: 0; z-index: 2000; background: rgba(11, 17, 32, 0.85); backdrop-filter: blur(20px);
+            display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: var(--transition);
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+        .peak-login-box {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+            border: 1px solid var(--border-glass); border-radius: var(--radius-lg); width: 100%; max-width: 500px;
+            padding: 2.2rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); position: relative; transform: scale(0.9); transition: var(--transition);
+        }
+        .modal-overlay.active .peak-login-box { transform: scale(1); }
+        .btn-close-modal { position: absolute; top: 18px; right: 18px; background: none; border: none; color: var(--text-muted); font-size: 1.4rem; cursor: pointer; }
+
+        .role-selector { display: flex; background: rgba(0, 0, 0, 0.3); border-radius: 30px; padding: 4px; margin-bottom: 1.5rem; border: 1px solid var(--border-glass); }
+        .role-btn { flex: 1; padding: 8px 12px; border: none; background: transparent; color: var(--text-muted); font-size: 0.8rem; font-weight: 600; border-radius: 20px; cursor: pointer; }
+        .role-btn.active { background: var(--primary); color: #fff; }
+
+        .login-tabs { display: flex; gap: 1rem; border-bottom: 1px solid var(--border-glass); margin-bottom: 1.2rem; }
+        .tab-btn { background: none; border: none; color: var(--text-muted); padding-bottom: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; position: relative; }
+        .tab-btn.active { color: #fff; }
+        .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: var(--accent); }
+
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; }
+        .input-wrapper { position: relative; }
+        .input-wrapper i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        .input-wrapper input { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 0.75rem 1rem 0.75rem 2.4rem; color: #fff; font-size: 0.9rem; outline: none; }
+        .input-wrapper input:focus { border-color: var(--primary); }
+
+        .btn-submit-login { width: 100%; background: linear-gradient(135deg, var(--accent), #d97706); color: #000; font-weight: 700; padding: 0.85rem; border: none; border-radius: var(--radius-md); font-size: 0.95rem; cursor: pointer; margin-top: 10px; }
+
+        /* Toast Container */
+        .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 3000; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: #1e293b; border-left: 4px solid var(--accent); color: #fff; padding: 12px 18px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); font-size: 0.88rem; display: flex; align-items: center; gap: 10px; }
+
+        /* Responsive Layout */
+        @media (max-width: 900px) {
+            .portal-layout { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-orange-500 selection:text-white">
+<body>
 
-  <!-- NAVIGATION BAR -->
-  <header class="bg-slate-950/90 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <a href="main.html" class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-full bg-orange-600 flex items-center justify-center font-bold text-white text-sm">
-          MS
+    <!-- Header Bar -->
+    <header>
+        <a href="index.html" class="brand-logo">
+            <i class="fas fa-palette"></i>
+            <div class="brand-text">
+                <h1>Meera Smriti Portal</h1>
+                <span>Sishu Ankan Siksha Kendra</span>
+            </div>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="#" class="active"><i class="fas fa-home"></i> Main Portal</a></li>
+            <li><a href="https://www.youtube.com/@meerasmriti5551" target="_blank"><i class="fab fa-youtube"></i> Tutorials</a></li>
+            <li><a href="https://wa.me/917942593454" target="_blank"><i class="fab fa-whatsapp"></i> Support</a></li>
+        </ul>
+
+        <div class="user-widget">
+            <button class="btn-peak-login" id="openLoginBtn"><i class="fas fa-lock"></i> Peak Portal Access</button>
+            <div class="avatar-circle" id="userAvatarBtn" style="display: none;">CG</div>
         </div>
-        <span class="font-bold text-sm uppercase tracking-wide text-white">Meera Smriti <span class="text-orange-500">Siksha Kendra</span></span>
-      </a>
+    </header>
 
-      <nav class="hidden md:flex items-center gap-6 text-xs font-mono text-slate-300">
-        <a href="main.html" class="text-orange-400 font-bold border-b-2 border-orange-500 pb-0.5">Home</a>
-        <a href="courses.html" class="hover:text-orange-400 transition-colors">Courses</a>
-        <a href="gallery.html" class="hover:text-orange-400 transition-colors">Exhibition</a>
-        <a href="contact.html" class="hover:text-orange-400 transition-colors">Contact</a>
-        <a href="admin.html" class="hover:text-amber-400 transition-colors">Admin Desk</a>
-      </nav>
+    <!-- Main Content Layout -->
+    <div class="portal-layout">
 
-      <div class="flex items-center gap-3">
-        <div class="hidden sm:flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl text-xs font-mono text-slate-300">
-          <i class="fa-solid fa-circle-user text-orange-500"></i>
-          <span id="navUserName">Student</span>
+        <!-- Sidebar Section -->
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="active"><a href="#"><i class="fas fa-chart-line"></i> Dashboard Overview</a></li>
+                <li><a href="#" id="menuArtworkBtn"><i class="fas fa-paint-brush"></i> Submit Artworks</a></li>
+                <li><a href="#" id="menuExamBtn"><i class="fas fa-graduation-cap"></i> BSP Exam Status</a></li>
+                <li><a href="#" id="menuReceiptsBtn"><i class="fas fa-receipt"></i> Monthly Fee Receipts</a></li>
+                <li><a href="https://www.youtube.com/@meerasmriti5551" target="_blank"><i class="fab fa-youtube"></i> Video Masterclasses</a></li>
+            </ul>
+
+            <!-- Verified Social Connections Mini Dock -->
+            <div class="social-box">
+                <h5>Verified Social Links</h5>
+                <div class="social-grid-mini">
+                    <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" class="yt" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/917942593454" target="_blank" class="wa" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.justdial.com/Hooghly/Meera-Smriti-Sishu-Ankan-Siksha-Kendra-Near-Voly-Ball-Play-Ground-Rishra/9999PXX33-XX33-180303195110-Q9P8_BZDET" target="_blank" class="jd" title="Justdial"><i class="fas fa-star"></i></a>
+                    <a href="https://www.urbanpro.com/hooghly/meera-smriti-sishu-ankan-siksha-kendra-uttarpara/8975704" target="_blank" class="ub" title="UrbanPro"><i class="fas fa-user-check"></i></a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Portal Dashboard -->
+        <main class="dashboard-content">
+
+            <!-- Welcome Header Card -->
+            <div class="welcome-card">
+                <div class="welcome-text">
+                    <h2 id="welcomeName">Welcome, Chanchal Ghosh!</h2>
+                    <p id="welcomeMeta">Roll No: BSP-2026-9941 • Rishra Head Branch (Affiliated to Bangiya Sangeet Parishad)</p>
+                </div>
+                <button class="btn-action-full" style="width: auto; padding: 0.8rem 1.5rem;" id="btnQuickUpload">
+                    <i class="fas fa-cloud-upload-alt"></i> Upload Artwork
+                </button>
+            </div>
+
+            <!-- Portal Performance Metrics -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="icon"><i class="fas fa-award"></i></div>
+                    <h3>4th Year</h3>
+                    <p>Current Fine Art Grade</p>
+                </div>
+                <div class="metric-card">
+                    <div class="icon" style="color: #25d366; background: rgba(37,211,102,0.15);"><i class="fas fa-check-circle"></i></div>
+                    <h3>Active</h3>
+                    <p>BSP Exam Registration</p>
+                </div>
+                <div class="metric-card">
+                    <div class="icon" style="color: #3b82f6; background: rgba(59,130,246,0.15);"><i class="fas fa-image"></i></div>
+                    <h3>12 Artworks</h3>
+                    <p>Exhibition Portfolio</p>
+                </div>
+                <div class="metric-card">
+                    <div class="icon" style="color: #ec4899; background: rgba(236,72,153,0.15);"><i class="fas fa-star"></i></div>
+                    <h3>4.9 Rating</h3>
+                    <p>Justdial verified reviews</p>
+                </div>
+            </div>
+
+            <!-- Operational Portal Tools Grid -->
+            <div class="tools-grid">
+
+                <!-- Module 1: Bangiya Sangeet Parishad Exam Status -->
+                <div class="tool-card">
+                    <h3><i class="fas fa-university"></i> Bangiya Sangeet Parishad Exams</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                        Track annual examination schedules, download admit cards, and review practical drawing syllabi.
+                    </p>
+                    <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 12px;">
+                        <p><strong>Next Practical Exam:</strong> Nov 15, 2026</p>
+                        <p style="color: var(--accent);"><strong>Syllabus:</strong> Still Life (Oil Pastel & Watercolor)</p>
+                    </div>
+                    <button class="btn-action-full" id="btnAdmitCard"><i class="fas fa-download"></i> Download Admit Card</button>
+                </div>
+
+                <!-- Module 2: Official Branch Locator -->
+                <div class="tool-card">
+                    <h3><i class="fas fa-map-marked-alt"></i> Active Branch Network</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                        Visit our established learning centers or check batch schedules.
+                    </p>
+                    <div class="branch-list-mini">
+                        <div class="branch-item">
+                            <strong>Rishra Head Office</strong>
+                            <span>Dr. P.T. Laha St</span>
+                        </div>
+                        <div class="branch-item">
+                            <strong>Uttarpara Center</strong>
+                            <span>B.K. Street</span>
+                        </div>
+                        <div class="branch-item">
+                            <strong>Konnagar Center</strong>
+                            <span>Criper Road</span>
+                        </div>
+                        <div class="branch-item">
+                            <strong>Kanchrapara Loco</strong>
+                            <span>Tik Tiki Bazar</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/917942593454?text=Hello%20Meera%20Smriti%20Team,%20I%20want%20branch%20timings" target="_blank" class="btn-action-full"><i class="fab fa-whatsapp"></i> Enquire Branch Batches</a>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- PEAK LOGIN / AUTHENTICATION MODAL -->
+    <div class="modal-overlay" id="peakModal">
+        <div class="peak-login-box">
+            <button class="btn-close-modal" id="closeModalBtn">&times;</button>
+
+            <!-- Role Switcher -->
+            <div class="role-selector">
+                <button class="role-btn active" data-role="Student"><i class="fas fa-user-graduate"></i> Student</button>
+                <button class="role-btn" data-role="Faculty"><i class="fas fa-chalkboard-teacher"></i> Faculty</button>
+                <button class="role-btn" data-role="Admin"><i class="fas fa-user-shield"></i> Admin</button>
+            </div>
+
+            <div class="login-tabs">
+                <button class="tab-btn active" id="tabPassword">Password Login</button>
+                <button class="tab-btn" id="tabOtp">WhatsApp OTP</button>
+            </div>
+
+            <!-- Password Form -->
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label>Student ID / Email</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" id="inputUser" placeholder="e.g. MS-2026-9941" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="inputPw" placeholder="••••••••••••" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit-login"><i class="fas fa-sign-in-alt"></i> Login to Portal</button>
+            </form>
+
+            <!-- WhatsApp OTP Form -->
+            <form id="otpForm" style="display: none;">
+                <div class="form-group">
+                    <label>WhatsApp Number</label>
+                    <div class="input-wrapper">
+                        <i class="fab fa-whatsapp" style="color: #25d366;"></i>
+                        <input type="tel" id="inputPhone" placeholder="+91 98300 00000">
+                    </div>
+                </div>
+                <button type="button" class="btn-submit-login" id="btnSendOtp"><i class="fas fa-paper-plane"></i> Send OTP to WhatsApp</button>
+            </form>
         </div>
-        <button onclick="handleLogout()" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-mono px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
-          <i class="fa-solid fa-right-from-bracket"></i> Logout
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- DASHBOARD MAIN CONTENT -->
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex-grow space-y-8 w-full">
-
-    <!-- WELCOME HERO CARD -->
-    <div class="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-10 relative overflow-hidden shadow-xl">
-      <div class="space-y-3 relative z-10">
-        <span class="inline-block bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[10px] font-mono font-bold px-3 py-1 rounded-full uppercase">
-          Authenticated Session Active
-        </span>
-        <h2 class="text-2xl sm:text-4xl font-black uppercase text-white tracking-tight">
-          Welcome Back, <span id="welcomeName" class="text-orange-500">Artist</span>
-        </h2>
-        <p class="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed">
-          Manage your course syllabus, view upcoming diploma examination schedules, and submit your artwork entries for the 35th Annual Fine Arts Exhibition.
-        </p>
-      </div>
     </div>
 
-    <!-- METRICS OVERVIEW -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl space-y-1">
-        <p class="text-2xl font-black text-orange-400 font-mono">1989</p>
-        <p class="text-[10px] font-mono uppercase text-slate-400">Year Founded</p>
-      </div>
-      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl space-y-1">
-        <p class="text-2xl font-black text-amber-400 font-mono">5 Years</p>
-        <p class="text-[10px] font-mono uppercase text-slate-400">Diploma Track</p>
-      </div>
-      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl space-y-1">
-        <p class="text-2xl font-black text-emerald-400 font-mono">Oct 2026</p>
-        <p class="text-[10px] font-mono uppercase text-slate-400">Next Board Exam</p>
-      </div>
-      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl space-y-1">
-        <p class="text-2xl font-black text-blue-400 font-mono">35th</p>
-        <p class="text-[10px] font-mono uppercase text-slate-400">Annual Exhibition</p>
-      </div>
-    </div>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
 
-    <!-- QUICK MODULE NAVIGATION -->
-    <div class="space-y-4">
-      <h3 class="text-lg font-extrabold uppercase text-white">Academy Portals</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        
-        <a href="courses.html" class="bg-slate-900 border border-slate-800 p-5 rounded-2xl hover:border-orange-500/50 transition-all group space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 border border-orange-500/20 flex items-center justify-center group-hover:bg-orange-600 group-hover:text-white transition-all">
-            <i class="fa-solid fa-palette text-lg"></i>
-          </div>
-          <div>
-            <h4 class="text-sm font-bold text-white uppercase group-hover:text-orange-400 transition-colors">Courses & Syllabus</h4>
-            <p class="text-xs text-slate-400 mt-1">Explore junior foundation and diploma structures.</p>
-          </div>
-        </a>
+    <!-- Portal JavaScript Controller -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const peakModal = document.getElementById('peakModal');
+            const openLoginBtn = document.getElementById('openLoginBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const passwordForm = document.getElementById('passwordForm');
+            const otpForm = document.getElementById('otpForm');
+            const tabPassword = document.getElementById('tabPassword');
+            const tabOtp = document.getElementById('tabOtp');
+            const btnQuickUpload = document.getElementById('btnQuickUpload');
+            const btnAdmitCard = document.getElementById('btnAdmitCard');
+            
+            let currentRole = 'Student';
 
-        <a href="gallery.html" class="bg-slate-900 border border-slate-800 p-5 rounded-2xl hover:border-amber-500/50 transition-all group space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center group-hover:bg-amber-600 group-hover:text-white transition-all">
-            <i class="fa-solid fa-images text-lg"></i>
-          </div>
-          <div>
-            <h4 class="text-sm font-bold text-white uppercase group-hover:text-amber-400 transition-colors">Exhibition Gallery</h4>
-            <p class="text-xs text-slate-400 mt-1">Preview student paintings and artwork showcases.</p>
-          </div>
-        </a>
+            const showToast = (msg) => {
+                const toastContainer = document.getElementById('toastContainer');
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.innerHTML = `<i class="fas fa-info-circle"></i> <span>${msg}</span>`;
+                toastContainer.appendChild(toast);
+                setTimeout(() => { toast.remove(); }, 3500);
+            };
 
-        <a href="contact.html" class="bg-slate-900 border border-slate-800 p-5 rounded-2xl hover:border-emerald-500/50 transition-all group space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">
-            <i class="fa-solid fa-headset text-lg"></i>
-          </div>
-          <div>
-            <h4 class="text-sm font-bold text-white uppercase group-hover:text-emerald-400 transition-colors">Academy Desk</h4>
-            <p class="text-xs text-slate-400 mt-1">Contact instructors and class scheduling.</p>
-          </div>
-        </a>
+            openLoginBtn.addEventListener('click', () => peakModal.classList.add('active'));
+            closeModalBtn.addEventListener('click', () => peakModal.classList.remove('active'));
 
-        <a href="admin.html" class="bg-slate-900 border border-slate-800 p-5 rounded-2xl hover:border-blue-500/50 transition-all group space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all">
-            <i class="fa-solid fa-user-shield text-lg"></i>
-          </div>
-          <div>
-            <h4 class="text-sm font-bold text-white uppercase group-hover:text-blue-400 transition-colors">Admin Portal</h4>
-            <p class="text-xs text-slate-400 mt-1">View student roster and system status.</p>
-          </div>
-        </a>
+            // Tab toggling
+            tabPassword.addEventListener('click', () => {
+                tabPassword.classList.add('active'); tabOtp.classList.remove('active');
+                passwordForm.style.display = 'block'; otpForm.style.display = 'none';
+            });
+            tabOtp.addEventListener('click', () => {
+                tabOtp.classList.add('active'); tabPassword.classList.remove('active');
+                otpForm.style.display = 'block'; passwordForm.style.display = 'none';
+            });
 
-      </div>
-    </div>
+            // Role selector
+            document.querySelectorAll('.role-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentRole = btn.dataset.role;
+                    showToast(`Role switched to ${currentRole}`);
+                });
+            });
 
-  </main>
+            passwordForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const user = document.getElementById('inputUser').value;
+                showToast(`Authenticated ${user} as ${currentRole}!`);
+                document.getElementById('welcomeName').innerText = `Welcome, ${user}!`;
+                peakModal.classList.remove('active');
+            });
 
-  <!-- FOOTER -->
-  <footer class="border-t border-slate-800 py-6 text-center text-xs font-mono text-slate-500">
-    Meera Smriti Sishu Ankan Siksha Kendra &copy; 2026
-  </footer>
+            btnQuickUpload.addEventListener('click', () => {
+                showToast('Opening Artwork Upload Window...');
+                alert('Meera Smriti Fine Arts Portal:\nSelect image file (Oil Pastel, Watercolor, Still Life) for annual Bangiya Sangeet Parishad review.');
+            });
 
-  <script>
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    if (user.name) {
-      document.getElementById('welcomeName').innerText = user.name;
-      document.getElementById('navUserName').innerText = user.name;
-    }
-
-    function handleLogout() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      window.location.href = 'index.html';
-    }
-  </script>
+            btnAdmitCard.addEventListener('click', () => {
+                showToast('Generating Bangiya Sangeet Parishad Admit Card PDF...');
+            });
+        });
+    </script>
 </body>
 </html>

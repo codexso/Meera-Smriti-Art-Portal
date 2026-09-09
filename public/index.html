@@ -1,244 +1,553 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Portal | Meera Smriti Siksha Kendra</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: { extend: { fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] } } }
-    }
-  </script>
-</head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-orange-500 selection:text-white">
-
-  <!-- HEADER -->
-  <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-orange-600 flex items-center justify-center font-extrabold text-white text-base shadow-lg shadow-orange-950/50">
-          MS
-        </div>
-        <div>
-          <h1 class="font-black text-sm uppercase tracking-wide text-white">Meera Smriti <span class="text-orange-500">Siksha Kendra</span></h1>
-          <p class="text-[9px] font-mono text-slate-400">Estd. 1989 &bull; Fine Arts Portal</p>
-        </div>
-      </div>
-      <span class="text-xs font-mono bg-orange-500/10 border border-orange-500/20 text-orange-400 px-3 py-1 rounded-full hidden sm:inline-block">
-        Admissions Open 2026
-      </span>
-    </div>
-  </header>
-
-  <!-- MAIN AUTH SECTION -->
-  <main class="max-w-6xl mx-auto px-4 py-10 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meera Smriti Sishu Ankan Siksha Kendra | Premier Fine Art Academy West Bengal</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- LEFT BANNER -->
-    <div class="lg:col-span-7 space-y-6">
-      <div class="inline-flex items-center gap-2 bg-slate-900 border border-slate-800 text-orange-400 font-mono text-xs px-3 py-1.5 rounded-full">
-        <span class="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
-        Official Fine Arts Academy
-      </div>
-      <h2 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight leading-tight">
-        Master The Art Of <br>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-500">
-          Drawing & Painting
-        </span>
-      </h2>
-      <p class="text-slate-300 text-sm leading-relaxed max-w-xl">
-        Access your student account to check diploma examination dates, submit artwork for annual exhibitions, and track your 5-year certification syllabus.
-      </p>
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #6d28d9;
+            --accent: #f59e0b;
+            --accent-glow: rgba(245, 158, 11, 0.35);
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --bg-glass: rgba(15, 23, 42, 0.75);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-glass: rgba(255, 255, 255, 0.12);
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-      <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800/80 max-w-lg">
-        <div>
-          <p class="text-2xl font-black text-white font-mono">35+</p>
-          <p class="text-[10px] uppercase font-mono text-slate-400">Years Experience</p>
-        </div>
-        <div>
-          <p class="text-2xl font-black text-orange-400 font-mono">100%</p>
-          <p class="text-[10px] uppercase font-mono text-slate-400">Exam Success</p>
-        </div>
-        <div>
-          <p class="text-2xl font-black text-amber-400 font-mono">5000+</p>
-          <p class="text-[10px] uppercase font-mono text-slate-400">Students Passed</p>
-        </div>
-      </div>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+
+        /* Navigation Header */
+        header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glass); padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .brand-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #fff; }
+        .brand-logo i { font-size: 2rem; color: var(--accent); }
+        .brand-text h1 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; line-height: 1.2; }
+        .brand-text span { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+
+        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        nav a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: var(--transition); }
+        nav a:hover { color: var(--accent); }
+
+        .nav-actions { display: flex; gap: 1rem; align-items: center; }
+        .btn-social-icon { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: #fff; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: var(--transition); }
+        .btn-social-icon:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
+
+        .btn-peak-login {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff; padding: 0.65rem 1.4rem; border-radius: 30px; font-weight: 600; font-size: 0.9rem;
+            border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4); transition: var(--transition);
+            display: flex; align-items: center; gap: 8px;
+        }
+        .btn-peak-login:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6); }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh; padding: 140px 5% 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+            background: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(245, 158, 11, 0.15) 0%, transparent 40%);
+        }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); color: var(--accent); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1.5rem; }
+        .hero-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 800; line-height: 1.15; margin-bottom: 1.5rem; }
+        .hero-title span { background: linear-gradient(135deg, #f59e0b, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-desc { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 540px; }
+
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn-primary { background: var(--accent); color: #000; font-weight: 700; padding: 0.9rem 2rem; border-radius: 30px; text-decoration: none; transition: var(--transition); }
+        .btn-primary:hover { background: #d97706; transform: translateY(-2px); }
+        .btn-secondary { background: rgba(255, 255, 255, 0.08); border: 1px solid var(--border-glass); color: #fff; font-weight: 600; padding: 0.9rem 2rem; border-radius: 30px; text-decoration: none; transition: var(--transition); }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.15); }
+
+        /* Social Sticky Bar */
+        .social-sticky { position: fixed; left: 20px; top: 50%; transform: translateY(-50%); z-index: 900; display: flex; flex-direction: column; gap: 10px; }
+        .social-sticky a { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border-glass); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; text-decoration: none; backdrop-filter: blur(8px); transition: var(--transition); }
+        .social-sticky a.yt:hover { background: #ff0000; border-color: #ff0000; }
+        .social-sticky a.wa:hover { background: #25d366; border-color: #25d366; }
+        .social-sticky a.jd:hover { background: #ff6a00; border-color: #ff6a00; }
+        .social-sticky a.ub:hover { background: #00b4d8; border-color: #00b4d8; }
+
+        /* Stats Bar */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-glass); }
+        .stat-item h3 { font-size: 1.8rem; color: var(--accent); font-weight: 800; }
+        .stat-item p { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Sections General */
+        section { padding: 80px 5%; }
+        .section-header { text-align: center; max-width: 700px; margin: 0 auto 3rem; }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .section-header p { color: var(--text-muted); }
+
+        /* Social Showcase Grid */
+        .social-showcase { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .social-card { background: var(--bg-card); border-radius: var(--radius-md); padding: 1.8rem; border: 1px solid var(--border-glass); transition: var(--transition); text-decoration: none; color: var(--text-main); display: flex; flex-direction: column; justify-content: space-between; }
+        .social-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .social-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; }
+        .social-card-header i { font-size: 2rem; }
+        .social-card.youtube i { color: #ff0000; }
+        .social-card.whatsapp i { color: #25d366; }
+        .social-card.justdial i { color: #ff6a00; }
+        .social-card.urbanpro i { color: #00b4d8; }
+
+        /* Branch Network */
+        .branches-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+        .branch-pill { background: var(--bg-card); padding: 1.2rem; border-radius: var(--radius-md); border: 1px solid var(--border-glass); display: flex; align-items: flex-start; gap: 12px; }
+        .branch-pill i { color: var(--accent); margin-top: 4px; }
+
+        /* PEAK LOGIN MODAL & OVERLAY */
+        .modal-overlay {
+            position: fixed; inset: 0; z-index: 2000; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px);
+            display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: var(--transition);
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+        .peak-login-box {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+            border: 1px solid var(--border-glass); border-radius: var(--radius-lg); width: 100%; max-width: 520px;
+            padding: 2.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); position: relative; transform: scale(0.9); transition: var(--transition);
+        }
+        .modal-overlay.active .peak-login-box { transform: scale(1); }
+        .btn-close-modal { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--text-muted); font-size: 1.4rem; cursor: pointer; transition: var(--transition); }
+        .btn-close-modal:hover { color: #fff; }
+
+        .role-selector { display: flex; background: rgba(0, 0, 0, 0.3); border-radius: 30px; padding: 4px; margin-bottom: 1.5rem; border: 1px solid var(--border-glass); }
+        .role-btn { flex: 1; padding: 8px 12px; border: none; background: transparent; color: var(--text-muted); font-size: 0.82rem; font-weight: 600; border-radius: 20px; cursor: pointer; transition: var(--transition); }
+        .role-btn.active { background: var(--primary); color: #fff; box-shadow: 0 2px 10px rgba(139, 92, 246, 0.5); }
+
+        .login-tabs { display: flex; gap: 1rem; border-bottom: 1px solid var(--border-glass); margin-bottom: 1.5rem; }
+        .tab-btn { background: none; border: none; color: var(--text-muted); padding-bottom: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; position: relative; }
+        .tab-btn.active { color: #fff; }
+        .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: var(--accent); }
+
+        .form-group { margin-bottom: 1.2rem; position: relative; }
+        .form-group label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; }
+        .input-wrapper { position: relative; }
+        .input-wrapper i.input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        .input-wrapper input { width: 100%; background: rgba(0,0,0,0.25); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 0.8rem 1rem 0.8rem 2.6rem; color: #fff; font-size: 0.95rem; outline: none; transition: var(--transition); }
+        .input-wrapper input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25); }
+        .toggle-pw { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); cursor: pointer; }
+
+        .pwd-meter { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+        .pwd-meter-fill { height: 100%; width: 0; background: #ef4444; transition: var(--transition); }
+
+        .auth-options { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; margin-bottom: 1.5rem; }
+        .auth-options label { color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 6px; }
+
+        .btn-submit-login { width: 100%; background: linear-gradient(135deg, var(--accent), #d97706); color: #000; font-weight: 700; padding: 0.9rem; border: none; border-radius: var(--radius-md); font-size: 1rem; cursor: pointer; transition: var(--transition); }
+        .btn-submit-login:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--accent-glow); }
+
+        .quick-auth-divider { text-align: center; margin: 1.5rem 0; position: relative; }
+        .quick-auth-divider::before { content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 1px; background: var(--border-glass); }
+        .quick-auth-divider span { position: relative; background: #1e293b; padding: 0 10px; color: var(--text-muted); font-size: 0.75rem; }
+
+        .quick-methods { display: flex; gap: 10px; }
+        .btn-quick-method { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: #fff; padding: 0.7rem; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: var(--transition); }
+        .btn-quick-method:hover { background: rgba(255,255,255,0.1); }
+
+        /* POST-LOGIN DASHBOARD MODAL VIEW */
+        .dashboard-view { display: none; }
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-glass); padding-bottom: 1rem; }
+        .user-profile-badge { display: flex; align-items: center; gap: 12px; }
+        .avatar { width: 45px; height: 45px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
+
+        .dash-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem; }
+        .dash-card { background: rgba(0,0,0,0.3); border: 1px solid var(--border-glass); padding: 1rem; border-radius: var(--radius-md); text-align: center; }
+        .dash-card i { font-size: 1.5rem; color: var(--accent); margin-bottom: 6px; }
+
+        /* Toast Notifications */
+        .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 3000; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: #1e293b; border-left: 4px solid var(--accent); color: #fff; padding: 12px 20px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 10px; font-size: 0.9rem; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+        /* Responsive Layout */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 120px; }
+            .hero-buttons { justify-content: center; }
+            .social-sticky { display: none; }
+            nav ul { display: none; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Social Dock -->
+    <div class="social-sticky">
+        <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" class="yt" title="YouTube Channel"><i class="fab font-awesome-brands fa-youtube"></i></a>
+        <a href="https://wa.me/917942593454" target="_blank" class="wa" title="WhatsApp Instant Support"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.justdial.com/Hooghly/Meera-Smriti-Sishu-Ankan-Siksha-Kendra-Near-Voly-Ball-Play-Ground-Rishra/9999PXX33-XX33-180303195110-Q9P8_BZDET" target="_blank" class="jd" title="Justdial Profile"><i class="fas fa-star"></i></a>
+        <a href="https://www.urbanpro.com/hooghly/meera-smriti-sishu-ankan-siksha-kendra-uttarpara/8975704" target="_blank" class="ub" title="UrbanPro Verified"><i class="fas fa-graduation-cap"></i></a>
     </div>
 
-    <!-- RIGHT AUTH CARD -->
-    <div class="lg:col-span-5 bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl space-y-6">
-      
-      <!-- TAB TOGGLE -->
-      <div class="flex rounded-2xl bg-slate-950 p-1.5 border border-slate-800 font-mono text-xs">
-        <button id="showLoginBtn" onclick="switchTab('login')" class="flex-1 py-2.5 rounded-xl font-bold bg-orange-600 text-white transition-all shadow-md">
-          Sign In
-        </button>
-        <button id="showRegisterBtn" onclick="switchTab('register')" class="flex-1 py-2.5 rounded-xl font-bold text-slate-400 hover:text-white transition-all">
-          Register
-        </button>
-      </div>
+    <!-- Main Navigation Header -->
+    <header>
+        <a href="#" class="brand-logo">
+            <i class="fas fa-palette"></i>
+            <div class="brand-text">
+                <h1>Meera Smriti</h1>
+                <span>Sishu Ankan Siksha Kendra</span>
+            </div>
+        </a>
 
-      <!-- DETAILED ERROR / ALERT BOX -->
-      <div id="alertBox" class="hidden p-3.5 rounded-xl text-xs font-mono border break-words"></div>
+        <nav>
+            <ul>
+                <li><a href="#about">About Institution</a></li>
+                <li><a href="#courses">Art Programs</a></li>
+                <li><a href="#branches">West Bengal Branches</a></li>
+                <li><a href="#socials">Social Connections</a></li>
+            </ul>
+        </nav>
 
-      <!-- SIGN IN FORM -->
-      <form id="loginForm" class="space-y-4">
-        <div>
-          <label class="block text-xs font-mono text-slate-300 mb-1">Email Address</label>
-          <div class="relative">
-            <i class="fa-solid fa-envelope absolute left-3.5 top-3 text-slate-500 text-xs"></i>
-            <input type="email" id="loginEmail" placeholder="student@meerasmriti.org" required class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-600 focus:border-orange-500 focus:outline-none transition-colors">
-          </div>
+        <div class="nav-actions">
+            <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" class="btn-social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <button class="btn-peak-login" id="openLoginModalBtn">
+                <i class="fas fa-user-lock"></i> Student Portal
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-award"></i> 37+ Years of Artistic Excellence (Est. 1989)
+            </div>
+            <h1 class="hero-title">Nurturing Creativity, <span>Mastering Fine Art</span></h1>
+            <p class="hero-desc">
+                Founded by Principal Mr. Chanchal Ghosh, Meera Smriti Sishu Ankan Siksha Kendra is West Bengal's leading art institution affiliated with Bangiya Sangeet Parishad.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="btn-primary" id="heroLoginBtn"><i class="fas fa-sign-in-alt"></i> Login to Portal</button>
+                <a href="https://wa.me/917942593454?text=Hello%20Meera%20Smriti%20Team,%20I%20want%20to%20enquire%20about%20Art%20Classes" target="_blank" class="btn-secondary">
+                    <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                </a>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>37+</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-item">
+                    <h3>4.9 ★</h3>
+                    <p>135+ JD Reviews</p>
+                </div>
+                <div class="stat-item">
+                    <h3>12+</h3>
+                    <p>Active Branches</p>
+                </div>
+                <div class="stat-item">
+                    <h3>2.2K+</h3>
+                    <p>YT Subscribers</p>
+                </div>
+            </div>
         </div>
 
-        <div>
-          <label class="block text-xs font-mono text-slate-300 mb-1">Password</label>
-          <div class="relative">
-            <i class="fa-solid fa-lock absolute left-3.5 top-3 text-slate-500 text-xs"></i>
-            <input type="password" id="loginPassword" placeholder="••••••••" required class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-600 focus:border-orange-500 focus:outline-none transition-colors">
-          </div>
+        <div class="hero-media">
+            <!-- Simulated Visual Display Card -->
+            <div style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 2rem; position: relative; overflow: hidden;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <div>
+                        <span style="color: var(--accent); font-size: 0.8rem; font-weight: 700;">ANNUAL EXHIBITION SHOWCASE</span>
+                        <h3 style="font-size: 1.3rem;">Bangiya Sangeet Parishad Exams</h3>
+                    </div>
+                    <span style="background: rgba(37,211,102,0.2); color: #25d366; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">Live Admissions</span>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                    Participate in Mukhosh workshops, annual exhibitions, oil pastel masterclasses, and certified diploma courses under master educators.
+                </p>
+                <div style="display: flex; gap: 10px;">
+                    <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" style="flex: 1; text-align: center; background: rgba(255,0,0,0.15); color: #ff4d4d; border: 1px solid rgba(255,0,0,0.3); padding: 0.8rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.85rem; font-weight: 600;">
+                        <i class="fab fa-youtube"></i> Watch Workshops
+                    </a>
+                    <a href="tel:+917942593454" style="flex: 1; text-align: center; background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--border-glass); padding: 0.8rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.85rem; font-weight: 600;">
+                        <i class="fas fa-phone"></i> Direct Call
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Links Section -->
+    <section id="socials">
+        <div class="section-header">
+            <h2>Official Social Connections</h2>
+            <p>Stay connected with Meera Smriti Sishu Ankan Siksha Kendra across verified digital platforms.</p>
         </div>
 
-        <button type="submit" id="loginSubmitBtn" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50 flex items-center justify-center gap-2">
-          <span>Enter Academy Portal</span>
-          <i class="fa-solid fa-arrow-right text-[10px]"></i>
-        </button>
-      </form>
+        <div class="social-showcase">
+            <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" class="social-card youtube">
+                <div>
+                    <div class="social-card-header">
+                        <i class="fab fa-youtube"></i>
+                        <div>
+                            <h4>Official YouTube</h4>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">@meerasmriti5551</span>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Watch student art exhibitions, Bangiya Sangeet Parishad exam snippets, and Mukhosh workshop tutorials.</p>
+                </div>
+                <span style="color: #ff0000; font-size: 0.85rem; font-weight: 600; margin-top: 1rem; display: block;">Subscribe Channel →</span>
+            </a>
 
-      <!-- REGISTER FORM -->
-      <form id="registerForm" class="space-y-4 hidden">
-        <div>
-          <label class="block text-xs font-mono text-slate-300 mb-1">Full Student Name</label>
-          <div class="relative">
-            <i class="fa-solid fa-user absolute left-3.5 top-3 text-slate-500 text-xs"></i>
-            <input type="text" id="regName" placeholder="Aniket Das" required class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-600 focus:border-orange-500 focus:outline-none transition-colors">
-          </div>
+            <a href="https://wa.me/917942593454" target="_blank" class="social-card whatsapp">
+                <div>
+                    <div class="social-card-header">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <h4>Instant WhatsApp</h4>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">+91 7942593454</span>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Direct message for fee structures, online class batch timings, and admission queries.</p>
+                </div>
+                <span style="color: #25d366; font-size: 0.85rem; font-weight: 600; margin-top: 1rem; display: block;">Start WhatsApp Chat →</span>
+            </a>
+
+            <a href="https://www.justdial.com/Hooghly/Meera-Smriti-Sishu-Ankan-Siksha-Kendra-Near-Voly-Ball-Play-Ground-Rishra/9999PXX33-XX33-180303195110-Q9P8_BZDET" target="_blank" class="social-card justdial">
+                <div>
+                    <div class="social-card-header">
+                        <i class="fas fa-star"></i>
+                        <div>
+                            <h4>Justdial Listing</h4>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">4.9 Rating (135+ Reviews)</span>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Read genuine parent reviews, view branch contact numbers, and check business hours.</p>
+                </div>
+                <span style="color: #ff6a00; font-size: 0.85rem; font-weight: 600; margin-top: 1rem; display: block;">View Reviews →</span>
+            </a>
+
+            <a href="https://www.urbanpro.com/hooghly/meera-smriti-sishu-ankan-siksha-kendra-uttarpara/8975704" target="_blank" class="social-card urbanpro">
+                <div>
+                    <div class="social-card-header">
+                        <i class="fas fa-user-check"></i>
+                        <div>
+                            <h4>UrbanPro Verified</h4>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Uttarpara & Konnagar</span>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Explore verified tutor profiles, student achievements, and branch curriculum details.</p>
+                </div>
+                <span style="color: #00b4d8; font-size: 0.85rem; font-weight: 600; margin-top: 1rem; display: block;">View Tutor Profile →</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Branch Network -->
+    <section id="branches" style="background: rgba(0,0,0,0.2);">
+        <div class="section-header">
+            <h2>Branch Network Across West Bengal</h2>
+            <p>Join offline classes at any of our established centers or connect via our online art portal.</p>
         </div>
 
-        <div>
-          <label class="block text-xs font-mono text-slate-300 mb-1">Email Address</label>
-          <div class="relative">
-            <i class="fa-solid fa-envelope absolute left-3.5 top-3 text-slate-500 text-xs"></i>
-            <input type="email" id="regEmail" placeholder="student@meerasmriti.org" required class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-600 focus:border-orange-500 focus:outline-none transition-colors">
-          </div>
+        <div class="branches-grid">
+            <div class="branch-pill">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h4>Rishra Head Branch</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">36, Dr. P. T. Laha Street, Near Volleyball Play Ground, Hooghly - 712248</p>
+                </div>
+            </div>
+            <div class="branch-pill">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h4>Uttarpara Branch</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Sarat Apartment, Flat 101, 160 B.K. Street, Hooghly - 712247</p>
+                </div>
+            </div>
+            <div class="branch-pill">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h4>Konnagar Branch</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Aamra Club, Criper Road, Near Rabindra Bhavan, Kolkata - 712235</p>
+                </div>
+            </div>
+            <div class="branch-pill">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h4>Kanchrapara Loco Shop</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Near Tik Tiki Bazar, Kanchrapara, North 24 Parganas - 743145</p>
+                </div>
+            </div>
+            <div class="branch-pill">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h4>Serampore & Hindmotor</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Bangur Park / Hindmotor Center, Hooghly</p>
+                </div>
+            </div>
+            <div class="branch-pill">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h4>Bally & Howrah</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Howrah Regional Training Hub, West Bengal</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div>
-          <label class="block text-xs font-mono text-slate-300 mb-1">Create Password (Min 6 chars)</label>
-          <div class="relative">
-            <i class="fa-solid fa-lock absolute left-3.5 top-3 text-slate-500 text-xs"></i>
-            <input type="password" id="regPassword" minlength="6" placeholder="••••••••" required class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-600 focus:border-orange-500 focus:outline-none transition-colors">
-          </div>
+    <!-- PEAK LOGIN MODAL (AUTH & DASHBOARD) -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="peak-login-box">
+            <button class="btn-close-modal" id="closeModalBtn">&times;</button>
+
+            <!-- AUTHENTICATION FORM VIEW -->
+            <div class="auth-view" id="authView">
+                <!-- Role Selector Switch -->
+                <div class="role-selector">
+                    <button class="role-btn active" data-role="student"><i class="fas fa-user-graduate"></i> Student</button>
+                    <button class="role-btn" data-role="faculty"><i class="fas fa-chalkboard-teacher"></i> Faculty</button>
+                    <button class="role-btn" data-role="admin"><i class="fas fa-user-shield"></i> Admin</button>
+                </div>
+
+                <!-- Login / Register Tabs -->
+                <div class="login-tabs">
+                    <button class="tab-btn active" id="tabPasswordBtn">Password Login</button>
+                    <button class="tab-btn" id="tabOtpBtn">WhatsApp / OTP</button>
+                    <button class="tab-btn" id="tabRegisterBtn">New Admission</button>
+                </div>
+
+                <!-- Password Form -->
+                <form id="passwordLoginForm">
+                    <div class="form-group">
+                        <label>Student ID / Email Address</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-id-card input-icon"></i>
+                            <input type="text" id="loginUser" placeholder="e.g. MS-2026-8890 or student@meerasmriti.org" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="loginPassword" placeholder="••••••••••••" required>
+                            <i class="fas fa-eye toggle-pw" id="togglePasswordBtn"></i>
+                        </div>
+                        <div class="pwd-meter"><div class="pwd-meter-fill" id="pwdMeterFill"></div></div>
+                    </div>
+
+                    <div class="auth-options">
+                        <label><input type="checkbox" id="rememberMe" checked> Remember session</label>
+                        <a href="#" id="forgotPwLink" style="color: var(--accent); text-decoration: none;">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn-submit-login">
+                        <i class="fas fa-sign-in-alt"></i> Access Portal
+                    </button>
+                </form>
+
+                <!-- OTP Login Form (Hidden by default) -->
+                <form id="otpLoginForm" style="display: none;">
+                    <div class="form-group">
+                        <label>Registered WhatsApp Phone Number</label>
+                        <div class="input-wrapper">
+                            <i class="fab fa-whatsapp input-icon" style="color: #25d366;"></i>
+                            <input type="tel" id="otpPhone" placeholder="+91 98300 00000" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="otpInputGroup" style="display: none;">
+                        <label>Enter 6-Digit OTP Code</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-key input-icon"></i>
+                            <input type="text" id="otpCode" placeholder="123456" maxlength="6">
+                        </div>
+                        <span id="otpTimerText" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; display: block;">Resend in <span id="timerCountdown">60</span>s</span>
+                    </div>
+
+                    <button type="button" class="btn-submit-login" id="sendOtpBtn">
+                        <i class="fas fa-paper-plane"></i> Send OTP to WhatsApp
+                    </button>
+                </form>
+
+                <!-- Quick Auth Dividers -->
+                <div class="quick-auth-divider">
+                    <span>OR AUTHENTICATE WITH</span>
+                </div>
+
+                <div class="quick-methods">
+                    <button class="btn-quick-method" id="biometricAuthBtn">
+                        <i class="fas fa-fingerprint" style="color: var(--accent);"></i> Biometric Passkey
+                    </button>
+                    <button class="btn-quick-method" id="googleAuthBtn">
+                        <i class="fab fa-google" style="color: #ea4335;"></i> Google Account
+                    </button>
+                </div>
+            </div>
+
+            <!-- DASHBOARD VIEW (Shown upon login) -->
+            <div class="dashboard-view" id="dashboardView">
+                <div class="dashboard-header">
+                    <div class="user-profile-badge">
+                        <div class="avatar" id="userAvatar">CG</div>
+                        <div>
+                            <h4 id="userNameDisplay">Chanchal Ghosh</h4>
+                            <span style="font-size: 0.8rem; color: var(--accent);" id="userRoleDisplay">Student • Rishra Branch</span>
+                        </div>
+                    </div>
+                    <button id="logoutBtn" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: 600;">
+                        <i class="fas fa-power-off"></i> Logout
+                    </button>
+                </div>
+
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Welcome back! Here is your active session state for Bangiya Sangeet Parishad exams and art portal submission.</p>
+
+                <div class="dash-cards">
+                    <div class="dash-card">
+                        <i class="fas fa-certificate"></i>
+                        <h5>Exam Roll No.</h5>
+                        <p style="font-weight: 700; color: #fff; margin-top: 4px;">BSP-2026-9941</p>
+                    </div>
+                    <div class="dash-card">
+                        <i class="fas fa-file-invoice"></i>
+                        <h5>Fee Status</h5>
+                        <p style="font-weight: 700; color: #25d366; margin-top: 4px;">Paid (Sep 2026)</p>
+                    </div>
+                    <div class="dash-card">
+                        <i class="fas fa-paint-brush"></i>
+                        <h5>Artwork Submissions</h5>
+                        <p style="font-weight: 700; color: #fff; margin-top: 4px;">4 Approved</p>
+                    </div>
+                    <div class="dash-card">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h5>Next Exhibition</h5>
+                        <p style="font-weight: 700; color: var(--accent); margin-top: 4px;">Dec 2026</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem; display: flex; gap: 10px;">
+                    <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" style="flex: 1; text-align: center; background: var(--primary); color: #fff; padding: 0.8rem; border-radius: var(--radius-md); text-decoration: none; font-size: 0.85rem; font-weight: 600;">
+                        <i class="fab fa-youtube"></i> Access Video Tutorials
+                    </a>
+                    <button id="btnUploadArt" style="flex: 1; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--border-glass); padding: 0.8rem; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 600; cursor: pointer;">
+                        <i class="fas fa-upload"></i> Submit Artwork
+                    </button>
+                </div>
+            </div>
         </div>
-
-        <button type="submit" id="regSubmitBtn" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-orange-950/50 flex items-center justify-center gap-2">
-          <span>Create Student Account</span>
-          <i class="fa-solid fa-user-plus text-[10px]"></i>
-        </button>
-      </form>
-
     </div>
-  </main>
 
-  <footer class="border-t border-slate-800/80 py-6 text-center text-xs font-mono text-slate-500">
-    Meera Smriti Sishu Ankan Siksha Kendra &copy; 2026
-  </footer>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
 
-  <script>
-    if (localStorage.getItem('token')) {
-      window.location.href = 'main.html';
-    }
-
-    function switchTab(tab) {
-      document.getElementById('alertBox').classList.add('hidden');
-      if (tab === 'login') {
-        document.getElementById('loginForm').classList.remove('hidden');
-        document.getElementById('registerForm').classList.add('hidden');
-        document.getElementById('showLoginBtn').className = 'flex-1 py-2.5 rounded-xl font-bold bg-orange-600 text-white transition-all shadow-md';
-        document.getElementById('showRegisterBtn').className = 'flex-1 py-2.5 rounded-xl font-bold text-slate-400 hover:text-white transition-all';
-      } else {
-        document.getElementById('loginForm').classList.add('hidden');
-        document.getElementById('registerForm').classList.remove('hidden');
-        document.getElementById('showRegisterBtn').className = 'flex-1 py-2.5 rounded-xl font-bold bg-orange-600 text-white transition-all shadow-md';
-        document.getElementById('showLoginBtn').className = 'flex-1 py-2.5 rounded-xl font-bold text-slate-400 hover:text-white transition-all';
-      }
-    }
-
-    function showAlert(title, detail = '') {
-      const box = document.getElementById('alertBox');
-      box.classList.remove('hidden');
-      box.className = 'p-3.5 rounded-xl text-xs font-mono border bg-red-950/80 border-red-800 text-red-200 space-y-1';
-      box.innerHTML = `<div><strong>${title}</strong></div>${detail ? `<div class="text-[11px] text-red-300 opacity-90">${detail}</div>` : ''}`;
-    }
-
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('loginSubmitBtn');
-      btn.disabled = true;
-      btn.innerText = 'Verifying...';
-
-      try {
-        const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: document.getElementById('loginEmail').value,
-            password: document.getElementById('loginPassword').value
-          })
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('user', JSON.stringify(data.user));
-          window.location.href = 'main.html';
-        } else {
-          showAlert(data.message || 'Login failed', data.error || '');
-        }
-      } catch (err) {
-        showAlert('Network request failed', 'Could not reach backend API server.');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<span>Enter Academy Portal</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>';
-      }
-    });
-
-    document.getElementById('registerForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('regSubmitBtn');
-      btn.disabled = true;
-      btn.innerText = 'Creating Account...';
-
-      try {
-        const response = await fetch('/api/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: document.getElementById('regName').value,
-            email: document.getElementById('regEmail').value,
-            password: document.getElementById('regPassword').value
-          })
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('user', JSON.stringify(data.user));
-          window.location.href = 'main.html';
-        } else {
-          showAlert(data.message || 'Registration failed', data.error || '');
-        }
-      } catch (err) {
-        showAlert('Network request failed', 'Could not reach backend API server.');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<span>Create Student Account</span> <i class="fa-solid fa-user-plus text-[10px]"></i>';
-      }
-    });
-  </script>
+    <!-- Embedded Modular JavaScript -->
+    <script src="main.js"></script>
 </body>
 </html>
