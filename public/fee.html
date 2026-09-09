@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Admission | Meera Smriti Academy</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <div class="brand-badge">M</div>
+        <span>Meera Smriti Academy</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="notices.html">Notices</a></li>
+          <li><a href="qualification.html">Qualifications</a></li>
+          <li><a href="admission.html">Admission</a></li>
+          <li><a href="fee.html">Fee Structure</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="exhibition.html">Exhibition</a></li>
+          <li><a href="monthly-examination.html">Exams</a></li>
+          <li><a href="contacts.html">Contact</a></li>
+          <li><a href="login.html" class="btn-login">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <h1>Online Student Admission Application</h1>
+      <p>Submit your application directly to our backend admission database.</p>
+    </div>
+
+    <div class="card" style="max-width: 700px; margin: 0 auto;">
+      <form id="admission-form">
+        <div class="form-group">
+          <label for="fullname">Full Student Name *</label>
+          <input type="text" id="fullname" class="form-control" placeholder="Jane Doe" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="dob">Date of Birth *</label>
+            <input type="date" id="dob" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" class="form-control" placeholder="+91 9876543210" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" class="form-control" placeholder="jane@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="course">Select Course / Department *</label>
+          <select id="course" class="form-control" required>
+            <option value="">-- Choose Course --</option>
+            <option value="Visual Arts & Painting">Visual Arts & Classical Painting</option>
+            <option value="Sculpture & Clay Modeling">Sculpture & Clay Modeling</option>
+            <option value="Hindustani Classical Vocal">Hindustani Classical Vocal</option>
+            <option value="Instrumental - Sitar/Tabla/Flute">Instrumental (Sitar/Tabla/Flute)</option>
+            <option value="Classical Dance (Kathak)">Classical Dance (Kathak)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Full Postal Address *</label>
+          <textarea id="address" class="form-control" rows="3" placeholder="Enter complete address..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-login" style="width: 100%; border: none; cursor: pointer; padding: 0.85rem; font-size: 1rem;">Submit Application</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>&copy; 2026 Meera Smriti Academy. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

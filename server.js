@@ -1,290 +1,189 @@
 import express from 'express';
-import cors from 'cors';
-import bcrypt from 'bcryptjs';
+import Database from 'better-sqlite3';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import cors from 'cors';
 import path from 'path';
-import fs from 'fs';
-import multer from 'multer';
 import { fileURLToPath } from 'url';
-import dotenv from 'dotenv';
-import db, { initDatabase } from './database.js';
-
-dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT || 10000;
-const JWT_SECRET = process.env.JWT_SECRET || 'meera_smriti_fine_arts_key_1989';
-
-// Initialize SQLite DB schema
-initDatabase();
+const PORT = process.env.PORT || 3000;
+const JWT_SECRET = process.env.JWT_SECRET || 'meera_smriti_secret_key_2026';
 
 // Middleware
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Ensure Uploads Directory Exists
-const uploadDir = path.join(__dirname, 'public', 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
+// SQLite Database Setup
+const db = new Database('academy.db');
+db.pragma('journal_mode = WAL');
 
-// Multer Storage Configuration
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, 'artwork-' + uniqueSuffix + path.extname(file.originalname));
+// Initialize Database Schema
+db.exec(`
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    role TEXT DEFAULT 'admin'
+  );
+
+  CREATE TABLE IF NOT EXISTS notices (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    date TEXT NOT NULL,
+    author TEXT DEFAULT 'Admin'
+  );
+
+  CREATE TABLE IF NOT EXISTS admissions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT NOT NULL,
+    dob TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    course TEXT NOT NULL,
+    address TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+
+  CREATE TABLE IF NOT EXISTS contacts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    subject TEXT,
+    message TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+`);
+
+// Seed Default Admin Account (admin / admin123)
+const seedAdmin = () => {
+  const user = db.prepare('SELECT * FROM users WHERE username = ?').get('admin');
+  if (!user) {
+    const hash = bcrypt.hashSync('admin123', 10);
+    db.prepare('INSERT INTO users (username, password, role) VALUES (?, ?, ?)').run('admin', hash, 'admin');
+    console.log('Default Admin Account Created: username "admin", password "admin123"');
   }
-});
+};
+seedAdmin();
 
-const upload = multer({
-  storage,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB Limit
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype.startsWith('image/')) {
-      cb(null, true);
-    } else {
-      cb(new Error('Only image files (JPG, PNG, WEBP) are allowed.'));
-    }
+// Seed Initial Notices
+const seedNotices = () => {
+  const count = db.prepare('SELECT COUNT(*) as count FROM notices').get().count;
+  if (count === 0) {
+    const stmt = db.prepare('INSERT INTO notices (title, content, date, author) VALUES (?, ?, ?, ?)');
+    stmt.run('Annual Fine Arts Exhibition 2026', 'Registration is now open for all senior diploma candidates. Canvas submissions deadline is Sept 30.', 'Sept 8, 2026', 'Examination Cell');
+    stmt.run('Monthly Vocal & Instrumental Practical Assessment', 'Monthly evaluations begin next week. Check the exam schedule page for individual slots.', 'Sept 5, 2026', 'Academic Admin');
   }
-});
+};
+seedNotices();
 
-// JWT Authentication Middleware
+// Authentication Middleware
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
-  if (!token) return res.status(401).json({ message: 'Unauthorized access. Token required.' });
+  if (!token) return res.status(401).json({ error: 'Access denied. Token missing.' });
 
   jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ message: 'Invalid or expired token.' });
+    if (err) return res.status(403).json({ error: 'Invalid or expired token.' });
     req.user = user;
     next();
   });
 };
 
-// --- AUTHENTICATION ROUTES ---
+/* API ROUTES */
 
-app.post('/api/register', (req, res) => {
-  try {
-    const { name, email, password, year_of_study } = req.body;
-    if (!name || !email || !password) {
-      return res.status(400).json({ message: 'Name, email, and password are required.' });
-    }
-
-    const existingUser = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
-    if (existingUser) {
-      return res.status(400).json({ message: 'Email address is already registered.' });
-    }
-
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    const result = db.prepare(
-      'INSERT INTO users (name, email, password, year_of_study) VALUES (?, ?, ?, ?)'
-    ).run(name, email.toLowerCase(), hashedPassword, year_of_study || 1);
-
-    const token = jwt.sign(
-      { id: result.lastInsertRowid, email: email.toLowerCase(), name, role: 'student' },
-      JWT_SECRET,
-      { expiresIn: '7d' }
-    );
-
-    res.status(201).json({
-      message: 'Registration successful',
-      token,
-      user: { id: result.lastInsertRowid, name, email: email.toLowerCase(), role: 'student' }
-    });
-  } catch (err) {
-    res.status(500).json({ message: 'Server error during registration.', error: err.message });
-  }
-});
-
+// 1. Admin Login
 app.post('/api/login', (req, res) => {
+  const { username, password } = req.body;
   try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({ message: 'Please provide both email and password.' });
+    const user = db.prepare('SELECT * FROM users WHERE username = ?').get(username);
+    if (!user || !bcrypt.compareSync(password, user.password)) {
+      return res.status(400).json({ error: 'Invalid username or password.' });
     }
-
-    const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email.toLowerCase());
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid email address or password.' });
-    }
-
-    const validPassword = bcrypt.compareSync(password, user.password);
-    if (!validPassword) {
-      return res.status(401).json({ message: 'Invalid email address or password.' });
-    }
-
-    const token = jwt.sign(
-      { id: user.id, email: user.email, name: user.name, role: user.role },
-      JWT_SECRET,
-      { expiresIn: '7d' }
-    );
-
-    res.json({
-      message: 'Login successful',
-      token,
-      user: { id: user.id, name: user.name, email: user.email, role: user.role, year: user.year_of_study }
-    });
+    const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, JWT_SECRET, { expiresIn: '12h' });
+    res.json({ token, username: user.username, role: user.role });
   } catch (err) {
-    res.status(500).json({ message: 'Server error during login.', error: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 
-// --- ADMISSIONS ROUTE ---
-
-app.post('/api/admissions', (req, res) => {
-  try {
-    const { student_name, guardian_name, email, phone, course, year_applying } = req.body;
-    if (!student_name || !guardian_name || !email || !phone || !course) {
-      return res.status(400).json({ message: 'All admission fields are required.' });
-    }
-
-    const result = db.prepare(`
-      INSERT INTO admissions (student_name, guardian_name, email, phone, course, year_applying)
-      VALUES (?, ?, ?, ?, ?, ?)
-    `).run(student_name, guardian_name, email, phone, course, year_applying || 1);
-
-    res.status(201).json({ message: 'Admission application submitted successfully!', id: result.lastInsertRowid });
-  } catch (err) {
-    res.status(500).json({ message: 'Failed to submit admission form.', error: err.message });
-  }
-});
-
-app.get('/api/admissions', authenticateToken, (req, res) => {
-  try {
-    const applications = db.prepare('SELECT * FROM admissions ORDER BY id DESC').all();
-    res.json(applications);
-  } catch (err) {
-    res.status(500).json({ message: 'Failed to fetch admissions.' });
-  }
-});
-
-// --- NOTICES & ADMIN BOARD ---
-
+// 2. Fetch Notices
 app.get('/api/notices', (req, res) => {
   try {
     const notices = db.prepare('SELECT * FROM notices ORDER BY id DESC').all();
     res.json(notices);
   } catch (err) {
-    res.status(500).json({ message: 'Failed to fetch notice board.' });
+    res.status(500).json({ error: err.message });
   }
 });
 
+// 3. Create Notice (Admin Only)
 app.post('/api/notices', authenticateToken, (req, res) => {
+  const { title, content } = req.body;
+  if (!title || !content) return res.status(400).json({ error: 'Title and content are required.' });
+
+  const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const author = req.user.username || 'Admin';
+
   try {
-    if (req.user.role !== 'admin') {
-      return res.status(403).json({ message: 'Only administrative staff can publish notices.' });
-    }
-    const { title, category, content } = req.body;
-    db.prepare('INSERT INTO notices (title, category, content) VALUES (?, ?, ?)').run(title, category, content);
-    res.status(201).json({ message: 'Notice published successfully.' });
+    const stmt = db.prepare('INSERT INTO notices (title, content, date, author) VALUES (?, ?, ?, ?)');
+    const info = stmt.run(title, content, date, author);
+    res.json({ id: info.lastInsertRowid, title, content, date, author });
   } catch (err) {
-    res.status(500).json({ message: 'Failed to publish notice.' });
+    res.status(500).json({ error: err.message });
   }
 });
 
-// --- MONTHLY FEE & EXAMINATION NOTICES ---
-
-app.get('/api/fee-notices', authenticateToken, (req, res) => {
+// 4. Delete Notice (Admin Only)
+app.delete('/api/notices/:id', authenticateToken, (req, res) => {
   try {
-    let records;
-    if (req.user.role === 'admin') {
-      records = db.prepare('SELECT * FROM fee_notices ORDER BY id DESC').all();
-    } else {
-      records = db.prepare('SELECT * FROM fee_notices WHERE student_email = ? ORDER BY id DESC').all(req.user.email);
-    }
-    res.json(records);
+    const stmt = db.prepare('DELETE FROM notices WHERE id = ?');
+    const result = stmt.run(req.params.id);
+    if (result.changes === 0) return res.status(404).json({ error: 'Notice not found.' });
+    res.json({ message: 'Notice deleted successfully.' });
   } catch (err) {
-    res.status(500).json({ message: 'Failed to fetch fee/exam notices.' });
+    res.status(500).json({ error: err.message });
   }
 });
 
-app.post('/api/fee-notices', authenticateToken, (req, res) => {
+// 5. Submit Admission Form
+app.post('/api/admissions', (req, res) => {
+  const { fullname, dob, email, phone, course, address } = req.body;
+  if (!fullname || !email || !course) return res.status(400).json({ error: 'Required fields missing.' });
+
   try {
-    if (req.user.role !== 'admin') {
-      return res.status(403).json({ message: 'Admin rights required.' });
-    }
-    const { student_email, month_year, amount_due, exam_due_date, notice_remarks } = req.body;
-    db.prepare(`
-      INSERT INTO fee_notices (student_email, month_year, amount_due, exam_due_date, notice_remarks)
-      VALUES (?, ?, ?, ?, ?)
-    `).run(student_email, month_year, amount_due, exam_due_date, notice_remarks);
-    res.status(201).json({ message: 'Fee clearance & exam notice generated.' });
+    const stmt = db.prepare('INSERT INTO admissions (fullname, dob, email, phone, course, address) VALUES (?, ?, ?, ?, ?, ?)');
+    const info = stmt.run(fullname, dob, email, phone, course, address);
+    res.json({ success: true, id: info.lastInsertRowid, message: 'Application submitted successfully!' });
   } catch (err) {
-    res.status(500).json({ message: 'Failed to generate fee notice.' });
+    res.status(500).json({ error: err.message });
   }
 });
 
-// --- GALLERY & EXHIBITION UPLOADS ---
+// 6. Submit Contact Form
+app.post('/api/contacts', (req, res) => {
+  const { name, email, subject, message } = req.body;
+  if (!name || !email || !message) return res.status(400).json({ error: 'Required fields missing.' });
 
-app.get('/api/gallery', (req, res) => {
   try {
-    const items = db.prepare('SELECT * FROM gallery ORDER BY id DESC').all();
-    res.json(items);
+    const stmt = db.prepare('INSERT INTO contacts (name, email, subject, message) VALUES (?, ?, ?, ?)');
+    stmt.run(name, email, subject || 'General Query', message);
+    res.json({ success: true, message: 'Message sent successfully!' });
   } catch (err) {
-    res.status(500).json({ message: 'Failed to fetch gallery items.' });
+    res.status(500).json({ error: err.message });
   }
 });
 
-app.post('/api/gallery', authenticateToken, upload.single('artwork'), (req, res) => {
-  try {
-    const { title, medium, category } = req.body;
-    if (!req.file) {
-      return res.status(400).json({ message: 'Please upload an image file of your artwork.' });
-    }
-
-    const image_path = `/uploads/${req.file.filename}`;
-    db.prepare(`
-      INSERT INTO gallery (title, artist_name, medium, image_path, category)
-      VALUES (?, ?, ?, ?, ?)
-    `).run(title || 'Untitled Work', req.user.name, medium || 'Mixed Media', image_path, category || 'Annual Exhibition');
-
-    res.status(201).json({ message: 'Artwork submitted successfully for exhibition!' });
-  } catch (err) {
-    res.status(500).json({ message: 'Failed to upload artwork.', error: err.message });
-  }
-});
-
-// --- BHARAT SANSKRITI UTSAV EVENTS ---
-
-app.get('/api/bsu-events', (req, res) => {
-  try {
-    const events = db.prepare('SELECT * FROM bsu_events ORDER BY id DESC').all();
-    res.json(events);
-  } catch (err) {
-    res.status(500).json({ message: 'Failed to fetch Bharat Sanskriti Utsav details.' });
-  }
-});
-
-// --- ACADEMY LICENSE & ACCREDITATION DATA ---
-
-app.get('/api/academy/license', (req, res) => {
-  res.json({
-    academy_name: 'Meera Smriti Sishu Ankan Siksha Kendra',
-    established: 1989,
-    registration_no: 'REG/TR/1989/4821',
-    affiliations: [
-      'Bangiya Sangeet Parishad (Kolkata)',
-      'Bharat Sanskriti Utsav Recognized Art Examination Center',
-      'Tripura State Fine Arts Board Recognized Institute'
-    ],
-    accreditation_status: 'Government Registered 5-Year Fine Arts Diploma Center',
-    headquarters: 'Central Fine Arts Building, College Tilla, Agartala, Tripura - 799004',
-    contact_phone: '+91 94361 00000',
-    contact_email: 'admissions@meerasmriti.org'
-  });
-});
-
-// Serve Frontend SPA
+// Fallback to single-page fallback for frontend HTML routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Launch High-Performance Backend
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Meera Smriti Fine Arts Engine running at http://localhost:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
