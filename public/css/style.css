@@ -1,26 +1,25 @@
 :root {
-  --primary: #800020;
-  --primary-hover: #5c0017;
-  --accent: #d4af37;
-  --bg-main: #fcfbfa;
+  --primary: #7a1c1c;
+  --primary-hover: #5c1414;
+  --accent: #f59e0b;
+  --bg-color: #f8fafc;
   --card-bg: #ffffff;
-  --text-dark: #222222;
-  --text-muted: #666666;
-  --border-color: #e5e5e5;
-  --radius: 12px;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --radius: 8px;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 body {
-  background-color: var(--bg-main);
+  background-color: var(--bg-color);
   color: var(--text-dark);
   line-height: 1.6;
   display: flex;
@@ -28,22 +27,25 @@ body {
   min-height: 100vh;
 }
 
-/* Header & Navigation */
+/* Navigation Header */
 header {
-  background: var(--card-bg);
+  background-color: #ffffff;
   border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.05);
 }
 
 .nav-container {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: 0.8rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .brand {
@@ -58,14 +60,14 @@ header {
 
 .brand-badge {
   background: var(--primary);
-  color: #fff;
-  width: 38px;
-  height: 38px;
-  border-radius: 8px;
+  color: white;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 900;
+  border-radius: 6px;
+  font-weight: bold;
 }
 
 nav ul {
@@ -73,6 +75,7 @@ nav ul {
   list-style: none;
   gap: 1.25rem;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 nav a {
@@ -80,101 +83,84 @@ nav a {
   color: var(--text-dark);
   font-size: 0.925rem;
   font-weight: 500;
-  transition: var(--transition);
+  transition: color 0.2s ease;
 }
 
 nav a:hover, nav a.active {
   color: var(--primary);
 }
 
-.btn-login {
-  background: var(--primary);
-  color: white !important;
-  padding: 0.5rem 1.25rem;
-  border-radius: 6px;
-  font-weight: 600;
-}
-
-.btn-login:hover {
-  background: var(--primary-hover);
-}
-
-/* Page Layout */
+/* Layout Container */
 main {
-  flex: 1;
-  max-width: 1280px;
+  max-width: 1200px;
   width: 100%;
-  margin: 0 auto;
-  padding: 2.5rem 2rem;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  flex: 1;
 }
 
 .page-header {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 1rem;
 }
 
 .page-header h1 {
-  font-size: 2.25rem;
   color: var(--primary);
-  font-weight: 800;
+  font-size: 2rem;
 }
 
 .page-header p {
   color: var(--text-muted);
-  margin-top: 0.5rem;
 }
 
-/* Cards & Components */
+/* Cards & Grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .card {
   background: var(--card-bg);
-  border: 1px solid var(--border-color);
   border-radius: var(--radius);
-  padding: 1.75rem;
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
   box-shadow: var(--shadow);
-  transition: var(--transition);
 }
 
-.card:hover {
-  transform: translateY(-4px);
+/* Buttons */
+.btn-login {
+  background-color: var(--primary);
+  color: white !important;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 600;
+  transition: background 0.2s ease;
 }
 
-/* Notice Styling */
-.notice-card {
-  border-left: 4px solid var(--accent);
-}
-
-.notice-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.825rem;
-  color: var(--text-muted);
-  margin-bottom: 0.75rem;
-}
-
-.admin-controls {
-  margin-top: 1rem;
-  padding-top: 0.75rem;
-  border-top: 1px dashed var(--border-color);
-  display: flex;
-  gap: 0.5rem;
+.btn-login:hover {
+  background-color: var(--primary-hover);
 }
 
 .btn-sm {
   padding: 0.35rem 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   border-radius: 4px;
   border: none;
   cursor: pointer;
-  font-weight: 600;
 }
 
-.btn-danger { background: #dc2626; color: white; }
-.btn-primary { background: var(--primary); color: white; }
+.btn-danger {
+  background-color: #dc2626;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #b91c1c;
+}
 
 /* Forms */
 .form-group {
@@ -183,7 +169,7 @@ main {
 
 .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
   font-weight: 600;
   font-size: 0.9rem;
 }
@@ -199,32 +185,49 @@ main {
 .form-control:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.1);
+  box-shadow: 0 0 0 3px rgba(122, 28, 28, 0.1);
+}
+
+/* Notice Cards */
+.notice-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.notice-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
 }
 
 /* Footer */
 footer {
-  background: #111;
-  color: #888;
-  padding: 2.5rem 2rem;
+  background-color: #ffffff;
+  border-top: 1px solid var(--border-color);
   margin-top: auto;
-  border-top: 1px solid #222;
+  padding: 1.5rem 0;
 }
 
 .footer-container {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
 }
 
 .footer-links a {
-  color: #aaa;
+  color: var(--text-muted);
   text-decoration: none;
-  margin-left: 1.5rem;
+  margin-left: 1rem;
 }
 
-.footer-links a:hover { color: white; }
+.footer-links a:hover {
+  color: var(--primary);
+}
