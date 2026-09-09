@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notice Board | Meera Smriti Academy</title>
+  <title>Portal Login | Meera Smriti Academy</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
   <header>
     <div class="nav-container">
       <a href="index.html" class="brand">
@@ -18,51 +17,43 @@
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="notices.html">Notices</a></li>
-          <li><a href="qualification.html">Qualifications</a></li>
           <li><a href="admission.html">Admission</a></li>
-          <li><a href="fee.html">Fee Structure</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="exhibition.html">Exhibition</a></li>
-          <li><a href="monthly-examination.html">Exams</a></li>
           <li><a href="contacts.html">Contact</a></li>
-          <li><a href="login.html" class="btn-login">Login</a></li>
-          <li id="logout-nav-item" style="display:none;"><button onclick="logout()" class="btn-sm btn-danger">Logout</button></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main>
-    <div class="page-header">
-      <h1>Official Notice Board</h1>
-      <p>Latest circulars, practical evaluation schedules, and administration news.</p>
-    </div>
+  <main style="display: flex; justify-content: center; align-items: center; padding: 3rem 1rem;">
+    <div class="card" style="width: 100%; max-width: 420px;">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <div class="brand-badge" style="margin: 0 auto 0.75rem auto; width: 48px; height: 48px; font-size: 1.25rem;">M</div>
+        <h2>Portal Login</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Sign in to access admin and management features</p>
+      </div>
 
-    <!-- Admin Panel (Controlled by app.js session check) -->
-    <section class="card admin-only" style="margin-bottom: 2.5rem; background: #fffdf5; border-color: var(--accent); display: none;">
-      <h3 style="color: var(--primary); margin-bottom: 1rem;">+ Publish Official Circular (Admin Console)</h3>
-      <form id="notice-form">
+      <form id="loginForm">
         <div class="form-group">
-          <label for="notice-title">Notice Title</label>
-          <input type="text" id="notice-title" class="form-control" placeholder="e.g. Schedule for October Fine Art Exhibition" required>
+          <label for="username">Username / ID</label>
+          <input type="text" id="username" class="form-control" required placeholder="Enter your ID">
         </div>
+
         <div class="form-group">
-          <label for="notice-content">Notice Content</label>
-          <textarea id="notice-content" class="form-control" rows="4" placeholder="Enter notice details..." required></textarea>
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" required placeholder="••••••••">
         </div>
-        <button type="submit" class="btn-login" style="border: none; cursor: pointer; padding: 0.75rem 1.5rem;">Publish Notice</button>
+
+        <button type="submit" class="btn-login" style="width: 100%; text-align: center;">Sign In</button>
       </form>
-    </section>
-
-    <div id="notice-container" class="grid"></div>
+      <div id="loginAlert" style="margin-top: 1rem; color: #dc2626; font-size: 0.875rem; text-align: center;"></div>
+    </div>
   </main>
 
   <footer>
     <div class="footer-container">
-      <div>&copy; 2026 Meera Smriti Academy. All rights reserved.</div>
+      <p>&copy; Meera Smriti Academy. All rights reserved.</p>
     </div>
   </footer>
-
   <script src="js/app.js"></script>
 </body>
 </html>

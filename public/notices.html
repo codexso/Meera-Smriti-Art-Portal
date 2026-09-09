@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
   <header>
     <div class="nav-container">
       <a href="index.html" class="brand">
@@ -17,13 +16,10 @@
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="notices.html">Notices</a></li>
-          <li><a href="qualification.html">Qualifications</a></li>
+          <li><a href="notices.html" class="active">Notices</a></li>
           <li><a href="admission.html">Admission</a></li>
           <li><a href="fee.html">Fee Structure</a></li>
           <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="exhibition.html">Exhibition</a></li>
-          <li><a href="monthly-examination.html">Exams</a></li>
           <li><a href="contacts.html">Contact</a></li>
           <li><a href="login.html" class="btn-login">Portal Login</a></li>
         </ul>
@@ -33,41 +29,45 @@
 
   <main>
     <div class="page-header">
-      <h1>Academy Bulletin & Notice Board</h1>
-      <p>Official announcements, examination schedules, and event updates.</p>
+      <h1>Notice Board</h1>
+      <p>Official circulars, exam schedules, and event announcements.</p>
     </div>
 
-    <!-- Admin Post Editor (Only displays when authenticated) -->
-    <section class="card admin-only" style="margin-bottom: 2.5rem; background: #fffdf5; border-color: var(--accent);">
-      <h3 style="color: var(--primary); margin-bottom: 1rem;">Publish New Official Notice (Admin Control)</h3>
-      <form id="notice-form" onsubmit="saveNotice(event)">
+    <div id="admin-notice-form" class="card" style="display: none; margin-bottom: 2rem;">
+      <h3 style="margin-bottom: 1rem;">Post New Notice</h3>
+      <form id="createNoticeForm">
         <div class="form-group">
-          <label for="notice-title">Notice Title</label>
-          <input type="text" id="notice-title" class="form-control" placeholder="e.g., Annual Fine Arts Examination Schedule" required>
+          <label for="title">Title</label>
+          <input type="text" id="title" class="form-control" required placeholder="e.g. Monthly Examination Schedule">
         </div>
         <div class="form-group">
-          <label for="notice-content">Notice Content / Body</label>
-          <textarea id="notice-content" class="form-control" rows="4" placeholder="Enter detailed notice information..." required></textarea>
+          <label for="content">Details</label>
+          <textarea id="content" class="form-control" rows="4" required placeholder="Write notice details here..."></textarea>
         </div>
-        <button type="submit" class="btn-login" style="border: none; cursor: pointer;">Publish Notice</button>
+        <button type="submit" class="btn-login">Publish Notice</button>
       </form>
-    </section>
+    </div>
 
-    <!-- Notice Feed -->
-    <div id="notice-container" class="grid">
-      <!-- Loaded dynamically via app.js -->
+    <div id="notices-container" class="grid">
+      <!-- Dynamic Notices Injected via app.js -->
+      <div class="card notice-card">
+        <div>
+          <div class="notice-meta">
+            <span>OFFICIAL</span>
+            <span>September 2026</span>
+          </div>
+          <h3>Loading Notices...</h3>
+          <p style="margin-top: 0.5rem; color: var(--text-muted);">Please wait while circulars are retrieved from the database.</p>
+        </div>
+      </div>
     </div>
   </main>
 
   <footer>
     <div class="footer-container">
-      <div>&copy; 2026 Meera Smriti Academy. All rights reserved.</div>
-      <div class="footer-links">
-        <a href="login.html">Admin Access</a>
-      </div>
+      <p>&copy; Meera Smriti Academy. All rights reserved.</p>
     </div>
   </footer>
-
   <script src="js/app.js"></script>
 </body>
 </html>

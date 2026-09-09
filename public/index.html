@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home | Meera Smriti Academy</title>
+  <title>Meera Smriti Academy | Excellence in Education</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
   <header>
     <div class="nav-container">
       <a href="index.html" class="brand">
@@ -16,67 +15,59 @@
       </a>
       <nav>
         <ul>
-          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html" class="active">Home</a></li>
           <li><a href="notices.html">Notices</a></li>
-          <li><a href="qualification.html">Qualifications</a></li>
           <li><a href="admission.html">Admission</a></li>
           <li><a href="fee.html">Fee Structure</a></li>
           <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="exhibition.html">Exhibition</a></li>
-          <li><a href="monthly-examination.html">Exams</a></li>
           <li><a href="contacts.html">Contact</a></li>
-          <li><a href="login.html" class="btn-login">Login</a></li>
-          <li id="logout-nav-item" style="display:none;"><button onclick="logout()" class="btn-sm btn-danger">Logout</button></li>
+          <li><a href="login.html" class="btn-login">Portal Login</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main>
-    <section style="text-align: center; padding: 4rem 2rem; background: #fff; border-radius: var(--radius); border: 1px solid var(--border-color); margin-bottom: 3rem; box-shadow: var(--shadow);">
-      <h1 style="font-size: 3rem; color: var(--primary); font-weight: 800;">Meera Smriti Academy of Fine Arts</h1>
-      <p style="max-width: 700px; margin: 1rem auto; color: var(--text-muted); font-size: 1.15rem;">
-        Dedicated to excellence in Classical Music, Fine Visual Arts, Sculpture, and Performing Arts under recognized national certification boards.
-      </p>
-      <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="admission.html" class="btn-login" style="padding: 0.85rem 2rem; font-size: 1rem;">Apply for Admission</a>
-        <a href="exhibition.html" style="padding: 0.85rem 2rem; background: #f0f0f0; border-radius: 6px; text-decoration: none; color: #333; font-weight: 600;">Explore Exhibitions</a>
+    <section class="hero-section card" style="background: linear-gradient(135deg, #7a1c1c 0%, #4a1010 100%); color: white; margin-bottom: 2rem; padding: 3rem 2rem;">
+      <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Nurturing Minds, Building Future Leaders</h1>
+      <p style="font-size: 1.1rem; opacity: 0.9; max-width: 650px; margin-bottom: 1.5rem;">Providing holistic education with strong values, academic excellence, and modern infrastructure.</p>
+      <div style="display: flex; gap: 1rem;">
+        <a href="admission.html" class="btn-login" style="background: var(--accent); color: #1e293b !important;">Apply for Admission</a>
+        <a href="notices.html" class="btn-login" style="background: rgba(255,255,255,0.2);">Latest Announcements</a>
       </div>
     </section>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+    <div class="grid">
       <div class="card">
-        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Visual & Classical Arts</h3>
-        <p style="color: var(--text-muted);">Oil painting, watercolor, sketch, portraiture, and traditional sculpture workshops led by veteran masters.</p>
+        <h3>📢 Latest Notice</h3>
+        <p style="margin: 0.75rem 0; color: var(--text-muted);">Stay updated with daily school announcements, examination schedules, and holiday details.</p>
+        <a href="notices.html" style="color: var(--primary); font-weight: 600; text-decoration: none;">View Notice Board &rarr;</a>
       </div>
+
       <div class="card">
-        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Classical Vocal & Instruments</h3>
-        <p style="color: var(--text-muted);">Comprehensive curriculum covering Hindustani Classical Vocal, Sitar, Harmonium, Tabla, and Flute.</p>
+        <h3>🎓 Admissions Open</h3>
+        <p style="margin: 0.75rem 0; color: var(--text-muted);">Admissions are now open for the upcoming academic session. Check eligibility and guidelines.</p>
+        <a href="admission.html" style="color: var(--primary); font-weight: 600; text-decoration: none;">Admission Criteria &rarr;</a>
       </div>
+
       <div class="card">
-        <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Recognized Certification</h3>
-        <p style="color: var(--text-muted);">Diploma and Degree programs aligned with national examination boards and monthly practical audits.</p>
+        <h3>💳 Online Fee Portal</h3>
+        <p style="margin: 0.75rem 0; color: var(--text-muted);">Transparent fee breakdown for all classes along with online payment options.</p>
+        <a href="fee.html" style="color: var(--primary); font-weight: 600; text-decoration: none;">View Fee Schedule &rarr;</a>
       </div>
     </div>
-
-    <div class="page-header">
-      <h2>Recent Bulletin Announcements</h2>
-      <p>Live news feed managed by the Academy administration.</p>
-    </div>
-
-    <div id="notice-container" class="grid"></div>
   </main>
 
   <footer>
     <div class="footer-container">
-      <div>&copy; 2026 Meera Smriti Academy. All rights reserved.</div>
+      <p>&copy; Meera Smriti Academy. All rights reserved.</p>
       <div class="footer-links">
-        <a href="contacts.html">Support</a>
-        <a href="login.html">Admin Access</a>
+        <a href="qualification.html">Qualifications</a>
+        <a href="exhibition.html">Exhibition</a>
+        <a href="contacts.html">Contact Us</a>
       </div>
     </div>
   </footer>
-
   <script src="js/app.js"></script>
 </body>
 </html>
