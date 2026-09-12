@@ -5,8 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us | Meera Smriti Academy</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: #f8fafc;
+    }
+
+    .contact-card-peak {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 2.25rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .custom-input, .custom-textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      background: #f8fafc;
+      font-family: inherit;
+      margin-bottom: 1.25rem;
+      box-sizing: border-box;
+    }
+
+    .custom-input:focus, .custom-textarea:focus {
+      outline: none;
+      background: #ffffff;
+      border-color: #7a1c1c;
+      box-shadow: 0 0 0 4px rgba(122, 28, 28, 0.1);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 0.85rem 1.5rem;
+      background: linear-gradient(135deg, #7a1c1c 0%, #5c1414 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(122, 28, 28, 0.25);
+    }
+  </style>
 </head>
 <body>
+
   <header>
     <div class="nav-container">
       <a href="index.html" class="brand">
@@ -19,6 +68,7 @@
           <li><a href="notices.html">Notices</a></li>
           <li><a href="admission.html">Admission</a></li>
           <li><a href="fee.html">Fee Structure</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
           <li><a href="contacts.html" class="active">Contact</a></li>
           <li><a href="login.html" class="btn-login">Portal Login</a></li>
         </ul>
@@ -27,41 +77,26 @@
   </header>
 
   <main>
-    <div class="page-header">
-      <h1>Contact & Location</h1>
-      <p>Get in touch with the administration team or visit our campus.</p>
-    </div>
+    <div class="grid">
+      <div class="contact-card-peak">
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem;">Get in Touch</h2>
+        <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1.5rem;">Have questions regarding admissions, academics, or campus visits? Send us a message.</p>
 
-    <div class="grid" style="grid-template-columns: 1fr 1.5fr;">
-      <div class="card">
-        <h3>Campus Address</h3>
-        <p style="margin: 1rem 0; color: var(--text-muted);">
-          <strong>Meera Smriti Academy</strong><br>
-          Main School Road, Academy Campus<br>
-          Phone: +91 98765 43210<br>
-          Email: info@meerasmriti.edu.in
-        </p>
-        <h4 style="margin-top: 1.5rem;">Office Hours</h4>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Monday – Saturday: 8:00 AM – 3:00 PM</p>
+        <form id="contactForm">
+          <input type="text" class="custom-input" placeholder="Your Full Name" required>
+          <input type="email" class="custom-input" placeholder="Your Email Address" required>
+          <textarea class="custom-textarea" rows="4" placeholder="Your Message or Inquiry..." required></textarea>
+          <button type="submit" class="btn-submit">Submit Enquiry</button>
+        </form>
       </div>
 
-      <div class="card">
-        <h3>Send an Enquiry</h3>
-        <form id="contactForm" style="margin-top: 1rem;">
-          <div class="form-group">
-            <label for="contactName">Full Name</label>
-            <input type="text" id="contactName" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="contactEmail">Email Address / Phone</label>
-            <input type="text" id="contactEmail" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="contactMessage">Message</label>
-            <textarea id="contactMessage" class="form-control" rows="4" required></textarea>
-          </div>
-          <button type="submit" class="btn-login">Submit Enquiry</button>
-        </form>
+      <div class="contact-card-peak" style="background: linear-gradient(135deg, #7a1c1c 0%, #4a1010 100%); color: white;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem;">Campus Information</h2>
+        <div style="line-height: 1.8; color: rgba(255, 255, 255, 0.9);">
+          <p><strong>Address:</strong><br>Meera Smriti Academy Campus,<br>Main Road, District Region</p>
+          <p style="margin-top: 1rem;"><strong>Phone:</strong><br>+91 98765 43210</p>
+          <p style="margin-top: 1rem;"><strong>Office Hours:</strong><br>Mon – Sat: 8:00 AM – 3:30 PM</p>
+        </div>
       </div>
     </div>
   </main>
@@ -71,6 +106,7 @@
       <p>&copy; Meera Smriti Academy. All rights reserved.</p>
     </div>
   </footer>
+
   <script src="js/app.js"></script>
 </body>
 </html>

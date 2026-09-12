@@ -3,8 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Online Admission | Meera Smriti Academy</title>
+  <title>Admissions | Meera Smriti Academy</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: #f8fafc;
+    }
+
+    .banner-peak {
+      background: linear-gradient(135deg, #7a1c1c 0%, #4a1010 100%);
+      color: white;
+      border-radius: 20px;
+      padding: 3.5rem 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 20px 40px -15px rgba(122, 28, 28, 0.25);
+    }
+
+    .banner-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .banner-subtitle {
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 1.05rem;
+      max-width: 600px;
+    }
+
+    .step-card-peak {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 1.75rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      position: relative;
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      background: #fef2f2;
+      color: #7a1c1c;
+      font-weight: 800;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
 <body>
 
@@ -18,73 +71,50 @@
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="notices.html">Notices</a></li>
-          <li><a href="qualification.html">Qualifications</a></li>
-          <li><a href="admission.html">Admission</a></li>
+          <li><a href="admission.html" class="active">Admission</a></li>
           <li><a href="fee.html">Fee Structure</a></li>
           <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="exhibition.html">Exhibition</a></li>
-          <li><a href="monthly-examination.html">Exams</a></li>
           <li><a href="contacts.html">Contact</a></li>
-          <li><a href="login.html" class="btn-login">Login</a></li>
+          <li><a href="login.html" class="btn-login">Portal Login</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main>
-    <div class="page-header">
-      <h1>Online Student Admission Application</h1>
-      <p>Submit your application directly to our backend admission database.</p>
-    </div>
+    <section class="banner-peak">
+      <h1 class="banner-title">Admission Process 2026-27</h1>
+      <p class="banner-subtitle">Join an institution dedicated to academic rigor, personal growth, and leadership development.</p>
+    </section>
 
-    <div class="card" style="max-width: 700px; margin: 0 auto;">
-      <form id="admission-form">
-        <div class="form-group">
-          <label for="fullname">Full Student Name *</label>
-          <input type="text" id="fullname" class="form-control" placeholder="Jane Doe" required>
-        </div>
+    <div class="grid" style="margin-bottom: 3rem;">
+      <div class="step-card-peak">
+        <div class="step-number">1</div>
+        <h3 style="font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Online Inquiry / Form</h3>
+        <p style="color: #64748b; font-size: 0.925rem;">Fill out the initial registration inquiry form or collect the prospectus directly from the administrative block.</p>
+      </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-          <div class="form-group">
-            <label for="dob">Date of Birth *</label>
-            <input type="date" id="dob" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone Number *</label>
-            <input type="tel" id="phone" class="form-control" placeholder="+91 9876543210" required>
-          </div>
-        </div>
+      <div class="step-card-peak">
+        <div class="step-number">2</div>
+        <h3 style="font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Interaction & Evaluation</h3>
+        <p style="color: #64748b; font-size: 0.925rem;">A brief interactive session for primary grades or an aptitude assessment for higher classes.</p>
+      </div>
 
-        <div class="form-group">
-          <label for="email">Email Address *</label>
-          <input type="email" id="email" class="form-control" placeholder="jane@example.com" required>
-        </div>
-
-        <div class="form-group">
-          <label for="course">Select Course / Department *</label>
-          <select id="course" class="form-control" required>
-            <option value="">-- Choose Course --</option>
-            <option value="Visual Arts & Painting">Visual Arts & Classical Painting</option>
-            <option value="Sculpture & Clay Modeling">Sculpture & Clay Modeling</option>
-            <option value="Hindustani Classical Vocal">Hindustani Classical Vocal</option>
-            <option value="Instrumental - Sitar/Tabla/Flute">Instrumental (Sitar/Tabla/Flute)</option>
-            <option value="Classical Dance (Kathak)">Classical Dance (Kathak)</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="address">Full Postal Address *</label>
-          <textarea id="address" class="form-control" rows="3" placeholder="Enter complete address..." required></textarea>
-        </div>
-
-        <button type="submit" class="btn-login" style="width: 100%; border: none; cursor: pointer; padding: 0.85rem; font-size: 1rem;">Submit Application</button>
-      </form>
+      <div class="step-card-peak">
+        <div class="step-number">3</div>
+        <h3 style="font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Document Submission</h3>
+        <p style="color: #64748b; font-size: 0.925rem;">Submit Birth Certificate, Transfer Certificate (TC), recent photos, and previous marksheets.</p>
+      </div>
     </div>
   </main>
 
   <footer>
     <div class="footer-container">
-      <div>&copy; 2026 Meera Smriti Academy. All rights reserved.</div>
+      <p>&copy; Meera Smriti Academy. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="contacts.html">Contact Us</a>
+        <a href="login.html">Portal Login</a>
+      </div>
     </div>
   </footer>
 
