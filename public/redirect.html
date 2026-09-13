@@ -2,25 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entering Workspace...</title>
+    <title>Authenticating...</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="slice-body">
-    <div class="loader-core"></div>
-    <div class="slice top">MEERA SMRITI</div>
-    <div class="slice bottom">ART PORTAL</div>
-
-    <script>
-        // Trigger the cinematic slice open after 0.8s
-        setTimeout(() => {
-            document.body.classList.add('slice-open');
-        }, 800);
-        
-        // Redirect to the actual dashboard after the animation finishes
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 2400);
-    </script>
+<body style="display: flex; align-items: center; justify-content: center;">
+    <div style="text-align: center;">
+        <h2 style="letter-spacing: 4px; font-weight: 800; margin-bottom: 10px;">DECRYPTING STUDIO</h2>
+        <p style="color: var(--text-muted);">Establishing secure connection...</p>
+    </div>
+    <script>setTimeout(() => window.location.href = 'index.html', 1500);</script>
 </body>
 </html>

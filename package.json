@@ -1,7 +1,7 @@
 {
   "name": "meera-smriti-portal",
-  "version": "1.0.0",
-  "description": "Art Portal under SOHAM License",
+  "version": "2.0.0",
+  "description": "Professional Art Portal under SOHAM License",
   "main": "server.js",
   "type": "module",
   "license": "SEE LICENSE IN SOHAM.LICENSE",
