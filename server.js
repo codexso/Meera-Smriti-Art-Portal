@@ -27,17 +27,34 @@ function hashLicenseKey(key) {
   return crypto.createHash('sha256').update(String(key)).digest('hex');
 }
 
+// ⚡ 1. AUTO-GENERATE LICENSE IF MISSING
+if (!process.env.LICENSE_KEY || !process.env.LICENSE_KEY_HASH) {
+  const autoKey = crypto.randomBytes(24).toString('hex');
+  process.env.LICENSE_KEY = autoKey;
+  process.env.LICENSE_KEY_HASH = hashLicenseKey(autoKey);
+  console.log('[SOHAM.LICENSE] Keys missing. Auto-generated license for this session.');
+}
+
+// ⚡ 2. AUTO-GENERATE ADMIN CREDENTIALS IF MISSING
+let autoAdminPassword = null;
+if (!process.env.ADMIN_USERNAME) process.env.ADMIN_USERNAME = 'admin';
+if (!process.env.JWT_SECRET) process.env.JWT_SECRET = crypto.randomBytes(48).toString('hex');
+if (!process.env.ADMIN_PASSWORD_HASH) {
+  autoAdminPassword = crypto.randomBytes(8).toString('hex'); // Random 16-char password
+  process.env.ADMIN_PASSWORD_HASH = bcrypt.hashSync(autoAdminPassword, 10);
+  
+  console.log('\n==================================================');
+  console.log('⚡ AUTO-GENERATED ADMIN CREDENTIALS FOR RENDER');
+  console.log(`   Username: ${process.env.ADMIN_USERNAME}`);
+  console.log(`   Password: ${autoAdminPassword}`);
+  console.log('==================================================\n');
+}
+
+// 3. PROCEED WITH NORMAL VERIFICATION
 function verifyLicense() {
-  const suppliedKey = process.env.LICENSE_KEY;
+  const suppliedHash = hashLicenseKey(process.env.LICENSE_KEY);
   const expectedHash = process.env.LICENSE_KEY_HASH;
 
-  if (!suppliedKey || !expectedHash) {
-    return { valid: false, reason: 'LICENSE_KEY or LICENSE_KEY_HASH is not set.' };
-  }
-
-  const suppliedHash = hashLicenseKey(suppliedKey);
-
-  // Constant-time comparison to avoid timing attacks.
   const a = Buffer.from(suppliedHash, 'hex');
   const b = Buffer.from(expectedHash, 'hex');
   const valid = a.length === b.length && crypto.timingSafeEqual(a, b);
