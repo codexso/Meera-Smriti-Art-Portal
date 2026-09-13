@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | Meera Smriti Sishu Ankan Siksha Kendra</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { colors: {
+    ink: '#2B2418', paper: '#FFF9EF', paperDeep: '#FBF1DE',
+    saffron: '#E8A33D', teal: '#1B7A72', coral: '#D8553D'
+  }, fontFamily: { display: ['"Baloo 2"', 'sans-serif'] } } } }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { background: #FFF9EF; font-family: 'Inter', sans-serif; }
+  .font-display { font-family: 'Baloo 2', sans-serif; }
+</style>
+</head>
+<body class="min-h-screen text-ink">
+  <header class="bg-white border-b-2 border-ink/10 px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-teal text-white flex items-center justify-center font-display font-bold text-sm">म</div>
+      <span class="font-display font-semibold text-sm">Admin Dashboard</span>
+    </div>
+    <div class="flex items-center gap-4 text-sm">
+      <span id="whoami" class="text-ink/60"></span>
+      <button id="logout-btn" class="px-4 py-2 rounded-lg bg-coral text-white font-display font-semibold text-xs">Log Out</button>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 py-12">
+    <h1 class="font-display text-2xl font-bold mb-2">Welcome back</h1>
+    <p class="text-ink/60 text-sm mb-10">This page is only reachable with a valid signed-in session (JWT verified server-side before the HTML is even sent).</p>
+
+    <div class="grid sm:grid-cols-2 gap-5">
+      <div class="bg-white rounded-2xl p-6 shadow-[4px_4px_0_0_#2B2418]">
+        <h3 class="font-display font-semibold mb-2">Site status</h3>
+        <p class="text-xs text-ink/60">The public site is served from <code>/public</code>. There is no database connected in this setup &mdash; admissions enquiries currently only display a success message in the browser and are not persisted anywhere.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-[4px_4px_0_0_#2B2416]">
+        <h3 class="font-display font-semibold mb-2">Next steps</h3>
+        <p class="text-xs text-ink/60">Wire up the enquiry form to an email service (e.g. Resend, SMTP) or a lightweight datastore if you want submissions saved.</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    fetch('/api/admin/me')
+      .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+      .then(data => { document.getElementById('whoami').textContent = 'Signed in as ' + data.username; })
+      .catch(() => { window.location.href = '/admin/login'; });
+
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      window.location.href = '/admin/login';
+    });
+  </script>
+</body>
+</html>

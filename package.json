@@ -1,18 +1,24 @@
 {
-  "name": "meera-smriti-portal",
-  "version": "2.0.0",
-  "description": "Professional Art Portal under SOHAM License",
+  "name": "meera-smriti-sishu-ankan",
+  "version": "1.0.0",
+  "description": "Meera Smriti Sishu Ankan Siksha Kendra - static site + admin panel with license-key gated server (no database)",
   "main": "server.js",
-  "type": "module",
-  "license": "SEE LICENSE IN SOHAM.LICENSE",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js",
+    "generate:license-hash": "node scripts/generate-license-hash.js",
+    "generate:admin-hash": "node scripts/generate-admin-hash.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "better-sqlite3": "^11.2.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2"
   }
 }

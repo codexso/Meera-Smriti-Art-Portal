@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login | Meera Smriti Sishu Ankan Siksha Kendra</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { colors: {
+    ink: '#2B2418', paper: '#FFF9EF', paperDeep: '#FBF1DE',
+    saffron: '#E8A33D', teal: '#1B7A72', coral: '#D8553D'
+  }, fontFamily: { display: ['"Baloo 2"', 'sans-serif'] } } } }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { background: #FFF9EF; font-family: 'Inter', sans-serif; }
+  .font-display { font-family: 'Baloo 2', sans-serif; }
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4 text-ink">
+  <div class="w-full max-w-sm bg-white rounded-3xl p-8 shadow-[6px_6px_0_0_#2B2418]">
+    <div class="text-center mb-6">
+      <div class="w-12 h-12 rounded-2xl bg-teal text-white flex items-center justify-center font-display font-bold text-xl mx-auto mb-3">म</div>
+      <h1 class="font-display text-xl font-bold">Admin Login</h1>
+      <p class="text-xs text-ink/55 mt-1">Meera Smriti Sishu Ankan Siksha Kendra</p>
+    </div>
+
+    <form id="login-form" class="space-y-4">
+      <input id="username" type="text" required autocomplete="username" placeholder="Username"
+        class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal">
+      <input id="password" type="password" required autocomplete="current-password" placeholder="Password"
+        class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal">
+      <button type="submit" id="submit-btn"
+        class="w-full py-3.5 rounded-xl bg-teal text-white font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all">
+        Log In
+      </button>
+      <p id="error-msg" class="hidden text-coral text-xs text-center font-medium"></p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('login-form');
+    const errorMsg = document.getElementById('error-msg');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg.classList.add('hidden');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Logging in...';
+
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value
+          })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          window.location.href = '/admin/dashboard';
+        } else {
+          errorMsg.textContent = data.error || 'Login failed.';
+          errorMsg.classList.remove('hidden');
+        }
+      } catch (err) {
+        errorMsg.textContent = 'Network error. Please try again.';
+        errorMsg.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Log In';
+      }
+    });
+  </script>
+</body>
+</html>
