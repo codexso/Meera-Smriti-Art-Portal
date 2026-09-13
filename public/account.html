@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account | Meera Smriti Sishu Ankan Siksha Kendra</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { colors: {
+    ink: '#2B2418', paper: '#FFF9EF', paperDeep: '#FBF1DE',
+    saffron: '#E8A33D', teal: '#1B7A72', coral: '#D8553D'
+  }, fontFamily: { display: ['"Baloo 2"', 'sans-serif'] } } } }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { background: #FFF9EF; font-family: 'Inter', sans-serif; }
+  .font-display { font-family: 'Baloo 2', sans-serif; }
+</style>
+</head>
+<body class="min-h-screen text-ink">
+  <header class="bg-white border-b-2 border-ink/10 px-6 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-teal text-white flex items-center justify-center font-display font-bold text-sm">म</div>
+      <span class="font-display font-semibold text-sm">Meera Smriti</span>
+    </a>
+    <div class="flex items-center gap-4 text-sm">
+      <span id="whoami" class="text-ink/60"></span>
+      <button id="logout-btn" class="px-4 py-2 rounded-lg bg-coral text-white font-display font-semibold text-xs">Log Out</button>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-6 py-14">
+    <h1 class="font-display text-2xl font-bold mb-2">Welcome, <span id="name-slot"></span></h1>
+    <p class="text-ink/60 text-sm mb-10">This is your parent account for Meera Smriti Sishu Ankan Siksha Kendra.</p>
+
+    <div class="bg-white rounded-2xl p-6 shadow-[4px_4px_0_0_#2B2418] mb-6">
+      <h3 class="font-display font-semibold mb-2">Admissions reminder</h3>
+      <p class="text-sm text-ink/65">Admissions are open only in June, July and August. If you'd like to enquire about a class, use the enquiry form on the homepage or message us directly on WhatsApp during that window.</p>
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 shadow-[4px_4px_0_0_#2B2418]">
+      <h3 class="font-display font-semibold mb-2">Need help sooner?</h3>
+      <a href="https://wa.me/917947416674" target="_blank" rel="noopener" class="inline-flex items-center gap-2 mt-2 px-5 py-2.5 rounded-xl bg-[#25D366] text-white font-display font-semibold text-xs">
+        <i class="fa-brands fa-whatsapp"></i> Message us on WhatsApp
+      </a>
+    </div>
+  </main>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    fetch('/api/auth/me')
+      .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+      .then(data => {
+        document.getElementById('whoami').textContent = data.email;
+        document.getElementById('name-slot').textContent = data.name;
+      })
+      .catch(() => { window.location.href = '/login.html'; });
+
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      window.location.href = '/login.html';
+    });
+  </script>
+</body>
+</html>

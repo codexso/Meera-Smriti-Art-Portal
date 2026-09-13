@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Meera Smriti Sishu Ankan Siksha Kendra</title>
+<meta name="robots" content="noindex">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { colors: {
+    ink: '#2B2418', paper: '#FFF9EF', paperDeep: '#FBF1DE',
+    saffron: '#E8A33D', teal: '#1B7A72', coral: '#D8553D'
+  }, fontFamily: { display: ['"Baloo 2"', 'sans-serif'] } } } }
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: #FFF9EF;
+    font-family: 'Inter', sans-serif;
+    color: #2B2418;
+    overflow: hidden;
+    position: relative;
+  }
+  .font-display { font-family: 'Baloo 2', sans-serif; }
+
+  /* Animated background blobs, drifting independently of the mouse */
+  .bg-blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(70px);
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+  }
+  .blob-1 { width: 480px; height: 480px; background: radial-gradient(circle, rgba(232,163,61,0.35), transparent 70%); top: -10%; left: -8%; animation: drift1 16s ease-in-out infinite; }
+  .blob-2 { width: 560px; height: 560px; background: radial-gradient(circle, rgba(27,122,114,0.28), transparent 70%); bottom: -15%; right: -10%; animation: drift2 20s ease-in-out infinite; }
+  .blob-3 { width: 340px; height: 340px; background: radial-gradient(circle, rgba(216,85,61,0.22), transparent 70%); top: 40%; left: 60%; animation: drift3 14s ease-in-out infinite; }
+
+  @keyframes drift1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(60px, 40px); } }
+  @keyframes drift2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-50px, -30px); } }
+  @keyframes drift3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-30px, 50px) scale(1.1); } }
+
+  /* Grid texture overlay for depth */
+  .grid-overlay {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(43,36,24,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(43,36,24,0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 40%, transparent 90%);
+  }
+
+  /* Card container with mouse-driven tilt */
+  .tilt-wrap {
+    perspective: 1200px;
+  }
+  .tilt-card {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+    box-shadow: 8px 8px 0 0 #2B2418;
+  }
+
+  /* Cursor-following spotlight highlight on the card */
+  .spotlight {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(320px circle at var(--x, 50%) var(--y, 50%), rgba(232,163,61,0.16), transparent 65%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+  .tilt-wrap:hover .spotlight { opacity: 1; }
+
+  /* Floating logo mark */
+  @keyframes floatLogo {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-6px) rotate(-4deg); }
+  }
+  .logo-float { animation: floatLogo 4s ease-in-out infinite; }
+
+  /* Entrance animation */
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .card-in { animation: cardIn 0.6s cubic-bezier(.16,1,.3,1) both; }
+
+  /* Input focus glow */
+  .input-field {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  }
+  .input-field:focus {
+    border-color: #1B7A72;
+    box-shadow: 0 0 0 4px rgba(27,122,114,0.12);
+    transform: translateY(-1px);
+  }
+
+  /* Button micro-interaction */
+  .btn-primary {
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  }
+  .btn-primary:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.03); }
+  .btn-primary:active:not(:disabled) { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
+
+  /* Spinner */
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: inline-block;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Password toggle */
+  .pw-toggle { cursor: pointer; }
+
+  /* Shake animation for errors */
+  @keyframes shake {
+    10%, 90% { transform: translateX(-1px); }
+    20%, 80% { transform: translateX(2px); }
+    30%, 50%, 70% { transform: translateX(-4px); }
+    40%, 60% { transform: translateX(4px); }
+  }
+  .shake { animation: shake 0.5s ease; }
+
+  ::selection { background: #E8A33D; color: #2B2418; }
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4">
+
+  <!-- Ambient animated background -->
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+  <div class="bg-blob blob-3"></div>
+  <div class="grid-overlay"></div>
+
+  <!-- Back-to-home link -->
+  <a href="/" class="fixed top-6 left-6 z-20 text-xs font-display font-semibold text-ink/50 hover:text-teal transition-colors inline-flex items-center gap-2">
+    <i class="fa-solid fa-arrow-left"></i> Back to homepage
+  </a>
+
+  <div class="relative z-10 w-full max-w-sm tilt-wrap" id="tilt-wrap">
+    <div class="bg-white rounded-3xl p-8 tilt-card card-in" id="tilt-card">
+      <div class="spotlight" id="spotlight"></div>
+
+      <div class="relative z-10 text-center mb-7">
+        <div class="w-14 h-14 rounded-2xl bg-teal text-white flex items-center justify-center font-display font-bold text-2xl mx-auto mb-4 logo-float shadow-[3px_3px_0_0_#2B2418]">म</div>
+        <h1 class="font-display text-xl font-bold">Parent Login</h1>
+        <p class="text-xs text-ink/55 mt-1">Meera Smriti Sishu Ankan Siksha Kendra</p>
+      </div>
+
+      <form id="login-form" class="relative z-10 space-y-4">
+        <div>
+          <label class="block text-[11px] font-display font-semibold text-ink/50 uppercase tracking-wide mb-1.5" for="email">Email Address</label>
+          <input id="email" type="email" required autocomplete="email" placeholder="you@example.com"
+            class="input-field w-full bg-paperDeep border-2 border-transparent rounded-xl px-4 py-3 text-sm focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-display font-semibold text-ink/50 uppercase tracking-wide mb-1.5" for="password">Password</label>
+          <div class="relative">
+            <input id="password" type="password" required autocomplete="current-password" placeholder="••••••••"
+              class="input-field w-full bg-paperDeep border-2 border-transparent rounded-xl px-4 py-3 pr-11 text-sm focus:outline-none">
+            <button type="button" id="pw-toggle" aria-label="Show password"
+              class="pw-toggle absolute right-3 top-1/2 -translate-y-1/2 text-ink/40 hover:text-ink transition-colors">
+              <i class="fa-solid fa-eye text-sm"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" id="submit-btn"
+          class="btn-primary w-full py-3.5 rounded-xl bg-teal text-white font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] flex items-center justify-center gap-2">
+          <span id="submit-label">Log In</span>
+        </button>
+
+        <p id="error-msg" class="hidden text-coral text-xs text-center font-medium bg-coral/10 rounded-lg py-2 px-3"></p>
+      </form>
+
+      <p class="relative z-10 text-xs text-ink/55 text-center mt-6">New here? <a href="/register.html" class="text-teal font-semibold hover:underline">Create an account</a></p>
+    </div>
+  </div>
+
+  <script>
+    /* ---- Mouse-tracking tilt + spotlight ---- */
+    const tiltWrap = document.getElementById('tilt-wrap');
+    const tiltCard = document.getElementById('tilt-card');
+    const spotlight = document.getElementById('spotlight');
+
+    tiltWrap.addEventListener('mousemove', (e) => {
+      const rect = tiltWrap.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const px = x / rect.width;
+      const py = y / rect.height;
+
+      const maxTilt = 6; // degrees
+      const rotateY = (px - 0.5) * maxTilt * 2;
+      const rotateX = (0.5 - py) * maxTilt * 2;
+
+      tiltCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      spotlight.style.setProperty('--x', `${px * 100}%`);
+      spotlight.style.setProperty('--y', `${py * 100}%`);
+    });
+
+    tiltWrap.addEventListener('mouseleave', () => {
+      tiltCard.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+
+    /* ---- Parallax on the background blobs, following the whole viewport ---- */
+    const blobs = document.querySelectorAll('.bg-blob');
+    window.addEventListener('mousemove', (e) => {
+      const px = (e.clientX / window.innerWidth - 0.5);
+      const py = (e.clientY / window.innerHeight - 0.5);
+      blobs.forEach((blob, i) => {
+        const strength = (i + 1) * 10;
+        blob.style.marginLeft = `${px * strength}px`;
+        blob.style.marginTop = `${py * strength}px`;
+      });
+    });
+
+    /* ---- Password visibility toggle ---- */
+    const pwInput = document.getElementById('password');
+    const pwToggle = document.getElementById('pw-toggle');
+    pwToggle.addEventListener('click', () => {
+      const isPassword = pwInput.type === 'password';
+      pwInput.type = isPassword ? 'text' : 'password';
+      pwToggle.innerHTML = isPassword
+        ? '<i class="fa-solid fa-eye-slash text-sm"></i>'
+        : '<i class="fa-solid fa-eye text-sm"></i>';
+    });
+
+    /* ---- Form submission ---- */
+    const form = document.getElementById('login-form');
+    const errorMsg = document.getElementById('error-msg');
+    const submitBtn = document.getElementById('submit-btn');
+    const submitLabel = document.getElementById('submit-label');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg.classList.add('hidden');
+      submitBtn.disabled = true;
+      submitLabel.innerHTML = '<span class="spinner"></span> Logging in...';
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: document.getElementById('email').value,
+            password: pwInput.value
+          })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          submitLabel.innerHTML = '<i class="fa-solid fa-check"></i> Success';
+          setTimeout(() => { window.location.href = '/account'; }, 400);
+        } else {
+          errorMsg.textContent = data.error || 'Login failed.';
+          errorMsg.classList.remove('hidden');
+          tiltCard.classList.remove('shake');
+          void tiltCard.offsetWidth; // restart animation
+          tiltCard.classList.add('shake');
+          submitBtn.disabled = false;
+          submitLabel.textContent = 'Log In';
+        }
+      } catch (err) {
+        errorMsg.textContent = 'Network error. Please try again.';
+        errorMsg.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitLabel.textContent = 'Log In';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register | Meera Smriti Sishu Ankan Siksha Kendra</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { colors: {
+    ink: '#2B2418', paper: '#FFF9EF', paperDeep: '#FBF1DE',
+    saffron: '#E8A33D', teal: '#1B7A72', coral: '#D8553D'
+  }, fontFamily: { display: ['"Baloo 2"', 'sans-serif'] } } } }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { background: #FFF9EF; font-family: 'Inter', sans-serif; }
+  .font-display { font-family: 'Baloo 2', sans-serif; }
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4 text-ink py-12">
+  <div class="w-full max-w-sm bg-white rounded-3xl p-8 shadow-[6px_6px_0_0_#2B2418]">
+    <div class="text-center mb-6">
+      <a href="/"><div class="w-12 h-12 rounded-2xl bg-teal text-white flex items-center justify-center font-display font-bold text-xl mx-auto mb-3">म</div></a>
+      <h1 class="font-display text-xl font-bold">Create a Parent Account</h1>
+      <p class="text-xs text-ink/55 mt-1">Track enquiries and updates for your child</p>
+    </div>
+
+    <form id="register-form" class="space-y-4">
+      <input id="name" type="text" required placeholder="Your Full Name"
+        class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal">
+      <input id="email" type="email" required autocomplete="email" placeholder="Email Address"
+        class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal">
+      <input id="phone" type="tel" placeholder="Phone Number (optional)"
+        class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal">
+      <input id="password" type="password" required autocomplete="new-password" placeholder="Password (min 8 characters)"
+        class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal">
+      <button type="submit" id="submit-btn"
+        class="w-full py-3.5 rounded-xl bg-teal text-white font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all">
+        Create Account
+      </button>
+      <p id="error-msg" class="hidden text-coral text-xs text-center font-medium"></p>
+    </form>
+    <p class="text-xs text-ink/55 text-center mt-6">Already have an account? <a href="/login.html" class="text-teal font-semibold">Log in</a></p>
+  </div>
+
+  <script>
+    const form = document.getElementById('register-form');
+    const errorMsg = document.getElementById('error-msg');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg.classList.add('hidden');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Creating account...';
+
+      try {
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            password: document.getElementById('password').value
+          })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          window.location.href = '/account';
+        } else {
+          errorMsg.textContent = data.error || 'Registration failed.';
+          errorMsg.classList.remove('hidden');
+        }
+      } catch (err) {
+        errorMsg.textContent = 'Network error. Please try again.';
+        errorMsg.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Create Account';
+      }
+    });
+  </script>
+</body>
+</html>

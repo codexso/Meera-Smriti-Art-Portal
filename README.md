@@ -3,6 +3,13 @@
 Static site + a small Express server for a license-gated deploy and a
 JWT-protected admin panel. No database — nothing is persisted server-side.
 
+**New here? Read [`RUNNING.md`](./RUNNING.md) first** — it covers the
+most common mistake (opening `index.html` directly instead of running
+the server) before you touch anything else.
+
+**Deploying for real? See [`DEPLOY_RENDER.md`](./DEPLOY_RENDER.md)**
+for a full step-by-step GitHub → Render walkthrough.
+
 ## Project structure
 
 ```
@@ -94,6 +101,103 @@ Visit `http://localhost:3000` for the site and `http://localhost:3000/admin/logi
   expiry). Rate-limited to 10 attempts / 15 minutes per IP.
 - `GET /admin/dashboard` is only served if that cookie is present and
   verifies — otherwise it redirects to `/admin/login`.
+- The dashboard lists every enquiry submitted from the homepage form,
+  live, with a status dropdown (new / contacted / enrolled / closed).
 - Logout: `POST /api/admin/logout` clears the cookie.
-- There is no database, so nothing about admins or enquiries is
-  persisted between deploys beyond what's in your environment variables.
+
+## Parent accounts (separate from admin)
+
+- `POST /api/auth/register` and `POST /api/auth/login` create/verify a
+  parent account and set a `soham_user_token` cookie (30-day JWT).
+- `/account` is a protected page that only renders for a logged-in
+  parent; otherwise it redirects to `/login.html`.
+- Parent and admin sessions are independent — logging in as one does
+  not affect the other.
+
+## Where data is stored (no database)
+
+Enquiries and parent accounts are stored as JSON files under `/data`
+(`data/enquiries.json`, `data/users.json`), created automatically on
+first use. Uploaded admission-proof photos go in `/data/uploads` and
+are served back at `/uploads/<filename>`. There is no MongoDB or other
+database.
+
+**Important:** Render's free-tier filesystem is ephemeral — anything in
+`/data` can be wiped on redeploy or when the service restarts/sleeps.
+This is fine to get a real, working admin panel today. If you need
+enquiries, accounts and uploaded photos to survive redeploys
+long-term, either:
+- attach a [Render persistent disk](https://render.com/docs/disks)
+  mounted at `/data`, or
+- move `store.js` to a real database later (Postgres, MongoDB, etc.)
+  without changing any of the route logic.
+
+## Auto-generated fallback credentials (read this before going live)
+
+If you deploy **without** setting `LICENSE_KEY` / `LICENSE_KEY_HASH`,
+`ADMIN_USERNAME`, `ADMIN_PASSWORD_HASH`, or `JWT_SECRET`, the server
+will still boot: it auto-generates working values and prints the
+admin username/password to the server logs once on startup so you can
+still log in. This is convenient for a first test deploy, but it is
+**not secure for a real, live admissions site**, because:
+- the generated password changes every time the service restarts
+  (Render can restart it any time), so you can get locked out or
+  confused about which password is current;
+- anyone with access to your Render logs can read the password;
+- the license key isn't a real access-control secret in this mode —
+  it's just generated in-memory and thrown away on restart.
+
+Before going live, set your own values (steps 2–3 above) so the
+fallback never triggers.
+
+## Admission proof photos
+
+The enquiry form on the homepage has an optional photo attachment
+(e.g. a prior artwork sample or ID as proof). It's capped at 5MB,
+image files only (jpg/png/webp/heic), and shows up as a thumbnail next
+to each enquiry in the admin dashboard — click it to view full size.
+
+## Email notifications (optional)
+
+Set `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` and
+`NOTIFY_EMAIL` to get an email every time someone submits the enquiry
+form. If any of these are missing, notifications are silently skipped
+— enquiries still land in the admin dashboard regardless. The admin
+dashboard header shows whether email notifications are currently
+configured.
+
+## Admin dashboard: search, filter, export
+
+- Search box filters by parent name, child name, phone, or message.
+- Status dropdown filters by `new` / `contacted` / `enrolled` / `closed`.
+- Results are paginated (25 per page).
+- **Export CSV** downloads all enquiries (ignoring the current filter)
+  as a spreadsheet-ready CSV file.
+
+## SEO / production basics
+
+- `public/404.html` — a custom not-found page instead of a raw error.
+- `public/robots.txt` and `public/sitemap.xml` — replace
+  `your-domain-here.onrender.com` in both `sitemap.xml` and the
+  `<link rel="canonical">` / Open Graph tags in `public/index.html`
+  with your real deployed domain once you have one.
+
+## Admission window
+
+Admissions are only accepted in June, July, and August (server time).
+Outside that window, `POST /api/enquiry` returns a 403 with an
+explanatory message, and the homepage banner reflects the same status
+via `GET /api/admission-status`. To change the months, edit
+`isAdmissionOpen()` in `server.js`.
+
+## Social links
+
+Instagram, Facebook and YouTube links in the header/footer currently
+point to placeholder handles (`instagram.com/meerasmriti`, etc.) —
+swap in your real handles in `public/index.html` before going live.
+
+## WhatsApp number
+
+All WhatsApp links use `+91 79474 16674` (`wa.me/917947416674`). If
+this isn't the right number or country code, search-and-replace
+`917947416674` across `public/index.html` and `public/account.html`.

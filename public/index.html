@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meera Smriti Sishu Ankan Siksha Kendra | Children's Art &amp; Drawing Academy</title>
+    <meta name="description" content="Meera Smriti Sishu Ankan Siksha Kendra is a children's art and drawing academy offering age-wise programmes, small batches, and annual exhibitions. Admissions open every June–August.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://your-domain-here.onrender.com/">
+
+    <!-- Open Graph / social sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Meera Smriti Sishu Ankan Siksha Kendra">
+    <meta property="og:description" content="A children's art & drawing academy nurturing young artists through structured, age-appropriate programmes.">
+    <meta property="og:url" content="https://your-domain-here.onrender.com/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Meera Smriti Sishu Ankan Siksha Kendra">
+    <meta name="twitter:description" content="A children's art & drawing academy nurturing young artists through structured, age-appropriate programmes.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231B7A72'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%23FFF9EF' font-family='sans-serif'%3E%E0%A4%AE%3C/text%3E%3C/svg%3E">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -76,6 +90,45 @@
             transition: width 0.25s ease;
         }
         .nav-link:hover::after { width: 100%; }
+
+        /* Scroll-reveal */
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1); }
+        .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+        /* Marquee */
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marqueeScroll 28s linear infinite;
+        }
+        @keyframes marqueeScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* Animated gradient headline accent */
+        .gradient-text {
+            background: linear-gradient(90deg, #D8553D, #E8A33D, #1B7A72, #D8553D);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 6s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% center; }
+            100% { background-position: 300% center; }
+        }
+
+        /* Card lift on hover */
+        .lift-hover { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+        .lift-hover:hover { transform: translateY(-6px); }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-14px) rotate(3deg); }
+        }
+        .float-slow { animation: floatSlow 7s ease-in-out infinite; }
     </style>
 </head>
 <body class="min-h-screen selection:bg-saffron selection:text-ink overflow-x-hidden">
@@ -97,18 +150,53 @@
                 </div>
             </div>
 
-            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-ink/80">
-                <a href="#about" class="nav-link hover:text-teal">About Us</a>
+            <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-ink/80">
+                <a href="#about" class="nav-link hover:text-teal">About</a>
                 <a href="#programs" class="nav-link hover:text-teal">Programmes</a>
-                <a href="#gallery" class="nav-link hover:text-teal">Student Gallery</a>
-                <a href="#admissions" class="nav-link hover:text-teal">Admissions</a>
+                <a href="#gallery" class="nav-link hover:text-teal">Gallery</a>
+                <a href="#exhibitions" class="nav-link hover:text-teal">Exhibitions</a>
+                <a href="#testimonials" class="nav-link hover:text-teal">Testimonials</a>
+                <a href="#fees" class="nav-link hover:text-teal">Fees</a>
+                <a href="#faq" class="nav-link hover:text-teal">FAQ</a>
             </nav>
 
-            <button onclick="openEnquiryModal()" class="px-5 py-2.5 rounded-xl bg-coral text-paper font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all">
-                Enquire Now
-            </button>
+            <div class="flex items-center gap-2 sm:gap-3">
+                <div class="hidden md:flex items-center gap-3 pr-3 mr-1 border-r border-ink/10">
+                    <a href="https://www.facebook.com/meerasmritiofficial/" target="_blank" rel="noopener" aria-label="Facebook" class="text-ink/50 hover:text-teal transition-colors"><i class="fa-brands fa-facebook text-lg"></i></a>
+                    <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" rel="noopener" aria-label="YouTube" class="text-ink/50 hover:text-coral transition-colors"><i class="fa-brands fa-youtube text-lg"></i></a>
+                </div>
+                <a id="account-link" href="/login.html" class="hidden sm:inline-block px-4 py-2.5 rounded-xl border-2 border-ink/15 text-ink font-display font-semibold text-xs hover:border-teal hover:text-teal transition-all">
+                    Login
+                </a>
+                <button onclick="openEnquiryModal()" class="px-5 py-2.5 rounded-xl bg-coral text-paper font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all">
+                    Enquire Now
+                </button>
+            </div>
         </div>
+
+        <!-- Admission window banner -->
+        <div id="admission-banner" class="text-center text-xs font-display font-semibold py-2 px-4"></div>
     </header>
+
+    <!-- Marquee strip -->
+    <div class="bg-ink text-paper py-2.5 overflow-hidden">
+        <div class="marquee-track font-display text-xs font-semibold tracking-wide">
+            <span class="flex items-center gap-3 px-6">
+                <i class="fa-solid fa-star text-saffron"></i> Admissions open June&ndash;August
+                <i class="fa-solid fa-star text-saffron"></i> 32 years of trust &middot; 50,000+ students
+                <i class="fa-solid fa-star text-saffron"></i> Free trial class for every new student
+                <i class="fa-solid fa-star text-saffron"></i> Annual exhibition every year
+                <i class="fa-solid fa-star text-saffron"></i> WhatsApp us anytime
+            </span>
+            <span class="flex items-center gap-3 px-6" aria-hidden="true">
+                <i class="fa-solid fa-star text-saffron"></i> Admissions open June&ndash;August
+                <i class="fa-solid fa-star text-saffron"></i> 32 years of trust &middot; 50,000+ students
+                <i class="fa-solid fa-star text-saffron"></i> Free trial class for every new student
+                <i class="fa-solid fa-star text-saffron"></i> Annual exhibition every year
+                <i class="fa-solid fa-star text-saffron"></i> WhatsApp us anytime
+            </span>
+        </div>
+    </div>
 
     <main class="relative z-10">
 
@@ -117,11 +205,11 @@
             <div class="max-w-6xl mx-auto grid md:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
                 <div>
                     <span class="inline-block px-4 py-1.5 rounded-full bg-sky text-teal font-semibold text-xs mb-6">
-                        Nurturing young artists since inception
+                        32 years of trust in Hooghly, West Bengal
                     </span>
                     <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.1] mb-6 text-ink">
-                        Where every child learns to see, draw, and dream in
-                        <span class="crayon-underline text-coral"> colour.</span>
+                        Where every child learns to see, draw, and
+                        <span class="gradient-text crayon-underline"> dream in colour.</span>
                     </h1>
                     <p class="text-base sm:text-lg text-ink/70 mb-8 leading-relaxed max-w-xl">
                         Meera Smriti Sishu Ankan Siksha Kendra is a dedicated art and drawing academy for children, building confidence, creativity and discipline through structured, age-appropriate art education.
@@ -133,24 +221,28 @@
                         <a href="#programs" class="px-7 py-3.5 rounded-xl border-2 border-ink/15 text-ink font-display font-semibold text-sm hover:border-teal hover:text-teal transition-all inline-flex items-center gap-2">
                             View Programmes
                         </a>
+                        <a href="https://wa.me/917947416674?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20admissions%20at%20Meera%20Smriti%20Sishu%20Ankan%20Siksha%20Kendra." target="_blank" rel="noopener"
+                           class="px-7 py-3.5 rounded-xl bg-[#25D366] text-white font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all inline-flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+                        </a>
                     </div>
                     <div class="flex gap-8 mt-10 text-center sm:text-left">
                         <div>
-                            <div class="font-display text-2xl font-bold text-teal">200+</div>
-                            <div class="text-xs text-ink/60 font-medium">Students Trained</div>
+                            <div class="font-display text-2xl font-bold text-teal">50,000+</div>
+                            <div class="text-xs text-ink/60 font-medium">Successful Students</div>
                         </div>
                         <div>
-                            <div class="font-display text-2xl font-bold text-teal">6</div>
-                            <div class="text-xs text-ink/60 font-medium">Age-wise Levels</div>
+                            <div class="font-display text-2xl font-bold text-teal">32</div>
+                            <div class="text-xs text-ink/60 font-medium">Years of Trust</div>
                         </div>
                         <div>
-                            <div class="font-display text-2xl font-bold text-teal">15+</div>
-                            <div class="text-xs text-ink/60 font-medium">Art Disciplines</div>
+                            <div class="font-display text-2xl font-bold text-teal">500+</div>
+                            <div class="text-xs text-ink/60 font-medium">5-Star Ratings</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="relative">
+                <div class="relative float-slow">
                     <div class="bg-white rounded-3xl p-4 pb-10 rotate-[-3deg] card-shadow torn-edge">
                         <div class="h-72 md:h-80 rounded-xl bg-gradient-to-br from-sky to-saffron/30 flex items-center justify-center text-teal/50 text-6xl">
                             <i class="fa-solid fa-palette"></i>
@@ -221,7 +313,7 @@
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-8">
-                    <div class="bg-white rounded-3xl p-7 card-shadow flex flex-col">
+                    <div class="bg-white rounded-3xl p-7 card-shadow lift-hover flex flex-col">
                         <div class="h-14 w-14 rounded-2xl bg-saffron/20 flex items-center justify-center text-saffron text-xl mb-6">
                             <i class="fa-solid fa-shapes"></i>
                         </div>
@@ -233,7 +325,7 @@
                         </button>
                     </div>
 
-                    <div class="bg-white rounded-3xl p-7 card-shadow flex flex-col ring-2 ring-teal">
+                    <div class="bg-white rounded-3xl p-7 card-shadow lift-hover flex flex-col ring-2 ring-teal">
                         <div class="h-14 w-14 rounded-2xl bg-teal/10 flex items-center justify-center text-teal text-xl mb-6">
                             <i class="fa-solid fa-pen-ruler"></i>
                         </div>
@@ -245,7 +337,7 @@
                         </button>
                     </div>
 
-                    <div class="bg-white rounded-3xl p-7 card-shadow flex flex-col">
+                    <div class="bg-white rounded-3xl p-7 card-shadow lift-hover flex flex-col">
                         <div class="h-14 w-14 rounded-2xl bg-coral/10 flex items-center justify-center text-coral text-xl mb-6">
                             <i class="fa-solid fa-paintbrush"></i>
                         </div>
@@ -276,28 +368,205 @@
             </div>
         </section>
 
+        <!-- Exhibitions -->
+        <section id="exhibitions" class="py-20 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="max-w-2xl mb-14">
+                    <span class="text-xs font-display font-semibold text-saffron uppercase tracking-wide">Beyond the Classroom</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-ink mt-2">Annual exhibitions &amp; events</h2>
+                    <p class="text-ink/70 text-sm mt-4 leading-relaxed">Every year, students showcase their work to family and the community at our Annual Art Exhibition &mdash; a tradition that has run for over three decades, with the latest being our 31st edition.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-3xl overflow-hidden card-shadow lift-hover">
+                        <div class="h-44 bg-gradient-to-br from-saffron/25 to-white flex items-center justify-center text-saffron/50 text-4xl">
+                            <i class="fa-solid fa-easel"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-[11px] font-display font-semibold text-ink/50 uppercase">Annual Showcase</span>
+                            <h3 class="font-display text-lg font-bold text-ink mt-1 mb-2">End-of-Year Exhibition</h3>
+                            <p class="text-xs text-ink/65 leading-relaxed">Every student's best pieces from the year are displayed, with certificates awarded for progress in each level.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-3xl overflow-hidden card-shadow lift-hover">
+                        <div class="h-44 bg-gradient-to-br from-teal/15 to-white flex items-center justify-center text-teal/50 text-4xl">
+                            <i class="fa-solid fa-people-group"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-[11px] font-display font-semibold text-ink/50 uppercase">Community Event</span>
+                            <h3 class="font-display text-lg font-bold text-ink mt-1 mb-2">Open House for Families</h3>
+                            <p class="text-xs text-ink/65 leading-relaxed">Parents and siblings visit the studio, meet instructors, and see live sketching demonstrations by senior students.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-3xl overflow-hidden card-shadow lift-hover">
+                        <div class="h-44 bg-gradient-to-br from-coral/15 to-white flex items-center justify-center text-coral/50 text-4xl">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-[11px] font-display font-semibold text-ink/50 uppercase">Competitions</span>
+                            <h3 class="font-display text-lg font-bold text-ink mt-1 mb-2">Inter-School Art Contests</h3>
+                            <p class="text-xs text-ink/65 leading-relaxed">Selected students are entered into local and state-level art competitions with dedicated coaching beforehand.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section id="testimonials" class="py-20 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="max-w-2xl mb-14">
+                    <span class="text-xs font-display font-semibold text-coral uppercase tracking-wide">Parents Speak</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-ink mt-2">What families tell us</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-3xl p-7 card-shadow lift-hover">
+                        <div class="flex gap-1 text-saffron mb-4">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-sm text-ink/70 leading-relaxed mb-6">"My daughter looks forward to her class every week. Her patience and attention to detail have improved so much since she started."</p>
+                        <p class="font-display font-semibold text-ink text-sm">Ananya's Mother</p>
+                        <p class="text-xs text-ink/50">Little Artists Foundation</p>
+                    </div>
+                    <div class="bg-white rounded-3xl p-7 card-shadow lift-hover">
+                        <div class="flex gap-1 text-saffron mb-4">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-sm text-ink/70 leading-relaxed mb-6">"The instructors genuinely care about each child's progress, not just finishing the syllabus. Small batch sizes make a real difference."</p>
+                        <p class="font-display font-semibold text-ink text-sm">Rahul's Father</p>
+                        <p class="text-xs text-ink/50">Drawing &amp; Composition</p>
+                    </div>
+                    <div class="bg-white rounded-3xl p-7 card-shadow lift-hover">
+                        <div class="flex gap-1 text-saffron mb-4">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-sm text-ink/70 leading-relaxed mb-6">"My son built a whole portfolio here before his school application. The guidance for older students is genuinely thorough."</p>
+                        <p class="font-display font-semibold text-ink text-sm">Priya's Mother</p>
+                        <p class="text-xs text-ink/50">Advanced Portfolio Studio</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fees & Timings -->
+        <section id="fees" class="py-20 px-6 bg-paperDeep border-y-2 border-ink/10">
+            <div class="max-w-4xl mx-auto text-center">
+                <span class="text-xs font-display font-semibold text-teal uppercase tracking-wide">Plan Your Visit</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-ink mt-2 mb-6">Timings and fees, tailored to your child</h2>
+                <p class="text-ink/70 leading-relaxed max-w-xl mx-auto mb-10">
+                    We don't run one fixed timetable. Weekday and weekend batch slots, class frequency, and fees are discussed directly with each family based on the child's age group, chosen programme, and seat availability at the time of enquiry &mdash; over a call or WhatsApp, not a price list.
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <button onclick="openEnquiryModal()" class="px-7 py-3.5 rounded-xl bg-teal text-white font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all inline-flex items-center gap-2">
+                        <i class="fa-solid fa-comments"></i> Discuss Timings &amp; Fees
+                    </button>
+                    <a href="https://wa.me/917947416674?text=Hi%2C%20I%27d%20like%20to%20discuss%20batch%20timings%20and%20fees." target="_blank" rel="noopener"
+                       class="px-7 py-3.5 rounded-xl bg-[#25D366] text-white font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all inline-flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Ask on WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section id="faq" class="py-20 px-6">
+            <div class="max-w-3xl mx-auto">
+                <div class="mb-12 text-center">
+                    <span class="text-xs font-display font-semibold text-coral uppercase tracking-wide">Common Questions</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-ink mt-2">Frequently asked questions</h2>
+                </div>
+                <div class="space-y-4">
+                    <details class="bg-white rounded-2xl p-6 card-shadow group">
+                        <summary class="font-display font-semibold text-ink cursor-pointer list-none flex items-center justify-between">
+                            Is a free trial class available?
+                            <i class="fa-solid fa-chevron-down text-ink/40 text-sm group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-sm text-ink/65 mt-3 leading-relaxed">Yes. Every new student can attend one trial class before enrolling, so both the child and parents can see our teaching style firsthand.</p>
+                    </details>
+                    <details class="bg-white rounded-2xl p-6 card-shadow group">
+                        <summary class="font-display font-semibold text-ink cursor-pointer list-none flex items-center justify-between">
+                            What materials does my child need to bring?
+                            <i class="fa-solid fa-chevron-down text-ink/40 text-sm group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-sm text-ink/65 mt-3 leading-relaxed">A basic art kit list is shared at admission. Foundation-level students can use materials available at the centre for their first few classes.</p>
+                    </details>
+                    <details class="bg-white rounded-2xl p-6 card-shadow group">
+                        <summary class="font-display font-semibold text-ink cursor-pointer list-none flex items-center justify-between">
+                            Can students switch batches or levels later?
+                            <i class="fa-solid fa-chevron-down text-ink/40 text-sm group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-sm text-ink/65 mt-3 leading-relaxed">Yes, students are reassessed periodically and can move up a level or switch timing slots, subject to seat availability.</p>
+                    </details>
+                    <details class="bg-white rounded-2xl p-6 card-shadow group">
+                        <summary class="font-display font-semibold text-ink cursor-pointer list-none flex items-center justify-between">
+                            How do I get in touch quickly?
+                            <i class="fa-solid fa-chevron-down text-ink/40 text-sm group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-sm text-ink/65 mt-3 leading-relaxed">The fastest way is WhatsApp using the button at the top or bottom-right of this page. You can also fill the enquiry form and we'll call you back.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
         <!-- Admissions -->
         <section id="admissions" class="py-20 px-6">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="font-display text-3xl sm:text-4xl font-bold text-ink mb-4">Ready to begin the journey?</h2>
                 <p class="text-ink/70 mb-8 max-w-xl mx-auto">Book a free trial class and let your child experience our teaching approach before enrolling.</p>
-                <button onclick="openEnquiryModal()" class="px-8 py-4 rounded-xl bg-coral text-paper font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all inline-flex items-center gap-2">
-                    <i class="fa-solid fa-envelope"></i> Send an Enquiry
-                </button>
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <button onclick="openEnquiryModal()" class="px-8 py-4 rounded-xl bg-coral text-paper font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all inline-flex items-center gap-2">
+                        <i class="fa-solid fa-envelope"></i> Send an Enquiry
+                    </button>
+                    <a href="https://wa.me/917947416674?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20admissions%20at%20Meera%20Smriti%20Sishu%20Ankan%20Siksha%20Kendra." target="_blank" rel="noopener"
+                       class="px-8 py-4 rounded-xl bg-[#25D366] text-white font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all inline-flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+                    </a>
+                </div>
             </div>
         </section>
     </main>
 
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/917947416674?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20admissions%20at%20Meera%20Smriti%20Sishu%20Ankan%20Siksha%20Kendra." target="_blank" rel="noopener"
+       class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center text-2xl shadow-[4px_4px_0_0_#2B2418] hover:scale-105 transition-transform"
+       aria-label="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
     <!-- Footer -->
     <footer class="border-t-2 border-ink/10 bg-paperDeep py-12 px-6">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-teal text-paper flex items-center justify-center font-display font-bold">म</div>
-                <div>
-                    <p class="font-display font-semibold text-ink text-sm">Meera Smriti Sishu Ankan Siksha Kendra</p>
-                    <p class="text-xs text-ink/55">A children's art &amp; drawing education academy</p>
+        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-10 mb-10">
+            <div>
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-teal text-paper flex items-center justify-center font-display font-bold">म</div>
+                    <p class="font-display font-semibold text-ink text-sm">Meera Smriti<br><span class="font-normal text-xs text-ink/55">Sishu Ankan Siksha Kendra</span></p>
+                </div>
+                <p class="text-xs text-ink/55 leading-relaxed">A dedicated children's art &amp; drawing education academy.</p>
+            </div>
+            <div>
+                <p class="font-display font-semibold text-ink text-sm mb-3">Quick Links</p>
+                <ul class="text-xs text-ink/60 space-y-2">
+                    <li><a href="#programs" class="hover:text-teal">Programmes</a></li>
+                    <li><a href="#exhibitions" class="hover:text-teal">Exhibitions</a></li>
+                    <li><a href="#faq" class="hover:text-teal">FAQ</a></li>
+                    <li><a href="/register.html" class="hover:text-teal">Parent Registration</a></li>
+                    <li><a href="/admin/login" class="hover:text-teal">Admin Login</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="font-display font-semibold text-ink text-sm mb-3">Get in Touch</p>
+                <ul class="text-xs text-ink/60 space-y-2 mb-4">
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot mt-0.5 text-coral"></i> Dr. P. T. Laha Street, Rishra, Hooghly &ndash; 712248 (near Volleyball Play Ground)</li>
+                    <li class="flex items-center gap-2"><i class="fa-brands fa-whatsapp text-[#25D366]"></i> +91 79474 16674</li>
+                    <li class="text-ink/45">Branches also in Uttarpara &amp; Konnagar, Hooghly</li>
+                </ul>
+                <div class="flex items-center gap-4">
+                    <a href="https://www.facebook.com/meerasmritiofficial/" target="_blank" rel="noopener" aria-label="Facebook" class="w-9 h-9 rounded-lg bg-white flex items-center justify-center text-ink/60 hover:text-teal card-shadow"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" rel="noopener" aria-label="YouTube" class="w-9 h-9 rounded-lg bg-white flex items-center justify-center text-ink/60 hover:text-coral card-shadow"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
+        </div>
+        <div class="max-w-6xl mx-auto border-t border-ink/10 pt-6 text-center">
             <p class="text-xs text-ink/50">&copy; 2026 Meera Smriti Sishu Ankan Siksha Kendra. All rights reserved.</p>
         </div>
     </footer>
@@ -317,14 +586,22 @@
                 <p class="text-xs text-ink/60 mt-1">We'll get back to you within one working day.</p>
             </div>
 
-            <form onsubmit="handleEnquirySubmit(event)" class="space-y-4">
-                <input type="text" required placeholder="Parent / Guardian Name" class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-teal">
-                <input type="text" required placeholder="Child's Name &amp; Age" class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-teal">
-                <input type="tel" required placeholder="Contact Number" class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-teal">
-                <textarea rows="3" placeholder="Any message or question (optional)" class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-teal"></textarea>
-                <button type="submit" class="w-full py-3.5 rounded-xl bg-teal text-white font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all">
+            <form id="enquiry-form" class="space-y-4" enctype="multipart/form-data">
+                <input id="enq-parent" type="text" required placeholder="Parent / Guardian Name" class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-teal">
+                <input id="enq-child" type="text" required placeholder="Child's Name &amp; Age" class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-teal">
+                <input id="enq-phone" type="tel" required placeholder="Contact Number" class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-teal">
+                <textarea id="enq-message" rows="3" placeholder="Any message or question (optional)" class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-teal"></textarea>
+
+                <label for="enq-photo" class="block w-full border-2 border-dashed border-ink/15 rounded-xl px-4 py-4 text-center cursor-pointer hover:border-teal transition-colors">
+                    <i class="fa-solid fa-camera text-ink/40 text-lg mb-1 block"></i>
+                    <span id="enq-photo-label" class="text-xs text-ink/50">Attach a photo as proof (optional) &mdash; birth certificate, prior artwork, etc.</span>
+                    <input id="enq-photo" type="file" accept="image/*" class="hidden">
+                </label>
+
+                <button type="submit" id="enq-submit-btn" class="w-full py-3.5 rounded-xl bg-teal text-white font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all">
                     Submit Enquiry
                 </button>
+                <p id="enq-error" class="hidden text-coral text-xs text-center font-medium"></p>
             </form>
 
             <div id="modal-success" class="hidden text-center py-6 space-y-3">
@@ -332,7 +609,7 @@
                     <i class="fa-solid fa-check"></i>
                 </div>
                 <h4 class="font-display font-bold text-ink text-base">Enquiry Received</h4>
-                <p class="text-xs text-ink/60">Thank you! Our team will contact you shortly to schedule a trial class.</p>
+                <p class="text-xs text-ink/60">Thank you! Our team will contact you shortly to discuss timings and next steps.</p>
                 <button onclick="closeEnquiryModal()" class="w-full py-2.5 rounded-xl bg-paperDeep text-ink font-display font-semibold text-sm">Close</button>
             </div>
         </div>
@@ -353,11 +630,91 @@
             container.classList.add('scale-95');
             modal.classList.add('opacity-0', 'pointer-events-none');
         }
-        function handleEnquirySubmit(e) {
+
+        const enquiryForm = document.getElementById('enquiry-form');
+        const enqError = document.getElementById('enq-error');
+        const enqSubmitBtn = document.getElementById('enq-submit-btn');
+        const enqPhotoInput = document.getElementById('enq-photo');
+        const enqPhotoLabel = document.getElementById('enq-photo-label');
+
+        enqPhotoInput.addEventListener('change', () => {
+            enqPhotoLabel.textContent = enqPhotoInput.files[0]
+                ? enqPhotoInput.files[0].name
+                : 'Attach a photo as proof (optional) — birth certificate, prior artwork, etc.';
+        });
+
+        enquiryForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            e.target.classList.add('hidden');
-            document.getElementById('modal-success').classList.remove('hidden');
-        }
+            enqError.classList.add('hidden');
+            enqSubmitBtn.disabled = true;
+            enqSubmitBtn.textContent = 'Sending...';
+
+            try {
+                const formData = new FormData();
+                formData.append('parentName', document.getElementById('enq-parent').value);
+                formData.append('childName', document.getElementById('enq-child').value);
+                formData.append('phone', document.getElementById('enq-phone').value);
+                formData.append('message', document.getElementById('enq-message').value);
+                if (enqPhotoInput.files[0]) formData.append('photo', enqPhotoInput.files[0]);
+
+                const res = await fetch('/api/enquiry', { method: 'POST', body: formData });
+                const data = await res.json();
+
+                if (res.ok && data.success) {
+                    enquiryForm.classList.add('hidden');
+                    document.getElementById('modal-success').classList.remove('hidden');
+                } else {
+                    enqError.textContent = data.error || 'Something went wrong. Please try again.';
+                    enqError.classList.remove('hidden');
+                }
+            } catch (err) {
+                enqError.textContent = 'Network error. Please try again or message us on WhatsApp.';
+                enqError.classList.remove('hidden');
+            } finally {
+                enqSubmitBtn.disabled = false;
+                enqSubmitBtn.textContent = 'Submit Enquiry';
+            }
+        });
+
+        // Admission window banner + gating the enquiry form's messaging
+        fetch('/api/admission-status')
+            .then(r => r.json())
+            .then(data => {
+                const banner = document.getElementById('admission-banner');
+                if (data.open) {
+                    banner.textContent = 'Admissions are OPEN for this session (June \u2013 August)';
+                    banner.classList.add('bg-teal/10', 'text-teal');
+                } else {
+                    banner.textContent = 'Admissions are closed right now \u2014 they open every June through August';
+                    banner.classList.add('bg-coral/10', 'text-coral');
+                }
+            })
+            .catch(() => {});
+
+        // Swap header Login link to My Account if a parent session exists
+        fetch('/api/auth/me')
+            .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+            .then(data => {
+                const link = document.getElementById('account-link');
+                link.textContent = 'My Account';
+                link.href = '/account';
+            })
+            .catch(() => {});
+
+        // Scroll-reveal: fade/slide up each section's main content block as it enters view
+        const revealTargets = document.querySelectorAll('main > section > div');
+        revealTargets.forEach(el => el.classList.add('reveal'));
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        revealTargets.forEach(el => revealObserver.observe(el));
     </script>
 </body>
 </html>
