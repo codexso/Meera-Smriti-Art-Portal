@@ -1,203 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meera Smriti Academy | Excellence in Education</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-      background: #f8fafc;
-    }
-
-    .hero-peak {
-      position: relative;
-      background: linear-gradient(135deg, #7a1c1c 0%, #4a1010 100%);
-      color: white;
-      border-radius: 20px;
-      padding: 4rem 3rem;
-      margin-bottom: 2.5rem;
-      overflow: hidden;
-      box-shadow: 0 20px 40px -15px rgba(122, 28, 28, 0.3);
-    }
-
-    .hero-peak::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 450px;
-      height: 450px;
-      background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .hero-title {
-      font-size: 2.75rem;
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -0.025em;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-desc {
-      font-size: 1.125rem;
-      color: rgba(255, 255, 255, 0.88);
-      max-width: 620px;
-      margin-bottom: 2rem;
-      line-height: 1.6;
-    }
-
-    .hero-btn-group {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .btn-gold {
-      background: var(--accent);
-      color: #0f172a !important;
-      padding: 0.85rem 1.75rem;
-      border-radius: 10px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-    }
-
-    .btn-gold:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
-    }
-
-    .btn-glass {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(8px);
-      color: white !important;
-      padding: 0.85rem 1.75rem;
-      border-radius: 10px;
-      font-weight: 600;
-      text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: all 0.2s ease;
-    }
-
-    .btn-glass:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .peak-card {
-      background: #ffffff;
-      border-radius: 16px;
-      border: 1px solid #e2e8f0;
-      padding: 2rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-      transition: all 0.25s ease;
-    }
-
-    .peak-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.08);
-      border-color: rgba(122, 28, 28, 0.2);
-    }
-
-    .card-icon-wrapper {
-      width: 48px;
-      height: 48px;
-      background: #fef2f2;
-      color: var(--primary);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.25rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Meera Smriti</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <div class="nav-container">
-      <a href="index.html" class="brand">
-        <div class="brand-badge">M</div>
-        <span>Meera Smriti Academy</span>
-      </a>
-      <nav>
-        <ul>
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="notices.html">Notices</a></li>
-          <li><a href="admission.html">Admission</a></li>
-          <li><a href="fee.html">Fee Structure</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="contacts.html">Contact</a></li>
-          <li><a href="login.html" class="btn-login">Portal Login</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero-peak">
-      <h1 class="hero-title">Nurturing Minds, Shaping Future Leaders</h1>
-      <p class="hero-desc">Empowering students with holistic education, strong core values, modern infrastructure, and academic excellence.</p>
-      <div class="hero-btn-group">
-        <a href="admission.html" class="btn-gold">Apply for Admission</a>
-        <a href="notices.html" class="btn-glass">Notice Board &rarr;</a>
-      </div>
-    </section>
-
-    <div class="grid">
-      <div class="peak-card">
-        <div class="card-icon-wrapper">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"></path>
-          </svg>
+    <header class="header-nav">
+        <h2>🎨 Meera Smriti Siksha Kendra</h2>
+        <div class="social-badges">
+            <a href="https://www.youtube.com/@meerasmriti5551" target="_blank">YouTube</a>
+            <a href="https://www.instagram.com/meerasmriti/?hl=en" target="_blank">Instagram</a>
         </div>
-        <h3 style="font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Digital Notice Board</h3>
-        <p style="color: #64748b; font-size: 0.925rem; margin-bottom: 1.25rem;">Stay informed with real-time school announcements, exam dates, and holiday updates.</p>
-        <a href="notices.html" style="color: var(--primary); font-weight: 700; text-decoration: none;">View Notices &rarr;</a>
-      </div>
+    </header>
 
-      <div class="peak-card">
-        <div class="card-icon-wrapper">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-          </svg>
+    <div class="dashboard-container">
+        <!-- Admission Form -->
+        <div class="card">
+            <h3>📝 New Admission</h3>
+            <form id="admissionForm">
+                <div class="input-group">
+                    <input type="text" id="studentName" placeholder="Artist Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="courseName" placeholder="Batch / Course Level" required>
+                </div>
+                <button type="submit" class="btn-primary">Register Student</button>
+            </form>
         </div>
-        <h3 style="font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Admissions Open</h3>
-        <p style="color: #64748b; font-size: 0.925rem; margin-bottom: 1.25rem;">Enrollments are open for the new session. Explore guidelines and eligibility details.</p>
-        <a href="admission.html" style="color: var(--primary); font-weight: 700; text-decoration: none;">Admission Criteria &rarr;</a>
-      </div>
 
-      <div class="peak-card">
-        <div class="card-icon-wrapper">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <rect x="2" y="5" width="20" height="14" rx="2"></rect>
-            <line x1="2" y1="10" x2="22" y2="10"></line>
-          </svg>
+        <!-- Database List -->
+        <div class="card">
+            <h3>🗄️ Active Roster</h3>
+            <ul class="student-list" id="dbList">
+                <!-- Javascript will inject items here -->
+            </ul>
         </div>
-        <h3 style="font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Transparent Fee Portal</h3>
-        <p style="color: #64748b; font-size: 0.925rem; margin-bottom: 1.25rem;">View class-wise fee schedules and clear breakdown for academic terms.</p>
-        <a href="fee.html" style="color: var(--primary); font-weight: 700; text-decoration: none;">Fee Structure &rarr;</a>
-      </div>
     </div>
-  </main>
 
-  <footer>
-    <div class="footer-container">
-      <p>&copy; Meera Smriti Academy. All rights reserved.</p>
-      <div class="footer-links">
-        <a href="contacts.html">Contact Us</a>
-        <a href="login.html">Portal Login</a>
-      </div>
-    </div>
-  </footer>
-
-  <script src="js/app.js"></script>
+    <!-- Frontend Logic -->
+    <script src="js/app.js"></script>
 </body>
 </html>
