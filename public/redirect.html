@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entering...</title>
+    <title>Entering Workspace...</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="slice-body">
@@ -12,8 +12,15 @@
     <div class="slice bottom">ART PORTAL</div>
 
     <script>
-        setTimeout(() => document.body.classList.add('slice-open'), 800);
-        setTimeout(() => window.location.href = 'index.html', 2400);
+        // Trigger the cinematic slice open after 0.8s
+        setTimeout(() => {
+            document.body.classList.add('slice-open');
+        }, 800);
+        
+        // Redirect to the actual dashboard after the animation finishes
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 2400);
     </script>
 </body>
 </html>
