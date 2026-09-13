@@ -1,95 +1,363 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meera Smriti Siksha Kendra</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+    <title>Meera Smriti Sishu Ankan Siksha Kendra | Children's Art &amp; Drawing Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ink: '#2B2418',
+                        paper: '#FFF9EF',
+                        paperDeep: '#FBF1DE',
+                        saffron: '#E8A33D',
+                        teal: '#1B7A72',
+                        tealDeep: '#0F5750',
+                        coral: '#D8553D',
+                        sky: '#F3E3C3'
+                    },
+                    fontFamily: {
+                        display: ['"Baloo 2"', 'sans-serif'],
+                        body: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #FFF9EF; color: #2B2418; font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Baloo 2', sans-serif; }
 
-    <!-- STICKY NAVIGATION -->
-    <header class="header">
-        <a href="#" class="nav-brand">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCpKBUfuUpIuqjk153ybj_M3VNOOmpp2KjQOCGwYxSVw&s" class="logo-img" alt="Logo">
-            Meera Smriti
-        </a>
-        <div class="social-links">
-            <a href="#about">About</a>
-            <a href="#register">Register</a>
-            <a href="#contact">Contact</a>
-            <a href="login.html" style="border-color: var(--accent); color: var(--accent);">Admin Login</a>
+        /* Crayon underline */
+        .crayon-underline {
+            position: relative;
+            display: inline-block;
+        }
+        .crayon-underline::after {
+            content: '';
+            position: absolute;
+            left: -2%;
+            right: -2%;
+            bottom: 0.05em;
+            height: 0.4em;
+            background: #E8A33D;
+            opacity: 0.55;
+            border-radius: 40% 60% 55% 45% / 60% 50% 50% 40%;
+            z-index: -1;
+        }
+
+        .blob {
+            border-radius: 62% 38% 55% 45% / 45% 55% 45% 55%;
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 0 0 rgba(43,36,24,0.08);
+        }
+
+        .torn-edge {
+            clip-path: polygon(0% 2%, 4% 0%, 9% 3%, 14% 0%, 19% 2%, 24% 0%, 29% 3%, 34% 1%, 39% 2%, 44% 0%, 49% 3%, 54% 1%, 59% 2%, 64% 0%, 69% 3%, 74% 1%, 79% 2%, 84% 0%, 89% 3%, 94% 1%, 100% 2%, 100% 100%, 0% 100%);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FBF1DE; }
+        ::-webkit-scrollbar-thumb { background: #E8A33D; border-radius: 4px; }
+
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: '';
+            position: absolute; left: 0; bottom: -4px;
+            width: 0; height: 3px;
+            background: #D8553D; border-radius: 3px;
+            transition: width 0.25s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-saffron selection:text-ink overflow-x-hidden">
+
+    <!-- Decorative background blobs -->
+    <div class="fixed top-[-8%] right-[-6%] w-[420px] h-[420px] bg-saffron/15 blob pointer-events-none"></div>
+    <div class="fixed bottom-[-10%] left-[-8%] w-[480px] h-[480px] bg-teal/10 blob pointer-events-none"></div>
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-40 bg-paper/90 backdrop-blur-sm border-b-2 border-ink/10">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <div class="w-12 h-12 rounded-2xl bg-teal flex items-center justify-center text-paper font-display font-bold text-2xl shadow-[4px_4px_0_0_#E8A33D]">
+                    म
+                </div>
+                <div class="leading-tight">
+                    <span class="font-display font-bold text-lg text-ink block">Meera Smriti</span>
+                    <span class="text-[11px] text-ink/60 font-medium tracking-wide">Sishu Ankan Siksha Kendra</span>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-ink/80">
+                <a href="#about" class="nav-link hover:text-teal">About Us</a>
+                <a href="#programs" class="nav-link hover:text-teal">Programmes</a>
+                <a href="#gallery" class="nav-link hover:text-teal">Student Gallery</a>
+                <a href="#admissions" class="nav-link hover:text-teal">Admissions</a>
+            </nav>
+
+            <button onclick="openEnquiryModal()" class="px-5 py-2.5 rounded-xl bg-coral text-paper font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all">
+                Enquire Now
+            </button>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <h1>Unleash Your Creativity</h1>
-        <p>Welcome to Meera Smriti Siksha Kendra. We provide premium art education and drawing classes for students of all ages. Join our community of artists today.</p>
-        <a href="#register" class="btn btn-accent" style="width: auto; padding: 16px 32px; font-size: 1.1rem; text-decoration: none;">Apply for Admission</a>
-    </section>
+    <main class="relative z-10">
 
-    <!-- ABOUT SECTION -->
-    <section id="about" class="section">
-        <h2 class="section-title">About The Studio</h2>
-        <div class="grid-2">
-            <div class="card">
-                <h3 style="margin-bottom: 15px;">Our Mission</h3>
-                <p style="color: var(--text-muted); line-height: 1.6;">To nurture raw talent and provide a structured, professional environment where young minds can master the fundamentals of fine arts and drawing.</p>
-            </div>
-            <div class="card">
-                <h3 style="margin-bottom: 15px;">What We Offer</h3>
-                <ul class="list" style="color: var(--text-muted);">
-                    <li>✏️ Beginner Sketching & Fundamentals</li>
-                    <li>🎨 Advanced Watercolor & Oil Painting</li>
-                    <li>🏆 Certification Batches</li>
-                    <li>🖼️ Annual Art Exhibitions</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- REGISTRATION SECTION -->
-    <section id="register" class="section" style="background: var(--bg-card);">
-        <h2 class="section-title">Open Admissions</h2>
-        <div class="card" style="max-width: 500px; margin: 0 auto;">
-            <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;">Fill out the form below to register. Our admin team will review your application.</p>
-            <form id="publicAdmissionForm">
-                <div class="input-group"><input type="text" id="name" placeholder="Full Student Name" required></div>
-                <div class="input-group">
-                    <select id="course" style="width: 100%; background: var(--bg-main); border: 1px solid var(--border); color: var(--text-primary); padding: 12px; border-radius: 8px;">
-                        <option value="Beginner Art Batch">Beginner Art Batch</option>
-                        <option value="Advanced Painting">Advanced Painting</option>
-                        <option value="Weekend Hobby Class">Weekend Hobby Class</option>
-                    </select>
+        <!-- Hero -->
+        <section class="py-16 md:py-24 px-6">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
+                <div>
+                    <span class="inline-block px-4 py-1.5 rounded-full bg-sky text-teal font-semibold text-xs mb-6">
+                        Nurturing young artists since inception
+                    </span>
+                    <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.1] mb-6 text-ink">
+                        Where every child learns to see, draw, and dream in
+                        <span class="crayon-underline text-coral"> colour.</span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-ink/70 mb-8 leading-relaxed max-w-xl">
+                        Meera Smriti Sishu Ankan Siksha Kendra is a dedicated art and drawing academy for children, building confidence, creativity and discipline through structured, age-appropriate art education.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-4">
+                        <a href="#admissions" class="px-7 py-3.5 rounded-xl bg-teal text-paper font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all inline-flex items-center gap-2">
+                            <i class="fa-solid fa-pencil"></i> Join a Free Trial Class
+                        </a>
+                        <a href="#programs" class="px-7 py-3.5 rounded-xl border-2 border-ink/15 text-ink font-display font-semibold text-sm hover:border-teal hover:text-teal transition-all inline-flex items-center gap-2">
+                            View Programmes
+                        </a>
+                    </div>
+                    <div class="flex gap-8 mt-10 text-center sm:text-left">
+                        <div>
+                            <div class="font-display text-2xl font-bold text-teal">200+</div>
+                            <div class="text-xs text-ink/60 font-medium">Students Trained</div>
+                        </div>
+                        <div>
+                            <div class="font-display text-2xl font-bold text-teal">6</div>
+                            <div class="text-xs text-ink/60 font-medium">Age-wise Levels</div>
+                        </div>
+                        <div>
+                            <div class="font-display text-2xl font-bold text-teal">15+</div>
+                            <div class="text-xs text-ink/60 font-medium">Art Disciplines</div>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-accent">Submit Registration</button>
-            </form>
-        </div>
-    </section>
 
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="section">
-        <h2 class="section-title">Get In Touch</h2>
-        <div class="grid-2" style="text-align: center;">
-            <div>
-                <h3 style="margin-bottom: 10px;">Location</h3>
-                <p style="color: var(--text-muted);">Kolkata, West Bengal, India</p>
-            </div>
-            <div>
-                <h3 style="margin-bottom: 10px;">Socials</h3>
-                <div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
-                    <a href="https://www.youtube.com/@meerasmriti5551" class="btn" style="width: auto; text-decoration: none;">YouTube</a>
-                    <a href="https://www.instagram.com/meerasmriti/?hl=en" class="btn" style="width: auto; text-decoration: none;">Instagram</a>
+                <div class="relative">
+                    <div class="bg-white rounded-3xl p-4 pb-10 rotate-[-3deg] card-shadow torn-edge">
+                        <div class="h-72 md:h-80 rounded-xl bg-gradient-to-br from-sky to-saffron/30 flex items-center justify-center text-teal/50 text-6xl">
+                            <i class="fa-solid fa-palette"></i>
+                        </div>
+                        <p class="text-center text-ink/60 text-xs mt-4 font-medium">"My Village" &mdash; Student artwork, Level 3</p>
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 bg-coral text-paper rounded-2xl px-5 py-4 rotate-[4deg] shadow-[4px_4px_0_0_#2B2418] hidden sm:block">
+                        <p class="font-display font-bold text-sm">Admissions Open</p>
+                        <p class="text-xs opacity-90">for the new session</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="footer">
-        &copy; 2026 Meera Smriti Siksha Kendra. All rights reserved. SOHAM License.
+        <!-- About -->
+        <section id="about" class="py-20 px-6 bg-paperDeep border-y-2 border-ink/10">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
+                <div>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-ink mb-6">
+                        Building skill, patience and imagination &mdash; one drawing at a time.
+                    </h2>
+                    <p class="text-ink/70 leading-relaxed mb-4">
+                        At Meera Smriti Sishu Ankan Siksha Kendra, we believe art education does more than teach children to draw. It teaches them to observe carefully, think independently, and express themselves with confidence.
+                    </p>
+                    <p class="text-ink/70 leading-relaxed">
+                        Our curriculum is structured by age group, moving students from basic shapes and colour theory through to composition, perspective and personal style, guided by trained art instructors in small batches.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-5">
+                    <div class="bg-white rounded-2xl p-6 card-shadow">
+                        <div class="w-11 h-11 rounded-xl bg-teal/10 text-teal flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-child-reaching"></i>
+                        </div>
+                        <h4 class="font-display font-semibold text-ink mb-1">Age-Wise Levels</h4>
+                        <p class="text-xs text-ink/60 leading-relaxed">Separate curricula for ages 4&ndash;7, 8&ndash;12 and 13+.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 card-shadow">
+                        <div class="w-11 h-11 rounded-xl bg-coral/10 text-coral flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <h4 class="font-display font-semibold text-ink mb-1">Small Batches</h4>
+                        <p class="text-xs text-ink/60 leading-relaxed">Individual attention with limited seats per class.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 card-shadow">
+                        <div class="w-11 h-11 rounded-xl bg-saffron/20 text-saffron flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <h4 class="font-display font-semibold text-ink mb-1">Certified Progress</h4>
+                        <p class="text-xs text-ink/60 leading-relaxed">Level certificates and annual exhibition of student work.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 card-shadow">
+                        <div class="w-11 h-11 rounded-xl bg-tealDeep/10 text-tealDeep flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                        </div>
+                        <h4 class="font-display font-semibold text-ink mb-1">Trained Faculty</h4>
+                        <p class="text-xs text-ink/60 leading-relaxed">Experienced instructors patient with young learners.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programmes -->
+        <section id="programs" class="py-20 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="max-w-2xl mb-14">
+                    <span class="text-xs font-display font-semibold text-coral uppercase tracking-wide">Our Programmes</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-ink mt-2">Courses for every young artist</h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-3xl p-7 card-shadow flex flex-col">
+                        <div class="h-14 w-14 rounded-2xl bg-saffron/20 flex items-center justify-center text-saffron text-xl mb-6">
+                            <i class="fa-solid fa-shapes"></i>
+                        </div>
+                        <span class="text-[11px] font-display font-semibold text-ink/50 uppercase mb-2">Ages 4&ndash;7</span>
+                        <h3 class="font-display text-xl font-bold text-ink mb-3">Little Artists Foundation</h3>
+                        <p class="text-sm text-ink/65 leading-relaxed mb-6 flex-1">Introduces shapes, colours and free-hand drawing through playful, sensory activities.</p>
+                        <button onclick="openEnquiryModal()" class="w-full py-3 rounded-xl bg-paperDeep hover:bg-saffron hover:text-white text-ink font-display font-semibold text-sm transition-all">
+                            Know More
+                        </button>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-7 card-shadow flex flex-col ring-2 ring-teal">
+                        <div class="h-14 w-14 rounded-2xl bg-teal/10 flex items-center justify-center text-teal text-xl mb-6">
+                            <i class="fa-solid fa-pen-ruler"></i>
+                        </div>
+                        <span class="text-[11px] font-display font-semibold text-ink/50 uppercase mb-2">Ages 8&ndash;12</span>
+                        <h3 class="font-display text-xl font-bold text-ink mb-3">Drawing &amp; Composition</h3>
+                        <p class="text-sm text-ink/65 leading-relaxed mb-6 flex-1">Perspective, shading, colour theory and structured composition exercises.</p>
+                        <button onclick="openEnquiryModal()" class="w-full py-3 rounded-xl bg-teal hover:opacity-90 text-white font-display font-semibold text-sm transition-all">
+                            Know More
+                        </button>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-7 card-shadow flex flex-col">
+                        <div class="h-14 w-14 rounded-2xl bg-coral/10 flex items-center justify-center text-coral text-xl mb-6">
+                            <i class="fa-solid fa-paintbrush"></i>
+                        </div>
+                        <span class="text-[11px] font-display font-semibold text-ink/50 uppercase mb-2">Ages 13+</span>
+                        <h3 class="font-display text-xl font-bold text-ink mb-3">Advanced Portfolio Studio</h3>
+                        <p class="text-sm text-ink/65 leading-relaxed mb-6 flex-1">Personal style, mixed media, and portfolio-building for competitions and exams.</p>
+                        <button onclick="openEnquiryModal()" class="w-full py-3 rounded-xl bg-paperDeep hover:bg-coral hover:text-white text-ink font-display font-semibold text-sm transition-all">
+                            Know More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section id="gallery" class="py-20 px-6 bg-paperDeep border-y-2 border-ink/10">
+            <div class="max-w-6xl mx-auto">
+                <div class="max-w-2xl mb-14">
+                    <span class="text-xs font-display font-semibold text-teal uppercase tracking-wide">Student Gallery</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-ink mt-2">A glimpse of young imagination</h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+                    <div class="aspect-square rounded-2xl bg-gradient-to-br from-saffron/30 to-white flex items-center justify-center text-saffron/60 text-3xl rotate-[-2deg] card-shadow"><i class="fa-solid fa-sun"></i></div>
+                    <div class="aspect-square rounded-2xl bg-gradient-to-br from-teal/20 to-white flex items-center justify-center text-teal/60 text-3xl rotate-[2deg] card-shadow"><i class="fa-solid fa-tree"></i></div>
+                    <div class="aspect-square rounded-2xl bg-gradient-to-br from-coral/20 to-white flex items-center justify-center text-coral/60 text-3xl rotate-[-1deg] card-shadow"><i class="fa-solid fa-fish"></i></div>
+                    <div class="aspect-square rounded-2xl bg-gradient-to-br from-sky to-white flex items-center justify-center text-teal/50 text-3xl rotate-[3deg] card-shadow"><i class="fa-solid fa-kite"></i></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admissions -->
+        <section id="admissions" class="py-20 px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-ink mb-4">Ready to begin the journey?</h2>
+                <p class="text-ink/70 mb-8 max-w-xl mx-auto">Book a free trial class and let your child experience our teaching approach before enrolling.</p>
+                <button onclick="openEnquiryModal()" class="px-8 py-4 rounded-xl bg-coral text-paper font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all inline-flex items-center gap-2">
+                    <i class="fa-solid fa-envelope"></i> Send an Enquiry
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t-2 border-ink/10 bg-paperDeep py-12 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-teal text-paper flex items-center justify-center font-display font-bold">म</div>
+                <div>
+                    <p class="font-display font-semibold text-ink text-sm">Meera Smriti Sishu Ankan Siksha Kendra</p>
+                    <p class="text-xs text-ink/55">A children's art &amp; drawing education academy</p>
+                </div>
+            </div>
+            <p class="text-xs text-ink/50">&copy; 2026 Meera Smriti Sishu Ankan Siksha Kendra. All rights reserved.</p>
+        </div>
     </footer>
 
-    <script src="js/public.js"></script>
+    <!-- Enquiry Modal -->
+    <div id="enquiry-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-ink/70 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 p-4">
+        <div class="bg-white max-w-md w-full p-8 rounded-3xl relative shadow-2xl scale-95 transition-transform duration-300" id="modal-container">
+            <button onclick="closeEnquiryModal()" class="absolute top-5 right-5 text-ink/40 hover:text-ink transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="w-14 h-14 rounded-2xl bg-teal/10 flex items-center justify-center text-teal text-2xl mx-auto mb-3">
+                    <i class="fa-solid fa-paintbrush"></i>
+                </div>
+                <h3 class="font-display text-xl font-bold text-ink">Admission Enquiry</h3>
+                <p class="text-xs text-ink/60 mt-1">We'll get back to you within one working day.</p>
+            </div>
+
+            <form onsubmit="handleEnquirySubmit(event)" class="space-y-4">
+                <input type="text" required placeholder="Parent / Guardian Name" class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-teal">
+                <input type="text" required placeholder="Child's Name &amp; Age" class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-teal">
+                <input type="tel" required placeholder="Contact Number" class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-teal">
+                <textarea rows="3" placeholder="Any message or question (optional)" class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-teal"></textarea>
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-teal text-white font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all">
+                    Submit Enquiry
+                </button>
+            </form>
+
+            <div id="modal-success" class="hidden text-center py-6 space-y-3">
+                <div class="w-12 h-12 bg-teal/10 rounded-full flex items-center justify-center text-teal text-xl mx-auto">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h4 class="font-display font-bold text-ink text-base">Enquiry Received</h4>
+                <p class="text-xs text-ink/60">Thank you! Our team will contact you shortly to schedule a trial class.</p>
+                <button onclick="closeEnquiryModal()" class="w-full py-2.5 rounded-xl bg-paperDeep text-ink font-display font-semibold text-sm">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openEnquiryModal() {
+            const modal = document.getElementById('enquiry-modal');
+            const container = document.getElementById('modal-container');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            container.classList.remove('scale-95');
+            container.classList.add('scale-100');
+        }
+        function closeEnquiryModal() {
+            const modal = document.getElementById('enquiry-modal');
+            const container = document.getElementById('modal-container');
+            container.classList.remove('scale-100');
+            container.classList.add('scale-95');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+        function handleEnquirySubmit(e) {
+            e.preventDefault();
+            e.target.classList.add('hidden');
+            document.getElementById('modal-success').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
