@@ -82,6 +82,51 @@
     </div>
 
     <div id="pagination" class="flex items-center justify-between mt-4 text-xs text-ink/60"></div>
+
+    <!-- Gallery management -->
+    <div class="mt-16">
+      <h2 class="font-display text-2xl font-bold mb-1">Gallery</h2>
+      <p class="text-ink/60 text-sm mb-6">Photos shown on the public /gallery page. Instructors can add photos too; only admins can delete.</p>
+
+      <form id="gallery-upload-form" class="flex flex-wrap items-center gap-3 mb-6 bg-white rounded-2xl p-4 shadow-[4px_4px_0_0_#2B2418]">
+        <input id="gallery-photo" type="file" accept="image/*" required class="text-xs">
+        <input id="gallery-caption" type="text" placeholder="Caption (optional)" class="flex-1 min-w-[160px] bg-paperDeep border border-ink/10 rounded-lg px-3 py-2 text-xs">
+        <button type="submit" class="px-4 py-2 rounded-lg bg-teal text-white font-display font-semibold text-xs">
+          <i class="fa-solid fa-upload"></i> Upload
+        </button>
+        <p id="gallery-error" class="hidden text-coral text-xs w-full"></p>
+      </form>
+
+      <div id="gallery-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-4"></div>
+    </div>
+
+    <!-- Announcements management -->
+    <div class="mt-16 mb-10">
+      <h2 class="font-display text-2xl font-bold mb-1">Announcements</h2>
+      <p class="text-ink/60 text-sm mb-6">Shown on the public /announcements page. Admin only.</p>
+
+      <form id="announcement-form" class="space-y-3 mb-6 bg-white rounded-2xl p-4 shadow-[4px_4px_0_0_#2B2418]">
+        <input id="announcement-title" type="text" required placeholder="Title" class="w-full bg-paperDeep border border-ink/10 rounded-lg px-3 py-2 text-sm">
+        <textarea id="announcement-body" required rows="2" placeholder="Details" class="w-full bg-paperDeep border border-ink/10 rounded-lg px-3 py-2 text-sm"></textarea>
+        <button type="submit" class="px-4 py-2 rounded-lg bg-coral text-white font-display font-semibold text-xs">
+          <i class="fa-solid fa-bullhorn"></i> Post Announcement
+        </button>
+      </form>
+
+      <div id="announcements-list" class="space-y-3"></div>
+    </div>
+
+    <!-- Subscribers -->
+    <div class="mt-16 mb-10">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="font-display text-2xl font-bold">Newsletter Subscribers</h2>
+        <a href="/api/admin/subscribers/export" class="px-4 py-2 rounded-lg bg-teal text-white font-display font-semibold text-xs inline-flex items-center gap-2">
+          <i class="fa-solid fa-file-csv"></i> Export CSV
+        </a>
+      </div>
+      <p class="text-ink/60 text-sm mb-6">Emails collected from the announcements page subscribe form.</p>
+      <div id="subscribers-list" class="bg-white rounded-2xl overflow-hidden shadow-[4px_4px_0_0_#2B2418]"></div>
+    </div>
   </main>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -194,6 +239,114 @@
     });
 
     loadEnquiries();
+
+    /* ---- Gallery management ---- */
+    async function loadGallery() {
+      const res = await fetch('/api/gallery');
+      const { gallery } = await res.json();
+      document.getElementById('gallery-grid').innerHTML = gallery.map(g => `
+        <div class="relative group">
+          <img src="${g.url}" class="w-full h-28 object-cover rounded-xl border border-ink/10" alt="${escapeHtml(g.caption)}">
+          <button data-id="${g.id}" class="gallery-delete absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-coral text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      `).join('') || '<p class="text-xs text-ink/50 col-span-full">No photos yet.</p>';
+
+      document.querySelectorAll('.gallery-delete').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          await fetch('/api/staff/gallery/' + btn.dataset.id, { method: 'DELETE' });
+          loadGallery();
+        });
+      });
+    }
+
+    document.getElementById('gallery-upload-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errorEl = document.getElementById('gallery-error');
+      errorEl.classList.add('hidden');
+      const fileInput = document.getElementById('gallery-photo');
+      const formData = new FormData();
+      formData.append('photo', fileInput.files[0]);
+      formData.append('caption', document.getElementById('gallery-caption').value);
+
+      const res = await fetch('/api/staff/gallery', { method: 'POST', body: formData });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        e.target.reset();
+        loadGallery();
+      } else {
+        errorEl.textContent = data.error || 'Upload failed.';
+        errorEl.classList.remove('hidden');
+      }
+    });
+
+    loadGallery();
+
+    /* ---- Announcements management ---- */
+    async function loadAnnouncements() {
+      const res = await fetch('/api/announcements');
+      const { announcements } = await res.json();
+      document.getElementById('announcements-list').innerHTML = announcements.map(a => `
+        <div class="bg-white rounded-xl p-4 shadow-[3px_3px_0_0_#2B2418] flex items-start justify-between gap-4">
+          <div>
+            <p class="font-display font-semibold text-sm">${escapeHtml(a.title)}</p>
+            <p class="text-xs text-ink/60 mt-1">${escapeHtml(a.body)}</p>
+            <p class="text-[10px] text-ink/40 mt-2">${new Date(a.createdAt).toLocaleString()}</p>
+          </div>
+          <button data-id="${a.id}" class="announcement-delete text-coral text-xs shrink-0"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      `).join('') || '<p class="text-xs text-ink/50">No announcements yet.</p>';
+
+      document.querySelectorAll('.announcement-delete').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          await fetch('/api/staff/announcements/' + btn.dataset.id, { method: 'DELETE' });
+          loadAnnouncements();
+        });
+      });
+    }
+
+    document.getElementById('announcement-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await fetch('/api/staff/announcements', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: document.getElementById('announcement-title').value,
+          body: document.getElementById('announcement-body').value
+        })
+      });
+      e.target.reset();
+      loadAnnouncements();
+    });
+
+    loadAnnouncements();
+
+    /* ---- Subscribers ---- */
+    async function loadSubscribers() {
+      const res = await fetch('/api/admin/subscribers');
+      const { subscribers } = await res.json();
+      document.getElementById('subscribers-list').innerHTML = subscribers.length
+        ? `<table class="w-full text-sm"><tbody>${subscribers.map(s => `
+            <tr class="border-t border-ink/5">
+              <td class="px-5 py-3">${escapeHtml(s.email)}</td>
+              <td class="px-5 py-3 text-ink/60 text-xs">${new Date(s.subscribedAt).toLocaleDateString()}</td>
+              <td class="px-5 py-3 text-right">
+                <button data-id="${s.id}" class="subscriber-delete text-coral text-xs"><i class="fa-solid fa-trash"></i></button>
+              </td>
+            </tr>
+          `).join('')}</tbody></table>`
+        : '<p class="text-xs text-ink/50 p-6">No subscribers yet.</p>';
+
+      document.querySelectorAll('.subscriber-delete').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          await fetch('/api/admin/subscribers/' + btn.dataset.id, { method: 'DELETE' });
+          loadSubscribers();
+        });
+      });
+    }
+
+    loadSubscribers();
   </script>
 </body>
 </html>

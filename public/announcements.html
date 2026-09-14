@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Announcements | Meera Smriti Sishu Ankan Siksha Kendra</title>
+<meta name="description" content="Latest news, updates and announcements from Meera Smriti Sishu Ankan Siksha Kendra.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { colors: {
+    ink: '#2B2418', paper: '#FFF9EF', paperDeep: '#FBF1DE',
+    saffron: '#E8A33D', teal: '#1B7A72', coral: '#D8553D'
+  }, fontFamily: { display: ['"Baloo 2"', 'sans-serif'] } } } }
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { background: #FFF9EF; font-family: 'Inter', sans-serif; color: #2B2418; }
+  .font-display { font-family: 'Baloo 2', sans-serif; }
+  .card-shadow { box-shadow: 0 8px 0 0 rgba(43,36,24,0.08); }
+</style>
+</head>
+<body>
+  <header class="sticky top-0 z-40 bg-paper/90 backdrop-blur-sm border-b-2 border-ink/10">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-teal flex items-center justify-center text-paper font-display font-bold text-xl shadow-[3px_3px_0_0_#E8A33D]">म</div>
+        <div class="leading-tight">
+          <span class="font-display font-bold text-base text-ink block">Meera Smriti</span>
+          <span class="text-[10px] text-ink/60 font-medium">Sishu Ankan Siksha Kendra</span>
+        </div>
+      </a>
+      <a href="/" class="text-xs font-display font-semibold text-ink/60 hover:text-teal inline-flex items-center gap-2">
+        <i class="fa-solid fa-arrow-left"></i> Back to homepage
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-6 py-16">
+    <div class="max-w-2xl mb-12">
+      <span class="text-xs font-display font-semibold text-coral uppercase tracking-wide">News &amp; Updates</span>
+      <h1 class="font-display text-3xl sm:text-4xl font-bold text-ink mt-2">Announcements</h1>
+      <p class="text-ink/70 text-sm mt-4">Batch changes, exhibition dates, and anything else worth knowing — posted directly by our admin team.</p>
+    </div>
+
+    <div id="loading-state" class="text-center py-16 text-ink/40 text-sm">Loading announcements...</div>
+    <div id="empty-state" class="hidden text-center py-16">
+      <i class="fa-solid fa-bullhorn text-4xl text-ink/20 mb-3"></i>
+      <p class="text-ink/50 text-sm">Nothing posted yet — check back soon.</p>
+    </div>
+    <div id="announcements-list" class="space-y-5 mb-14"></div>
+
+    <div class="bg-white rounded-2xl p-6 card-shadow">
+      <h2 class="font-display font-bold text-ink mb-1">Get notified of new updates</h2>
+      <p class="text-xs text-ink/60 mb-4">Leave your email and we'll keep you posted on new announcements.</p>
+      <form id="subscribe-form" class="flex flex-wrap gap-3">
+        <input id="subscribe-email" type="email" required placeholder="you@example.com"
+          class="flex-1 min-w-[200px] bg-paperDeep border border-ink/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-teal">
+        <button type="submit" id="subscribe-btn" class="px-5 py-2.5 rounded-xl bg-teal text-white font-display font-semibold text-sm">Subscribe</button>
+      </form>
+      <p id="subscribe-msg" class="hidden text-xs mt-2"></p>
+    </div>
+  </main>
+
+  <footer class="border-t-2 border-ink/10 bg-paperDeep py-8 px-6 text-center">
+    <p class="text-xs text-ink/50">&copy; 2026 Meera Smriti Sishu Ankan Siksha Kendra.</p>
+  </footer>
+
+  <script>
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
+
+    fetch('/api/announcements')
+      .then(r => r.json())
+      .then(({ announcements }) => {
+        document.getElementById('loading-state').classList.add('hidden');
+        if (!announcements.length) {
+          document.getElementById('empty-state').classList.remove('hidden');
+          return;
+        }
+        document.getElementById('announcements-list').innerHTML = announcements.map(a => `
+          <article class="bg-white rounded-2xl p-6 card-shadow">
+            <p class="text-[11px] text-ink/40 font-display font-semibold uppercase tracking-wide mb-2">
+              ${new Date(a.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+            </p>
+            <h2 class="font-display text-lg font-bold text-ink mb-2">${escapeHtml(a.title)}</h2>
+            <p class="text-sm text-ink/70 leading-relaxed whitespace-pre-line">${escapeHtml(a.body)}</p>
+          </article>
+        `).join('');
+      })
+      .catch(() => {
+        document.getElementById('loading-state').textContent = 'Could not load announcements right now.';
+      });
+
+    document.getElementById('subscribe-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = document.getElementById('subscribe-msg');
+      const btn = document.getElementById('subscribe-btn');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: document.getElementById('subscribe-email').value })
+        });
+        const data = await res.json();
+        msg.classList.remove('hidden');
+        if (res.ok && data.success) {
+          msg.textContent = data.alreadySubscribed ? "You're already subscribed." : "You're subscribed!";
+          msg.className = 'text-xs mt-2 text-teal';
+          e.target.reset();
+        } else {
+          msg.textContent = data.error || 'Something went wrong.';
+          msg.className = 'text-xs mt-2 text-coral';
+        }
+      } catch {
+        msg.classList.remove('hidden');
+        msg.textContent = 'Network error. Please try again.';
+        msg.className = 'text-xs mt-2 text-coral';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Subscribe';
+      }
+    });
+  </script>
+</body>
+</html>

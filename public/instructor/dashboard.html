@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instructor Dashboard | Meera Smriti Sishu Ankan Siksha Kendra</title>
+<meta name="robots" content="noindex">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { colors: {
+    ink: '#2B2418', paper: '#FFF9EF', paperDeep: '#FBF1DE',
+    saffron: '#E8A33D', teal: '#1B7A72', coral: '#D8553D'
+  }, fontFamily: { display: ['"Baloo 2"', 'sans-serif'] } } } }
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { background: #FFF9EF; font-family: 'Inter', sans-serif; }
+  .font-display { font-family: 'Baloo 2', sans-serif; }
+</style>
+</head>
+<body class="min-h-screen text-ink">
+  <header class="bg-white border-b-2 border-ink/10 px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-saffron text-white flex items-center justify-center font-display font-bold text-sm">म</div>
+      <span class="font-display font-semibold text-sm">Instructor Dashboard</span>
+    </div>
+    <div class="flex items-center gap-4 text-sm">
+      <span id="whoami" class="text-ink/60"></span>
+      <button id="logout-btn" class="px-4 py-2 rounded-lg bg-coral text-white font-display font-semibold text-xs">Log Out</button>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 py-10">
+    <div class="bg-saffron/10 border border-saffron/30 text-ink/70 text-xs rounded-xl px-4 py-3 mb-8">
+      <i class="fa-solid fa-circle-info text-saffron"></i>
+      Instructor accounts can view enquiries and add gallery photos. Changing enquiry status, exporting data, deleting photos, and posting announcements are admin-only.
+    </div>
+
+    <h1 class="font-display text-2xl font-bold mb-1">Admission Enquiries (read-only)</h1>
+    <p class="text-ink/60 text-sm mb-6">The latest enquiries submitted from the homepage.</p>
+
+    <div id="empty-state" class="hidden bg-white rounded-2xl p-10 text-center shadow-[4px_4px_0_0_#2B2418]">
+      <p class="text-ink/60 text-sm">No enquiries yet.</p>
+    </div>
+
+    <div id="table-wrap" class="bg-white rounded-2xl overflow-hidden shadow-[4px_4px_0_0_#2B2418] mb-16">
+      <table class="w-full text-sm">
+        <thead class="bg-paperDeep text-left">
+          <tr>
+            <th class="px-5 py-3 font-display font-semibold text-xs uppercase tracking-wide">Parent</th>
+            <th class="px-5 py-3 font-display font-semibold text-xs uppercase tracking-wide">Child</th>
+            <th class="px-5 py-3 font-display font-semibold text-xs uppercase tracking-wide">Phone</th>
+            <th class="px-5 py-3 font-display font-semibold text-xs uppercase tracking-wide">Status</th>
+            <th class="px-5 py-3 font-display font-semibold text-xs uppercase tracking-wide">Submitted</th>
+          </tr>
+        </thead>
+        <tbody id="enquiry-rows"></tbody>
+      </table>
+    </div>
+
+    <h2 class="font-display text-2xl font-bold mb-1">Add Gallery Photos</h2>
+    <p class="text-ink/60 text-sm mb-6">Uploaded photos appear on the public gallery page immediately.</p>
+
+    <form id="gallery-upload-form" class="flex flex-wrap items-center gap-3 mb-6 bg-white rounded-2xl p-4 shadow-[4px_4px_0_0_#2B2418]">
+      <input id="gallery-photo" type="file" accept="image/*" required class="text-xs">
+      <input id="gallery-caption" type="text" placeholder="Caption (optional)" class="flex-1 min-w-[160px] bg-paperDeep border border-ink/10 rounded-lg px-3 py-2 text-xs">
+      <button type="submit" class="px-4 py-2 rounded-lg bg-teal text-white font-display font-semibold text-xs">
+        <i class="fa-solid fa-upload"></i> Upload
+      </button>
+      <p id="gallery-error" class="hidden text-coral text-xs w-full"></p>
+    </form>
+
+    <div id="gallery-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-4"></div>
+  </main>
+
+  <script>
+    fetch('/api/admin/me')
+      .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+      .then(data => { document.getElementById('whoami').textContent = 'Signed in as ' + data.username + ' (' + data.role + ')'; })
+      .catch(() => { window.location.href = '/admin/login'; });
+
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      window.location.href = '/admin/login';
+    });
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
+
+    async function loadEnquiries() {
+      const res = await fetch('/api/admin/enquiries?pageSize=25');
+      if (!res.ok) return;
+      const { enquiries } = await res.json();
+
+      document.getElementById('empty-state').classList.toggle('hidden', enquiries.length !== 0);
+      document.getElementById('table-wrap').classList.toggle('hidden', enquiries.length === 0);
+
+      document.getElementById('enquiry-rows').innerHTML = enquiries.map(e => `
+        <tr class="border-t border-ink/5">
+          <td class="px-5 py-3">${escapeHtml(e.parentName)}</td>
+          <td class="px-5 py-3">${escapeHtml(e.childName)}</td>
+          <td class="px-5 py-3">${escapeHtml(e.phone)}</td>
+          <td class="px-5 py-3"><span class="text-xs px-2 py-1 rounded-full bg-paperDeep">${escapeHtml(e.status)}</span></td>
+          <td class="px-5 py-3 text-ink/60 text-xs">${new Date(e.submittedAt).toLocaleString()}</td>
+        </tr>
+      `).join('');
+    }
+
+    loadEnquiries();
+
+    async function loadGallery() {
+      const res = await fetch('/api/gallery');
+      const { gallery } = await res.json();
+      document.getElementById('gallery-grid').innerHTML = gallery.map(g => `
+        <img src="${g.url}" class="w-full h-28 object-cover rounded-xl border border-ink/10" alt="${escapeHtml(g.caption)}">
+      `).join('') || '<p class="text-xs text-ink/50 col-span-full">No photos yet.</p>';
+    }
+
+    document.getElementById('gallery-upload-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errorEl = document.getElementById('gallery-error');
+      errorEl.classList.add('hidden');
+      const fileInput = document.getElementById('gallery-photo');
+      const formData = new FormData();
+      formData.append('photo', fileInput.files[0]);
+      formData.append('caption', document.getElementById('gallery-caption').value);
+
+      const res = await fetch('/api/staff/gallery', { method: 'POST', body: formData });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        e.target.reset();
+        loadGallery();
+      } else {
+        errorEl.textContent = data.error || 'Upload failed.';
+        errorEl.classList.remove('hidden');
+      }
+    });
+
+    loadGallery();
+  </script>
+</body>
+</html>

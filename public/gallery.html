@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery | Meera Smriti Sishu Ankan Siksha Kendra</title>
+<meta name="description" content="Browse student artwork and event photos from Meera Smriti Sishu Ankan Siksha Kendra.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { colors: {
+    ink: '#2B2418', paper: '#FFF9EF', paperDeep: '#FBF1DE',
+    saffron: '#E8A33D', teal: '#1B7A72', coral: '#D8553D'
+  }, fontFamily: { display: ['"Baloo 2"', 'sans-serif'] } } } }
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { background: #FFF9EF; font-family: 'Inter', sans-serif; color: #2B2418; }
+  .font-display { font-family: 'Baloo 2', sans-serif; }
+  .card-shadow { box-shadow: 0 10px 0 0 rgba(43,36,24,0.08); }
+  .lift-hover { transition: transform 0.25s ease; }
+  .lift-hover:hover { transform: translateY(-4px) scale(1.02); }
+</style>
+</head>
+<body>
+  <header class="sticky top-0 z-40 bg-paper/90 backdrop-blur-sm border-b-2 border-ink/10">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-teal flex items-center justify-center text-paper font-display font-bold text-xl shadow-[3px_3px_0_0_#E8A33D]">म</div>
+        <div class="leading-tight">
+          <span class="font-display font-bold text-base text-ink block">Meera Smriti</span>
+          <span class="text-[10px] text-ink/60 font-medium">Sishu Ankan Siksha Kendra</span>
+        </div>
+      </a>
+      <a href="/" class="text-xs font-display font-semibold text-ink/60 hover:text-teal inline-flex items-center gap-2">
+        <i class="fa-solid fa-arrow-left"></i> Back to homepage
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-16">
+    <div class="max-w-2xl mb-12">
+      <span class="text-xs font-display font-semibold text-saffron uppercase tracking-wide">Student Gallery</span>
+      <h1 class="font-display text-3xl sm:text-4xl font-bold text-ink mt-2">A glimpse of young imagination</h1>
+      <p class="text-ink/70 text-sm mt-4">Photos from classes, exhibitions, and events — added directly by our instructors.</p>
+    </div>
+
+    <div id="loading-state" class="text-center py-16 text-ink/40 text-sm">Loading gallery...</div>
+    <div id="empty-state" class="hidden text-center py-16">
+      <i class="fa-solid fa-images text-4xl text-ink/20 mb-3"></i>
+      <p class="text-ink/50 text-sm">No photos have been added yet — check back soon.</p>
+    </div>
+    <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-4 gap-5"></div>
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-ink/90 backdrop-blur-sm p-6">
+    <button id="lightbox-close" class="absolute top-6 right-6 text-white text-2xl"><i class="fa-solid fa-xmark"></i></button>
+    <div class="max-w-3xl w-full text-center">
+      <img id="lightbox-img" src="" class="max-h-[75vh] mx-auto rounded-2xl">
+      <p id="lightbox-caption" class="text-white/80 text-sm mt-4"></p>
+    </div>
+  </div>
+
+  <footer class="border-t-2 border-ink/10 bg-paperDeep py-8 px-6 text-center">
+    <p class="text-xs text-ink/50">&copy; 2026 Meera Smriti Sishu Ankan Siksha Kendra.</p>
+  </footer>
+
+  <script>
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
+
+    fetch('/api/gallery')
+      .then(r => r.json())
+      .then(({ gallery }) => {
+        document.getElementById('loading-state').classList.add('hidden');
+        if (!gallery.length) {
+          document.getElementById('empty-state').classList.remove('hidden');
+          return;
+        }
+        document.getElementById('gallery-grid').innerHTML = gallery.map((g, i) => `
+          <button data-i="${i}" class="gallery-item lift-hover rounded-2xl overflow-hidden card-shadow bg-white">
+            <img src="${g.url}" alt="${escapeHtml(g.caption)}" class="w-full h-36 md:h-44 object-cover">
+          </button>
+        `).join('');
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+
+        document.querySelectorAll('.gallery-item').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const item = gallery[Number(btn.dataset.i)];
+            lightboxImg.src = item.url;
+            lightboxCaption.textContent = item.caption || '';
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+          });
+        });
+
+        function closeLightbox() {
+          lightbox.classList.add('hidden');
+          lightbox.classList.remove('flex');
+        }
+        document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+      })
+      .catch(() => {
+        document.getElementById('loading-state').textContent = 'Could not load the gallery right now.';
+      });
+  </script>
+</body>
+</html>

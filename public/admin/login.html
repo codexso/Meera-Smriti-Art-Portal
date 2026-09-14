@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Login | Meera Smriti Sishu Ankan Siksha Kendra</title>
+<title>Staff Login | Meera Smriti Sishu Ankan Siksha Kendra</title>
+<meta name="robots" content="noindex">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = { theme: { extend: { colors: {
@@ -11,30 +12,39 @@
     saffron: '#E8A33D', teal: '#1B7A72', coral: '#D8553D'
   }, fontFamily: { display: ['"Baloo 2"', 'sans-serif'] } } } }
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   body { background: #FFF9EF; font-family: 'Inter', sans-serif; }
   .font-display { font-family: 'Baloo 2', sans-serif; }
+  .input-field { transition: border-color .2s ease, box-shadow .2s ease; }
+  .input-field:focus { border-color: #1B7A72; box-shadow: 0 0 0 4px rgba(27,122,114,0.12); }
+  .spinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body class="min-h-screen flex items-center justify-center px-4 text-ink">
+  <a href="/" class="fixed top-6 left-6 text-xs font-display font-semibold text-ink/50 hover:text-teal transition-colors inline-flex items-center gap-2">
+    <i class="fa-solid fa-arrow-left"></i> Back to homepage
+  </a>
+
   <div class="w-full max-w-sm bg-white rounded-3xl p-8 shadow-[6px_6px_0_0_#2B2418]">
     <div class="text-center mb-6">
       <div class="w-12 h-12 rounded-2xl bg-teal text-white flex items-center justify-center font-display font-bold text-xl mx-auto mb-3">म</div>
-      <h1 class="font-display text-xl font-bold">Admin Login</h1>
-      <p class="text-xs text-ink/55 mt-1">Meera Smriti Sishu Ankan Siksha Kendra</p>
+      <h1 class="font-display text-xl font-bold">Staff Login</h1>
+      <p class="text-xs text-ink/55 mt-1">For Admin &amp; Instructor accounts</p>
     </div>
 
     <form id="login-form" class="space-y-4">
       <input id="username" type="text" required autocomplete="username" placeholder="Username"
-        class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal">
+        class="input-field w-full bg-paperDeep border-2 border-transparent rounded-xl px-4 py-3 text-sm focus:outline-none">
       <input id="password" type="password" required autocomplete="current-password" placeholder="Password"
-        class="w-full bg-paperDeep border border-ink/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-teal">
+        class="input-field w-full bg-paperDeep border-2 border-transparent rounded-xl px-4 py-3 text-sm focus:outline-none">
       <button type="submit" id="submit-btn"
-        class="w-full py-3.5 rounded-xl bg-teal text-white font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all">
-        Log In
+        class="w-full py-3.5 rounded-xl bg-teal text-white font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all flex items-center justify-center gap-2">
+        <span id="submit-label">Log In</span>
       </button>
-      <p id="error-msg" class="hidden text-coral text-xs text-center font-medium"></p>
+      <p id="error-msg" class="hidden text-coral text-xs text-center font-medium bg-coral/10 rounded-lg py-2 px-3"></p>
     </form>
   </div>
 
@@ -42,12 +52,13 @@
     const form = document.getElementById('login-form');
     const errorMsg = document.getElementById('error-msg');
     const submitBtn = document.getElementById('submit-btn');
+    const submitLabel = document.getElementById('submit-label');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorMsg.classList.add('hidden');
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Logging in...';
+      submitLabel.innerHTML = '<span class="spinner"></span> Logging in...';
 
       try {
         const res = await fetch('/api/admin/login', {
@@ -61,17 +72,18 @@
         const data = await res.json();
 
         if (res.ok && data.success) {
-          window.location.href = '/admin/dashboard';
+          window.location.href = data.role === 'instructor' ? '/instructor/dashboard' : '/admin/dashboard';
         } else {
           errorMsg.textContent = data.error || 'Login failed.';
           errorMsg.classList.remove('hidden');
+          submitBtn.disabled = false;
+          submitLabel.textContent = 'Log In';
         }
       } catch (err) {
         errorMsg.textContent = 'Network error. Please try again.';
         errorMsg.classList.remove('hidden');
-      } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Log In';
+        submitLabel.textContent = 'Log In';
       }
     });
   </script>

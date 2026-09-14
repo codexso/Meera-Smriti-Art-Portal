@@ -129,6 +129,25 @@
             50% { transform: translateY(-14px) rotate(3deg); }
         }
         .float-slow { animation: floatSlow 7s ease-in-out infinite; }
+
+        /* Dark mode -- pragmatic overrides on the utility classes actually used across the page */
+        html.dark-mode body { background: #1A1712; }
+        html.dark-mode .bg-paper { background-color: #1A1712 !important; }
+        html.dark-mode .bg-paperDeep { background-color: #241F18 !important; }
+        html.dark-mode .bg-white { background-color: #2A241C !important; }
+        html.dark-mode .bg-ink { background-color: #0E0C09 !important; }
+        html.dark-mode .text-ink { color: #F3E9DC !important; }
+        html.dark-mode .text-ink\/70 { color: rgba(243,233,220,0.7) !important; }
+        html.dark-mode .text-ink\/65 { color: rgba(243,233,220,0.65) !important; }
+        html.dark-mode .text-ink\/60 { color: rgba(243,233,220,0.6) !important; }
+        html.dark-mode .text-ink\/55 { color: rgba(243,233,220,0.55) !important; }
+        html.dark-mode .text-ink\/50 { color: rgba(243,233,220,0.5) !important; }
+        html.dark-mode .text-ink\/45 { color: rgba(243,233,220,0.45) !important; }
+        html.dark-mode .text-ink\/40 { color: rgba(243,233,220,0.4) !important; }
+        html.dark-mode .border-ink\/10 { border-color: rgba(243,233,220,0.1) !important; }
+        html.dark-mode .border-ink\/15 { border-color: rgba(243,233,220,0.15) !important; }
+        html.dark-mode .bg-paper\/90 { background-color: rgba(26,23,18,0.9) !important; }
+        html.dark-mode ::selection { background: #E8A33D; color: #1A1712; }
     </style>
 </head>
 <body class="min-h-screen selection:bg-saffron selection:text-ink overflow-x-hidden">
@@ -153,21 +172,24 @@
             <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-ink/80">
                 <a href="#about" class="nav-link hover:text-teal">About</a>
                 <a href="#programs" class="nav-link hover:text-teal">Programmes</a>
-                <a href="#gallery" class="nav-link hover:text-teal">Gallery</a>
-                <a href="#exhibitions" class="nav-link hover:text-teal">Exhibitions</a>
+                <a href="/gallery.html" class="nav-link hover:text-teal">Gallery</a>
+                <a href="/announcements.html" class="nav-link hover:text-teal">News</a>
                 <a href="#testimonials" class="nav-link hover:text-teal">Testimonials</a>
                 <a href="#fees" class="nav-link hover:text-teal">Fees</a>
-                <a href="#faq" class="nav-link hover:text-teal">FAQ</a>
+                <a href="/contact.html" class="nav-link hover:text-teal">Contact</a>
             </nav>
 
             <div class="flex items-center gap-2 sm:gap-3">
                 <div class="hidden md:flex items-center gap-3 pr-3 mr-1 border-r border-ink/10">
-                    <a href="https://www.facebook.com/meerasmritiofficial/" target="_blank" rel="noopener" aria-label="Facebook" class="text-ink/50 hover:text-teal transition-colors"><i class="fa-brands fa-facebook text-lg"></i></a>
-                    <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" rel="noopener" aria-label="YouTube" class="text-ink/50 hover:text-coral transition-colors"><i class="fa-brands fa-youtube text-lg"></i></a>
+                    <a href="/redirect.html?to=https%3A%2F%2Fwww.facebook.com%2Fmeerasmritiofficial%2F&label=Facebook" target="_blank" rel="noopener" aria-label="Facebook" class="text-ink/50 hover:text-teal transition-colors"><i class="fa-brands fa-facebook text-lg"></i></a>
+                    <a href="/redirect.html?to=https%3A%2F%2Fwww.youtube.com%2F%40meerasmriti5551&label=YouTube" target="_blank" rel="noopener" aria-label="YouTube" class="text-ink/50 hover:text-coral transition-colors"><i class="fa-brands fa-youtube text-lg"></i></a>
                 </div>
                 <a id="account-link" href="/login.html" class="hidden sm:inline-block px-4 py-2.5 rounded-xl border-2 border-ink/15 text-ink font-display font-semibold text-xs hover:border-teal hover:text-teal transition-all">
                     Login
                 </a>
+                <button id="dark-toggle" aria-label="Toggle dark mode" class="w-10 h-10 rounded-xl border-2 border-ink/15 text-ink flex items-center justify-center hover:border-teal hover:text-teal transition-all">
+                    <i class="fa-solid fa-moon text-sm"></i>
+                </button>
                 <button onclick="openEnquiryModal()" class="px-5 py-2.5 rounded-xl bg-coral text-paper font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] hover:translate-y-[1px] hover:shadow-[2px_2px_0_0_#2B2418] transition-all">
                     Enquire Now
                 </button>
@@ -365,6 +387,11 @@
                     <div class="aspect-square rounded-2xl bg-gradient-to-br from-coral/20 to-white flex items-center justify-center text-coral/60 text-3xl rotate-[-1deg] card-shadow"><i class="fa-solid fa-fish"></i></div>
                     <div class="aspect-square rounded-2xl bg-gradient-to-br from-sky to-white flex items-center justify-center text-teal/50 text-3xl rotate-[3deg] card-shadow"><i class="fa-solid fa-kite"></i></div>
                 </div>
+                <div class="text-center mt-10">
+                    <a href="/gallery.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white border-2 border-ink/15 text-ink font-display font-semibold text-sm hover:border-teal hover:text-teal transition-all">
+                        View Full Gallery <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -546,11 +573,14 @@
             <div>
                 <p class="font-display font-semibold text-ink text-sm mb-3">Quick Links</p>
                 <ul class="text-xs text-ink/60 space-y-2">
+                    <li><a href="/gallery.html" class="hover:text-teal">Gallery</a></li>
+                    <li><a href="/announcements.html" class="hover:text-teal">Announcements</a></li>
+                    <li><a href="/contact.html" class="hover:text-teal">Contact Us</a></li>
                     <li><a href="#programs" class="hover:text-teal">Programmes</a></li>
                     <li><a href="#exhibitions" class="hover:text-teal">Exhibitions</a></li>
                     <li><a href="#faq" class="hover:text-teal">FAQ</a></li>
                     <li><a href="/register.html" class="hover:text-teal">Parent Registration</a></li>
-                    <li><a href="/admin/login" class="hover:text-teal">Admin Login</a></li>
+                    <li><a href="/admin/login" class="hover:text-teal">Staff Login</a></li>
                 </ul>
             </div>
             <div>
@@ -561,13 +591,14 @@
                     <li class="text-ink/45">Branches also in Uttarpara &amp; Konnagar, Hooghly</li>
                 </ul>
                 <div class="flex items-center gap-4">
-                    <a href="https://www.facebook.com/meerasmritiofficial/" target="_blank" rel="noopener" aria-label="Facebook" class="w-9 h-9 rounded-lg bg-white flex items-center justify-center text-ink/60 hover:text-teal card-shadow"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.youtube.com/@meerasmriti5551" target="_blank" rel="noopener" aria-label="YouTube" class="w-9 h-9 rounded-lg bg-white flex items-center justify-center text-ink/60 hover:text-coral card-shadow"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="/redirect.html?to=https%3A%2F%2Fwww.facebook.com%2Fmeerasmritiofficial%2F&label=Facebook" target="_blank" rel="noopener" aria-label="Facebook" class="w-9 h-9 rounded-lg bg-white flex items-center justify-center text-ink/60 hover:text-teal card-shadow"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="/redirect.html?to=https%3A%2F%2Fwww.youtube.com%2F%40meerasmriti5551&label=YouTube" target="_blank" rel="noopener" aria-label="YouTube" class="w-9 h-9 rounded-lg bg-white flex items-center justify-center text-ink/60 hover:text-coral card-shadow"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
         </div>
         <div class="max-w-6xl mx-auto border-t border-ink/10 pt-6 text-center">
             <p class="text-xs text-ink/50">&copy; 2026 Meera Smriti Sishu Ankan Siksha Kendra. All rights reserved.</p>
+            <p class="text-[10px] text-ink/30 mt-1">Powered by SOHAM.LICENSE v5.4</p>
         </div>
     </footer>
 
@@ -700,6 +731,27 @@
                 link.href = '/account';
             })
             .catch(() => {});
+
+        // Dark mode toggle, persisted via localStorage
+        const darkToggle = document.getElementById('dark-toggle');
+        const htmlEl = document.documentElement;
+
+        function applyDarkPreference() {
+            const saved = localStorage.getItem('soham-dark-mode');
+            if (saved === 'on') {
+                htmlEl.classList.add('dark-mode');
+                darkToggle.innerHTML = '<i class="fa-solid fa-sun text-sm"></i>';
+            }
+        }
+        applyDarkPreference();
+
+        darkToggle.addEventListener('click', () => {
+            const isDark = htmlEl.classList.toggle('dark-mode');
+            localStorage.setItem('soham-dark-mode', isDark ? 'on' : 'off');
+            darkToggle.innerHTML = isDark
+                ? '<i class="fa-solid fa-sun text-sm"></i>'
+                : '<i class="fa-solid fa-moon text-sm"></i>';
+        });
 
         // Scroll-reveal: fade/slide up each section's main content block as it enters view
         const revealTargets = document.querySelectorAll('main > section > div');

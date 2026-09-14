@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /instructor/
 Disallow: /account
 Disallow: /api/
 

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://your-domain-here.onrender.com/</loc><priority>1.0</priority></url>
+  <url><loc>https://your-domain-here.onrender.com/gallery.html</loc><priority>0.6</priority></url>
+  <url><loc>https://your-domain-here.onrender.com/announcements.html</loc><priority>0.5</priority></url>
+  <url><loc>https://your-domain-here.onrender.com/contact.html</loc><priority>0.6</priority></url>
   <url><loc>https://your-domain-here.onrender.com/login.html</loc><priority>0.4</priority></url>
   <url><loc>https://your-domain-here.onrender.com/register.html</loc><priority>0.4</priority></url>
 </urlset>

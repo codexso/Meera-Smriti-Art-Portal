@@ -97,13 +97,93 @@ Visit `http://localhost:3000` for the site and `http://localhost:3000/admin/logi
 ## Notes on the admin system
 
 - Login: `POST /api/admin/login` with `{ username, password }` → sets an
-  `httpOnly`, `sameSite=strict` cookie holding a signed JWT (2 hour
+  `httpOnly`, `sameSite=strict` cookie holding a signed JWT (4 hour
   expiry). Rate-limited to 10 attempts / 15 minutes per IP.
-- `GET /admin/dashboard` is only served if that cookie is present and
-  verifies — otherwise it redirects to `/admin/login`.
+- Same login endpoint serves **two roles**: admin and instructor (see
+  below). It checks admin credentials first, then instructor.
+- `GET /admin/dashboard` is admin-only — an instructor session gets
+  redirected to `/admin/login`.
 - The dashboard lists every enquiry submitted from the homepage form,
-  live, with a status dropdown (new / contacted / enrolled / closed).
+  live, with a status dropdown (new / contacted / enrolled / closed),
+  search, filtering, pagination, and CSV export — plus gallery and
+  announcements management (see below).
 - Logout: `POST /api/admin/logout` clears the cookie.
+
+## Instructor accounts (second role, optional)
+
+Set `INSTRUCTOR_USERNAME` and `INSTRUCTOR_PASSWORD_HASH` (generated
+the same way as the admin password, via
+`node scripts/generate-admin-hash.js`) to enable a lighter staff role.
+Leave both blank and the instructor role simply doesn't exist.
+
+Instructors log in at the same `/admin/login` page and get redirected
+to `/instructor/dashboard`, where they can:
+- View enquiries (read-only — no status changes, no export, no delete)
+- Add gallery photos (they cannot delete photos or post announcements)
+
+Only admins can change enquiry status, export CSV, delete gallery
+photos, or post/delete announcements.
+
+## Gallery (public page + staff management)
+
+- `public/gallery.html` — public page with a lightbox, pulling from
+  `GET /api/gallery`.
+- Both admin and instructor accounts can add photos
+  (`POST /api/staff/gallery`, multipart, 5MB image limit, same rules
+  as enquiry photo uploads).
+- Only admin can delete (`DELETE /api/staff/gallery/:id`).
+- Uploaded gallery photos live in `/data/uploads` alongside enquiry
+  proof photos — same ephemeral-storage caveat applies (see below).
+
+## Announcements (public page + admin management)
+
+- `public/announcements.html` — public news feed, pulling from
+  `GET /api/announcements`.
+- Only admin can post (`POST /api/staff/announcements`) or delete
+  (`DELETE /api/staff/announcements/:id`) announcements, from a small
+  form built into the admin dashboard.
+
+## Contact page
+
+- `public/contact.html` — real address, an embedded Google Map (no
+  API key needed), WhatsApp link, and the same enquiry form as the
+  homepage modal, wired to the same `/api/enquiry` endpoint and
+  admission-window rules.
+
+## Newsletter subscribers
+
+The announcements page (`/announcements.html`) has a "get notified"
+email signup, backed by `POST /api/subscribe` and stored in
+`data/subscribers.json`. Admin can view and delete subscribers, and
+export them as CSV, from a panel in the admin dashboard.
+
+## Redirect utility page
+
+`public/redirect.html` is a reusable branded interstitial for outbound
+links: `/redirect.html?to=<url-encoded destination>&label=<text>`
+shows a short "Redirecting you to X..." screen, then forwards
+automatically after 2 seconds (with a manual "Continue Now" button).
+It only accepts `http(s)://` destinations — anything else shows a
+"no destination specified" message instead of redirecting, so it can't
+be abused as an open redirect to unsafe URLs. Currently used for the
+Facebook and YouTube links in the header/footer/contact page.
+
+## Dark mode
+
+The homepage (`index.html`) has a moon/sun toggle in the header that
+switches to a dark palette, saved in the browser's `localStorage` so
+it persists across visits. It's implemented as CSS overrides on the
+existing utility classes rather than a full Tailwind dark-mode
+rebuild, so it covers the homepage well but hasn't been extended to
+every other page (gallery/contact/announcements/login/etc. still use
+the light theme only) — ask if you'd like it rolled out everywhere.
+
+## License branding
+
+The license system now identifies itself as `SOHAM.LICENSE v5.4` in
+server logs, the license-invalid error page, the site footer, and a
+public `GET /api/license-info` endpoint (returns name/version/valid
+status only — never the actual key).
 
 ## Parent accounts (separate from admin)
 
@@ -117,7 +197,8 @@ Visit `http://localhost:3000` for the site and `http://localhost:3000/admin/logi
 ## Where data is stored (no database)
 
 Enquiries and parent accounts are stored as JSON files under `/data`
-(`data/enquiries.json`, `data/users.json`), created automatically on
+(`data/enquiries.json`, `data/users.json`, `data/gallery.json`,
+`data/announcements.json`), created automatically on
 first use. Uploaded admission-proof photos go in `/data/uploads` and
 are served back at `/uploads/<filename>`. There is no MongoDB or other
 database.

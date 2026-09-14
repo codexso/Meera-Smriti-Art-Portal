@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redirecting... | Meera Smriti Sishu Ankan Siksha Kendra</title>
+<meta name="robots" content="noindex">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { colors: {
+    ink: '#2B2418', paper: '#FFF9EF', paperDeep: '#FBF1DE',
+    saffron: '#E8A33D', teal: '#1B7A72', coral: '#D8553D'
+  }, fontFamily: { display: ['"Baloo 2"', 'sans-serif'] } } } }
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { background: #FFF9EF; font-family: 'Inter', sans-serif; color: #2B2418; }
+  .font-display { font-family: 'Baloo 2', sans-serif; }
+  .spinner-ring {
+    width: 44px; height: 44px;
+    border: 4px solid rgba(27,122,114,0.15);
+    border-top-color: #1B7A72;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .progress-bar { height: 3px; background: #1B7A72; width: 0%; animation: fill 2s linear forwards; border-radius: 2px; }
+  @keyframes fill { to { width: 100%; } }
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4 text-center">
+  <div class="max-w-sm w-full">
+    <div class="w-12 h-12 rounded-2xl bg-teal text-white flex items-center justify-center font-display font-bold text-xl mx-auto mb-6">म</div>
+    <div class="spinner-ring mx-auto mb-6"></div>
+    <h1 class="font-display text-xl font-bold mb-2">Redirecting you<span id="dest-label"></span>...</h1>
+    <p class="text-ink/55 text-sm mb-6">You're being sent to an external link. If nothing happens, use the button below.</p>
+
+    <div class="h-1 w-full bg-paperDeep rounded-full overflow-hidden mb-6">
+      <div class="progress-bar"></div>
+    </div>
+
+    <a id="continue-btn" href="#" class="inline-block px-6 py-3 rounded-xl bg-teal text-white font-display font-semibold text-sm shadow-[3px_3px_0_0_#2B2418] mb-3">
+      Continue Now
+    </a>
+    <br>
+    <a href="/" class="text-xs text-ink/50 hover:text-coral">Cancel and go back to homepage</a>
+  </div>
+
+  <script>
+    // Usage: /redirect.html?to=<url-encoded destination>&label=<optional text>
+    const params = new URLSearchParams(window.location.search);
+    const destination = params.get('to');
+    const label = params.get('label');
+
+    // Only allow http(s) destinations -- never javascript: or data: URLs.
+    const isSafe = destination && /^https?:\/\//i.test(destination);
+
+    if (label) {
+      document.getElementById('dest-label').textContent = ' to ' + label;
+    }
+
+    if (isSafe) {
+      document.getElementById('continue-btn').href = destination;
+      setTimeout(() => { window.location.href = destination; }, 2000);
+    } else {
+      document.querySelector('h1').textContent = 'No destination specified';
+      document.querySelector('.spinner-ring').style.display = 'none';
+      document.querySelector('.progress-bar').parentElement.style.display = 'none';
+      document.getElementById('continue-btn').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
